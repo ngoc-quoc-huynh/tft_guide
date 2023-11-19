@@ -56,6 +56,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/app/
     - assets/divisions/iron/
     - assets/divisions/bronze/
     - assets/divisions/silver/

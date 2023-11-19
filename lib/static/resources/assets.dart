@@ -7,6 +7,8 @@ final class Asset {
 final class Assets {
   const Assets._();
 
+  static const background = Asset('assets/app/background.png');
+
   static const iron1 = Asset('assets/divisions/iron/1.png');
   static const iron2 = Asset('assets/divisions/iron/2.png');
   static const iron3 = Asset('assets/divisions/iron/3.png');
