@@ -1,7 +1,12 @@
-final class Asset {
+import 'package:equatable/equatable.dart';
+
+final class Asset extends Equatable {
   const Asset(this.path);
 
   final String path;
+
+  @override
+  List<Object?> get props => [path];
 }
 
 final class Assets {
