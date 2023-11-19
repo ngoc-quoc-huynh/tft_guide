@@ -66,3 +66,5 @@ flutter:
     - assets/divisions/master/
     - assets/divisions/grandmaster/
     - assets/divisions/challenger/
+    - assets/items/base/
+    - assets/items/full/
