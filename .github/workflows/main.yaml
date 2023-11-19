@@ -1,0 +1,43 @@
+name: main
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: asdf-vm/actions/install@v3
+      - uses: actions/setup-java@v3
+        if: github.event_name == 'workflow_dispatch'
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: .dart_tool/
+          key: ${{ runner.os }}-dependencies-${{ hashFiles('**/pubspec.lock') }}
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Generate Code
+        run: dart run build_runner build --delete-conflicting-outputs
+      - name: Format code
+        run: dart format --set-exit-if-changed .
+      - name: Analyze code
+        run: flutter analyze
+      - name: Run Code metrics
+        run: dart run dart_code_metrics:metrics analyze . --set-exit-on-violation-level=warning --disable-sunset-warning
+
+      - name: Build APK
+        if: github.event_name == 'workflow_dispatch'
+        run: flutter build apk --release
+      - uses: actions/upload-artifact@v3
+        if: github.event_name == 'workflow_dispatch'
+        with:
+          name: TFT Guide APK
+          path: build/app/outputs/flutter-apk/app-release.apk
