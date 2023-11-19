@@ -54,3 +54,15 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/divisions/iron/
+    - assets/divisions/bronze/
+    - assets/divisions/silver/
+    - assets/divisions/gold/
+    - assets/divisions/platinum/
+    - assets/divisions/emerald/
+    - assets/divisions/diamond/
+    - assets/divisions/master/
+    - assets/divisions/grandmaster/
+    - assets/divisions/challenger/
