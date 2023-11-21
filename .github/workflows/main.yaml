@@ -9,19 +9,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: asdf-vm/actions/install@v3
       - uses: actions/setup-java@v3
         if: github.event_name == 'workflow_dispatch'
         with:
           distribution: 'adopt'
           java-version: '17'
+          cache: 'gradle'
 
-      - name: Cache dependencies
+      - name: Cache asdf
         uses: actions/cache@v3
-        id: cache
+        id: asdf_cache
+        with:
+          path: ~/.asdf/
+          key: ${{ runner.os }}-${{ hashFiles('**/.tool-versions') }}
+      - uses: asdf-vm/actions/install@v3
+
+
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v3
+        id: flutter_cache
         with:
           path: .dart_tool/
-          key: ${{ runner.os }}-dependencies-${{ hashFiles('**/pubspec.lock') }}
+          key: ${{ runner.os }}-${{ hashFiles('**/pubspec.lock') }}
       - name: Install dependencies
         run: flutter pub get
 
