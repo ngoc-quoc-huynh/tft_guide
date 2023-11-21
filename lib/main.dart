@@ -16,8 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: Injector.instance.messages.appName,
-      theme: CustomTheme.light,
-      darkTheme: CustomTheme.dark,
+      theme: CustomTheme.theme,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

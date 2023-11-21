@@ -1,1 +1,8 @@
 appName: 'TFT Guide'
+pages:
+  ranked:
+    title: 'Rangliste'
+  items:
+    title: 'Items'
+  settings:
+    title: 'Einstellungen'
