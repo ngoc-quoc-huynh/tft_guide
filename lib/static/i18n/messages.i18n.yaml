@@ -4,5 +4,42 @@ pages:
     title: 'Rangliste'
   items:
     title: 'Items'
+    base:
+      bfSword:
+        name: 'Riesenschwert'
+        description: 'Gewährt 10 Angriffsschaden (AD).'
+        hint: 'Erhöht den Angriffsschaden. Kann auch den Schaden von Fähigkeiten verstärken, je nach Skill-Beschreibung.'
+      chainVest:
+        name: 'Kettenweste'
+        description: 'Gewährt 20 Rüstung.'
+        hint: 'Reduziert Schaden AD Schaden.'
+      giantsBelt:
+        name: 'Gürtel des Riesens'
+        description: 'Gewährt 150 Leben (HP).'
+        hint: 'Je mehr Leben dein Champion hat, desto länger bleibt er am leben.'
+      needlesslyLargeRod:
+        name: 'Übergroßer Zauberstab'
+        description: 'Gewährt 10 Fähigkeitenstärke (AP).'
+        hint: 'Verstärkt den Schaden von Fähigkeiten entsprechend der Skill-Beschreibung.'
+      negatronCloak:
+        name: 'Negatron-Mantel'
+        description: 'Gewährt 20 Magieresistenz.'
+        hint: 'Reduziert den AP Schaden.'
+      recurveBow:
+        name: 'Rekursivbogen'
+        description: 'Gewährt 10% Angriffstempo.'
+        hint: 'Das Angriffstempo gibt an, wie viele Angriffe pro Sekunde ausgeführt werden.'
+      sparringGloves:
+        name: 'Kampfhandschuhe'
+        description: 'Gewährt 20% Chance auf kritische Treffer.'
+        hint: 'Bei einem kritischen Treffer, verursachst dein Champion zusätzlichen Schaden.'
+      spatula:
+        name: 'Pfannenwender'
+        description: 'Ein goldener Pfannenwender.'
+        hint: 'Was gibt es da noch zu sagen? Es ist ein goldener PFANNENWENDER!'
+      tearOfTheGoddess:
+        name: 'Träne der Göttin'
+        description: 'Gewährt 15 Mana.'
+        hint: 'Wenn die Mana-Anzeige des Champions voll ist, wird seine Fähigkeit ausgeführt.'
   settings:
     title: 'Einstellungen'
