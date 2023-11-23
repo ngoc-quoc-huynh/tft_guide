@@ -1,10 +1,16 @@
-.PHONY: generate watch style test update-goldens launcher-icon splash-screen
+.PHONY: generate watch check-code check-files style test update-goldens launcher-icon splash-screen
 
 generate:
 	dart run build_runner build --delete-conflicting-outputs
 
 watch:
 	dart run build_runner watch --delete-conflicting-outputs
+
+check-code:
+	dart run dart_code_metrics:metrics check-unused-code lib --disable-sunset-warning
+
+check-files:
+	dart run dart_code_metrics:metrics check-unused-files lib --disable-sunset-warning
 
 style:
 	dart format lib
