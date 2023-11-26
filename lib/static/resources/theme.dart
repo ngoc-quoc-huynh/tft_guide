@@ -6,9 +6,6 @@ final class CustomTheme {
 
   static final theme = ThemeData(
     scaffoldBackgroundColor: CustomColors.darkBlue,
-    appBarTheme: const AppBarTheme(
-      backgroundColor: CustomColors.darkBlue,
-    ),
     colorScheme: const ColorScheme.dark(
       primary: CustomColors.blue,
       secondary: CustomColors.orange,

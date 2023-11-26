@@ -4,6 +4,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/messages.i18n.dart';
+import 'package:tft_guide/static/resources/assets.dart';
 import 'package:tft_guide/static/resources/colors.dart';
 
 class ScaffoldWithNavBar extends StatelessWidget {
@@ -17,12 +18,20 @@ class ScaffoldWithNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: CustomColors.darkBlue,
+        backgroundColor: Colors.transparent,
         title: Text(_messages.appName),
       ),
-      body: SafeArea(
-        child: navigationShell,
+      body: Container(
+        height: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(Assets.background.path),
+            fit: BoxFit.fitHeight,
+          ),
+        ),
+        child: SafeArea(child: navigationShell),
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
