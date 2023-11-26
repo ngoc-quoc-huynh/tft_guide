@@ -105,3 +105,10 @@ lefthook install
 
 This will set up git pre-commit/pre-push hooks containing checks as configured
 in [`lefthook.yaml`](lefthook.yaml).
+
+# https://www.metatft.com/items
+
+## TFT Items
+
+The items are taken from [`metatft`](https://www.metatft.com/items)
+and [`tftactics`](https://tftactics.gg/item-builder).
