@@ -1,4 +1,4 @@
-.PHONY: generate watch check-code check-files style test update-goldens launcher-icon splash-screen
+.PHONY: generate watch check-code check-files style test update-goldens launcher-icon splash-screen check-code check-files
 
 generate:
 	dart run build_runner build --delete-conflicting-outputs
@@ -29,3 +29,9 @@ launcher-icon:
 
 splash-screen:
 	dart run flutter_native_splash:create --path=splash_screen.yaml
+
+check-code:
+	dart run dart_code_metrics:metrics check-unused-code lib --disable-sunset-warning
+
+check-files:
+	dart run dart_code_metrics:metrics check-unused-files lib --disable-sunset-warning
