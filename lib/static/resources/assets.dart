@@ -73,7 +73,6 @@ final class Assets {
   static const bloodthirster = Asset('assets/items/full/bloodthirster.png');
   static const blueBuff = Asset('assets/items/full/blue_buff.png');
   static const brambleVest = Asset('assets/items/full/bramble_vest.png');
-  static const chaliceOfPower = Asset('assets/items/full/chalice_of_power.png');
   static const crownguard = Asset('assets/items/full/crownguard.png');
   static const deathblade = Asset('assets/items/full/deathblade.png');
   static const dragonsClaw = Asset('assets/items/full/dragons_claw.png');
@@ -93,23 +92,16 @@ final class Assets {
   static const jeweledGauntlet =
       Asset('assets/items/full/jeweled_gauntlet.png');
   static const lastWhisper = Asset('assets/items/full/last_whisper.png');
-  static const locketOfTheIronSolari =
-      Asset('assets/items/full/locket_of_the_iron_solari.png');
   static const morellonomicon = Asset('assets/items/full/morellonomicon.png');
   static const nashorsTooth = Asset('assets/items/full/nashors_tooth.png');
-  static const nightHarvester = Asset('assets/items/full/night_harvester.png');
   static const protectorsVow = Asset('assets/items/full/protectors_vow.png');
   static const quicksilver = Asset('assets/items/full/quicksilver.png');
   static const rabadonsDeathcap =
       Asset('assets/items/full/rabadons_deathcap.png');
-  static const rapidFirecannon =
-      Asset('assets/items/full/rapid_firecannon.png');
   static const redBuff = Asset('assets/items/full/red_buff.png');
   static const redemption = Asset('assets/items/full/redemption.png');
   static const runaansHurricane =
       Asset('assets/items/full/runaans_hurricane.png');
-  static const shroudOfStillness =
-      Asset('assets/items/full/shroud_of_stillness.png');
   static const spearOfShojin = Asset('assets/items/full/spear_of_shojin.png');
   static const statikkShiv = Asset('assets/items/full/statikk_shiv.png');
   static const steadfastHeart = Asset('assets/items/full/steadfast_heart.png');
@@ -120,7 +112,4 @@ final class Assets {
   static const thiefsGloves = Asset('assets/items/full/thiefs_gloves.png');
   static const titansResolve = Asset('assets/items/full/titans_resolve.png');
   static const warmogsArmor = Asset('assets/items/full/warmogs_armor.png');
-  static const zekesHerald = Asset('assets/items/full/zekes_herald.png');
-  static const zephyr = Asset('assets/items/full/zephyr.png');
-  static const zzRotPortal = Asset('assets/items/full/zz_rot_portal.png');
 }
