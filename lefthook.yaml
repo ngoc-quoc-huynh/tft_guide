@@ -16,4 +16,4 @@ pre-commit:
       run: flutter analyze {staged_files}
     metrics:
       glob: '*.dart'
-      run: dart run dart_code_metrics:metrics analyze {staged_files} --set-exit-on-violation-level=warning
+      run: dart run dart_code_metrics:metrics analyze {staged_files} --set-exit-on-violation-level=warning --disable-sunset-warning
