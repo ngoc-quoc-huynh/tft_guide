@@ -1,9 +1,9 @@
 import 'package:get_it/get_it.dart';
-import 'package:tft_guide/domain/interfaces/items_repository.dart';
+import 'package:tft_guide/domain/interfaces/items.dart';
 import 'package:tft_guide/static/i18n/messages.i18n.dart';
 
 extension GetItExtension on GetIt {
-  ItemsRepository get itemsRepository => get<ItemsRepository>();
+  ItemsAPI get itemsAPI => get<ItemsAPI>();
 
   Messages get messages => get<Messages>();
 }

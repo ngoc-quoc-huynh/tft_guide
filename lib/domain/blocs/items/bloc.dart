@@ -12,15 +12,15 @@ final class ItemsBloc extends Bloc<ItemsEvent, ItemsState> {
     on<ItemsInitializeEvent>(_onItemsInitializeEvent);
   }
 
-  final _itemsRepository = Injector.instance.itemsRepository;
+  final _itemsAPI = Injector.instance.itemsAPI;
 
   Future<void> _onItemsInitializeEvent(
     ItemsInitializeEvent event,
     Emitter<ItemsState> emit,
   ) async {
     final items = (await [
-      _itemsRepository.loadBaseItems(),
-      _itemsRepository.loadFullItems(),
+      _itemsAPI.loadBaseItems(),
+      _itemsAPI.loadFullItems(),
     ].wait)
         .flattened
         .toList();
