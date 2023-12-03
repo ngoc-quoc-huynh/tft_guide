@@ -4,8 +4,6 @@ import 'package:tft_guide/injector.dart';
 class RankedPage extends StatelessWidget {
   const RankedPage({super.key});
 
-  static const route = 'ranked';
-
   @override
   Widget build(BuildContext context) {
     return Center(
