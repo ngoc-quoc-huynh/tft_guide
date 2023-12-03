@@ -2,6 +2,22 @@ appName: 'TFT Guide'
 pages:
   ranked:
     title: 'Rangliste'
+    divisions:
+      iron: 'Eisen'
+      bronze: 'Bronze'
+      silver: 'Silber'
+      gold: 'Gold'
+      emerald: 'Smaragd'
+      platinum: 'Platin'
+      diamond: 'Diamant'
+      master: 'Meister'
+      grandmaster: 'Großmeister'
+      challenger: 'Herausforder'
+      one: 'I'
+      two: 'II'
+      three: 'III'
+      four: 'IV'
+    lp(int number): '$number LP'
   item:
     description: 'Beschreibung'
     hint: 'Tipp'
