@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:get_it/get_it.dart';
-import 'package:tft_guide/domain/interfaces/items_repository.dart';
+import 'package:tft_guide/domain/interfaces/items.dart';
 import 'package:tft_guide/infrastructure/repositories/items.dart';
 import 'package:tft_guide/static/i18n/messages.i18n.dart';
 
@@ -14,7 +14,7 @@ final class Injector {
 
   static void setupDependencies() => instance
     ..registerLazySingleton<Messages>(_createMessages)
-    ..registerLazySingleton<ItemsRepository>(LocalItemsRepository.new);
+    ..registerLazySingleton<ItemsAPI>(LocalItemsRepository.new);
 
   static Messages _createMessages() =>
       switch (PlatformDispatcher.instance.locale.languageCode) {

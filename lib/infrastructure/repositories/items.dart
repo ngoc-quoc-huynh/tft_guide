@@ -1,10 +1,10 @@
-import 'package:tft_guide/domain/interfaces/items_repository.dart';
+import 'package:tft_guide/domain/interfaces/items.dart';
 import 'package:tft_guide/domain/models/item.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/messages.i18n.dart';
 import 'package:tft_guide/static/resources/assets.dart';
 
-final class LocalItemsRepository implements ItemsRepository {
+final class LocalItemsRepository implements ItemsAPI {
   const LocalItemsRepository();
 
   @override
