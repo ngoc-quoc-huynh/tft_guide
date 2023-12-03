@@ -4,8 +4,6 @@ import 'package:tft_guide/injector.dart';
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
-  static const route = 'settings';
-
   @override
   Widget build(BuildContext context) {
     return Center(
