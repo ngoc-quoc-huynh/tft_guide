@@ -15,7 +15,7 @@ class Background extends StatelessWidget {
           fit: BoxFit.fitHeight,
         ),
       ),
-      child: child,
+      child: SizedBox.expand(child: child),
     );
   }
 }
