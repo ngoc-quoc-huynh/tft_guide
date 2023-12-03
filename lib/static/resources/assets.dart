@@ -53,7 +53,7 @@ final class Assets {
   static const challenger1 = Asset('assets/divisions/challenger/1.png');
   static const challenger2 = Asset('assets/divisions/challenger/2.png');
   static const challenger3 = Asset('assets/divisions/challenger/3.png');
-  static const challenger4 = Asset('assets/divisions/bronze/4.png');
+  static const challenger4 = Asset('assets/divisions/challenger/4.png');
 
   static const bfSword = Asset('assets/items/base/bf_sword.png');
   static const chainVest = Asset('assets/items/base/chain_vest.png');
