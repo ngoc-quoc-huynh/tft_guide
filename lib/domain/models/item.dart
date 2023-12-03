@@ -44,7 +44,7 @@ final class FullItem extends Item {
   });
 
   final BaseItem component1;
-  final BaseItem? component2;
+  final BaseItem component2;
 
   @override
   List<Object?> get props => [...super.props, component1, component2];

@@ -2,6 +2,10 @@ appName: 'TFT Guide'
 pages:
   ranked:
     title: 'Rangliste'
+  item:
+    description: 'Beschreibung'
+    hint: 'Tipp'
+    components: 'Komponente'
   items:
     title: 'Items'
     base:

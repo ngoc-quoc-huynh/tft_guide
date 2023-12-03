@@ -9,14 +9,11 @@ class ItemsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ItemsBloc>(
-      create: (context) => ItemsBloc()..add(const ItemsInitializeEvent()),
-      child: BlocBuilder<ItemsBloc, ItemsState>(
-        builder: (context, state) => switch (state) {
-          ItemsLoadInProgress() => const ItemsLoadingIndicator(),
-          ItemsLoadOnSuccess() => ItemsList(items: state.items),
-        },
-      ),
+    return BlocBuilder<ItemsBloc, ItemsState>(
+      builder: (context, state) => switch (state) {
+        ItemsLoadInProgress() => const ItemsLoadingIndicator(),
+        ItemsLoadOnSuccess() => ItemsList(items: state.items),
+      },
     );
   }
 }
