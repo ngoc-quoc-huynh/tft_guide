@@ -46,7 +46,7 @@ jobs:
       - name: Build APK
         if: github.event_name == 'workflow_dispatch'
         run: flutter build apk --release
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: github.event_name == 'workflow_dispatch'
         with:
           name: TFT Guide APK
