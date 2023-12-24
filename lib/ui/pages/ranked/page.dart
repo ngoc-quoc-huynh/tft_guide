@@ -9,6 +9,8 @@ import 'package:tft_guide/ui/widgets/loading_indicator.dart';
 class RankedPage extends StatelessWidget {
   const RankedPage({super.key});
 
+  static const routeName = 'ranked';
+
   @override
   Widget build(BuildContext context) {
     return Center(

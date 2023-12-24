@@ -7,6 +7,8 @@ import 'package:tft_guide/ui/pages/items/loading_indicator.dart';
 class ItemsPage extends StatelessWidget {
   const ItemsPage({super.key});
 
+  static const routeName = 'items';
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ItemsBloc, ItemsState>(
