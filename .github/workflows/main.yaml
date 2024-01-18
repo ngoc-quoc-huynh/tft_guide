@@ -17,7 +17,7 @@ jobs:
           cache: 'gradle'
 
       - name: Cache asdf
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: asdf_cache
         with:
           path: ~/.asdf/
@@ -26,7 +26,7 @@ jobs:
 
 
       - name: Cache Flutter dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: flutter_cache
         with:
           path: .dart_tool/
