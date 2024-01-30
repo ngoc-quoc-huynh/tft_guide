@@ -10,6 +10,7 @@ sealed class Item extends Equatable {
     required this.description,
     required this.hint,
     required this.asset,
+    required this.isSpecial,
   });
 
   final int id;
@@ -17,9 +18,10 @@ sealed class Item extends Equatable {
   final String description;
   final String hint;
   final Asset asset;
+  final bool isSpecial;
 
   @override
-  List<Object?> get props => [id, name, description, hint, asset];
+  List<Object?> get props => [id, name, description, hint, asset, isSpecial];
 }
 
 final class BaseItem extends Item {
@@ -29,7 +31,7 @@ final class BaseItem extends Item {
     required super.description,
     required super.hint,
     required super.asset,
-  });
+  }) : super(isSpecial: false);
 }
 
 final class FullItem extends Item {
@@ -41,6 +43,7 @@ final class FullItem extends Item {
     required super.asset,
     required this.component1,
     required this.component2,
+    super.isSpecial = false,
   });
 
   final BaseItem component1;

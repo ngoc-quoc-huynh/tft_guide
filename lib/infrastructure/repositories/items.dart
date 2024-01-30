@@ -395,6 +395,7 @@ final class LocalItemsRepository implements ItemsAPI {
       asset: Assets.tacticiansCrown,
       component1: _spatula,
       component2: _spatula,
+      isSpecial: true,
     ),
     FullItem(
       id: 43,

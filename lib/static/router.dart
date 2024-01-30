@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tft_guide/ui/pages/game/page.dart';
 import 'package:tft_guide/ui/pages/item/page.dart';
 import 'package:tft_guide/ui/pages/items/page.dart';
 import 'package:tft_guide/ui/pages/ranked/page.dart';
@@ -26,6 +27,14 @@ final class GoRouterConfig {
                 name: RankedPage.routeName,
                 path: '/ranked',
                 builder: (_, __) => const RankedPage(),
+                routes: [
+                  GoRoute(
+                    parentNavigatorKey: _rootNavigatorKey,
+                    name: GamePage.routeName,
+                    path: 'game',
+                    builder: (_, __) => const GamePage(),
+                  ),
+                ],
               ),
             ],
           ),

@@ -14,7 +14,8 @@ class ItemsPage extends StatelessWidget {
     return BlocBuilder<ItemsBloc, ItemsState>(
       builder: (context, state) => switch (state) {
         ItemsLoadInProgress() => const ItemsLoadingIndicator(),
-        ItemsLoadOnSuccess() => ItemsList(items: state.items),
+        ItemsLoadOnSuccess(:final baseItems, :final fullItems) =>
+          ItemsList(items: [...baseItems, ...fullItems]),
       },
     );
   }

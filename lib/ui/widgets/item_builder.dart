@@ -15,8 +15,8 @@ class ItemBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final item = (context.read<ItemsBloc>().state as ItemsLoadOnSuccess)
-        .items
+    final state = context.read<ItemsBloc>().state as ItemsLoadOnSuccess;
+    final item = [...state.baseItems, ...state.fullItems]
         .firstWhere((item) => item.id == id);
     return builder(context, item);
   }
