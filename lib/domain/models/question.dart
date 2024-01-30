@@ -1,9 +1,15 @@
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:tft_guide/domain/models/item.dart';
 
-enum QuestionType { image, text }
+enum QuestionType {
+  image,
+  text;
+
+  factory QuestionType.random() => QuestionType.values.sample(1).first;
+}
 
 @immutable
 sealed class Question extends Equatable {
@@ -102,7 +108,7 @@ final class DescriptionQuestion extends Question {
 }
 
 final class BaseComponentsQuestion extends Question {
-  const BaseComponentsQuestion({
+  const BaseComponentsQuestion.build({
     required super.type,
     required FullItem correctOption,
     required FullItem option1,
@@ -115,7 +121,7 @@ final class BaseComponentsQuestion extends Question {
 }
 
 final class FullItemQuestion extends Question {
-  const FullItemQuestion({
+  const FullItemQuestion.build({
     required super.type,
     required FullItem correctOption,
     required FullItem option1,

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/blocs/elo/cubit.dart';
 import 'package:tft_guide/domain/blocs/rank/bloc.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/messages.i18n.dart';
+import 'package:tft_guide/ui/pages/game/page.dart';
 import 'package:tft_guide/ui/widgets/loading_indicator.dart';
 
 class RankedPage extends StatelessWidget {
@@ -47,6 +49,10 @@ class RankedPage extends StatelessWidget {
                             3 => _messages.divisions.three,
                             _ => _messages.divisions.four,
                           }}',
+                        ),
+                        TextButton(
+                          onPressed: () => context.goNamed(GamePage.routeName),
+                          child: const Text('START'),
                         ),
                         TextButton(
                           onPressed: () =>

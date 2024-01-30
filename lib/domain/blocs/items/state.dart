@@ -12,10 +12,11 @@ final class ItemsLoadInProgress extends ItemsState {
 }
 
 final class ItemsLoadOnSuccess extends ItemsState {
-  const ItemsLoadOnSuccess(this.items);
+  const ItemsLoadOnSuccess({required this.baseItems, required this.fullItems});
 
-  final List<Item> items;
+  final List<BaseItem> baseItems;
+  final List<FullItem> fullItems;
 
   @override
-  List<Object?> get props => [items];
+  List<Object?> get props => [baseItems, fullItems];
 }

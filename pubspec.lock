@@ -318,6 +318,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_animation_progress_bar:
+    dependency: "direct main"
+    description:
+      name: flutter_animation_progress_bar
+      sha256: "85f05404faeef7141b1c5b53571293fc19359c120c4aea4430b2b7d808461d09"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.1"
   flutter_bloc:
     dependency: "direct main"
     description:
@@ -334,14 +342,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.13.1"
-  flutter_lazy_indexed_stack:
-    dependency: "direct main"
-    description:
-      name: flutter_lazy_indexed_stack
-      sha256: e5529b516890475465c8c34b23d611e9c46b23c745c08edf471d1b6f899f5c9f
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.6"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
