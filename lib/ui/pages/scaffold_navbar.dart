@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:tft_guide/injector.dart';
-import 'package:tft_guide/static/i18n/messages.i18n.dart';
+import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/colors.dart';
 import 'package:tft_guide/ui/widgets/background.dart';
 
@@ -21,7 +21,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: Text(_messages.appName),
+        title: Text(_translations.appName),
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -44,15 +44,15 @@ class ScaffoldWithNavBar extends StatelessWidget {
           tabs: [
             GButton(
               icon: LineIcons.lightbulb,
-              text: _pagesMessages.ranked.title,
+              text: _pagesTranslations.ranked.title,
             ),
             GButton(
               icon: LineIcons.list,
-              text: _pagesMessages.items.title,
+              text: _pagesTranslations.items.title,
             ),
             GButton(
               icon: Icons.settings,
-              text: _pagesMessages.settings.title,
+              text: _pagesTranslations.settings.title,
             ),
           ],
         ),
@@ -65,7 +65,8 @@ class ScaffoldWithNavBar extends StatelessWidget {
     );
   }
 
-  Messages get _messages => Injector.instance.messages;
+  Translations get _translations => Injector.instance.translations;
 
-  PagesMessages get _pagesMessages => Injector.instance.messages.pages;
+  TranslationsPagesDe get _pagesTranslations =>
+      Injector.instance.translations.pages;
 }

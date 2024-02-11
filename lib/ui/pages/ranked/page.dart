@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/blocs/elo/cubit.dart';
 import 'package:tft_guide/domain/blocs/rank/bloc.dart';
 import 'package:tft_guide/injector.dart';
-import 'package:tft_guide/static/i18n/messages.i18n.dart';
+import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/ui/pages/game/page.dart';
 import 'package:tft_guide/ui/widgets/loading_indicator.dart';
 
@@ -38,16 +38,16 @@ class RankedPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 20),
                         Text(
-                          _messages.lp(state.lp),
+                          _translations.lp(number: state.lp),
                           style: Theme.of(context).textTheme.headlineMedium,
                         ),
                         const SizedBox(height: 10),
                         Text(
                           '${state.rank.name} ${switch (state.rank.number) {
-                            1 => _messages.divisions.one,
-                            2 => _messages.divisions.two,
-                            3 => _messages.divisions.three,
-                            _ => _messages.divisions.four,
+                            1 => _translations.divisions.one,
+                            2 => _translations.divisions.two,
+                            3 => _translations.divisions.three,
+                            _ => _translations.divisions.four,
                           }}',
                         ),
                         TextButton(
@@ -74,5 +74,6 @@ class RankedPage extends StatelessWidget {
     );
   }
 
-  RankedPagesMessages get _messages => Injector.instance.messages.pages.ranked;
+  TranslationsPagesRankedDe get _translations =>
+      Injector.instance.translations.pages.ranked;
 }

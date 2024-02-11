@@ -1,6 +1,11 @@
 targets:
   $default:
     builders:
-      i18n:yamlBasedBuilder:
-        generate_for:
-          - lib/static/i18n/*.i18n.yaml
+      slang_build_runner:
+        options:
+          base_locale: de
+          input_directory: lib/static/i18n
+          input_file_pattern: .i18n.yaml
+          output_directory: lib/static/i18n
+          output_file_name: translations.g.dart
+          translation_class_visibility: public
