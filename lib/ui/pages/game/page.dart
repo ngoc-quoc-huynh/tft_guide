@@ -41,10 +41,14 @@ class GamePage extends StatelessWidget {
           child: SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                // TODO: Implement body
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: colorScheme.secondary,
               ),
+
+              // ignore: avoid-non-ascii-symbols, TODO add this to i18n
               child: const Text('Überprüfen'),
             ),
           ),

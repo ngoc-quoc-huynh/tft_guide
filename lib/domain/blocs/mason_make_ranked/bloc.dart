@@ -13,5 +13,7 @@ final class MasonMakeRankedBloc
   void _onMasonMakeRankedInitializeEvent(
     MasonMakeRankedInitializeEvent event,
     Emitter<MasonMakeRankedState> emit,
-  ) {}
+  ) {
+    // TODO: Implement body
+  }
 }
