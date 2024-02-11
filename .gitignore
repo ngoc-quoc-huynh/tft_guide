@@ -47,7 +47,9 @@ app.*.map.json
 
 # Generated files
 lib/**/*.g.dart
+lib/static/i18n/_*.yaml
 test/**/*.g.dart
+
 
 # Fastlane secrets
 .signing/
