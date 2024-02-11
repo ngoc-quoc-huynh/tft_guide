@@ -5,11 +5,13 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tft_guide/domain/blocs/items/bloc.dart';
 import 'package:tft_guide/injector.dart';
+import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/theme.dart';
 import 'package:tft_guide/static/router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  LocaleSettings.useDeviceLocale();
   Injector.setupDependencies();
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),
@@ -23,14 +25,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: Injector.instance.messages.appName,
+      title: Injector.instance.translations.appName,
       theme: CustomTheme.theme,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: const [Locale('de', '')],
+      locale: Injector.instance.translations.$meta.locale.flutterLocale,
+      supportedLocales: AppLocaleUtils.supportedLocales,
       routerConfig: GoRouterConfig.routes,
       builder: (_, child) => BlocProvider<ItemsBloc>(
         create: (_) => ItemsBloc()..add(const ItemsInitializeEvent()),

@@ -9,7 +9,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(Injector.instance.messages.pages.settings.title),
+      child: Text(Injector.instance.translations.pages.settings.title),
     );
   }
 }

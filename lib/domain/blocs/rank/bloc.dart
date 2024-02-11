@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/models/rank.dart';
 import 'package:tft_guide/injector.dart';
-import 'package:tft_guide/static/i18n/messages.i18n.dart';
+import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/assets.dart';
 
 part 'event.dart';
@@ -22,7 +22,7 @@ final class RankBloc extends Bloc<RankEvent, RankState> {
     Rank rank;
     switch (elo) {
       case < 400:
-        final name = _messages.iron;
+        final name = _translations.iron;
         final number = _computeDivisionNumber(elo);
         rank = Rank(
           name: name,
@@ -35,7 +35,7 @@ final class RankBloc extends Bloc<RankEvent, RankState> {
           },
         );
       case < 800:
-        final name = _messages.bronze;
+        final name = _translations.bronze;
         final number = _computeDivisionNumber(elo);
         rank = Rank(
           name: name,
@@ -49,7 +49,7 @@ final class RankBloc extends Bloc<RankEvent, RankState> {
         );
 
       case < 1200:
-        final name = _messages.silver;
+        final name = _translations.silver;
         final number = _computeDivisionNumber(elo);
         rank = Rank(
           name: name,
@@ -62,7 +62,7 @@ final class RankBloc extends Bloc<RankEvent, RankState> {
           },
         );
       case < 1600:
-        final name = _messages.gold;
+        final name = _translations.gold;
         final number = _computeDivisionNumber(elo);
         rank = Rank(
           name: name,
@@ -75,7 +75,7 @@ final class RankBloc extends Bloc<RankEvent, RankState> {
           },
         );
       case < 2000:
-        final name = _messages.emerald;
+        final name = _translations.emerald;
         final number = _computeDivisionNumber(elo);
         rank = Rank(
           name: name,
@@ -88,7 +88,7 @@ final class RankBloc extends Bloc<RankEvent, RankState> {
           },
         );
       case < 2400:
-        final name = _messages.platinum;
+        final name = _translations.platinum;
         final number = _computeDivisionNumber(elo);
         rank = Rank(
           name: name,
@@ -101,7 +101,7 @@ final class RankBloc extends Bloc<RankEvent, RankState> {
           },
         );
       case < 2800:
-        final name = _messages.diamond;
+        final name = _translations.diamond;
         final number = _computeDivisionNumber(elo);
         rank = Rank(
           name: name,
@@ -114,7 +114,7 @@ final class RankBloc extends Bloc<RankEvent, RankState> {
           },
         );
       case < 3200:
-        final name = _messages.master;
+        final name = _translations.master;
         final number = _computeDivisionNumber(elo);
         rank = Rank(
           name: name,
@@ -128,7 +128,7 @@ final class RankBloc extends Bloc<RankEvent, RankState> {
         );
       // Master
       case < 3600:
-        final name = _messages.grandmaster;
+        final name = _translations.grandmaster;
         final number = _computeDivisionNumber(elo);
         rank = Rank(
           name: name,
@@ -141,7 +141,7 @@ final class RankBloc extends Bloc<RankEvent, RankState> {
           },
         );
       default:
-        final name = _messages.challenger;
+        final name = _translations.challenger;
         final number = switch (elo) {
           < 3900 => _computeDivisionNumber(elo),
           _ => 1,
@@ -170,6 +170,6 @@ final class RankBloc extends Bloc<RankEvent, RankState> {
     return 4 - (eloWithinDivision / 100).ceil();
   }
 
-  DivisionsRankedPagesMessages get _messages =>
-      Injector.instance.messages.pages.ranked.divisions;
+  TranslationsPagesRankedDivisionsDe get _translations =>
+      Injector.instance.translations.pages.ranked.divisions;
 }

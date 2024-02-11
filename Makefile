@@ -1,10 +1,10 @@
-.PHONY: generate watch check-code check-files style test update-goldens launcher-icon splash-screen check-code check-files
+.PHONY: i18n check-i18n check-code style test update-goldens launcher-icon splash-screen check-code check-files
 
-generate:
-	dart run build_runner build --delete-conflicting-outputs
+i18n:
+	dart run slang
 
-watch:
-	dart run build_runner watch --delete-conflicting-outputs
+check-i18n:
+	dart run slang analyze
 
 check-code:
 	dart run dart_code_metrics:metrics check-unused-code lib --disable-sunset-warning

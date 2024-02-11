@@ -17,6 +17,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+
   # Navigator
   go_router: ^13.0.0
 
@@ -46,7 +47,9 @@ dev_dependencies:
   dart_code_metrics: ^5.7.6
 
   # Localization
-  i18n: ^4.0.8
+  slang: ^3.29.0
+  slang_flutter: ^3.29.0
+  slang_build_runner: ^3.29.0
 
   # Launcher icon
   flutter_launcher_icons: ^0.13.1

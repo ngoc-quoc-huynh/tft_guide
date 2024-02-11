@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tft_guide/domain/models/item.dart';
 import 'package:tft_guide/injector.dart';
-import 'package:tft_guide/static/i18n/messages.i18n.dart';
+import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/ui/pages/item/component.dart';
 import 'package:tft_guide/ui/widgets/background.dart';
 import 'package:tft_guide/ui/widgets/item_builder.dart';
@@ -37,14 +37,14 @@ class ItemPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  _messages.description,
+                  _translations.description,
                   style: headerStyle,
                 ),
                 const SizedBox(height: 10),
                 Text(item.description),
                 const SizedBox(height: 20),
                 Text(
-                  _messages.hint,
+                  _translations.hint,
                   style: headerStyle,
                 ),
                 const SizedBox(height: 10),
@@ -52,7 +52,7 @@ class ItemPage extends StatelessWidget {
                 if (item is FullItem) ...[
                   const SizedBox(height: 20),
                   Text(
-                    _messages.components,
+                    _translations.components,
                     style: headerStyle,
                   ),
                   const SizedBox(height: 10),
@@ -76,5 +76,6 @@ class ItemPage extends StatelessWidget {
     );
   }
 
-  ItemPagesMessages get _messages => Injector.instance.messages.pages.item;
+  TranslationsPagesItemDe get _translations =>
+      Injector.instance.translations.pages.item;
 }
