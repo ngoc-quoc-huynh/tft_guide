@@ -34,10 +34,10 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Generate Code
-        run: dart run slang
       - name: Format code
         run: dart format --set-exit-if-changed .
+      - name: Generate i18n
+        run: dart run slang
       - name: Analyze code
         run: flutter analyze
       - name: Run Code metrics
