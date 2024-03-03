@@ -19,5 +19,8 @@ final class CustomTheme {
         ),
       },
     ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(foregroundColor: CustomColors.orange),
+    ),
   );
 }

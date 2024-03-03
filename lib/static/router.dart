@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tft_guide/ui/pages/game/page.dart';
+import 'package:tft_guide/ui/pages/game/quit_dialog.dart';
 import 'package:tft_guide/ui/pages/item/page.dart';
 import 'package:tft_guide/ui/pages/items/page.dart';
 import 'package:tft_guide/ui/pages/ranked/page.dart';
@@ -32,6 +33,8 @@ final class GoRouterConfig {
                     parentNavigatorKey: _rootNavigatorKey,
                     name: GamePage.routeName,
                     path: 'game',
+                    onExit: (context) async =>
+                        (await QuitDialog.show(context)) ?? false,
                     builder: (_, __) => const GamePage(),
                   ),
                 ],
