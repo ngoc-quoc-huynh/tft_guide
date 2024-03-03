@@ -4,7 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/blocs/items/bloc.dart';
 import 'package:tft_guide/domain/blocs/questions/bloc.dart';
+import 'package:tft_guide/domain/models/question.dart';
+import 'package:tft_guide/ui/pages/game/title_text.dart';
 import 'package:tft_guide/ui/widgets/background.dart';
+import 'package:tft_guide/ui/widgets/loading_indicator.dart';
 
 class GamePage extends StatelessWidget {
   const GamePage({super.key});
@@ -53,9 +56,23 @@ class GamePage extends StatelessWidget {
             ),
           ),
         ),
-        body: const Background(
+        body: Background(
           child: SafeArea(
-            child: Text('Test'),
+            child: BlocBuilder<QuestionsBloc, QuestionsState>(
+              builder: (context, state) {
+                if (state is QuestionsLoadOnSuccess) {
+                  final question = state.questions.first;
+                  return switch (question) {
+                    TitleQuestion() => TitleQuestionBody(
+                        question: question,
+                      ),
+                    _ => const Text('Not implemented'),
+                  };
+                } else {
+                  return const LoadingIndicator();
+                }
+              },
+            ),
           ),
         ),
       ),
