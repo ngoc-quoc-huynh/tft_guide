@@ -60,14 +60,26 @@ class GamePage extends StatelessWidget {
           child: SafeArea(
             child: BlocBuilder<QuestionsBloc, QuestionsState>(
               builder: (context, state) {
+                // TODO: Use switch
                 if (state is QuestionsLoadOnSuccess) {
-                  final question = state.questions.first;
-                  return switch (question) {
-                    TitleQuestion() => TitleQuestionBody(
-                        question: question,
-                      ),
-                    _ => const Text('Not implemented'),
-                  };
+                  final questions = state.questions;
+                  return PageView.builder(
+                    itemCount: questions.length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      final question = questions[index];
+                      return switch (question) {
+                        TitleQuestion() => Padding(
+                            // TODO: Adjust padding
+                            padding: const EdgeInsets.all(20),
+                            child: TitleQuestionBody(
+                              question: question,
+                            ),
+                          ),
+                        _ => const Text('Not implemented'),
+                      };
+                    },
+                  );
                 } else {
                   return const LoadingIndicator();
                 }
