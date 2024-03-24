@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tft_guide/domain/models/item.dart';
 import 'package:tft_guide/domain/models/question.dart';
-import 'package:tft_guide/ui/pages/game/option_box.dart';
+import 'package:tft_guide/ui/pages/game/options.dart';
 
 // ignore_for_file: avoid-non-ascii-symbols, TODO: Add to i18n
 
@@ -19,9 +19,9 @@ class TitleQuestionBody extends StatelessWidget {
           type: question.type,
         ),
         const SizedBox(height: 50),
-        _Options(
+        Options(
+          correctOption: question.correctOption,
           options: [
-            question.correctOption,
             question.option1,
             question.option2,
           ],
@@ -61,32 +61,6 @@ class _Header extends StatelessWidget {
               height: 100,
             ),
         },
-      ],
-    );
-  }
-}
-
-class _Options extends StatelessWidget {
-  const _Options({
-    required this.options,
-    required this.type,
-  });
-
-  final List<Item> options;
-  final QuestionType type;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        for (final option in options)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: switch (type) {
-              QuestionType.text => OptionBox.byImage(asset: option.asset),
-              QuestionType.image => OptionBox.byText(text: option.name),
-            },
-          ),
       ],
     );
   }
