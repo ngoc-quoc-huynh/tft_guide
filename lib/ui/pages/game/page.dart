@@ -55,6 +55,7 @@ class GamePage extends StatelessWidget {
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
+          // TODO: Use expanded and put it inside body to control the state e.g. last page behavior
           floatingActionButton: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: SizedBox(
