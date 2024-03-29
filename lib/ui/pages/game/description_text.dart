@@ -5,10 +5,10 @@ import 'package:tft_guide/ui/pages/game/options.dart';
 
 // ignore_for_file: avoid-non-ascii-symbols, TODO: Add to i18n
 
-class TitleQuestionBody extends StatelessWidget {
-  const TitleQuestionBody({required this.question, super.key});
+class DescriptionQuestionBody extends StatelessWidget {
+  const DescriptionQuestionBody({required this.question, super.key});
 
-  final TitleQuestion question;
+  final DescriptionQuestion question;
 
   @override
   Widget build(BuildContext context) {
@@ -41,18 +41,18 @@ class _Header extends StatelessWidget {
       children: [
         switch (type) {
           QuestionType.text => const Text(
-              'Welcher Gegenstand passt zu diesem Titel?',
+              'Wie sieht der folgende Gegenstand mit dieser Beschreibung aus?',
               textAlign: TextAlign.center,
             ),
           QuestionType.image => const Text(
-              'Was für ein Gegenstand ist das gegebene Bild?',
+              'Welcher Gegenstand passt zu dieser Beschreibung',
               textAlign: TextAlign.center,
             ),
         },
         const SizedBox(height: 10),
         switch (type) {
           QuestionType.text => Text(
-              '„${correctItem.name}“',
+              '„${correctItem.description}“',
             ),
           QuestionType.image => Image.asset(
               correctItem.asset.path,
