@@ -21,10 +21,7 @@ class TitleQuestionBody extends StatelessWidget {
         const SizedBox(height: 50),
         Options(
           correctOption: question.correctOption,
-          options: [
-            question.option1,
-            question.option2,
-          ],
+          options: question.options,
           type: question.type,
         ),
       ],
