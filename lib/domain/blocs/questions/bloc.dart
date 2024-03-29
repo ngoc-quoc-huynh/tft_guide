@@ -44,8 +44,7 @@ final class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
       final namedArguments = {
         #type: QuestionType.random(),
         #correctOption: item,
-        #option1: optionItems.first,
-        #option2: optionItems[1],
+        #options: optionItems,
       };
 
       final question = Function.apply(
