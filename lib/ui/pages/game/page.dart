@@ -15,7 +15,9 @@ import 'package:tft_guide/domain/blocs/show_correct_option/cubit.dart';
 import 'package:tft_guide/domain/models/item.dart';
 import 'package:tft_guide/domain/models/question.dart';
 import 'package:tft_guide/static/resources/colors.dart';
+import 'package:tft_guide/ui/pages/game/base_component.dart';
 import 'package:tft_guide/ui/pages/game/description_text.dart';
+import 'package:tft_guide/ui/pages/game/full_item.dart';
 import 'package:tft_guide/ui/pages/game/title_text.dart';
 import 'package:tft_guide/ui/widgets/background.dart';
 import 'package:tft_guide/ui/widgets/loading_indicator.dart';
@@ -98,6 +100,12 @@ class GamePage extends StatelessWidget {
                                       DescriptionQuestionBody(
                                         question: question,
                                       ),
+                                    BaseComponentsQuestion() =>
+                                      BaseComponentBody(
+                                        question: question,
+                                      ),
+                                    FullItemQuestion() =>
+                                      FullItemBody(question: question),
                                     _ => const Text('Not implemented'),
                                   },
                                 ),
