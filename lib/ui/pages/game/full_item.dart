@@ -37,8 +37,11 @@ class FullItemBody extends StatelessWidget {
 }
 
 class _Header extends StatelessWidget {
-  const _Header(
-      {required this.component1, required this.component2, required this.type});
+  const _Header({
+    required this.component1,
+    required this.component2,
+    required this.type,
+  });
 
   final BaseItem component1;
   final BaseItem component2;
@@ -155,7 +158,6 @@ class _OptionBox extends StatelessWidget {
     required this.isSelected,
     required this.showCorrect,
     required this.child,
-    super.key,
   });
 
   final VoidCallback onSelect;

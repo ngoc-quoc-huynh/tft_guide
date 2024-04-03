@@ -106,7 +106,6 @@ class GamePage extends StatelessWidget {
                                       ),
                                     FullItemQuestion() =>
                                       FullItemBody(question: question),
-                                    _ => const Text('Not implemented'),
                                   },
                                 ),
                                 const SizedBox(height: 20),
