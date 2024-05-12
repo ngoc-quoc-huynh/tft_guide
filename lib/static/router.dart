@@ -33,7 +33,7 @@ final class GoRouterConfig {
                     parentNavigatorKey: _rootNavigatorKey,
                     name: GamePage.routeName,
                     path: 'game',
-                    onExit: (context) async =>
+                    onExit: (context, _) async =>
                         (await QuitDialog.show(context)) ?? false,
                     builder: (_, __) => const GamePage(),
                   ),
