@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tft_guide/injector.dart';
-import 'package:tft_guide/static/i18n/translations.g.dart';
+import 'package:tft_guide/ui/widgets/custom_app_bar.dart';
 
 class ScaffoldWithNavBar extends StatelessWidget {
   const ScaffoldWithNavBar({
@@ -14,9 +13,15 @@ class ScaffoldWithNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: Text(_translations.appName),
+      appBar: CustomAppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              // TODO: Implement settings
+            },
+            icon: const Icon(Icons.settings),
+          ),
+        ],
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: navigationShell.currentIndex,
@@ -24,27 +29,22 @@ class ScaffoldWithNavBar extends StatelessWidget {
           index,
           initialLocation: index == navigationShell.currentIndex,
         ),
-        destinations: [
+        destinations: const [
           NavigationDestination(
-            icon: const Icon(Icons.quiz),
-            label: _pagesTranslations.ranked.title,
+            icon: Icon(Icons.quiz),
+            label: 'Ranked',
           ),
           NavigationDestination(
-            icon: const Icon(Icons.format_list_bulleted),
-            label: _pagesTranslations.items.title,
+            icon: Icon(Icons.format_list_bulleted),
+            label: 'Items',
           ),
           NavigationDestination(
-            icon: const Icon(Icons.format_quote),
-            label: _pagesTranslations.settings.title,
+            icon: Icon(Icons.format_quote),
+            label: 'Quotes',
           ),
         ],
       ),
       body: navigationShell,
     );
   }
-
-  Translations get _translations => Injector.instance.translations;
-
-  TranslationsPagesDe get _pagesTranslations =>
-      Injector.instance.translations.pages;
 }

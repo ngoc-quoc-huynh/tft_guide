@@ -29,6 +29,7 @@ dependencies:
   equatable: ^2.0.5
 
   # UI
+  flutter_svg: ^2.0.10+1
   shimmer: ^3.0.0 # TODO: Replace with skeletonizer
   flutter_animation_progress_bar: ^2.3.1
 
