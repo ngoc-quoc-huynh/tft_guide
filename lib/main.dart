@@ -10,6 +10,7 @@ import 'package:tft_guide/static/resources/theme.dart';
 import 'package:tft_guide/static/router.dart';
 
 Future<void> main() async {
+  // TODO: Preload SVGs
   WidgetsFlutterBinding.ensureInitialized();
   LocaleSettings.useDeviceLocale();
   Injector.setupDependencies();
