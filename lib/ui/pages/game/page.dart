@@ -18,7 +18,6 @@ import 'package:tft_guide/ui/pages/game/base_component.dart';
 import 'package:tft_guide/ui/pages/game/description_text.dart';
 import 'package:tft_guide/ui/pages/game/full_item.dart';
 import 'package:tft_guide/ui/pages/game/title_text.dart';
-import 'package:tft_guide/ui/widgets/background.dart';
 import 'package:tft_guide/ui/widgets/loading_indicator.dart';
 
 class GamePage extends StatelessWidget {
@@ -49,165 +48,162 @@ class GamePage extends StatelessWidget {
             currentValue: 1,
           ),
         ),
-        body: Background(
-          child: SafeArea(
-            child: BlocBuilder<QuestionsBloc, QuestionsState>(
-              builder: (context, state) {
-                // TitleQuestion (Base/Full)
-                // Image -> Was für ein Gegenstand ist das gegebene Bild
-                // Text -> Wie sieht der folgende Gegenstand mit diesem Titel aus?
-                // DescriptionQuestion (Base/Full)
-                // Image -> Wie sieht der folgende Gegenstand mit dieser Beschreibung aus?
-                // Text -> Welcher Gegenstand passt zu dieser Beschreibung?
-                // BaseComponentsQuestion
-                // Image -> Welche Gegenstände ergeben zusammen diesen Gegenstand?
-                // Text -> Welche Gegenstände ergeben zusammen diesen Gegenstand?
-                // FullItemQuestion
-                // Image -> Welcher Gegenstand ergibt sich, wenn man diese zwei kombiniert?
-                // Text -> Welcher Gegenstand ergibt sich, wenn man diese zwei kombiniert?
+        body: SafeArea(
+          child: BlocBuilder<QuestionsBloc, QuestionsState>(
+            builder: (context, state) {
+              // TitleQuestion (Base/Full)
+              // Image -> Was für ein Gegenstand ist das gegebene Bild
+              // Text -> Wie sieht der folgende Gegenstand mit diesem Titel aus?
+              // DescriptionQuestion (Base/Full)
+              // Image -> Wie sieht der folgende Gegenstand mit dieser Beschreibung aus?
+              // Text -> Welcher Gegenstand passt zu dieser Beschreibung?
+              // BaseComponentsQuestion
+              // Image -> Welche Gegenstände ergeben zusammen diesen Gegenstand?
+              // Text -> Welche Gegenstände ergeben zusammen diesen Gegenstand?
+              // FullItemQuestion
+              // Image -> Welcher Gegenstand ergibt sich, wenn man diese zwei kombiniert?
+              // Text -> Welcher Gegenstand ergibt sich, wenn man diese zwei kombiniert?
 
-                // TODO: Use switch
-                if (state is QuestionsLoadOnSuccess) {
-                  final questions = state.questions;
-                  return PageView.builder(
-                    itemCount: questions.length,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      final question = questions[index];
-                      return MultiBlocProvider(
-                        providers: [
-                          BlocProvider<OptionSelectionCubit>(
-                            create: (_) => OptionSelectionCubit(),
-                          ),
-                          BlocProvider(
-                            create: (_) => ShowCorrectOptionCubit(),
-                          ),
-                        ],
-                        // TODO: Extract widget and remove builder
-                        child: Builder(
-                          builder: (context) => Padding(
-                            // TODO: Adjust padding
-                            padding: const EdgeInsets.all(20),
-                            child: Column(
-                              children: [
-                                Expanded(
-                                  child: switch (question) {
-                                    TitleQuestion() => TitleQuestionBody(
-                                        question: question,
-                                      ),
-                                    DescriptionQuestion() =>
-                                      DescriptionQuestionBody(
-                                        question: question,
-                                      ),
-                                    BaseComponentsQuestion() =>
-                                      BaseComponentBody(
-                                        question: question,
-                                      ),
-                                    FullItemQuestion() =>
-                                      FullItemBody(question: question),
-                                  },
-                                ),
-                                const SizedBox(height: 20),
-                                SizedBox(
-                                  width: double.infinity,
-                                  child: BlocProvider(
-                                    create: (_) =>
-                                        QuestionEvaluationBloc(question),
-                                    child: BlocListener<QuestionEvaluationBloc,
-                                        QuestionEvaluationState>(
-                                      listener: (context, state) => unawaited(
-                                        showModalBottomSheet<void>(
-                                          context: context,
-                                          useRootNavigator: true,
-                                          backgroundColor: Colors.transparent,
-                                          barrierColor: Colors.transparent,
-                                          isDismissible: false,
-                                          builder: (_) => Container(
-                                            padding: const EdgeInsets.all(20),
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primary,
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                const Text('Feedback'),
-                                                const SizedBox(height: 20),
-                                                SizedBox(
-                                                  width: double.infinity,
-                                                  // TODO: Button als Widget extrahieren
-                                                  child: ElevatedButton(
-                                                    // TODO: Navigate to next question
-                                                    onPressed: () =>
-                                                        context.pop(),
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      backgroundColor:
-                                                          colorScheme.secondary,
-                                                    ),
-                                                    child: const Text(
-                                                      'WEITER',
-                                                    ),
+              // TODO: Use switch
+              if (state is QuestionsLoadOnSuccess) {
+                final questions = state.questions;
+                return PageView.builder(
+                  itemCount: questions.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    final question = questions[index];
+                    return MultiBlocProvider(
+                      providers: [
+                        BlocProvider<OptionSelectionCubit>(
+                          create: (_) => OptionSelectionCubit(),
+                        ),
+                        BlocProvider(
+                          create: (_) => ShowCorrectOptionCubit(),
+                        ),
+                      ],
+                      // TODO: Extract widget and remove builder
+                      child: Builder(
+                        builder: (context) => Padding(
+                          // TODO: Adjust padding
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: switch (question) {
+                                  TitleQuestion() => TitleQuestionBody(
+                                      question: question,
+                                    ),
+                                  DescriptionQuestion() =>
+                                    DescriptionQuestionBody(
+                                      question: question,
+                                    ),
+                                  BaseComponentsQuestion() => BaseComponentBody(
+                                      question: question,
+                                    ),
+                                  FullItemQuestion() =>
+                                    FullItemBody(question: question),
+                                },
+                              ),
+                              const SizedBox(height: 20),
+                              SizedBox(
+                                width: double.infinity,
+                                child: BlocProvider(
+                                  create: (_) =>
+                                      QuestionEvaluationBloc(question),
+                                  child: BlocListener<QuestionEvaluationBloc,
+                                      QuestionEvaluationState>(
+                                    listener: (context, state) => unawaited(
+                                      showModalBottomSheet<void>(
+                                        context: context,
+                                        useRootNavigator: true,
+                                        backgroundColor: Colors.transparent,
+                                        barrierColor: Colors.transparent,
+                                        isDismissible: false,
+                                        builder: (_) => Container(
+                                          padding: const EdgeInsets.all(20),
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              const Text('Feedback'),
+                                              const SizedBox(height: 20),
+                                              SizedBox(
+                                                width: double.infinity,
+                                                // TODO: Button als Widget extrahieren
+                                                child: ElevatedButton(
+                                                  // TODO: Navigate to next question
+                                                  onPressed: () =>
+                                                      context.pop(),
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    backgroundColor:
+                                                        colorScheme.secondary,
+                                                  ),
+                                                  child: const Text(
+                                                    'WEITER',
                                                   ),
                                                 ),
-                                              ],
-                                            ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ),
-                                      child: BlocSelector<OptionSelectionCubit,
-                                          Item?, bool>(
-                                        selector: (selectedOption) =>
-                                            selectedOption != null,
-                                        builder: (
-                                          context,
-                                          hasSelectedOption,
-                                        ) =>
-                                            // TODO: Disable color anpassen und Button vllt extrahieren
-                                            ElevatedButton(
-                                          onPressed: hasSelectedOption
-                                              ? () {
-                                                  context
-                                                      .read<
-                                                          ShowCorrectOptionCubit>()
-                                                      .show();
-                                                  final selectedOption = context
-                                                      .read<
-                                                          OptionSelectionCubit>()
-                                                      .state!;
-                                                  context
-                                                      .read<
-                                                          QuestionEvaluationBloc>()
-                                                      .add(
-                                                        QuestionEvaluationSubmitEvent(
-                                                          selectedOption,
-                                                        ),
-                                                      );
-                                                }
-                                              : null,
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor:
-                                                colorScheme.secondary,
-                                          ),
-
-                                          // ignore: avoid-non-ascii-symbols, TODO add this to i18n
-                                          child: const Text('Überprüfen'),
+                                    ),
+                                    child: BlocSelector<OptionSelectionCubit,
+                                        Item?, bool>(
+                                      selector: (selectedOption) =>
+                                          selectedOption != null,
+                                      builder: (
+                                        context,
+                                        hasSelectedOption,
+                                      ) =>
+                                          // TODO: Disable color anpassen und Button vllt extrahieren
+                                          ElevatedButton(
+                                        onPressed: hasSelectedOption
+                                            ? () {
+                                                context
+                                                    .read<
+                                                        ShowCorrectOptionCubit>()
+                                                    .show();
+                                                final selectedOption = context
+                                                    .read<
+                                                        OptionSelectionCubit>()
+                                                    .state!;
+                                                context
+                                                    .read<
+                                                        QuestionEvaluationBloc>()
+                                                    .add(
+                                                      QuestionEvaluationSubmitEvent(
+                                                        selectedOption,
+                                                      ),
+                                                    );
+                                              }
+                                            : null,
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              colorScheme.secondary,
                                         ),
+
+                                        // ignore: avoid-non-ascii-symbols, TODO add this to i18n
+                                        child: const Text('Überprüfen'),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
-                      );
-                    },
-                  );
-                } else {
-                  return const LoadingIndicator();
-                }
-              },
-            ),
+                      ),
+                    );
+                  },
+                );
+              } else {
+                return const LoadingIndicator();
+              }
+            },
           ),
         ),
       ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
-import 'package:tft_guide/ui/widgets/background.dart';
 
 class ScaffoldWithNavBar extends StatelessWidget {
   const ScaffoldWithNavBar({
@@ -15,7 +14,6 @@ class ScaffoldWithNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: Text(_translations.appName),
@@ -41,11 +39,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
           ),
         ],
       ),
-      body: Background(
-        child: SafeArea(
-          child: navigationShell,
-        ),
-      ),
+      body: navigationShell,
     );
   }
 

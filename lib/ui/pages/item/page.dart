@@ -3,7 +3,6 @@ import 'package:tft_guide/domain/models/item.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/ui/pages/item/component.dart';
-import 'package:tft_guide/ui/widgets/background.dart';
 import 'package:tft_guide/ui/widgets/item_builder.dart';
 
 class ItemPage extends StatelessWidget {
@@ -24,52 +23,50 @@ class ItemPage extends StatelessWidget {
           backgroundColor: Colors.transparent,
           title: Text(item.name),
         ),
-        body: Background(
-          child: SafeArea(
-            child: ListView(
-              padding: const EdgeInsets.all(20),
-              children: [
-                Image.asset(
-                  item.asset.path,
-                  fit: BoxFit.contain,
-                  height: 100,
-                  width: 100,
-                ),
+        body: SafeArea(
+          child: ListView(
+            padding: const EdgeInsets.all(20),
+            children: [
+              Image.asset(
+                item.asset.path,
+                fit: BoxFit.contain,
+                height: 100,
+                width: 100,
+              ),
+              const SizedBox(height: 20),
+              Text(
+                _translations.description,
+                style: headerStyle,
+              ),
+              const SizedBox(height: 10),
+              Text(item.description),
+              const SizedBox(height: 20),
+              Text(
+                _translations.hint,
+                style: headerStyle,
+              ),
+              const SizedBox(height: 10),
+              Text(item.hint),
+              if (item is FullItem) ...[
                 const SizedBox(height: 20),
                 Text(
-                  _translations.description,
+                  _translations.components,
                   style: headerStyle,
                 ),
                 const SizedBox(height: 10),
-                Text(item.description),
-                const SizedBox(height: 20),
-                Text(
-                  _translations.hint,
-                  style: headerStyle,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ItemComponent(item: item.component1),
+                    const Icon(
+                      Icons.add,
+                      size: 40,
+                    ),
+                    ItemComponent(item: item.component2),
+                  ],
                 ),
-                const SizedBox(height: 10),
-                Text(item.hint),
-                if (item is FullItem) ...[
-                  const SizedBox(height: 20),
-                  Text(
-                    _translations.components,
-                    style: headerStyle,
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ItemComponent(item: item.component1),
-                      const Icon(
-                        Icons.add,
-                        size: 40,
-                      ),
-                      ItemComponent(item: item.component2),
-                    ],
-                  ),
-                ],
               ],
-            ),
+            ],
           ),
         ),
       ),
