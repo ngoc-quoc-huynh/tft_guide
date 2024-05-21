@@ -4,7 +4,6 @@ import 'package:tft_guide/domain/blocs/option_selection/cubit.dart';
 import 'package:tft_guide/domain/blocs/show_correct_option/cubit.dart';
 import 'package:tft_guide/domain/models/item.dart';
 import 'package:tft_guide/domain/models/question.dart';
-import 'package:tft_guide/static/resources/colors.dart';
 
 // ignore_for_file: avoid-non-ascii-symbols, TODO: Add to i18n
 
@@ -178,7 +177,7 @@ class _OptionBox extends StatelessWidget {
             BorderSide(
               color: switch (showCorrect) {
                 true => Colors.green,
-                false when isSelected => CustomColors.orange,
+                false when isSelected => Theme.of(context).colorScheme.primary,
                 false => Colors.grey,
               },
               width: 2,
