@@ -4,23 +4,26 @@ import 'package:tft_guide/static/resources/colors.dart';
 final class CustomTheme {
   const CustomTheme._();
 
-  static final theme = ThemeData(
-    scaffoldBackgroundColor: CustomColors.darkBlue,
-    colorScheme: const ColorScheme.dark(
-      primary: CustomColors.blue,
-      secondary: CustomColors.orange,
-    ),
-    pageTransitionsTheme: const PageTransitionsTheme(
-      // Not necessary to override for other platforms.
-      // ignore: avoid-missing-enum-constant-in-map
-      builders: {
-        TargetPlatform.android: ZoomPageTransitionsBuilder(
-          allowEnterRouteSnapshotting: false,
-        ),
-      },
-    ),
-    textButtonTheme: TextButtonThemeData(
-      style: TextButton.styleFrom(foregroundColor: CustomColors.orange),
-    ),
-  );
+  static ThemeData lightTheme(TextTheme textTheme) =>
+      _themeData(Brightness.light, textTheme);
+
+  static ThemeData darkTheme(TextTheme textTheme) =>
+      _themeData(Brightness.dark, textTheme);
+
+  static ColorScheme _colorScheme(Brightness brightness) =>
+      ColorScheme.fromSeed(
+        brightness: brightness,
+        seedColor: CustomColors.purple,
+      );
+
+  static ThemeData _themeData(Brightness brightness, TextTheme textTheme) {
+    final colorScheme = _colorScheme(brightness);
+    return ThemeData.from(
+      colorScheme: colorScheme,
+      textTheme: textTheme.apply(
+        bodyColor: colorScheme.onSurface,
+        displayColor: colorScheme.onSurface,
+      ),
+    );
+  }
 }

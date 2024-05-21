@@ -29,9 +29,7 @@ dependencies:
   equatable: ^2.0.5
 
   # UI
-  line_icons: ^2.0.3
-  google_nav_bar: ^5.0.6
-  shimmer: ^3.0.0
+  shimmer: ^3.0.0 # TODO: Replace with skeletonizer
   flutter_animation_progress_bar: ^2.3.1
 
   # Utils

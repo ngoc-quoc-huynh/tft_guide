@@ -24,14 +24,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return MaterialApp.router(
       title: Injector.instance.translations.appName,
-      theme: CustomTheme.theme,
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
+      theme: CustomTheme.lightTheme(textTheme),
+      darkTheme: CustomTheme.darkTheme(textTheme),
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
       locale: Injector.instance.translations.$meta.locale.flutterLocale,
       supportedLocales: AppLocaleUtils.supportedLocales,
       routerConfig: GoRouterConfig.routes,

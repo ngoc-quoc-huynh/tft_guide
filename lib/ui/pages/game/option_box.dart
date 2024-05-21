@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tft_guide/static/resources/assets.dart';
-import 'package:tft_guide/static/resources/colors.dart';
 
 class OptionBox extends StatelessWidget {
   OptionBox.byText({
@@ -44,7 +43,7 @@ class OptionBox extends StatelessWidget {
             BorderSide(
               color: switch (showCorrect) {
                 true => Colors.green,
-                false when isSelected => CustomColors.orange,
+                false when isSelected => Theme.of(context).colorScheme.primary,
                 false => Colors.grey,
               },
               width: 2,
