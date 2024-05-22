@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/blocs/old/option_selection/cubit.dart';
 import 'package:tft_guide/domain/blocs/old/show_correct_option/cubit.dart';
-import 'package:tft_guide/domain/models/item.dart';
-import 'package:tft_guide/domain/models/question.dart';
+import 'package:tft_guide/domain/models/old/item.dart';
+import 'package:tft_guide/domain/models/old/question.dart';
 
 // ignore_for_file: avoid-non-ascii-symbols, TODO: Add to i18n
 

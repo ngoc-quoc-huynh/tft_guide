@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tft_guide/domain/models/item.dart';
-import 'package:tft_guide/domain/models/question.dart';
+import 'package:tft_guide/domain/models/old/item.dart';
+import 'package:tft_guide/domain/models/old/question.dart';
 import 'package:tft_guide/ui/pages/game/options.dart';
 
 // ignore_for_file: avoid-non-ascii-symbols, TODO: Add to i18n

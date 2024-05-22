@@ -2,8 +2,8 @@ import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/domain/models/item.dart';
-import 'package:tft_guide/domain/models/question.dart';
+import 'package:tft_guide/domain/models/old/item.dart';
+import 'package:tft_guide/domain/models/old/question.dart';
 import 'package:tft_guide/domain/utils/extensions/list.dart';
 
 part 'event.dart';

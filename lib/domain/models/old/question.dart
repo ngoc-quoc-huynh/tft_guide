@@ -2,7 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:tft_guide/domain/models/item.dart';
+import 'package:tft_guide/domain/models/old/item.dart';
 
 enum QuestionType {
   image,
