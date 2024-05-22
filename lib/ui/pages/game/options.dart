@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/domain/blocs/option_selection/cubit.dart';
-import 'package:tft_guide/domain/blocs/show_correct_option/cubit.dart';
+import 'package:tft_guide/domain/blocs/old/option_selection/cubit.dart';
+import 'package:tft_guide/domain/blocs/old/show_correct_option/cubit.dart';
 import 'package:tft_guide/domain/models/item.dart';
 import 'package:tft_guide/domain/models/question.dart';
 import 'package:tft_guide/ui/pages/game/option_box.dart';
