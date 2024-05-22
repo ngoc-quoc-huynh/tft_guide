@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/domain/models/item.dart';
-import 'package:tft_guide/domain/models/question.dart';
+import 'package:tft_guide/domain/models/old/item.dart';
+import 'package:tft_guide/domain/models/old/question.dart';
 
 part 'event.dart';
 part 'state.dart';

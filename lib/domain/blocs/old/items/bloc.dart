@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/domain/models/item.dart';
+import 'package:tft_guide/domain/models/old/item.dart';
 import 'package:tft_guide/injector.dart';
 
 part 'event.dart';

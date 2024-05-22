@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/blocs/old/items/bloc.dart';
-import 'package:tft_guide/domain/models/item.dart';
+import 'package:tft_guide/domain/models/old/item.dart';
 
 class ItemBuilder extends StatelessWidget {
   const ItemBuilder({
