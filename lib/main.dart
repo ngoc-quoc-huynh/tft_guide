@@ -8,6 +8,7 @@ import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/theme.dart';
 import 'package:tft_guide/static/router.dart';
+import 'package:tft_guide/ui/widgets/custom_skeletonizer_config.dart';
 
 Future<void> main() async {
   // TODO: Preload SVGs
@@ -36,7 +37,9 @@ class MyApp extends StatelessWidget {
       routerConfig: GoRouterConfig.routes,
       builder: (_, child) => BlocProvider<ItemsBloc>(
         create: (_) => ItemsBloc()..add(const ItemsInitializeEvent()),
-        child: child,
+        child: CustomSkeletonizerConfig(
+          child: child!,
+        ),
       ),
     );
   }
