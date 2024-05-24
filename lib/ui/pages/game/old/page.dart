@@ -14,10 +14,10 @@ import 'package:tft_guide/domain/blocs/old/questions/bloc.dart';
 import 'package:tft_guide/domain/blocs/old/show_correct_option/cubit.dart';
 import 'package:tft_guide/domain/models/old/item.dart';
 import 'package:tft_guide/domain/models/old/question.dart';
-import 'package:tft_guide/ui/pages/game/base_component.dart';
-import 'package:tft_guide/ui/pages/game/description_text.dart';
-import 'package:tft_guide/ui/pages/game/full_item.dart';
-import 'package:tft_guide/ui/pages/game/title_text.dart';
+import 'package:tft_guide/ui/pages/game/old/base_component.dart';
+import 'package:tft_guide/ui/pages/game/old/description_text.dart';
+import 'package:tft_guide/ui/pages/game/old/full_item.dart';
+import 'package:tft_guide/ui/pages/game/old/title_text.dart';
 import 'package:tft_guide/ui/widgets/loading_indicator.dart';
 
 class GamePage extends StatelessWidget {

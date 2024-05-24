@@ -4,7 +4,7 @@ import 'package:tft_guide/domain/blocs/old/option_selection/cubit.dart';
 import 'package:tft_guide/domain/blocs/old/show_correct_option/cubit.dart';
 import 'package:tft_guide/domain/models/old/item.dart';
 import 'package:tft_guide/domain/models/old/question.dart';
-import 'package:tft_guide/ui/pages/game/option_box.dart';
+import 'package:tft_guide/ui/pages/game/old/option_box.dart';
 
 class Options extends StatefulWidget {
   const Options({
