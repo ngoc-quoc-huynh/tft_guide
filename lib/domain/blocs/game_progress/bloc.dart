@@ -18,9 +18,9 @@ final class GameProgressBloc
   ) {
     if (state case GameProgressInProgress(:final currentProgress)) {
       final nextProgress = currentProgress + 1;
-      final stateToConstruct = switch (nextProgress >= Sizes.questionsAmount) {
+      final stateToConstruct = switch (nextProgress > Sizes.questionsAmount) {
         false => GameProgressInProgress.new,
-        true => GameProgressOnLastLevel.new,
+        true => GameProgressFinished.new,
       };
       final constructedState = Function.apply(
         stateToConstruct,

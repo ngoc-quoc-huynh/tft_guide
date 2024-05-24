@@ -6,7 +6,6 @@ import 'package:tft_guide/ui/pages/items/page.dart';
 import 'package:tft_guide/ui/pages/ranked/page.dart';
 import 'package:tft_guide/ui/pages/scaffold_navbar.dart';
 import 'package:tft_guide/ui/pages/settings/page.dart';
-import 'package:tft_guide/ui/widgets/quit_dialog.dart';
 
 final class GoRouterConfig {
   const GoRouterConfig._();
@@ -33,7 +32,6 @@ final class GoRouterConfig {
                     parentNavigatorKey: _rootNavigatorKey,
                     name: GamePage.routeName,
                     path: 'game',
-                    onExit: (context, _) => QuitDialog.show(context),
                     builder: (_, __) => const GamePage(),
                   ),
                 ],
