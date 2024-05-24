@@ -14,6 +14,6 @@ final class GameProgressInProgress extends GameProgressState {
   const GameProgressInProgress(super.currentProgress);
 }
 
-final class GameProgressOnLastLevel extends GameProgressState {
-  const GameProgressOnLastLevel(super.currentProgress);
+final class GameProgressFinished extends GameProgressState {
+  const GameProgressFinished(super.currentProgress);
 }
