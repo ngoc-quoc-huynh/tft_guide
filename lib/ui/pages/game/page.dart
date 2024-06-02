@@ -1,10 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/blocs/game_progress/bloc.dart';
 import 'package:tft_guide/static/resources/assets.dart';
-import 'package:tft_guide/ui/pages/game/feedback.dart';
+import 'package:tft_guide/static/resources/sizes.dart';
+import 'package:tft_guide/ui/pages/game/check_button.dart';
 import 'package:tft_guide/ui/pages/game/progress_bar.dart';
 import 'package:tft_guide/ui/pages/game/question/body.dart';
 import 'package:tft_guide/ui/pages/game/question/header.dart';
@@ -25,52 +24,56 @@ class GamePage extends StatelessWidget {
         appBar: AppBar(
           leading: const QuitButton(),
           title: const GameProgressBar(),
-        ),
-        floatingActionButton: Builder(
-          builder: (context) => FloatingActionButton(
-            onPressed: () => unawaited(
-              FeedbackBottomSheet.show(context),
-            ),
-            child: const Text('Next'),
-          ),
+          forceMaterialTransparency: true,
         ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(
+            horizontal: Sizes.horizontalPadding,
+          ),
           child: Column(
             children: [
-              SelectionItemText(
-                text: 'Adaptive Helm',
-                state: SelectionItemState.selected,
-                onPressed: () {
-                  return;
-                },
+              Expanded(
+                // TODO: Use ListView.builder/Slivers
+                child: ListView(
+                  children: [
+                    SelectionItemText(
+                      text: 'Adaptive Helm',
+                      state: SelectionItemState.selected,
+                      onPressed: () {
+                        return;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    SelectionItemImage(
+                      asset: Assets.chainVest,
+                      onPressed: () {
+                        return;
+                      },
+                      state: SelectionItemState.correct,
+                    ),
+                    const SizedBox(height: 20),
+                    SelectionItemImages(
+                      asset1: Assets.bfSword,
+                      asset2: Assets.bfSword,
+                      onPressed: () {
+                        return;
+                      },
+                      state: SelectionItemState.unselected,
+                    ),
+                    const SizedBox(height: 20),
+                    SelectionItemImages(
+                      asset1: Assets.bfSword,
+                      asset2: Assets.bfSword,
+                      state: SelectionItemState.wrong,
+                      onPressed: () {
+                        return;
+                      },
+                    ),
+                    const ExampleBody(),
+                  ],
+                ),
               ),
-              const SizedBox(height: 20),
-              SelectionItemImage(
-                asset: Assets.chainVest,
-                onPressed: () {
-                  return;
-                },
-                state: SelectionItemState.correct,
-              ),
-              const SizedBox(height: 20),
-              SelectionItemImages(
-                asset1: Assets.bfSword,
-                asset2: Assets.bfSword,
-                onPressed: () {
-                  return;
-                },
-                state: SelectionItemState.unselected,
-              ),
-              const SizedBox(height: 20),
-              SelectionItemImages(
-                asset1: Assets.bfSword,
-                asset2: Assets.bfSword,
-                state: SelectionItemState.wrong,
-                onPressed: () {
-                  return;
-                },
-              ),
+              const CheckButton(),
             ],
           ),
         ),
