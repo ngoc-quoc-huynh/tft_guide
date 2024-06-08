@@ -26,54 +26,15 @@ class GamePage extends StatelessWidget {
           title: const GameProgressBar(),
           forceMaterialTransparency: true,
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(
+        body: const Padding(
+          padding: EdgeInsets.symmetric(
             horizontal: Sizes.horizontalPadding,
           ),
           child: Column(
             children: [
-              Expanded(
-                // TODO: Use ListView.builder/Slivers
-                child: ListView(
-                  children: [
-                    SelectionItemText(
-                      text: 'Adaptive Helm',
-                      state: SelectionItemState.selected,
-                      onPressed: () {
-                        return;
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    SelectionItemImage(
-                      asset: Assets.chainVest,
-                      onPressed: () {
-                        return;
-                      },
-                      state: SelectionItemState.correct,
-                    ),
-                    const SizedBox(height: 20),
-                    SelectionItemImages(
-                      asset1: Assets.bfSword,
-                      asset2: Assets.bfSword,
-                      onPressed: () {
-                        return;
-                      },
-                      state: SelectionItemState.unselected,
-                    ),
-                    const SizedBox(height: 20),
-                    SelectionItemImages(
-                      asset1: Assets.bfSword,
-                      asset2: Assets.bfSword,
-                      state: SelectionItemState.wrong,
-                      onPressed: () {
-                        return;
-                      },
-                    ),
-                    const ExampleBody(),
-                  ],
-                ),
-              ),
-              const CheckButton(),
+              ExampleBody(),
+              SizedBox(height: 20),
+              CheckButton(),
             ],
           ),
         ),
@@ -88,9 +49,99 @@ class ExampleBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Expanded(
+      child: Column(
+        children: [
+          const GameQuestion(
+            header: QuestionHeader(
+              text: 'Which item matches this description?',
+            ),
+            body: QuestionBodyDescription(
+              text: 'Front: Gain 35 armor and magic resistance. Additionally, '
+                  'gain 1 mana when you are attacked. Back: Gain 15 AP and '
+                  'gain 10 mana every 3 seconds.',
+            ),
+          ),
+          const Spacer(),
+          Expanded(
+            flex: 5,
+            child: Column(
+              children: [
+                SelectionItemImage(
+                  asset: Assets.bfSword,
+                  state: SelectionItemState.selected,
+                  onPressed: () {
+                    return;
+                  },
+                ),
+                const SizedBox(height: 20),
+                SelectionItemImage(
+                  asset: Assets.bfSword,
+                  state: SelectionItemState.selected,
+                  onPressed: () {
+                    return;
+                  },
+                ),
+                const SizedBox(height: 20),
+                SelectionItemImage(
+                  asset: Assets.bfSword,
+                  state: SelectionItemState.selected,
+                  onPressed: () {
+                    return;
+                  },
+                ),
+              ],
+            ),
+          ),
+          const Spacer(flex: 2),
+        ],
+      ),
+    );
+  }
+}
+
+// ignore: prefer-single-widget-per-file, for testing purpose.
+class AllPossibilitiesBody extends StatelessWidget {
+  const AllPossibilitiesBody({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
       children: [
-        GameQuestion(
+        SelectionItemText(
+          text: 'Adaptive Helm',
+          state: SelectionItemState.selected,
+          onPressed: () {
+            return;
+          },
+        ),
+        const SizedBox(height: 20),
+        SelectionItemImage(
+          asset: Assets.chainVest,
+          onPressed: () {
+            return;
+          },
+          state: SelectionItemState.correct,
+        ),
+        const SizedBox(height: 20),
+        SelectionItemImages(
+          asset1: Assets.bfSword,
+          asset2: Assets.bfSword,
+          onPressed: () {
+            return;
+          },
+          state: SelectionItemState.unselected,
+        ),
+        const SizedBox(height: 20),
+        SelectionItemImages(
+          asset1: Assets.bfSword,
+          asset2: Assets.bfSword,
+          state: SelectionItemState.wrong,
+          onPressed: () {
+            return;
+          },
+        ),
+        const GameQuestion(
           header: QuestionHeader(
             text: 'Which items together make up this item?',
           ),
@@ -98,8 +149,8 @@ class ExampleBody extends StatelessWidget {
             asset: Assets.bfSword,
           ),
         ),
-        Divider(),
-        GameQuestion(
+        const Divider(),
+        const GameQuestion(
           header: QuestionHeader(
             text: 'Which items together make up this item?',
           ),
@@ -108,8 +159,8 @@ class ExampleBody extends StatelessWidget {
             asset2: Assets.chainVest,
           ),
         ),
-        Divider(),
-        GameQuestion(
+        const Divider(),
+        const GameQuestion(
           header: QuestionHeader(
             text: 'Which items together make up this item?',
           ),
@@ -121,8 +172,8 @@ class ExampleBody extends StatelessWidget {
                 'mana every 3 seconds.',
           ),
         ),
-        Divider(),
-        GameQuestion(
+        const Divider(),
+        const GameQuestion(
           header: QuestionHeader(
             text: 'Which item matches this title?',
           ),
