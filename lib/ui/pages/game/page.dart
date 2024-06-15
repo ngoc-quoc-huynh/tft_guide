@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tft_guide/domain/blocs/check_selected_item/cubit.dart';
 import 'package:tft_guide/domain/blocs/game_progress/bloc.dart';
+import 'package:tft_guide/domain/blocs/selected_item/cubit.dart';
+import 'package:tft_guide/domain/models/item.dart';
+import 'package:tft_guide/domain/models/question.dart';
 import 'package:tft_guide/static/resources/assets.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/pages/game/check_button.dart';
+import 'package:tft_guide/ui/pages/game/item_selection.dart';
 import 'package:tft_guide/ui/pages/game/progress_bar.dart';
 import 'package:tft_guide/ui/pages/game/question/body.dart';
 import 'package:tft_guide/ui/pages/game/question/header.dart';
@@ -26,16 +31,52 @@ class GamePage extends StatelessWidget {
           title: const GameProgressBar(),
           forceMaterialTransparency: true,
         ),
-        body: const Padding(
-          padding: EdgeInsets.symmetric(
+        body: Padding(
+          padding: const EdgeInsets.symmetric(
             horizontal: Sizes.horizontalPadding,
           ),
-          child: Column(
-            children: [
-              ExampleBody(),
-              SizedBox(height: 20),
-              CheckButton(),
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider<CheckSelectedItemCubit>(
+                create: (_) => CheckSelectedItemCubit(
+                  const BaseItem(
+                    name: 'B.F Sword',
+                    description: '10 Attack Damage',
+                    asset: Assets.bfSword,
+                  ),
+                ),
+              ),
+              BlocProvider<SelectedItemCubit>(
+                create: (_) => SelectedItemCubit(),
+              ),
             ],
+            child: const Column(
+              children: [
+                ExampleBody(
+                  question: DescriptionTextQuestion(
+                    correctItem: BaseItem(
+                      name: 'B.F Sword',
+                      description: '10 Attack Damage',
+                      asset: Assets.bfSword,
+                    ),
+                    otherItems: <BaseItem>[
+                      BaseItem(
+                        name: 'Chain Vest',
+                        description: '10 Armor',
+                        asset: Assets.chainVest,
+                      ),
+                      BaseItem(
+                        name: 'Tear of the Goddess',
+                        description: '10 Mage',
+                        asset: Assets.tearOfTheGoddess,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20),
+                CheckButton(),
+              ],
+            ),
           ),
         ),
       ),
@@ -45,52 +86,29 @@ class GamePage extends StatelessWidget {
 
 // ignore: prefer-single-widget-per-file, for testing purpose.
 class ExampleBody extends StatelessWidget {
-  const ExampleBody({super.key});
+  const ExampleBody({required this.question, super.key});
+
+  final DescriptionTextQuestion question;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Column(
         children: [
-          const GameQuestion(
-            header: QuestionHeader(
+          GameQuestion(
+            header: const QuestionHeader(
               text: 'Which item matches this description?',
             ),
             body: QuestionBodyDescription(
-              text: 'Front: Gain 35 armor and magic resistance. Additionally, '
-                  'gain 1 mana when you are attacked. Back: Gain 15 AP and '
-                  'gain 10 mana every 3 seconds.',
+              text: question.correctItem.description,
             ),
           ),
           const Spacer(),
           Expanded(
             flex: 5,
-            child: Column(
-              children: [
-                SelectionItemImage(
-                  asset: Assets.bfSword,
-                  state: SelectionItemState.selected,
-                  onPressed: () {
-                    return;
-                  },
-                ),
-                const SizedBox(height: 20),
-                SelectionItemImage(
-                  asset: Assets.bfSword,
-                  state: SelectionItemState.selected,
-                  onPressed: () {
-                    return;
-                  },
-                ),
-                const SizedBox(height: 20),
-                SelectionItemImage(
-                  asset: Assets.bfSword,
-                  state: SelectionItemState.selected,
-                  onPressed: () {
-                    return;
-                  },
-                ),
-              ],
+            child: ItemSelection(
+              correctItem: question.correctItem,
+              otherItems: question.otherItems,
             ),
           ),
           const Spacer(flex: 2),
