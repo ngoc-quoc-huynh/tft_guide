@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/blocs/check_selected_item/cubit.dart';
 import 'package:tft_guide/domain/blocs/game_progress/bloc.dart';
 import 'package:tft_guide/domain/blocs/selected_item/cubit.dart';
@@ -15,6 +18,7 @@ import 'package:tft_guide/ui/pages/game/question/header.dart';
 import 'package:tft_guide/ui/pages/game/question/question.dart';
 import 'package:tft_guide/ui/pages/game/quit_button.dart';
 import 'package:tft_guide/ui/pages/game/selection_item/selection_item.dart';
+import 'package:tft_guide/ui/pages/ranked/page.dart';
 
 class GamePage extends StatelessWidget {
   const GamePage({super.key});
@@ -31,56 +35,108 @@ class GamePage extends StatelessWidget {
           title: const GameProgressBar(),
           forceMaterialTransparency: true,
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(
+        body: const Padding(
+          padding: EdgeInsets.symmetric(
             horizontal: Sizes.horizontalPadding,
           ),
-          child: MultiBlocProvider(
-            providers: [
-              BlocProvider<CheckSelectedItemCubit>(
-                create: (_) => CheckSelectedItemCubit(
-                  const BaseItem(
+          child: _Body(),
+        ),
+      ),
+    );
+  }
+}
+
+class _Body extends StatefulWidget {
+  const _Body();
+
+  @override
+  State<_Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<_Body> {
+  final _controller = PageController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<GameProgressBloc, GameProgressState>(
+      listener: _onGameProgressStateChange,
+      child: PageView.builder(
+        controller: _controller,
+        physics: const NeverScrollableScrollPhysics(),
+        // TODO: Retrieve itemCount
+        itemCount: 10,
+        itemBuilder: (context, index) => MultiBlocProvider(
+          providers: [
+            BlocProvider<CheckSelectedItemCubit>(
+              create: (_) => CheckSelectedItemCubit(
+                const BaseItem(
+                  name: 'B.F Sword',
+                  description: '10 Attack Damage',
+                  asset: Assets.bfSword,
+                ),
+              ),
+            ),
+            BlocProvider<SelectedItemCubit>(
+              create: (_) => SelectedItemCubit(),
+            ),
+          ],
+          child: const Column(
+            children: [
+              ExampleBody(
+                question: DescriptionTextQuestion(
+                  correctItem: BaseItem(
                     name: 'B.F Sword',
                     description: '10 Attack Damage',
                     asset: Assets.bfSword,
                   ),
-                ),
-              ),
-              BlocProvider<SelectedItemCubit>(
-                create: (_) => SelectedItemCubit(),
-              ),
-            ],
-            child: const Column(
-              children: [
-                ExampleBody(
-                  question: DescriptionTextQuestion(
-                    correctItem: BaseItem(
-                      name: 'B.F Sword',
-                      description: '10 Attack Damage',
-                      asset: Assets.bfSword,
+                  otherItems: <BaseItem>[
+                    BaseItem(
+                      name: 'Chain Vest',
+                      description: '10 Armor',
+                      asset: Assets.chainVest,
                     ),
-                    otherItems: <BaseItem>[
-                      BaseItem(
-                        name: 'Chain Vest',
-                        description: '10 Armor',
-                        asset: Assets.chainVest,
-                      ),
-                      BaseItem(
-                        name: 'Tear of the Goddess',
-                        description: '10 Mage',
-                        asset: Assets.tearOfTheGoddess,
-                      ),
-                    ],
-                  ),
+                    BaseItem(
+                      name: 'Tear of the Goddess',
+                      description: '10 Mage',
+                      asset: Assets.tearOfTheGoddess,
+                    ),
+                  ],
                 ),
-                SizedBox(height: 20),
-                CheckButton(),
-              ],
-            ),
+              ),
+              SizedBox(height: 20),
+              CheckButton(),
+            ],
           ),
         ),
       ),
     );
+  }
+
+  void _onGameProgressStateChange(
+    BuildContext context,
+    GameProgressState state,
+  ) {
+    switch (state) {
+      case GameProgressInProgress():
+        unawaited(
+          _controller.animateToPage(
+            state.currentProgress,
+            // TODO: Adjust values
+            duration: const Duration(
+              milliseconds: 300,
+            ),
+            curve: Curves.easeInOutCubic,
+          ),
+        );
+      case GameProgressFinished():
+        context.goNamed(RankedPage.routeName);
+    }
   }
 }
 

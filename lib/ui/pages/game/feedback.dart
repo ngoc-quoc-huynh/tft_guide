@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/blocs/game_progress/bloc.dart';
-import 'package:tft_guide/ui/pages/ranked/page.dart';
 
 class FeedbackBottomSheet extends StatelessWidget {
   const FeedbackBottomSheet._(this.isCorrect);
@@ -55,14 +54,11 @@ class FeedbackBottomSheet extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 10),
-            BlocListener<GameProgressBloc, GameProgressState>(
-              listener: _onGameProgressStateChange,
-              child: FractionallySizedBox(
-                widthFactor: 1,
-                child: FilledButton(
-                  onPressed: () => _onContinue(context),
-                  child: const Text('Continue'),
-                ),
+            FractionallySizedBox(
+              widthFactor: 1,
+              child: FilledButton(
+                onPressed: () => _onContinue(context),
+                child: const Text('Continue'),
               ),
             ),
           ],
@@ -75,15 +71,6 @@ class FeedbackBottomSheet extends StatelessWidget {
         false => Colors.red,
         true => Colors.green,
       };
-
-  void _onGameProgressStateChange(
-    BuildContext context,
-    GameProgressState state,
-  ) {
-    if (state is GameProgressFinished) {
-      context.goNamed(RankedPage.routeName);
-    }
-  }
 
   void _onContinue(BuildContext context) {
     context.pop();
