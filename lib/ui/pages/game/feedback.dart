@@ -4,23 +4,29 @@ import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/blocs/game_progress/bloc.dart';
 import 'package:tft_guide/ui/pages/ranked/page.dart';
 
-// TODO: Handle both correct and error feedback
 class FeedbackBottomSheet extends StatelessWidget {
-  const FeedbackBottomSheet._();
+  const FeedbackBottomSheet._(this.isCorrect);
 
-  static Future<void> show(BuildContext context) => showModalBottomSheet<void>(
+  final bool isCorrect;
+
+  static Future<void> show(
+    BuildContext context, {
+    required bool isCorrect,
+  }) =>
+      showModalBottomSheet<void>(
         isDismissible: false,
         barrierColor: Colors.transparent,
         enableDrag: false,
         context: context,
         builder: (_) => BlocProvider.value(
           value: context.read<GameProgressBloc>(),
-          child: const FeedbackBottomSheet._(),
+          child: FeedbackBottomSheet._(isCorrect),
         ),
       );
 
   @override
   Widget build(BuildContext context) {
+    final color = _color;
     return BottomSheet(
       enableDrag: false,
       onClosing: () {
@@ -33,9 +39,9 @@ class FeedbackBottomSheet extends StatelessWidget {
           children: [
             Row(
               children: [
-                const Icon(
+                Icon(
                   Icons.check_circle,
-                  color: Colors.green,
+                  color: color,
                 ),
                 const SizedBox(width: 10),
                 // TODO: Retrieve this text from i18n randomly
@@ -44,7 +50,7 @@ class FeedbackBottomSheet extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .headlineSmall
-                      ?.copyWith(color: Colors.green),
+                      ?.copyWith(color: color),
                 ),
               ],
             ),
@@ -64,6 +70,11 @@ class FeedbackBottomSheet extends StatelessWidget {
       ),
     );
   }
+
+  Color get _color => switch (isCorrect) {
+        false => Colors.red,
+        true => Colors.green,
+      };
 
   void _onGameProgressStateChange(
     BuildContext context,
