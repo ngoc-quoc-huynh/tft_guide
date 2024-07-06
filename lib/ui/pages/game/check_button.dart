@@ -41,7 +41,7 @@ class CheckButton extends StatelessWidget {
 
   void _onCheckSelectedItemStateChanged(BuildContext context, bool? isCorrect) {
     if (isCorrect != null) {
-      unawaited(FeedbackBottomSheet.show(context));
+      unawaited(FeedbackBottomSheet.show(context, isCorrect: isCorrect));
     }
   }
 }
