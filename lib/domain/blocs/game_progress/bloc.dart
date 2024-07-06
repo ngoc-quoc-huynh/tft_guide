@@ -8,7 +8,7 @@ part 'state.dart';
 
 final class GameProgressBloc
     extends Bloc<GameProgressEvent, GameProgressState> {
-  GameProgressBloc() : super(const GameProgressInProgress(1)) {
+  GameProgressBloc() : super(const GameProgressInProgress(0)) {
     on<GameProgressNextEvent>(_onGameProgressNextEvent);
   }
 
@@ -18,7 +18,8 @@ final class GameProgressBloc
   ) {
     if (state case GameProgressInProgress(:final currentProgress)) {
       final nextProgress = currentProgress + 1;
-      final stateToConstruct = switch (nextProgress > Sizes.questionsAmount) {
+      final stateToConstruct =
+          switch (nextProgress > Sizes.questionsAmount - 1) {
         false => GameProgressInProgress.new,
         true => GameProgressFinished.new,
       };
