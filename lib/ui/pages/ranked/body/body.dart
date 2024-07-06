@@ -18,15 +18,8 @@ class RankedBody extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: SizedBox(
           width: double.infinity,
-          child: MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (_) => EloCubit(),
-              ),
-              BlocProvider<EloGainCubit>(
-                create: (_) => EloGainCubit(),
-              ),
-            ],
+          child: BlocProvider<EloCubit>(
+            create: (_) => EloCubit(),
             child: const _Content(),
           ),
         ),
@@ -40,27 +33,36 @@ class _Content extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => RankCubit()..compute(context.read<EloCubit>().state),
-      child: const Column(
-        children: [
-          RankAsset(),
-          SizedBox(height: 10),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Spacer(),
-              CurrentLp(),
-              Expanded(
-                child: LpGain(),
-              ),
-            ],
-          ),
-          SizedBox(height: 10),
-          StartGameButton(),
-        ],
+    return BlocListener<EloGainCubit, int?>(
+      listener: _onEloGainStateChange,
+      child: BlocProvider<RankCubit>(
+        create: (_) => RankCubit()..compute(context.read<EloCubit>().state),
+        child: const Column(
+          children: [
+            RankAsset(),
+            SizedBox(height: 10),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Spacer(),
+                CurrentLp(),
+                Expanded(
+                  child: LpGain(),
+                ),
+              ],
+            ),
+            SizedBox(height: 10),
+            StartGameButton(),
+          ],
+        ),
       ),
     );
+  }
+
+  void _onEloGainStateChange(BuildContext context, int? eloGain) {
+    if (eloGain != null) {
+      context.read<EloCubit>().increase(eloGain);
+    }
   }
 }

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/blocs/check_selected_item/cubit.dart';
+import 'package:tft_guide/domain/blocs/correct_answers/cubit.dart';
 import 'package:tft_guide/domain/blocs/selected_item/cubit.dart';
 import 'package:tft_guide/domain/models/item.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
@@ -41,6 +42,9 @@ class CheckButton extends StatelessWidget {
 
   void _onCheckSelectedItemStateChanged(BuildContext context, bool? isCorrect) {
     if (isCorrect != null) {
+      if (isCorrect) {
+        context.read<CorrectAnswersCubit>().increase();
+      }
       unawaited(FeedbackBottomSheet.show(context, isCorrect: isCorrect));
     }
   }

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/blocs/check_selected_item/cubit.dart';
+import 'package:tft_guide/domain/blocs/correct_answers/cubit.dart';
+import 'package:tft_guide/domain/blocs/elo_gain/cubit.dart';
 import 'package:tft_guide/domain/blocs/game_progress/bloc.dart';
 import 'package:tft_guide/domain/blocs/selected_item/cubit.dart';
 import 'package:tft_guide/domain/models/item.dart';
@@ -27,8 +29,16 @@ class GamePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<GameProgressBloc>(
-      create: (_) => GameProgressBloc(),
+    //  print(context.read<EloGainCubit>().state);
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<GameProgressBloc>(
+          create: (_) => GameProgressBloc(),
+        ),
+        BlocProvider<CorrectAnswersCubit>(
+          create: (_) => CorrectAnswersCubit(),
+        ),
+      ],
       child: Scaffold(
         appBar: AppBar(
           leading: const QuitButton(),
@@ -135,7 +145,15 @@ class _BodyState extends State<_Body> {
           ),
         );
       case GameProgressFinished():
-        context.goNamed(RankedPage.routeName);
+        final correctAnswers = context.read<CorrectAnswersCubit>().state;
+        final eloGain = switch (correctAnswers) {
+          0 => null,
+          _ => correctAnswers,
+        };
+
+        context
+          ..read<EloGainCubit>().gain(eloGain)
+          ..goNamed(RankedPage.routeName);
     }
   }
 }
