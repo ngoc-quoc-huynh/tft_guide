@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tft_guide/domain/blocs/feedback/cubit.dart';
 import 'package:tft_guide/domain/blocs/game_progress/bloc.dart';
+import 'package:tft_guide/ui/widgets/loading_indicator.dart';
 
 class FeedbackBottomSheet extends StatelessWidget {
   const FeedbackBottomSheet._(this.isCorrect);
@@ -43,13 +45,23 @@ class FeedbackBottomSheet extends StatelessWidget {
                   color: color,
                 ),
                 const SizedBox(width: 10),
-                // TODO: Retrieve this text from i18n randomly
-                Text(
-                  'Challenger on my way!',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineSmall
-                      ?.copyWith(color: color),
+                Expanded(
+                  child: BlocProvider<FeedbackCubit>(
+                    create: (_) =>
+                        FeedbackCubit()..getFeedback(isCorrect: isCorrect),
+                    child: BlocBuilder<FeedbackCubit, String?>(
+                      builder: (context, feedback) => switch (feedback) {
+                        null => const LoadingIndicator(),
+                        String() => Text(
+                            feedback,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall
+                                ?.copyWith(color: color),
+                          ),
+                      },
+                    ),
+                  ),
                 ),
               ],
             ),

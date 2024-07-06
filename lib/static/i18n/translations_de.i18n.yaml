@@ -18,6 +18,30 @@ pages:
       three: 'III'
       four: 'IV'
     lp(int number): '$number LP'
+  game:
+    feedback:
+      correct:
+        - 'Challenger ich komme!'
+        -  'Ich kann ja doch was.'
+        - 'Nice, bald kann ich mit Tom & Quoc spielen.'
+        - 'Supa dupa!'
+        - 'Easy peasy lemon squeezy.'
+        - 'Ich wusste, dass ich es schaffen kann!'
+        - 'Ich bin stolz auf mich.'
+        - 'Ich bin mir sicher, dass ich noch mehr erreichen kann.'
+        - 'On my way Tom & Quoc!'
+        - 'TFT Profi!'
+      wrong:
+        - 'Iron ich komme!'
+        - 'Ich kann nichts.'
+        - 'Wenn das so weiter geht, werde ich nie mit Tom & Quoc spielen können!'
+        - 'Nicht gut!'
+        - 'Streng dich an Anna!'
+        - 'Ich denke, ich brauche eine Pause.'
+        - 'Ich glaube, ich habe eine falsche Entscheidung getroffen.'
+        - 'Ich weiß nicht, ob ich das schaffen kann.'
+        - 'Mist, das war schwer.'
+        - 'Fokus Anna!'
   item:
     description: 'Beschreibung'
     hint: 'Tipp'
