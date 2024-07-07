@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/blocs/check_selected_item/cubit.dart';
 import 'package:tft_guide/domain/blocs/selected_item/cubit.dart';
-import 'package:tft_guide/domain/models/item.dart';
+import 'package:tft_guide/domain/models/question_item.dart';
 import 'package:tft_guide/ui/pages/game/selection_item/selection_item.dart';
 
 class ItemSelection extends StatefulWidget {
@@ -13,15 +13,15 @@ class ItemSelection extends StatefulWidget {
     super.key,
   });
 
-  final Item correctItem;
-  final List<Item> otherItems;
+  final QuestionItem correctItem;
+  final List<QuestionItem> otherItems;
 
   @override
   State<ItemSelection> createState() => _ItemSelectionState();
 }
 
 class _ItemSelectionState extends State<ItemSelection> {
-  late final List<Item> _items;
+  late final List<QuestionItem> _items;
 
   @override
   void initState() {
@@ -41,7 +41,7 @@ class _ItemSelectionState extends State<ItemSelection> {
               child: BlocBuilder<CheckSelectedItemCubit, bool?>(
                 builder: (context, isCorrect) => IgnorePointer(
                   ignoring: isCorrect != null,
-                  child: BlocBuilder<SelectedItemCubit, Item?>(
+                  child: BlocBuilder<SelectedItemCubit, QuestionItem?>(
                     builder: (context, selectedItem) => SelectionItemImage(
                       asset: item.asset,
                       state: _determineSelectionItemState(
@@ -62,8 +62,8 @@ class _ItemSelectionState extends State<ItemSelection> {
   }
 
   SelectionItemState _determineSelectionItemState(
-    Item item,
-    Item? selectedItem,
+    QuestionItem item,
+    QuestionItem? selectedItem,
     bool? isCorrect,
   ) =>
       switch (item == selectedItem) {
