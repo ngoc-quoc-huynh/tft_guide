@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:tft_guide/domain/models/item.dart';
+import 'package:tft_guide/domain/models/question_item.dart';
 
 sealed class Question extends Equatable {
   const Question({
@@ -7,8 +7,8 @@ sealed class Question extends Equatable {
     required this.otherItems,
   });
 
-  final Item correctItem;
-  final List<Item> otherItems;
+  final QuestionItem correctItem;
+  final List<QuestionItem> otherItems;
 
   @override
   List<Object?> get props => [
@@ -19,8 +19,8 @@ sealed class Question extends Equatable {
 
 final class BaseItemsTextQuestion extends Question {
   const BaseItemsTextQuestion({
-    required FullItem correctItem,
-    required List<FullItem> otherItems,
+    required QuestionFullItem correctItem,
+    required List<QuestionFullItem> otherItems,
   }) : super(
           correctItem: correctItem,
           otherItems: otherItems,
@@ -29,8 +29,8 @@ final class BaseItemsTextQuestion extends Question {
 
 final class BaseItemsImageQuestion extends Question {
   const BaseItemsImageQuestion({
-    required FullItem correctItem,
-    required List<FullItem> otherItems,
+    required QuestionFullItem correctItem,
+    required List<QuestionFullItem> otherItems,
   }) : super(
           correctItem: correctItem,
           otherItems: otherItems,
@@ -39,8 +39,8 @@ final class BaseItemsImageQuestion extends Question {
 
 final class FullItemTextQuestion extends Question {
   const FullItemTextQuestion({
-    required FullItem correctItem,
-    required List<FullItem> otherItems,
+    required QuestionFullItem correctItem,
+    required List<QuestionFullItem> otherItems,
   }) : super(
           correctItem: correctItem,
           otherItems: otherItems,
@@ -49,8 +49,8 @@ final class FullItemTextQuestion extends Question {
 
 final class FullItemImageQuestion extends Question {
   const FullItemImageQuestion({
-    required FullItem correctItem,
-    required List<FullItem> otherItems,
+    required QuestionFullItem correctItem,
+    required List<QuestionFullItem> otherItems,
   }) : super(
           correctItem: correctItem,
           otherItems: otherItems,
@@ -62,8 +62,10 @@ final class TitleTextQuestion extends Question {
     required super.correctItem,
     required super.otherItems,
   }) : assert(
-          (correctItem is BaseItem && otherItems is List<BaseItem>) ||
-              (correctItem is FullItem && otherItems is List<FullItem>),
+          (correctItem is QuestionBaseItem &&
+                  otherItems is List<QuestionBaseItem>) ||
+              (correctItem is QuestionFullItem &&
+                  otherItems is List<QuestionFullItem>),
           'All items must be of the same type.',
         );
 }
@@ -73,8 +75,10 @@ final class TitleImageQuestion extends Question {
     required super.correctItem,
     required super.otherItems,
   }) : assert(
-          (correctItem is BaseItem && otherItems is List<BaseItem>) ||
-              (correctItem is FullItem && otherItems is List<FullItem>),
+          (correctItem is QuestionBaseItem &&
+                  otherItems is List<QuestionBaseItem>) ||
+              (correctItem is QuestionFullItem &&
+                  otherItems is List<QuestionFullItem>),
           'All items must be of the same type.',
         );
 }
@@ -84,8 +88,10 @@ final class DescriptionTextQuestion extends Question {
     required super.correctItem,
     required super.otherItems,
   }) : assert(
-          (correctItem is BaseItem && otherItems is List<BaseItem>) ||
-              (correctItem is FullItem && otherItems is List<FullItem>),
+          (correctItem is QuestionBaseItem &&
+                  otherItems is List<QuestionBaseItem>) ||
+              (correctItem is QuestionFullItem &&
+                  otherItems is List<QuestionFullItem>),
           'All items must be of the same type.',
         );
 }
@@ -95,8 +101,10 @@ final class DescriptionImageQuestion extends Question {
     required super.correctItem,
     required super.otherItems,
   }) : assert(
-          (correctItem is BaseItem && otherItems is List<BaseItem>) ||
-              (correctItem is FullItem && otherItems is List<FullItem>),
+          (correctItem is QuestionBaseItem &&
+                  otherItems is List<QuestionBaseItem>) ||
+              (correctItem is QuestionFullItem &&
+                  otherItems is List<QuestionFullItem>),
           'All items must be of the same type.',
         );
 }

@@ -8,8 +8,8 @@ import 'package:tft_guide/domain/blocs/correct_answers/cubit.dart';
 import 'package:tft_guide/domain/blocs/elo_gain/cubit.dart';
 import 'package:tft_guide/domain/blocs/game_progress/bloc.dart';
 import 'package:tft_guide/domain/blocs/selected_item/cubit.dart';
-import 'package:tft_guide/domain/models/item.dart';
 import 'package:tft_guide/domain/models/question.dart';
+import 'package:tft_guide/domain/models/question_item.dart';
 import 'package:tft_guide/static/resources/assets.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/pages/game/check_button.dart';
@@ -85,7 +85,7 @@ class _BodyState extends State<_Body> {
           providers: [
             BlocProvider<CheckSelectedItemCubit>(
               create: (_) => CheckSelectedItemCubit(
-                const BaseItem(
+                const QuestionBaseItem(
                   name: 'B.F Sword',
                   description: '10 Attack Damage',
                   asset: Assets.bfSword,
@@ -100,18 +100,18 @@ class _BodyState extends State<_Body> {
             children: [
               ExampleBody(
                 question: DescriptionTextQuestion(
-                  correctItem: BaseItem(
+                  correctItem: QuestionBaseItem(
                     name: 'B.F Sword',
                     description: '10 Attack Damage',
                     asset: Assets.bfSword,
                   ),
-                  otherItems: <BaseItem>[
-                    BaseItem(
+                  otherItems: <QuestionBaseItem>[
+                    QuestionBaseItem(
                       name: 'Chain Vest',
                       description: '10 Armor',
                       asset: Assets.chainVest,
                     ),
-                    BaseItem(
+                    QuestionBaseItem(
                       name: 'Tear of the Goddess',
                       description: '10 Mage',
                       asset: Assets.tearOfTheGoddess,
