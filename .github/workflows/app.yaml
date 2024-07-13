@@ -1,8 +1,15 @@
-name: main
+name: app
 
 on:
   push:
+    paths:
+      - 'app/**'
+      - '.github/workflows/app.yaml'
   workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: ./app
 
 jobs:
   build:
@@ -24,13 +31,12 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/.tool-versions') }}
       - uses: asdf-vm/actions/install@v3
 
-
       - name: Cache Flutter dependencies
         uses: actions/cache@v4
         id: flutter_cache
         with:
           path: .dart_tool/
-          key: ${{ runner.os }}-${{ hashFiles('**/pubspec.lock') }}
+          key: ${{ runner.os }}-${{ hashFiles('app/**/pubspec.lock') }}
       - name: Install dependencies
         run: flutter pub get
 
