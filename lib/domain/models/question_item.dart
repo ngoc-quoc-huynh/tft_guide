@@ -35,15 +35,18 @@ final class QuestionFullItem extends QuestionItem {
     required super.asset,
     required this.baseItem1,
     required this.baseItem2,
+    this.isSpecial = false,
   });
 
   final QuestionBaseItem baseItem1;
   final QuestionBaseItem baseItem2;
+  final bool isSpecial;
 
   @override
   List<Object?> get props => [
         ...super.props,
         baseItem1,
         baseItem2,
+        isSpecial,
       ];
 }

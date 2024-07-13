@@ -87,7 +87,7 @@ final class QuestionBodyImages extends QuestionBody {
         ),
         const Icon(Icons.add),
         Image.asset(
-          asset1.path,
+          asset2.path,
           height: 100,
           width: 100,
         ),

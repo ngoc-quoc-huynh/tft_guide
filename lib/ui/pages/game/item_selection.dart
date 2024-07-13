@@ -3,18 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/blocs/check_selected_item/cubit.dart';
 import 'package:tft_guide/domain/blocs/selected_item/cubit.dart';
+import 'package:tft_guide/domain/models/question.dart';
 import 'package:tft_guide/domain/models/question_item.dart';
 import 'package:tft_guide/ui/pages/game/selection_item/selection_item.dart';
 
 class ItemSelection extends StatefulWidget {
   const ItemSelection({
-    required this.correctItem,
-    required this.otherItems,
+    required this.question,
     super.key,
   });
 
-  final QuestionItem correctItem;
-  final List<QuestionItem> otherItems;
+  final Question question;
 
   @override
   State<ItemSelection> createState() => _ItemSelectionState();
@@ -26,7 +25,8 @@ class _ItemSelectionState extends State<ItemSelection> {
   @override
   void initState() {
     super.initState();
-    _items = [widget.correctItem, ...widget.otherItems]..shuffle();
+    _items = [widget.question.correctItem, ...widget.question.otherItems]
+      ..shuffle();
   }
 
   @override
@@ -42,16 +42,49 @@ class _ItemSelectionState extends State<ItemSelection> {
                 builder: (context, isCorrect) => IgnorePointer(
                   ignoring: isCorrect != null,
                   child: BlocBuilder<SelectedItemCubit, QuestionItem?>(
-                    builder: (context, selectedItem) => SelectionItemImage(
-                      asset: item.asset,
-                      state: _determineSelectionItemState(
-                        item,
-                        selectedItem,
-                        isCorrect,
-                      ),
-                      onPressed: () =>
-                          context.read<SelectedItemCubit>().select(item),
-                    ),
+                    builder: (context, selectedItem) =>
+                        // TODO: Extract widget
+                        switch (widget.question) {
+                      BaseItemsTextQuestion() ||
+                      BaseItemsImageQuestion() =>
+                        SelectionItemImages(
+                          asset1: (item as QuestionFullItem).baseItem1.asset,
+                          asset2: item.baseItem2.asset,
+                          state: _determineSelectionItemState(
+                            item,
+                            selectedItem,
+                            isCorrect,
+                          ),
+                          onPressed: () =>
+                              context.read<SelectedItemCubit>().select(item),
+                        ),
+                      FullItemTextQuestion() ||
+                      TitleImageQuestion() ||
+                      DescriptionImageQuestion() =>
+                        SelectionItemText(
+                          text: item.name,
+                          state: _determineSelectionItemState(
+                            item,
+                            selectedItem,
+                            isCorrect,
+                          ),
+                          onPressed: () =>
+                              context.read<SelectedItemCubit>().select(item),
+                        ),
+                      FullItemImageQuestion() ||
+                      TitleTextQuestion() ||
+                      DescriptionTextQuestion() =>
+                        SelectionItemImage(
+                          asset: item.asset,
+                          state: _determineSelectionItemState(
+                            item,
+                            selectedItem,
+                            isCorrect,
+                          ),
+                          onPressed: () =>
+                              context.read<SelectedItemCubit>().select(item),
+                        ),
+                    },
                   ),
                 ),
               ),
@@ -68,7 +101,7 @@ class _ItemSelectionState extends State<ItemSelection> {
   ) =>
       switch (item == selectedItem) {
         true when isCorrect == false => SelectionItemState.wrong,
-        _ when isCorrect != null && item == widget.correctItem =>
+        _ when isCorrect != null && item == widget.question.correctItem =>
           SelectionItemState.correct,
         true => SelectionItemState.selected,
         _ => SelectionItemState.unselected,
