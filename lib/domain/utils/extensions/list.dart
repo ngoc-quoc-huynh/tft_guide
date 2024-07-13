@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:collection/collection.dart';
 
 extension ListExtension<T> on List<T> {
@@ -10,4 +12,8 @@ extension ListExtension<T> on List<T> {
         final bool Function(T) ignore =>
           List.of(this..removeWhere(ignore)).sample(count),
       };
+
+  T random() {
+    return this[Random().nextInt(length)];
+  }
 }
