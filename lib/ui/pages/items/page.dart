@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/domain/blocs/old/items/bloc.dart';
+import 'package:tft_guide/domain/blocs/items/bloc.dart';
 import 'package:tft_guide/ui/pages/items/list.dart';
 import 'package:tft_guide/ui/pages/items/loading_indicator.dart';
 

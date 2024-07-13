@@ -1,5 +1,6 @@
 part of 'bloc.dart';
 
+@immutable
 sealed class ItemsEvent {
   const ItemsEvent();
 }

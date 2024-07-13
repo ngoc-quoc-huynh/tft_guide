@@ -1,5 +1,5 @@
 import 'package:tft_guide/domain/interfaces/items.dart';
-import 'package:tft_guide/domain/models/old/item.dart';
+import 'package:tft_guide/domain/models/item_preview.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/assets.dart';
@@ -8,72 +8,63 @@ final class LocalItemsRepository implements ItemsAPI {
   const LocalItemsRepository();
 
   @override
-  Future<List<BaseItem>> loadBaseItems() async => _baseItems;
+  Future<List<BaseItemPreview>> loadBaseItems() async => _baseItems;
 
   @override
-  Future<List<FullItem>> loadFullItems() async => _fullItems;
+  Future<List<FullItemPreview>> loadFullItems() async => _fullItems;
 
-  static final _bfSword = BaseItem(
+  static final _bfSword = BaseItemPreview(
     id: 0,
     name: _baseItemsTranslations.bfSword.name,
     description: _baseItemsTranslations.bfSword.description,
-    hint: _baseItemsTranslations.bfSword.hint,
     asset: Assets.bfSword,
   );
-  static final _chainVest = BaseItem(
+  static final _chainVest = BaseItemPreview(
     id: 1,
     name: _baseItemsTranslations.chainVest.name,
     description: _baseItemsTranslations.chainVest.description,
-    hint: _baseItemsTranslations.chainVest.hint,
     asset: Assets.chainVest,
   );
-  static final _giantsBelt = BaseItem(
+  static final _giantsBelt = BaseItemPreview(
     id: 2,
     name: _baseItemsTranslations.giantsBelt.name,
     description: _baseItemsTranslations.giantsBelt.description,
-    hint: _baseItemsTranslations.giantsBelt.hint,
     asset: Assets.giantsBelt,
   );
-  static final _needlesslyLargeRod = BaseItem(
+  static final _needlesslyLargeRod = BaseItemPreview(
     id: 3,
     name: _baseItemsTranslations.needlesslyLargeRod.name,
     description: _baseItemsTranslations.needlesslyLargeRod.description,
-    hint: _baseItemsTranslations.needlesslyLargeRod.hint,
     asset: Assets.needlesslyLargeRod,
   );
-  static final _negatronCloak = BaseItem(
+  static final _negatronCloak = BaseItemPreview(
     id: 4,
     name: _baseItemsTranslations.negatronCloak.name,
     description: _baseItemsTranslations.negatronCloak.description,
-    hint: _baseItemsTranslations.negatronCloak.hint,
     asset: Assets.negatronCloak,
   );
-  static final _recurveBow = BaseItem(
+  static final _recurveBow = BaseItemPreview(
     id: 5,
     name: _baseItemsTranslations.recurveBow.name,
     description: _baseItemsTranslations.recurveBow.description,
-    hint: _baseItemsTranslations.recurveBow.hint,
     asset: Assets.recurveBow,
   );
-  static final _sparringGloves = BaseItem(
+  static final _sparringGloves = BaseItemPreview(
     id: 6,
     name: _baseItemsTranslations.sparringGloves.name,
     description: _baseItemsTranslations.sparringGloves.description,
-    hint: _baseItemsTranslations.sparringGloves.hint,
     asset: Assets.sparringGloves,
   );
-  static final _spatula = BaseItem(
+  static final _spatula = BaseItemPreview(
     id: 7,
     name: _baseItemsTranslations.spatula.name,
     description: _baseItemsTranslations.spatula.description,
-    hint: _baseItemsTranslations.spatula.hint,
     asset: Assets.spatula,
   );
-  static final _tearOfTheGoddess = BaseItem(
+  static final _tearOfTheGoddess = BaseItemPreview(
     id: 8,
     name: _baseItemsTranslations.tearOfTheGoddess.name,
     description: _baseItemsTranslations.tearOfTheGoddess.description,
-    hint: _baseItemsTranslations.tearOfTheGoddess.hint,
     asset: Assets.tearOfTheGoddess,
   );
 
@@ -90,339 +81,301 @@ final class LocalItemsRepository implements ItemsAPI {
   ];
 
   static final _fullItems = [
-    FullItem(
+    FullItemPreview(
       id: 9,
       name: _fullItemsTranslations.adaptiveHelm.name,
       description: _fullItemsTranslations.adaptiveHelm.description,
-      hint: _fullItemsTranslations.adaptiveHelm.hint,
       asset: Assets.adaptiveHelm,
-      component1: _negatronCloak,
-      component2: _tearOfTheGoddess,
+      baseItem1: _negatronCloak,
+      baseItem2: _tearOfTheGoddess,
     ),
-    FullItem(
+    FullItemPreview(
       id: 10,
       name: _fullItemsTranslations.archangelsStaff.name,
       description: _fullItemsTranslations.archangelsStaff.description,
-      hint: _fullItemsTranslations.archangelsStaff.hint,
       asset: Assets.archangelsStaff,
-      component1: _needlesslyLargeRod,
-      component2: _tearOfTheGoddess,
+      baseItem1: _needlesslyLargeRod,
+      baseItem2: _tearOfTheGoddess,
     ),
-    FullItem(
+    FullItemPreview(
       id: 11,
       name: _fullItemsTranslations.bloodthirster.name,
       description: _fullItemsTranslations.bloodthirster.description,
-      hint: _fullItemsTranslations.bloodthirster.hint,
       asset: Assets.bloodthirster,
-      component1: _bfSword,
-      component2: _negatronCloak,
+      baseItem1: _bfSword,
+      baseItem2: _negatronCloak,
     ),
-    FullItem(
+    FullItemPreview(
       id: 12,
       name: _fullItemsTranslations.blueBuff.name,
       description: _fullItemsTranslations.blueBuff.description,
-      hint: _fullItemsTranslations.blueBuff.hint,
       asset: Assets.blueBuff,
-      component1: _tearOfTheGoddess,
-      component2: _tearOfTheGoddess,
+      baseItem1: _tearOfTheGoddess,
+      baseItem2: _tearOfTheGoddess,
     ),
-    FullItem(
+    FullItemPreview(
       id: 13,
       name: _fullItemsTranslations.brambleVest.name,
       description: _fullItemsTranslations.brambleVest.description,
-      hint: _fullItemsTranslations.brambleVest.hint,
       asset: Assets.brambleVest,
-      component1: _chainVest,
-      component2: _chainVest,
+      baseItem1: _chainVest,
+      baseItem2: _chainVest,
     ),
-    FullItem(
+    FullItemPreview(
       id: 14,
       name: _fullItemsTranslations.crownguard.name,
       description: _fullItemsTranslations.crownguard.description,
-      hint: _fullItemsTranslations.crownguard.hint,
       asset: Assets.crownguard,
-      component1: _chainVest,
-      component2: _needlesslyLargeRod,
+      baseItem1: _chainVest,
+      baseItem2: _needlesslyLargeRod,
     ),
-    FullItem(
+    FullItemPreview(
       id: 15,
       name: _fullItemsTranslations.deathblade.name,
       description: _fullItemsTranslations.deathblade.description,
-      hint: _fullItemsTranslations.deathblade.hint,
       asset: Assets.deathblade,
-      component1: _bfSword,
-      component2: _bfSword,
+      baseItem1: _bfSword,
+      baseItem2: _bfSword,
     ),
-    FullItem(
+    FullItemPreview(
       id: 16,
       name: _fullItemsTranslations.dragonsClaw.name,
       description: _fullItemsTranslations.dragonsClaw.description,
-      hint: _fullItemsTranslations.dragonsClaw.hint,
       asset: Assets.dragonsClaw,
-      component1: _negatronCloak,
-      component2: _negatronCloak,
+      baseItem1: _negatronCloak,
+      baseItem2: _negatronCloak,
     ),
-    FullItem(
+    FullItemPreview(
       id: 17,
       name: _fullItemsTranslations.edgeOfNight.name,
       description: _fullItemsTranslations.edgeOfNight.description,
-      hint: _fullItemsTranslations.edgeOfNight.hint,
       asset: Assets.edgeOfNight,
-      component1: _bfSword,
-      component2: _chainVest,
+      baseItem1: _bfSword,
+      baseItem2: _chainVest,
     ),
-    FullItem(
+    FullItemPreview(
       id: 18,
       name: _fullItemsTranslations.evenshroud.name,
       description: _fullItemsTranslations.evenshroud.description,
-      hint: _fullItemsTranslations.evenshroud.hint,
       asset: Assets.evenshroud,
-      component1: _giantsBelt,
-      component2: _negatronCloak,
+      baseItem1: _giantsBelt,
+      baseItem2: _negatronCloak,
     ),
-    FullItem(
+    FullItemPreview(
       id: 19,
       name: _fullItemsTranslations.gargoyleStoneplate.name,
       description: _fullItemsTranslations.gargoyleStoneplate.description,
-      hint: _fullItemsTranslations.gargoyleStoneplate.hint,
       asset: Assets.gargoyleStoneplate,
-      component1: _chainVest,
-      component2: _negatronCloak,
+      baseItem1: _chainVest,
+      baseItem2: _negatronCloak,
     ),
-    FullItem(
+    FullItemPreview(
       id: 20,
       name: _fullItemsTranslations.giantSlayer.name,
       description: _fullItemsTranslations.giantSlayer.description,
-      hint: _fullItemsTranslations.giantSlayer.hint,
       asset: Assets.giantSlayer,
-      component1: _bfSword,
-      component2: _recurveBow,
+      baseItem1: _bfSword,
+      baseItem2: _recurveBow,
     ),
-    FullItem(
+    FullItemPreview(
       id: 21,
       name: _fullItemsTranslations.guardbreaker.name,
       description: _fullItemsTranslations.guardbreaker.description,
-      hint: _fullItemsTranslations.guardbreaker.hint,
       asset: Assets.guardbreaker,
-      component1: _giantsBelt,
-      component2: _sparringGloves,
+      baseItem1: _giantsBelt,
+      baseItem2: _sparringGloves,
     ),
-    FullItem(
+    FullItemPreview(
       id: 22,
       name: _fullItemsTranslations.guinsoosRageblade.name,
       description: _fullItemsTranslations.guinsoosRageblade.description,
-      hint: _fullItemsTranslations.guinsoosRageblade.hint,
       asset: Assets.guinsoosRageblade,
-      component1: _needlesslyLargeRod,
-      component2: _recurveBow,
+      baseItem1: _needlesslyLargeRod,
+      baseItem2: _recurveBow,
     ),
-    FullItem(
+    FullItemPreview(
       id: 23,
       name: _fullItemsTranslations.handOfJustice.name,
       description: _fullItemsTranslations.handOfJustice.description,
-      hint: _fullItemsTranslations.handOfJustice.hint,
       asset: Assets.handOfJustice,
-      component1: _tearOfTheGoddess,
-      component2: _sparringGloves,
+      baseItem1: _tearOfTheGoddess,
+      baseItem2: _sparringGloves,
     ),
-    FullItem(
+    FullItemPreview(
       id: 24,
       name: _fullItemsTranslations.hextechGunblade.name,
       description: _fullItemsTranslations.hextechGunblade.description,
-      hint: _fullItemsTranslations.hextechGunblade.hint,
       asset: Assets.hextechGunblade,
-      component1: _bfSword,
-      component2: _needlesslyLargeRod,
+      baseItem1: _bfSword,
+      baseItem2: _needlesslyLargeRod,
     ),
-    FullItem(
+    FullItemPreview(
       id: 25,
       name: _fullItemsTranslations.infinityEdge.name,
       description: _fullItemsTranslations.infinityEdge.description,
-      hint: _fullItemsTranslations.infinityEdge.hint,
       asset: Assets.infinityEdge,
-      component1: _bfSword,
-      component2: _sparringGloves,
+      baseItem1: _bfSword,
+      baseItem2: _sparringGloves,
     ),
-    FullItem(
+    FullItemPreview(
       id: 26,
       name: _fullItemsTranslations.ionicSpark.name,
       description: _fullItemsTranslations.ionicSpark.description,
-      hint: _fullItemsTranslations.ionicSpark.hint,
       asset: Assets.ionicSpark,
-      component1: _needlesslyLargeRod,
-      component2: _negatronCloak,
+      baseItem1: _needlesslyLargeRod,
+      baseItem2: _negatronCloak,
     ),
-    FullItem(
+    FullItemPreview(
       id: 27,
       name: _fullItemsTranslations.jeweledGauntlet.name,
       description: _fullItemsTranslations.jeweledGauntlet.description,
-      hint: _fullItemsTranslations.jeweledGauntlet.hint,
       asset: Assets.jeweledGauntlet,
-      component1: _needlesslyLargeRod,
-      component2: _sparringGloves,
+      baseItem1: _needlesslyLargeRod,
+      baseItem2: _sparringGloves,
     ),
-    FullItem(
+    FullItemPreview(
       id: 28,
       name: _fullItemsTranslations.lastWhisper.name,
       description: _fullItemsTranslations.lastWhisper.description,
-      hint: _fullItemsTranslations.lastWhisper.hint,
       asset: Assets.lastWhisper,
-      component1: _recurveBow,
-      component2: _sparringGloves,
+      baseItem1: _recurveBow,
+      baseItem2: _sparringGloves,
     ),
-    FullItem(
+    FullItemPreview(
       id: 29,
       name: _fullItemsTranslations.morellonomicon.name,
       description: _fullItemsTranslations.morellonomicon.description,
-      hint: _fullItemsTranslations.morellonomicon.hint,
       asset: Assets.morellonomicon,
-      component1: _needlesslyLargeRod,
-      component2: _giantsBelt,
+      baseItem1: _needlesslyLargeRod,
+      baseItem2: _giantsBelt,
     ),
-    FullItem(
+    FullItemPreview(
       id: 30,
       name: _fullItemsTranslations.nashorsTooth.name,
       description: _fullItemsTranslations.nashorsTooth.description,
-      hint: _fullItemsTranslations.nashorsTooth.hint,
       asset: Assets.nashorsTooth,
-      component1: _giantsBelt,
-      component2: _recurveBow,
+      baseItem1: _giantsBelt,
+      baseItem2: _recurveBow,
     ),
-    FullItem(
+    FullItemPreview(
       id: 31,
       name: _fullItemsTranslations.protectorsVow.name,
       description: _fullItemsTranslations.protectorsVow.description,
-      hint: _fullItemsTranslations.protectorsVow.hint,
       asset: Assets.protectorsVow,
-      component1: _chainVest,
-      component2: _tearOfTheGoddess,
+      baseItem1: _chainVest,
+      baseItem2: _tearOfTheGoddess,
     ),
-    FullItem(
+    FullItemPreview(
       id: 32,
       name: _fullItemsTranslations.quicksilver.name,
       description: _fullItemsTranslations.quicksilver.description,
-      hint: _fullItemsTranslations.quicksilver.hint,
       asset: Assets.quicksilver,
-      component1: _negatronCloak,
-      component2: _sparringGloves,
+      baseItem1: _negatronCloak,
+      baseItem2: _sparringGloves,
     ),
-    FullItem(
+    FullItemPreview(
       id: 33,
       name: _fullItemsTranslations.rabadonsDeathcap.name,
       description: _fullItemsTranslations.rabadonsDeathcap.description,
-      hint: _fullItemsTranslations.rabadonsDeathcap.hint,
       asset: Assets.rabadonsDeathcap,
-      component1: _needlesslyLargeRod,
-      component2: _needlesslyLargeRod,
+      baseItem1: _needlesslyLargeRod,
+      baseItem2: _needlesslyLargeRod,
     ),
-    FullItem(
+    FullItemPreview(
       id: 34,
       name: _fullItemsTranslations.redBuff.name,
       description: _fullItemsTranslations.redBuff.description,
-      hint: _fullItemsTranslations.redBuff.hint,
       asset: Assets.redBuff,
-      component1: _recurveBow,
-      component2: _recurveBow,
+      baseItem1: _recurveBow,
+      baseItem2: _recurveBow,
     ),
-    FullItem(
+    FullItemPreview(
       id: 35,
       name: _fullItemsTranslations.redemption.name,
       description: _fullItemsTranslations.redemption.description,
-      hint: _fullItemsTranslations.redemption.hint,
       asset: Assets.redemption,
-      component1: _giantsBelt,
-      component2: _tearOfTheGoddess,
+      baseItem1: _giantsBelt,
+      baseItem2: _tearOfTheGoddess,
     ),
-    FullItem(
+    FullItemPreview(
       id: 36,
       name: _fullItemsTranslations.runaansHurricane.name,
       description: _fullItemsTranslations.runaansHurricane.description,
-      hint: _fullItemsTranslations.runaansHurricane.hint,
       asset: Assets.runaansHurricane,
-      component1: _negatronCloak,
-      component2: _recurveBow,
+      baseItem1: _negatronCloak,
+      baseItem2: _recurveBow,
     ),
-    FullItem(
+    FullItemPreview(
       id: 37,
       name: _fullItemsTranslations.spearOfShojin.name,
       description: _fullItemsTranslations.spearOfShojin.description,
-      hint: _fullItemsTranslations.spearOfShojin.hint,
       asset: Assets.spearOfShojin,
-      component1: _bfSword,
-      component2: _tearOfTheGoddess,
+      baseItem1: _bfSword,
+      baseItem2: _tearOfTheGoddess,
     ),
-    FullItem(
+    FullItemPreview(
       id: 38,
       name: _fullItemsTranslations.statikkShiv.name,
       description: _fullItemsTranslations.statikkShiv.description,
-      hint: _fullItemsTranslations.statikkShiv.hint,
       asset: Assets.statikkShiv,
-      component1: _recurveBow,
-      component2: _tearOfTheGoddess,
+      baseItem1: _recurveBow,
+      baseItem2: _tearOfTheGoddess,
     ),
-    FullItem(
+    FullItemPreview(
       id: 39,
       name: _fullItemsTranslations.steadfastHeart.name,
       description: _fullItemsTranslations.steadfastHeart.description,
-      hint: _fullItemsTranslations.steadfastHeart.hint,
       asset: Assets.steadfastHeart,
-      component1: _chainVest,
-      component2: _sparringGloves,
+      baseItem1: _chainVest,
+      baseItem2: _sparringGloves,
     ),
-    FullItem(
+    FullItemPreview(
       id: 40,
       name: _fullItemsTranslations.steraksGage.name,
       description: _fullItemsTranslations.steraksGage.description,
-      hint: _fullItemsTranslations.steraksGage.hint,
       asset: Assets.steraksGage,
-      component1: _bfSword,
-      component2: _giantsBelt,
+      baseItem1: _bfSword,
+      baseItem2: _giantsBelt,
     ),
-    FullItem(
+    FullItemPreview(
       id: 41,
       name: _fullItemsTranslations.sunfireCape.name,
       description: _fullItemsTranslations.sunfireCape.description,
-      hint: _fullItemsTranslations.sunfireCape.hint,
       asset: Assets.sunfireCape,
-      component1: _giantsBelt,
-      component2: _chainVest,
+      baseItem1: _giantsBelt,
+      baseItem2: _chainVest,
     ),
-    FullItem(
+    FullItemPreview(
       id: 42,
       name: _fullItemsTranslations.tacticiansCrown.name,
       description: _fullItemsTranslations.tacticiansCrown.description,
-      hint: _fullItemsTranslations.tacticiansCrown.hint,
       asset: Assets.tacticiansCrown,
-      component1: _spatula,
-      component2: _spatula,
-      isSpecial: true,
+      baseItem1: _spatula,
+      baseItem2: _spatula,
     ),
-    FullItem(
+    FullItemPreview(
       id: 43,
       name: _fullItemsTranslations.thiefsGloves.name,
       description: _fullItemsTranslations.thiefsGloves.description,
-      hint: _fullItemsTranslations.thiefsGloves.hint,
       asset: Assets.thiefsGloves,
-      component1: _sparringGloves,
-      component2: _sparringGloves,
+      baseItem1: _sparringGloves,
+      baseItem2: _sparringGloves,
     ),
-    FullItem(
+    FullItemPreview(
       id: 44,
       name: _fullItemsTranslations.titansResolve.name,
       description: _fullItemsTranslations.titansResolve.description,
-      hint: _fullItemsTranslations.titansResolve.hint,
       asset: Assets.titansResolve,
-      component1: _chainVest,
-      component2: _recurveBow,
+      baseItem1: _chainVest,
+      baseItem2: _recurveBow,
     ),
-    FullItem(
+    FullItemPreview(
       id: 45,
       name: _fullItemsTranslations.warmogsArmor.name,
       description: _fullItemsTranslations.warmogsArmor.description,
-      hint: _fullItemsTranslations.warmogsArmor.hint,
       asset: Assets.warmogsArmor,
-      component1: _giantsBelt,
-      component2: _giantsBelt,
+      baseItem1: _giantsBelt,
+      baseItem2: _giantsBelt,
     ),
   ];
 
