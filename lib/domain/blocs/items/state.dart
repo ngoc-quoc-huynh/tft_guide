@@ -1,5 +1,6 @@
 part of 'bloc.dart';
 
+@immutable
 sealed class ItemsState extends Equatable {
   const ItemsState();
 
@@ -12,10 +13,13 @@ final class ItemsLoadInProgress extends ItemsState {
 }
 
 final class ItemsLoadOnSuccess extends ItemsState {
-  const ItemsLoadOnSuccess({required this.baseItems, required this.fullItems});
+  const ItemsLoadOnSuccess({
+    required this.baseItems,
+    required this.fullItems,
+  });
 
-  final List<BaseItem> baseItems;
-  final List<FullItem> fullItems;
+  final List<BaseItemPreview> baseItems;
+  final List<FullItemPreview> fullItems;
 
   @override
   List<Object?> get props => [baseItems, fullItems];

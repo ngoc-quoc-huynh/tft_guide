@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/domain/models/old/item.dart';
+import 'package:tft_guide/domain/models/item_preview.dart';
 import 'package:tft_guide/injector.dart';
 
 part 'event.dart';
@@ -17,15 +18,8 @@ final class ItemsBloc extends Bloc<ItemsEvent, ItemsState> {
     ItemsInitializeEvent event,
     Emitter<ItemsState> emit,
   ) async {
-    final items = await [
-      _itemsAPI.loadBaseItems(),
-      _itemsAPI.loadFullItems(),
-    ].wait;
-    emit(
-      ItemsLoadOnSuccess(
-        baseItems: items.first.cast<BaseItem>(),
-        fullItems: items[1].cast<FullItem>(),
-      ),
-    );
+    final baseItems = await _itemsAPI.loadBaseItems();
+    final fullItems = await _itemsAPI.loadFullItems();
+    emit(ItemsLoadOnSuccess(baseItems: baseItems, fullItems: fullItems));
   }
 }

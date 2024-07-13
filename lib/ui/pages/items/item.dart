@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tft_guide/domain/models/old/item.dart';
+import 'package:tft_guide/domain/models/item_preview.dart';
 import 'package:tft_guide/ui/pages/item/page.dart';
 
 class ItemsListElement extends StatelessWidget {
   const ItemsListElement({required this.item, super.key});
 
-  final Item item;
+  final ItemPreview item;
 
   @override
   Widget build(BuildContext context) {
