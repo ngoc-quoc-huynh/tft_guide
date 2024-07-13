@@ -7,6 +7,7 @@ class QuitDialog extends StatelessWidget {
   static Future<bool> show(BuildContext context) async {
     final isQuitting = await showDialog<bool>(
       context: context,
+      useRootNavigator: false,
       builder: (_) => const QuitDialog._(),
     );
     return isQuitting ?? false;
