@@ -41,6 +41,7 @@ class _Content extends StatelessWidget {
           children: [
             RankAsset(),
             SizedBox(height: 10),
+            // TODO: Add division name
             Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
