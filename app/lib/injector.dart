@@ -7,7 +7,6 @@ import 'package:tft_guide/infrastructure/repositories/feedback.dart';
 import 'package:tft_guide/infrastructure/repositories/items.dart';
 import 'package:tft_guide/infrastructure/repositories/questions.dart';
 import 'package:tft_guide/infrastructure/repositories/rank.dart';
-import 'package:tft_guide/static/i18n/translations.g.dart';
 
 export 'package:tft_guide/domain/utils/extensions/get_it.dart';
 
@@ -17,12 +16,8 @@ final class Injector {
   static final GetIt instance = GetIt.instance;
 
   static void setupDependencies() => instance
-    ..registerLazySingleton<Translations>(_createTranslations)
     ..registerLazySingleton<ItemsAPI>(LocalItemsRepository.new)
     ..registerLazySingleton<RankRepository>(LocalRankRepository.new)
     ..registerLazySingleton<FeedbackAPI>(FeedbackRepository.new)
     ..registerLazySingleton<QuestionsAPI>(QuestionsRepository.new);
-
-  static Translations _createTranslations() =>
-      LocaleSettings.instance.currentTranslations;
 }

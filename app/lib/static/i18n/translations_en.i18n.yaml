@@ -1,14 +1,14 @@
 appName: 'TFT Guide'
 pages:
   ranked:
-    title: 'Rangliste'
+    title: 'Ranked'
     divisions:
-      iron: 'Eisen'
+      iron: 'Iron'
       bronze: 'Bronze'
-      silver: 'Silber'
+      silver: 'Silver'
       gold: 'Gold'
-      emerald: 'Smaragd'
-      platinum: 'Platin'
+      emerald: 'Emerald'
+      platinum: 'Platinum'
       diamond: 'Diamant'
       master: 'Meister'
       grandmaster: 'Großmeister'
@@ -22,7 +22,7 @@ pages:
     feedback:
       correct:
         - 'Challenger ich komme!'
-        -  'Ich kann ja doch was.'
+        - 'Ich kann ja doch was.'
         - 'Nice, bald kann ich mit Tom & Quoc spielen.'
         - 'Supa dupa!'
         - 'Easy peasy lemon squeezy.'
@@ -236,7 +236,7 @@ pages:
         hint: 'Auf Champions legen, die viel aushalten sollen und deren Fähigkeit auf HP basieren.'
   settings:
     title: 'Einstellungen'
-    language: 'Sprache'
-    german: 'Deutsch'
-    english: 'Englisch'
-    system: 'Gerätesprache'
+    language: 'Language'
+    german: 'German'
+    english: 'English'
+    system: 'Device language'

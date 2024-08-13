@@ -1,5 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tft_guide/injector.dart';
+import 'package:tft_guide/static/i18n/translations.g.dart';
+import 'package:tft_guide/ui/pages/settings/page.dart';
 import 'package:tft_guide/ui/widgets/custom_app_bar.dart';
 
 class ScaffoldWithNavBar extends StatelessWidget {
@@ -16,9 +21,9 @@ class ScaffoldWithNavBar extends StatelessWidget {
       appBar: CustomAppBar(
         actions: [
           IconButton(
-            onPressed: () {
-              // TODO: Implement settings
-            },
+            onPressed: () => unawaited(
+              context.pushNamed(SettingsPage.routeName),
+            ),
             icon: const Icon(Icons.settings),
           ),
         ],
@@ -29,22 +34,24 @@ class ScaffoldWithNavBar extends StatelessWidget {
           index,
           initialLocation: index == navigationShell.currentIndex,
         ),
-        destinations: const [
+        destinations: [
           NavigationDestination(
-            icon: Icon(Icons.quiz),
-            label: 'Ranked',
+            icon: const Icon(Icons.quiz),
+            label: _translations.ranked.title,
           ),
           NavigationDestination(
-            icon: Icon(Icons.format_list_bulleted),
-            label: 'Items',
+            icon: const Icon(Icons.format_list_bulleted),
+            label: _translations.items.title,
           ),
           NavigationDestination(
-            icon: Icon(Icons.format_quote),
-            label: 'Quotes',
+            icon: const Icon(Icons.format_quote),
+            label: _translations.settings.title,
           ),
         ],
       ),
       body: navigationShell,
     );
   }
+
+  TranslationsPagesDe get _translations => Injector.instance.translations.pages;
 }
