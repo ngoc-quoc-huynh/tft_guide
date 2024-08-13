@@ -6,6 +6,7 @@ import 'package:tft_guide/domain/blocs/items/bloc.dart';
 import 'package:tft_guide/ui/pages/game/page.dart';
 import 'package:tft_guide/ui/pages/item/page.dart';
 import 'package:tft_guide/ui/pages/items/page.dart';
+import 'package:tft_guide/ui/pages/quotes/page.dart';
 import 'package:tft_guide/ui/pages/ranked/page.dart';
 import 'package:tft_guide/ui/pages/scaffold_navbar.dart';
 import 'package:tft_guide/ui/pages/settings/page.dart';
@@ -33,6 +34,11 @@ final class GoRouterConfig {
           child: child,
         ),
         routes: [
+          GoRoute(
+            name: SettingsPage.routeName,
+            path: '/settings',
+            builder: (_, __) => const SettingsPage(),
+          ),
           StatefulShellRoute.indexedStack(
             builder: (_, __, navigationShell) =>
                 ScaffoldWithNavBar(navigationShell: navigationShell),
@@ -81,8 +87,8 @@ final class GoRouterConfig {
               StatefulShellBranch(
                 routes: [
                   GoRoute(
-                    name: SettingsPage.routeName,
-                    path: '/settings',
+                    name: QuotesPage.routeName,
+                    path: '/quotes',
                     builder: (_, __) => const SettingsPage(),
                   ),
                 ],
