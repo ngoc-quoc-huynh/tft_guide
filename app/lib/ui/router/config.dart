@@ -11,6 +11,7 @@ import 'package:tft_guide/ui/pages/ranked/page.dart';
 import 'package:tft_guide/ui/pages/scaffold_navbar.dart';
 import 'package:tft_guide/ui/pages/settings/page.dart';
 
+// TODO: Refactor
 final class GoRouterConfig {
   const GoRouterConfig._();
 

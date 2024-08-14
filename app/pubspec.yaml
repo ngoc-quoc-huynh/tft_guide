@@ -17,7 +17,6 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-
   # Navigator
   go_router: ^14.0.0
 
@@ -38,6 +37,8 @@ dependencies:
   # Utils
   collection: ^1.18.0
   path_provider: ^2.1.1
+
+  supabase_flutter: ^2.6.0
 
 dev_dependencies:
   # Code generation
