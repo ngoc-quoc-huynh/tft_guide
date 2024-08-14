@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/domain/blocs/language/cubit.dart';
-import 'package:tft_guide/domain/models/language.dart';
+import 'package:tft_guide/domain/blocs/translation_locale/cubit.dart';
+import 'package:tft_guide/domain/models/translation_locale.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/ui/widgets/custom_app_bar.dart';
@@ -15,23 +15,26 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: BlocBuilder<LanguageCubit, Language?>(
+      body: BlocBuilder<TranslationLocaleCubit, TranslationLocale?>(
         builder: (context, _) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextButton(
-              onPressed: () =>
-                  context.read<LanguageCubit>().change(Language.german),
+              onPressed: () => context
+                  .read<TranslationLocaleCubit>()
+                  .change(TranslationLocale.german),
               child: Text(_messages.german),
             ),
             TextButton(
-              onPressed: () =>
-                  context.read<LanguageCubit>().change(Language.english),
+              onPressed: () => context
+                  .read<TranslationLocaleCubit>()
+                  .change(TranslationLocale.english),
               child: Text(_messages.english),
             ),
             TextButton(
-              onPressed: () =>
-                  context.read<LanguageCubit>().change(Language.system),
+              onPressed: () => context
+                  .read<TranslationLocaleCubit>()
+                  .change(TranslationLocale.system),
               child: Text(_messages.system),
             ),
           ],
