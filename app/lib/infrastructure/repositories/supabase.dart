@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:tft_guide/domain/interfaces/remote_database.dart';
 
@@ -23,5 +25,10 @@ final class SupabaseRepository implements RemoteDatabaseAPI {
       'last_updated': lastUpdated?.toIso8601String(),
     });
     return assets.cast<String>();
+  }
+
+  @override
+  Future<Uint8List> loadAsset(String name) {
+    return _client.storage.from('assets').download(name);
   }
 }
