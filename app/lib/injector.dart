@@ -24,7 +24,7 @@ final class Injector {
       ..registerLazySingleton<FeedbackAPI>(FeedbackRepository.new)
       ..registerLazySingleton<QuestionsAPI>(QuestionsRepository.new)
       ..registerSingletonAsync<RemoteDatabaseAPI>(
-        () => SupabaseRepository().initialize(),
+        () => const SupabaseRepository().initialize(),
       );
     await instance.allReady();
   }

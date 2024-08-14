@@ -14,16 +14,20 @@ final class SupabaseRepository implements RemoteDatabaseAPI {
       // TODO: Extract these as variables
       url: 'https://desyhvpvijfqxftogtis.supabase.co',
       anonKey:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRlc3lodnB2aWpmcXhmdG9ndGlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjA5Njc2ODAsImV4cCI6MjAzNjU0MzY4MH0.AImzdKJW6dUMLbvSPtHsa5zL7KF-apr6lX6_RjKJQiI',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI'
+          '6ImRlc3lodnB2aWpmcXhmdG9ndGlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjA'
+          '5Njc2ODAsImV4cCI6MjAzNjU0MzY4MH0.AImzdKJW6dUMLbvSPtHsa5zL7KF-apr'
+          '6lX6_RjKJQiI',
     );
     return this;
   }
 
   @override
   Future<List<String>> loadUpdatedAssets(DateTime? lastUpdated) async {
-    final assets = await _client.rpc('load_updated_assets', params: {
-      'last_updated': lastUpdated?.toIso8601String(),
-    });
+    final assets = await _client.rpc<List<dynamic>>(
+      'load_updated_assets',
+      params: {'last_updated': lastUpdated?.toIso8601String()},
+    );
     return assets.cast<String>();
   }
 
