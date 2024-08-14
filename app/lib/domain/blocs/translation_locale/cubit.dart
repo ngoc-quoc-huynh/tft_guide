@@ -1,16 +1,16 @@
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:tft_guide/domain/models/language.dart';
+import 'package:tft_guide/domain/models/translation_locale.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 
-final class LanguageCubit extends HydratedCubit<Language?> {
-  LanguageCubit() : super(null) {
+final class TranslationLocaleCubit extends HydratedCubit<TranslationLocale?> {
+  TranslationLocaleCubit() : super(null) {
     Injector.instance.registerLazySingleton<Translations>(
       () => _computeTranslations(state),
     );
   }
 
-  void change(Language language) {
+  void change(TranslationLocale language) {
     Injector.instance
       // ignore: discarded_futures, since this is not a future and we cannot use unawaited.
       ..unregister<Translations>()
@@ -21,24 +21,24 @@ final class LanguageCubit extends HydratedCubit<Language?> {
   }
 
   @override
-  Language? fromJson(Map<String, dynamic> json) =>
-      Language.values.byName(json['language'] as String);
+  TranslationLocale? fromJson(Map<String, dynamic> json) =>
+      TranslationLocale.values.byName(json['language'] as String);
 
   @override
-  Map<String, dynamic>? toJson(Language? state) => {
+  Map<String, dynamic>? toJson(TranslationLocale? state) => {
         'language': state?.name,
       };
 
-  Translations _computeTranslations(Language? language) {
+  Translations _computeTranslations(TranslationLocale? language) {
     final localCountryCode =
         LocaleSettings.instance.utils.findDeviceLocale().countryCode;
     return switch ((language, localCountryCode)) {
-      (Language.german, _) ||
-      (Language.system, 'de') ||
+      (TranslationLocale.german, _) ||
+      (TranslationLocale.system, 'de') ||
       (null, 'de') =>
         AppLocale.de,
-      (Language.english, _) ||
-      (Language.system, 'en') ||
+      (TranslationLocale.english, _) ||
+      (TranslationLocale.system, 'en') ||
       (null, 'en') ||
       (_, _) =>
         AppLocale.en,

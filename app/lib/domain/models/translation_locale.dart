@@ -1,9 +1,9 @@
-enum Language {
+enum TranslationLocale {
   german('de'),
   english('en'),
   system(null);
 
-  const Language(this.code);
+  const TranslationLocale(this.code);
 
   final String? code;
 }

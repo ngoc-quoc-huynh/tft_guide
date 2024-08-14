@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:tft_guide/domain/blocs/language/cubit.dart';
-import 'package:tft_guide/domain/models/language.dart';
+import 'package:tft_guide/domain/blocs/translation_locale/cubit.dart';
+import 'package:tft_guide/domain/models/translation_locale.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/theme.dart';
@@ -27,15 +27,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    return BlocProvider<LanguageCubit>(
-      create: (_) => LanguageCubit(),
-      child: BlocBuilder<LanguageCubit, Language?>(
-        builder: (context, language) => MaterialApp.router(
+    return BlocProvider<TranslationLocaleCubit>(
+      create: (_) => TranslationLocaleCubit(),
+      child: BlocBuilder<TranslationLocaleCubit, TranslationLocale?>(
+        builder: (context, locale) => MaterialApp.router(
           title: Injector.instance.translations.appName,
           theme: CustomTheme.lightTheme(textTheme),
           darkTheme: CustomTheme.darkTheme(textTheme),
           localizationsDelegates: GlobalMaterialLocalizations.delegates,
-          locale: switch (language?.code) {
+          locale: switch (locale?.code) {
             null => null,
             final String code => Locale(code),
           },
