@@ -11,7 +11,7 @@ class QuitButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvoked: (didPop) => unawaited(
+      onPopInvokedWithResult: (didPop, _) => unawaited(
         _onPopInvoked(context, didPop),
       ),
       child: IconButton(
