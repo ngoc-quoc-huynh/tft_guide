@@ -2,7 +2,9 @@ import 'dart:typed_data';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:tft_guide/domain/interfaces/remote_database.dart';
+import 'package:tft_guide/domain/models/item.dart' as domain;
 import 'package:tft_guide/domain/models/item_translation.dart' as domain;
+import 'package:tft_guide/infrastructure/models/supabase/item.dart';
 import 'package:tft_guide/infrastructure/models/supabase/item_translation.dart';
 
 // TODO: Error handling
@@ -45,7 +47,7 @@ final class SupabaseRepository implements RemoteDatabaseAPI {
     final response =
         await _client.from('base_item_translation').select().maybeApply(
               lastUpdated,
-              (query, value) => query.gt('updated_at', value),
+              (query, lastUpdated) => query.gt('updated_at', lastUpdated),
             );
     return response
         .map(BaseItemTranslation.fromJson)
@@ -60,12 +62,36 @@ final class SupabaseRepository implements RemoteDatabaseAPI {
     final response =
         await _client.from('full_item_translation').select().maybeApply(
               lastUpdated,
-              (query, value) => query.gt('updated_at', value),
+              (query, lastUpdated) => query.gt('updated_at', lastUpdated),
             );
 
     return response
         .map(FullItemTranslation.fromJson)
         .map((translation) => translation.toDomain())
+        .toList();
+  }
+
+  @override
+  Future<List<domain.BaseItem>> loadBaseItems(DateTime? lastUpdated) async {
+    final response = await _client.from('base_item').select().maybeApply(
+          lastUpdated,
+          (query, lastUpdated) => query.gt('updated_at', lastUpdated),
+        );
+    return response
+        .map(BaseItem.fromJson)
+        .map((item) => item.toDomain())
+        .toList();
+  }
+
+  @override
+  Future<List<domain.FullItem>> loadFullItems(DateTime? lastUpdated) async {
+    final response = await _client.from('base_item').select().maybeApply(
+          lastUpdated,
+          (query, lastUpdated) => query.gt('updated_at', lastUpdated),
+        );
+    return response
+        .map(FullItem.fromJson)
+        .map((item) => item.toDomain())
         .toList();
   }
 }
