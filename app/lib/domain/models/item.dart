@@ -1,11 +1,13 @@
 import 'package:equatable/equatable.dart';
-import 'package:tft_guide/static/resources/assets.dart';
 
 sealed class Item extends Equatable {
   const Item({
+    required this.id,
     required this.name,
     required this.description,
-    required this.asset,
+    required this.isActive,
+    required this.createdAt,
+    required this.updatedAt,
     this.abilityPower,
     this.armor,
     this.attackDamage,
@@ -16,9 +18,12 @@ sealed class Item extends Equatable {
     this.mana,
   });
 
+  final String id;
   final String name;
   final String description;
-  final Asset asset;
+  final bool isActive;
+  final DateTime createdAt;
+  final DateTime updatedAt;
   final int? abilityPower;
   final int? armor;
   final int? attackDamage;
@@ -30,9 +35,12 @@ sealed class Item extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         name,
         description,
-        asset,
+        isActive,
+        createdAt,
+        updatedAt,
         abilityPower,
         armor,
         attackDamage,
@@ -46,9 +54,12 @@ sealed class Item extends Equatable {
 
 final class BaseItem extends Item {
   const BaseItem({
+    required super.id,
     required super.name,
     required super.description,
-    required super.asset,
+    required super.isActive,
+    required super.createdAt,
+    required super.updatedAt,
     super.abilityPower,
     super.armor,
     super.attackDamage,
@@ -62,11 +73,14 @@ final class BaseItem extends Item {
 
 final class FullItem extends Item {
   const FullItem({
+    required super.id,
     required super.name,
     required super.description,
-    required super.asset,
+    required super.isActive,
     required this.baseItem1,
     required this.baseItem2,
+    required super.createdAt,
+    required super.updatedAt,
     super.abilityPower,
     super.armor,
     super.attackDamage,

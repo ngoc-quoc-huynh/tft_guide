@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:tft_guide/domain/models/item.dart';
 import 'package:tft_guide/domain/models/item_translation.dart';
 
 abstract interface class RemoteDatabaseAPI {
@@ -18,4 +19,8 @@ abstract interface class RemoteDatabaseAPI {
   Future<List<FullItemTranslation>> loadFullItemTranslations(
     DateTime? lastUpdated,
   );
+
+  Future<List<BaseItem>> loadBaseItems(DateTime? lastUpdated);
+
+  Future<List<FullItem>> loadFullItems(DateTime? lastUpdated);
 }
