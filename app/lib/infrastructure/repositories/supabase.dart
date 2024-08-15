@@ -2,7 +2,10 @@ import 'dart:typed_data';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:tft_guide/domain/interfaces/remote_database.dart';
+import 'package:tft_guide/domain/models/item_translation.dart' as domain;
+import 'package:tft_guide/infrastructure/models/supabase/item_translation.dart';
 
+// TODO: Error handling
 final class SupabaseRepository implements RemoteDatabaseAPI {
   const SupabaseRepository();
 
@@ -34,5 +37,23 @@ final class SupabaseRepository implements RemoteDatabaseAPI {
   @override
   Future<Uint8List> loadAsset(String name) {
     return _client.storage.from('assets').download(name);
+  }
+
+  @override
+  Future<List<domain.BaseItemTranslation>> loadBaseItemTranslations() async {
+    final response = await _client.from('base_item_translation').select();
+    return response
+        .map(BaseItemTranslation.fromJson)
+        .map((translation) => translation.toDomain())
+        .toList();
+  }
+
+  @override
+  Future<List<domain.FullItemTranslation>> loadFullItemTranslations() async {
+    final response = await _client.from('full_item_translation').select();
+    return response
+        .map(FullItemTranslation.fromJson)
+        .map((translation) => translation.toDomain())
+        .toList();
   }
 }
