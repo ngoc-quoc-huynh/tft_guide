@@ -26,22 +26,27 @@ final class SupabaseRepository implements RemoteDatabaseAPI {
   }
 
   @override
-  Future<List<String>> loadUpdatedAssets(DateTime? lastUpdated) async {
+  Future<List<String>> loadAssetsNames(DateTime? lastUpdated) async {
     final assets = await _client.rpc<List<dynamic>>(
-      'load_updated_assets',
+      'load_asset_names',
       params: {'last_updated': lastUpdated?.toIso8601String()},
     );
     return assets.cast<String>();
   }
 
   @override
-  Future<Uint8List> loadAsset(String name) {
-    return _client.storage.from('assets').download(name);
-  }
+  Future<Uint8List> loadAsset(String name) =>
+      _client.storage.from('assets').download(name);
 
   @override
-  Future<List<domain.BaseItemTranslation>> loadBaseItemTranslations() async {
-    final response = await _client.from('base_item_translation').select();
+  Future<List<domain.BaseItemTranslation>> loadBaseItemTranslations(
+    DateTime? lastUpdated,
+  ) async {
+    final response =
+        await _client.from('base_item_translation').select().maybeApply(
+              lastUpdated,
+              (query, value) => query.gt('updated_at', value),
+            );
     return response
         .map(BaseItemTranslation.fromJson)
         .map((translation) => translation.toDomain())
@@ -49,11 +54,32 @@ final class SupabaseRepository implements RemoteDatabaseAPI {
   }
 
   @override
-  Future<List<domain.FullItemTranslation>> loadFullItemTranslations() async {
-    final response = await _client.from('full_item_translation').select();
+  Future<List<domain.FullItemTranslation>> loadFullItemTranslations(
+    DateTime? lastUpdated,
+  ) async {
+    final response =
+        await _client.from('full_item_translation').select().maybeApply(
+              lastUpdated,
+              (query, value) => query.gt('updated_at', value),
+            );
+
     return response
         .map(FullItemTranslation.fromJson)
         .map((translation) => translation.toDomain())
         .toList();
   }
+}
+
+extension<T> on PostgrestFilterBuilder<T> {
+  PostgrestFilterBuilder<T> maybeApply<V>(
+    V? value,
+    PostgrestFilterBuilder<T> Function(
+      PostgrestFilterBuilder<T>,
+      V,
+    ) apply,
+  ) =>
+      switch (value) {
+        null => this,
+        V() => apply(this, value),
+      };
 }
