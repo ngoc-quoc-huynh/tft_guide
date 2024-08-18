@@ -23,4 +23,6 @@ abstract interface class RemoteDatabaseAPI {
   Future<List<BaseItem>> loadBaseItems(DateTime? lastUpdated);
 
   Future<List<FullItem>> loadFullItems(DateTime? lastUpdated);
+
+  Future<void> close();
 }

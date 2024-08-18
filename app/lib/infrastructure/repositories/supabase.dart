@@ -94,6 +94,9 @@ final class SupabaseRepository implements RemoteDatabaseAPI {
         .map((item) => item.toDomain())
         .toList();
   }
+
+  @override
+  Future<void> close() => _client.dispose();
 }
 
 extension<T> on PostgrestFilterBuilder<T> {
