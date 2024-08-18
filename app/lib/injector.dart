@@ -30,12 +30,12 @@ final class Injector {
       ..registerLazySingleton<QuestionsAPI>(QuestionsRepository.new)
       ..registerSingletonAsync<RemoteDatabaseAPI>(
         () => const SupabaseRepository().initialize(),
+        dispose: (api) => api.close(),
       )
       ..registerSingletonAsync(getApplicationDocumentsDirectory)
       ..registerSingletonAsync<LocalDatabaseAPI>(
         () => SQLiteAsyncRepository().initialize(),
-        dispose: (localDatabaseAPI) =>
-            (localDatabaseAPI as SQLiteAsyncRepository).close(),
+        dispose: (api) => api.close(),
         dependsOn: [Directory],
       );
     await instance.allReady();
