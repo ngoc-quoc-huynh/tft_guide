@@ -1,5 +1,6 @@
 import 'package:tft_guide/domain/models/database/item.dart';
 import 'package:tft_guide/domain/models/database/item_translation.dart';
+import 'package:tft_guide/domain/models/item_detail.dart';
 
 abstract interface class LocalDatabaseAPI {
   const LocalDatabaseAPI();
@@ -25,6 +26,14 @@ abstract interface class LocalDatabaseAPI {
   Future<void> storeFullItemTranslations(
     List<FullItemTranslationEntity> translations,
   );
+
+  Future<BaseItemDetail> loadBaseItemDetail(String id);
+
+  Future<FullItemDetail> loadFullItemDetail(String id);
+
+  Future<List<BaseItemDetail>> loadBaseItemDetails();
+
+  Future<List<FullItemDetail>> loadFullItemDetails();
 
   Future<void> close();
 }
