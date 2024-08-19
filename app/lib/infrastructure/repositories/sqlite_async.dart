@@ -2,6 +2,7 @@ import 'package:path/path.dart';
 import 'package:sqlite_async/sqlite_async.dart';
 import 'package:tft_guide/domain/interfaces/local_database.dart';
 import 'package:tft_guide/infrastructure/models/sqlite_async/item.dart';
+import 'package:tft_guide/infrastructure/models/sqlite_async/item_translation.dart';
 import 'package:tft_guide/injector.dart';
 
 final class SQLiteAsyncRepository implements LocalDatabaseAPI {
@@ -27,19 +28,6 @@ final class SQLiteAsyncRepository implements LocalDatabaseAPI {
         ),
       );
     await migrations.migrate(_db);
-    await storeFullItems(
-      [
-        FullItem(
-          id: 'adaptive_helm',
-          isActive: true,
-          itemId1: 'bf_sword',
-          itemId2: 'chain_vest',
-          createdAt: DateTime.now().toUtc(),
-          updatedAt: DateTime.now().toUtc(),
-        )
-      ],
-    );
-    print(await _db.getAll('SELECT id FROM $_tableNameFullItem'));
     return this;
   }
 
@@ -155,6 +143,68 @@ DO UPDATE SET
                 item.health,
                 item.magicResist,
                 item.mana,
+                item.createdAt.toIso8601String(),
+                item.updatedAt.toIso8601String(),
+              ],
+            )
+            .toList(),
+      );
+
+  @override
+  Future<void> storeBaseItemTranslations(
+    List<BaseItemTranslation> translations,
+  ) =>
+      _db.executeBatch(
+        '''
+INSERT INTO $_tableNameBaseItemTranslation (id, item_id, language_code, name, description, hint, created_at, updated_at)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+ON CONFLICT(id)
+DO UPDATE SET
+  name = excluded.name,
+  description = excluded.description,
+  hint = excluded.hint,
+  updated_at = excluded.updated_at;
+''',
+        translations
+            .map(
+              (item) => [
+                item.id,
+                item.itemId,
+                item.languageCode.name,
+                item.name,
+                item.description,
+                item.hint,
+                item.createdAt.toIso8601String(),
+                item.updatedAt.toIso8601String(),
+              ],
+            )
+            .toList(),
+      );
+
+  @override
+  Future<void> storeFullItemTranslations(
+    List<FullItemTranslation> translations,
+  ) =>
+      _db.executeBatch(
+        '''
+INSERT INTO $_tableNameFullItemTranslation (id, item_id, language_code, name, description, hint, created_at, updated_at)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+ON CONFLICT(id)
+DO UPDATE SET
+  name = excluded.name,
+  description = excluded.description,
+  hint = excluded.hint,
+  updated_at = excluded.updated_at;
+''',
+        translations
+            .map(
+              (item) => [
+                item.id,
+                item.itemId,
+                item.languageCode.name,
+                item.name,
+                item.description,
+                item.hint,
                 item.createdAt.toIso8601String(),
                 item.updatedAt.toIso8601String(),
               ],

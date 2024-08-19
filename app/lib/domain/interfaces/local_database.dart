@@ -1,4 +1,5 @@
 import 'package:tft_guide/infrastructure/models/sqlite_async/item.dart';
+import 'package:tft_guide/infrastructure/models/sqlite_async/item_translation.dart';
 
 abstract interface class LocalDatabaseAPI {
   const LocalDatabaseAPI();
@@ -16,6 +17,14 @@ abstract interface class LocalDatabaseAPI {
   Future<void> storeBaseItems(List<BaseItem> items);
 
   Future<void> storeFullItems(List<FullItem> items);
+
+  Future<void> storeBaseItemTranslations(
+    List<BaseItemTranslation> translations,
+  );
+
+  Future<void> storeFullItemTranslations(
+    List<FullItemTranslation> translations,
+  );
 
   Future<void> close();
 }
