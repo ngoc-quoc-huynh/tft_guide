@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:tft_guide/domain/models/item.dart';
-import 'package:tft_guide/domain/models/item_translation.dart';
+import 'package:tft_guide/domain/models/database/item.dart';
+import 'package:tft_guide/domain/models/database/item_translation.dart';
 
 abstract interface class RemoteDatabaseAPI {
   const RemoteDatabaseAPI();
@@ -12,15 +12,15 @@ abstract interface class RemoteDatabaseAPI {
 
   Future<Uint8List> loadAsset(String name);
 
-  Future<List<BaseItem>> loadBaseItems(DateTime? lastUpdated);
+  Future<List<BaseItemEntity>> loadBaseItems(DateTime? lastUpdated);
 
-  Future<List<FullItem>> loadFullItems(DateTime? lastUpdated);
+  Future<List<FullItemEntity>> loadFullItems(DateTime? lastUpdated);
 
-  Future<List<BaseItemTranslation>> loadBaseItemTranslations(
+  Future<List<BaseItemTranslationEntity>> loadBaseItemTranslations(
     DateTime? lastUpdated,
   );
 
-  Future<List<FullItemTranslation>> loadFullItemTranslations(
+  Future<List<FullItemTranslationEntity>> loadFullItemTranslations(
     DateTime? lastUpdated,
   );
 
