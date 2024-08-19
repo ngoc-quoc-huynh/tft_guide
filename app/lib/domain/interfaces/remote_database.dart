@@ -12,6 +12,10 @@ abstract interface class RemoteDatabaseAPI {
 
   Future<Uint8List> loadAsset(String name);
 
+  Future<List<BaseItem>> loadBaseItems(DateTime? lastUpdated);
+
+  Future<List<FullItem>> loadFullItems(DateTime? lastUpdated);
+
   Future<List<BaseItemTranslation>> loadBaseItemTranslations(
     DateTime? lastUpdated,
   );
@@ -19,10 +23,6 @@ abstract interface class RemoteDatabaseAPI {
   Future<List<FullItemTranslation>> loadFullItemTranslations(
     DateTime? lastUpdated,
   );
-
-  Future<List<BaseItem>> loadBaseItems(DateTime? lastUpdated);
-
-  Future<List<FullItem>> loadFullItems(DateTime? lastUpdated);
 
   Future<void> close();
 }
