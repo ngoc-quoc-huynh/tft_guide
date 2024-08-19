@@ -1,6 +1,7 @@
 import 'package:path/path.dart';
 import 'package:sqlite_async/sqlite_async.dart';
 import 'package:tft_guide/domain/interfaces/local_database.dart';
+import 'package:tft_guide/infrastructure/models/sqlite_async/item.dart';
 import 'package:tft_guide/injector.dart';
 
 final class SQLiteAsyncRepository implements LocalDatabaseAPI {
@@ -26,6 +27,19 @@ final class SQLiteAsyncRepository implements LocalDatabaseAPI {
         ),
       );
     await migrations.migrate(_db);
+    await storeFullItems(
+      [
+        FullItem(
+          id: 'adaptive_helm',
+          isActive: true,
+          itemId1: 'bf_sword',
+          itemId2: 'chain_vest',
+          createdAt: DateTime.now().toUtc(),
+          updatedAt: DateTime.now().toUtc(),
+        )
+      ],
+    );
+    print(await _db.getAll('SELECT id FROM $_tableNameFullItem'));
     return this;
   }
 
@@ -72,6 +86,81 @@ final class SQLiteAsyncRepository implements LocalDatabaseAPI {
       String() => DateTime.parse(updatedAt),
     };
   }
+
+  @override
+  Future<void> storeBaseItems(List<BaseItem> items) => _db.executeBatch(
+        '''
+INSERT INTO $_tableNameBaseItem (id, ability_power, armor, attack_damage, attack_speed, crit, health, magic_resist, mana, created_at, updated_at)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+ON CONFLICT(id)
+DO UPDATE SET
+  ability_power = excluded.ability_power,
+  armor = excluded.armor,
+  attack_damage = excluded.attack_damage,
+  attack_speed = excluded.attack_speed,
+  crit = excluded.crit,
+  health = excluded.health,
+  magic_resist = excluded.magic_resist,
+  mana = excluded.mana,
+  updated_at = excluded.updated_at;
+''',
+        items
+            .map(
+              (item) => [
+                item.id,
+                item.abilityPower,
+                item.armor,
+                item.attackDamage,
+                item.attackSpeed,
+                item.crit,
+                item.health,
+                item.magicResist,
+                item.mana,
+                item.createdAt.toIso8601String(),
+                item.updatedAt.toIso8601String(),
+              ],
+            )
+            .toList(),
+      );
+
+  @override
+  Future<void> storeFullItems(List<FullItem> items) => _db.executeBatch(
+        '''
+INSERT INTO $_tableNameFullItem (id, is_active, item_id_1, item_id_2, ability_power, armor, attack_damage, attack_speed, crit, health, magic_resist, mana, created_at, updated_at)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+ON CONFLICT(id)
+DO UPDATE SET
+  ability_power = excluded.ability_power,
+  armor = excluded.armor,
+  attack_damage = excluded.attack_damage,
+  attack_speed = excluded.attack_speed,
+  crit = excluded.crit,
+  health = excluded.health,
+  magic_resist = excluded.magic_resist,
+  mana = excluded.mana,
+  updated_at = excluded.updated_at;
+''',
+        items
+            .map(
+              (item) => [
+                item.id,
+                item.isActive,
+                item.itemId1,
+                item.itemId2,
+                item.abilityPower,
+                item.armor,
+                item.attackDamage,
+                item.attackSpeed,
+                item.crit,
+                item.health,
+                item.magicResist,
+                item.mana,
+                item.createdAt.toIso8601String(),
+                item.updatedAt.toIso8601String(),
+              ],
+            )
+            .toList(),
+      );
 
   @override
   Future<void> close() => _db.close();
