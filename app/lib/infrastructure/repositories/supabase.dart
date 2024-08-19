@@ -50,8 +50,7 @@ final class SupabaseRepository implements RemoteDatabaseAPI {
               (query, lastUpdated) => query.gt('updated_at', lastUpdated),
             );
     return response
-        .map(BaseItemTranslation.fromJson)
-        .map((translation) => translation.toDomain())
+        .map((json) => BaseItemTranslation.fromJson(json).toDomain())
         .toList();
   }
 
@@ -66,8 +65,7 @@ final class SupabaseRepository implements RemoteDatabaseAPI {
             );
 
     return response
-        .map(FullItemTranslation.fromJson)
-        .map((translation) => translation.toDomain())
+        .map((json) => FullItemTranslation.fromJson(json).toDomain())
         .toList();
   }
 
@@ -77,10 +75,7 @@ final class SupabaseRepository implements RemoteDatabaseAPI {
           lastUpdated,
           (query, lastUpdated) => query.gt('updated_at', lastUpdated),
         );
-    return response
-        .map(BaseItem.fromJson)
-        .map((item) => item.toDomain())
-        .toList();
+    return response.map((json) => BaseItem.fromJson(json).toDomain()).toList();
   }
 
   @override
@@ -89,10 +84,7 @@ final class SupabaseRepository implements RemoteDatabaseAPI {
           lastUpdated,
           (query, lastUpdated) => query.gt('updated_at', lastUpdated),
         );
-    return response
-        .map(FullItem.fromJson)
-        .map((item) => item.toDomain())
-        .toList();
+    return response.map((json) => FullItem.fromJson(json).toDomain()).toList();
   }
 
   @override
