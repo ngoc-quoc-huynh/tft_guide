@@ -1,12 +1,15 @@
 import 'package:equatable/equatable.dart';
 
-enum Language { de, en }
+enum LanguageCode {
+  de,
+  en;
+}
 
-sealed class ItemTranslation extends Equatable {
-  const ItemTranslation({
+sealed class ItemTranslationEntity extends Equatable {
+  const ItemTranslationEntity({
     required this.id,
     required this.itemId,
-    required this.language,
+    required this.languageCode,
     required this.name,
     required this.description,
     required this.hint,
@@ -16,7 +19,7 @@ sealed class ItemTranslation extends Equatable {
 
   final String id;
   final String itemId;
-  final Language language;
+  final LanguageCode languageCode;
   final String name;
   final String description;
   final String hint;
@@ -27,7 +30,7 @@ sealed class ItemTranslation extends Equatable {
   List<Object?> get props => [
         id,
         itemId,
-        language,
+        languageCode,
         name,
         description,
         hint,
@@ -36,11 +39,11 @@ sealed class ItemTranslation extends Equatable {
       ];
 }
 
-final class BaseItemTranslation extends ItemTranslation {
-  const BaseItemTranslation({
+final class BaseItemTranslationEntity extends ItemTranslationEntity {
+  const BaseItemTranslationEntity({
     required super.id,
     required super.itemId,
-    required super.language,
+    required super.languageCode,
     required super.name,
     required super.description,
     required super.hint,
@@ -49,11 +52,11 @@ final class BaseItemTranslation extends ItemTranslation {
   });
 }
 
-final class FullItemTranslation extends ItemTranslation {
-  const FullItemTranslation({
+final class FullItemTranslationEntity extends ItemTranslationEntity {
+  const FullItemTranslationEntity({
     required super.id,
     required super.itemId,
-    required super.language,
+    required super.languageCode,
     required super.name,
     required super.description,
     required super.hint,

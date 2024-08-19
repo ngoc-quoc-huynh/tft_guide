@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-sealed class Item extends Equatable {
-  const Item({
+sealed class ItemEntity extends Equatable {
+  const ItemEntity({
     required this.id,
     required this.createdAt,
     required this.updatedAt,
@@ -43,8 +43,8 @@ sealed class Item extends Equatable {
       ];
 }
 
-final class BaseItem extends Item {
-  const BaseItem({
+final class BaseItemEntity extends ItemEntity {
+  const BaseItemEntity({
     required super.id,
     required super.createdAt,
     required super.updatedAt,
@@ -59,8 +59,8 @@ final class BaseItem extends Item {
   });
 }
 
-final class FullItem extends Item {
-  const FullItem({
+final class FullItemEntity extends ItemEntity {
+  const FullItemEntity({
     required super.id,
     required this.isActive,
     required this.itemId1,

@@ -2,8 +2,8 @@ import 'dart:typed_data';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:tft_guide/domain/interfaces/remote_database.dart';
-import 'package:tft_guide/domain/models/item.dart' as domain;
-import 'package:tft_guide/domain/models/item_translation.dart' as domain;
+import 'package:tft_guide/domain/models/database/item.dart';
+import 'package:tft_guide/domain/models/database/item_translation.dart';
 import 'package:tft_guide/infrastructure/models/supabase/item.dart';
 import 'package:tft_guide/infrastructure/models/supabase/item_translation.dart';
 
@@ -41,7 +41,7 @@ final class SupabaseRepository implements RemoteDatabaseAPI {
       _client.storage.from('assets').download(name);
 
   @override
-  Future<List<domain.BaseItemTranslation>> loadBaseItemTranslations(
+  Future<List<BaseItemTranslationEntity>> loadBaseItemTranslations(
     DateTime? lastUpdated,
   ) async {
     final response =
@@ -56,7 +56,7 @@ final class SupabaseRepository implements RemoteDatabaseAPI {
   }
 
   @override
-  Future<List<domain.FullItemTranslation>> loadFullItemTranslations(
+  Future<List<FullItemTranslationEntity>> loadFullItemTranslations(
     DateTime? lastUpdated,
   ) async {
     final response =
@@ -72,7 +72,7 @@ final class SupabaseRepository implements RemoteDatabaseAPI {
   }
 
   @override
-  Future<List<domain.BaseItem>> loadBaseItems(DateTime? lastUpdated) async {
+  Future<List<BaseItemEntity>> loadBaseItems(DateTime? lastUpdated) async {
     final response = await _client.from('base_item').select().maybeApply(
           lastUpdated,
           (query, lastUpdated) => query.gt('updated_at', lastUpdated),
@@ -84,7 +84,7 @@ final class SupabaseRepository implements RemoteDatabaseAPI {
   }
 
   @override
-  Future<List<domain.FullItem>> loadFullItems(DateTime? lastUpdated) async {
+  Future<List<FullItemEntity>> loadFullItems(DateTime? lastUpdated) async {
     final response = await _client.from('base_item').select().maybeApply(
           lastUpdated,
           (query, lastUpdated) => query.gt('updated_at', lastUpdated),

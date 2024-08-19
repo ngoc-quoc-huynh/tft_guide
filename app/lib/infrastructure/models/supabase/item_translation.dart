@@ -1,11 +1,12 @@
 import 'package:equatable/equatable.dart';
-import 'package:tft_guide/domain/models/item_translation.dart' as domain;
+import 'package:tft_guide/domain/models/database/item_translation.dart'
+    as domain;
 
 enum LanguageCode {
   de,
   en;
 
-  domain.Language toDomain() => domain.Language.values.byName(name);
+  domain.LanguageCode toDomain() => domain.LanguageCode.values.byName(name);
 }
 
 sealed class ItemTranslation extends Equatable {
@@ -29,7 +30,7 @@ sealed class ItemTranslation extends Equatable {
   final DateTime createdAt;
   final DateTime updatedAt;
 
-  domain.ItemTranslation toDomain();
+  domain.ItemTranslationEntity toDomain();
 
   @override
   List<Object?> get props => [
@@ -70,10 +71,11 @@ final class BaseItemTranslation extends ItemTranslation {
       );
 
   @override
-  domain.BaseItemTranslation toDomain() => domain.BaseItemTranslation(
+  domain.BaseItemTranslationEntity toDomain() =>
+      domain.BaseItemTranslationEntity(
         id: id,
         itemId: itemId,
-        language: languageCode.toDomain(),
+        languageCode: languageCode.toDomain(),
         name: name,
         description: description,
         hint: hint,
@@ -108,10 +110,11 @@ final class FullItemTranslation extends ItemTranslation {
       );
 
   @override
-  domain.FullItemTranslation toDomain() => domain.FullItemTranslation(
+  domain.FullItemTranslationEntity toDomain() =>
+      domain.FullItemTranslationEntity(
         id: id,
         itemId: itemId,
-        language: languageCode.toDomain(),
+        languageCode: languageCode.toDomain(),
         name: name,
         description: description,
         hint: hint,

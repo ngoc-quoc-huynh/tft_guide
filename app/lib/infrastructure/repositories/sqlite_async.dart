@@ -1,8 +1,8 @@
 import 'package:path/path.dart';
 import 'package:sqlite_async/sqlite_async.dart';
 import 'package:tft_guide/domain/interfaces/local_database.dart';
-import 'package:tft_guide/infrastructure/models/sqlite_async/item.dart';
-import 'package:tft_guide/infrastructure/models/sqlite_async/item_translation.dart';
+import 'package:tft_guide/domain/models/database/item.dart';
+import 'package:tft_guide/domain/models/database/item_translation.dart';
 import 'package:tft_guide/injector.dart';
 
 final class SQLiteAsyncRepository implements LocalDatabaseAPI {
@@ -76,7 +76,7 @@ final class SQLiteAsyncRepository implements LocalDatabaseAPI {
   }
 
   @override
-  Future<void> storeBaseItems(List<BaseItem> items) => _db.executeBatch(
+  Future<void> storeBaseItems(List<BaseItemEntity> items) => _db.executeBatch(
         '''
 INSERT INTO $_tableNameBaseItem (id, ability_power, armor, attack_damage, attack_speed, crit, health, magic_resist, mana, created_at, updated_at)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -112,7 +112,7 @@ DO UPDATE SET
       );
 
   @override
-  Future<void> storeFullItems(List<FullItem> items) => _db.executeBatch(
+  Future<void> storeFullItems(List<FullItemEntity> items) => _db.executeBatch(
         '''
 INSERT INTO $_tableNameFullItem (id, is_active, item_id_1, item_id_2, ability_power, armor, attack_damage, attack_speed, crit, health, magic_resist, mana, created_at, updated_at)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -152,7 +152,7 @@ DO UPDATE SET
 
   @override
   Future<void> storeBaseItemTranslations(
-    List<BaseItemTranslation> translations,
+    List<BaseItemTranslationEntity> translations,
   ) =>
       _db.executeBatch(
         '''
@@ -183,7 +183,7 @@ DO UPDATE SET
 
   @override
   Future<void> storeFullItemTranslations(
-    List<FullItemTranslation> translations,
+    List<FullItemTranslationEntity> translations,
   ) =>
       _db.executeBatch(
         '''
