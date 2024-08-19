@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
-import 'package:tft_guide/domain/models/database/item.dart';
+import 'package:tft_guide/domain/models/item_detail.dart' as domain;
 
-sealed class Item extends Equatable {
-  const Item({
+sealed class ItemDetail extends Equatable {
+  const ItemDetail({
     required this.id,
-    required this.createdAt,
-    required this.updatedAt,
+    required this.name,
+    required this.description,
     this.abilityPower,
     this.armor,
     this.attackDamage,
@@ -17,8 +17,8 @@ sealed class Item extends Equatable {
   });
 
   final String id;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final String name;
+  final String description;
   final int? abilityPower;
   final int? armor;
   final int? attackDamage;
@@ -28,13 +28,13 @@ sealed class Item extends Equatable {
   final int? magicResist;
   final int? mana;
 
-  ItemEntity toDomain();
+  domain.ItemDetail toDomain();
 
   @override
   List<Object?> get props => [
         id,
-        createdAt,
-        updatedAt,
+        name,
+        description,
         abilityPower,
         armor,
         attackDamage,
@@ -46,11 +46,11 @@ sealed class Item extends Equatable {
       ];
 }
 
-final class BaseItem extends Item {
-  const BaseItem({
+final class BaseItemDetail extends ItemDetail {
+  const BaseItemDetail({
     required super.id,
-    required super.createdAt,
-    required super.updatedAt,
+    required super.name,
+    required super.description,
     super.abilityPower,
     super.armor,
     super.attackDamage,
@@ -61,10 +61,10 @@ final class BaseItem extends Item {
     super.mana,
   });
 
-  factory BaseItem.fromJson(Map<String, dynamic> json) => BaseItem(
+  factory BaseItemDetail.fromJson(Map<String, dynamic> json) => BaseItemDetail(
         id: json['id'] as String,
-        createdAt: DateTime.parse(json['created_at'] as String),
-        updatedAt: DateTime.parse(json['updated_at'] as String),
+        name: json['name'] as String,
+        description: json['description'] as String,
         abilityPower: json['ability_power'] as int?,
         armor: json['armor'] as int?,
         attackDamage: json['attack_damage'] as int?,
@@ -76,10 +76,10 @@ final class BaseItem extends Item {
       );
 
   @override
-  BaseItemEntity toDomain() => BaseItemEntity(
+  domain.BaseItemDetail toDomain() => domain.BaseItemDetail(
         id: id,
-        createdAt: createdAt,
-        updatedAt: updatedAt,
+        name: name,
+        description: description,
         abilityPower: abilityPower,
         armor: armor,
         attackDamage: attackDamage,
@@ -91,14 +91,13 @@ final class BaseItem extends Item {
       );
 }
 
-final class FullItem extends Item {
-  const FullItem({
+final class FullItemDetail extends ItemDetail {
+  const FullItemDetail({
     required super.id,
-    required this.isActive,
+    required super.name,
+    required super.description,
     required this.itemId1,
     required this.itemId2,
-    required super.createdAt,
-    required super.updatedAt,
     super.abilityPower,
     super.armor,
     super.attackDamage,
@@ -109,13 +108,12 @@ final class FullItem extends Item {
     super.mana,
   });
 
-  factory FullItem.fromJson(Map<String, dynamic> json) => FullItem(
+  factory FullItemDetail.fromJson(Map<String, dynamic> json) => FullItemDetail(
         id: json['id'] as String,
-        isActive: json['is_active'] as bool,
+        name: json['name'] as String,
+        description: json['description'] as String,
         itemId1: json['item_id_1'] as String,
         itemId2: json['item_id_2'] as String,
-        createdAt: DateTime.parse(json['created_at'] as String),
-        updatedAt: DateTime.parse(json['updated_at'] as String),
         abilityPower: json['ability_power'] as int?,
         armor: json['armor'] as int?,
         attackDamage: json['attack_damage'] as int?,
@@ -126,18 +124,16 @@ final class FullItem extends Item {
         mana: json['mana'] as int?,
       );
 
-  final bool isActive;
   final String itemId1;
   final String itemId2;
 
   @override
-  FullItemEntity toDomain() => FullItemEntity(
+  domain.FullItemDetail toDomain() => domain.FullItemDetail(
         id: id,
-        isActive: isActive,
+        name: name,
+        description: description,
         itemId1: itemId1,
         itemId2: itemId2,
-        createdAt: createdAt,
-        updatedAt: updatedAt,
         abilityPower: abilityPower,
         armor: armor,
         attackDamage: attackDamage,
@@ -151,7 +147,6 @@ final class FullItem extends Item {
   @override
   List<Object?> get props => [
         ...super.props,
-        isActive,
         itemId1,
         itemId2,
       ];

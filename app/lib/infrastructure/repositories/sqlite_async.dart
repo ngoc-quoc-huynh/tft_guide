@@ -3,8 +3,11 @@ import 'package:sqlite_async/sqlite_async.dart';
 import 'package:tft_guide/domain/interfaces/local_database.dart';
 import 'package:tft_guide/domain/models/database/item.dart';
 import 'package:tft_guide/domain/models/database/item_translation.dart';
+import 'package:tft_guide/domain/models/item_detail.dart' as domain;
+import 'package:tft_guide/infrastructure/models/sqlite_async/item_detail.dart';
 import 'package:tft_guide/injector.dart';
 
+// TODO: Add translation handling
 final class SQLiteAsyncRepository implements LocalDatabaseAPI {
   SQLiteAsyncRepository();
 
@@ -211,6 +214,62 @@ DO UPDATE SET
             )
             .toList(),
       );
+
+  @override
+  Future<domain.BaseItemDetail> loadBaseItemDetail(String id) async {
+    final json = await _db.get(
+      '''
+SELECT b.id, t.name, t.description, b.ability_power, b.armor, b.attack_damage, b.attack_speed, b.crit, b.health, b.magic_resist, b.mana
+FROM $_tableNameBaseItem as b, $_tableNameBaseItemTranslation as t
+WHERE b.id = ? AND t.item_id = ? AND t.language_code = ?;
+''',
+      [id, id, 'de'],
+    );
+    return BaseItemDetail.fromJson(json).toDomain();
+  }
+
+  @override
+  Future<domain.FullItemDetail> loadFullItemDetail(String id) async {
+    final json = await _db.get(
+      '''
+SELECT f.id, t.name, t.description, f.item_id_1, f.item_id_2, f.ability_power, f.armor, f.attack_damage, f.attack_speed, f.crit, f.health, f.magic_resist, f.mana
+FROM $_tableNameFullItem as f, $_tableNameFullItemTranslation as t
+WHERE f.id = ? AND t.item_id = ? AND t.language_code = ?;
+''',
+      [id, id, 'de'],
+    );
+    return FullItemDetail.fromJson(json).toDomain();
+  }
+
+  @override
+  Future<List<domain.BaseItemDetail>> loadBaseItemDetails() async {
+    final result = await _db.getAll(
+      '''
+SELECT b.id, t.name, t.description, b.ability_power, b.armor, b.attack_damage, b.attack_speed, b.crit, b.health, b.magic_resist, b.mana
+FROM $_tableNameBaseItem as b, $_tableNameBaseItemTranslation as t
+WHERE b.id = t.item_id AND t.language_code = ?;
+''',
+      ['de'],
+    );
+    return result
+        .map((json) => BaseItemDetail.fromJson(json).toDomain())
+        .toList();
+  }
+
+  @override
+  Future<List<domain.FullItemDetail>> loadFullItemDetails() async {
+    final result = await _db.getAll(
+      '''
+SELECT f.id, t.name, t.description, f.item_id_1, f.item_id_2, f.ability_power, f.armor, f.attack_damage, f.attack_speed, f.crit, f.health, f.magic_resist, f.mana
+FROM $_tableNameFullItem as f, $_tableNameFullItemTranslation as t
+WHERE f.id = t.item_id AND t.language_code = ?;
+''',
+      ['de'],
+    );
+    return result
+        .map((json) => FullItemDetail.fromJson(json).toDomain())
+        .toList();
+  }
 
   @override
   Future<void> close() => _db.close();
