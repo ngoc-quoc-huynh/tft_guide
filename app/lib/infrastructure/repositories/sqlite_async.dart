@@ -4,7 +4,9 @@ import 'package:tft_guide/domain/interfaces/local_database.dart';
 import 'package:tft_guide/domain/models/database/item.dart';
 import 'package:tft_guide/domain/models/database/item_translation.dart';
 import 'package:tft_guide/domain/models/item_detail.dart' as domain;
+import 'package:tft_guide/domain/models/item_meta.dart' as domain;
 import 'package:tft_guide/infrastructure/models/sqlite_async/item_detail.dart';
+import 'package:tft_guide/infrastructure/models/sqlite_async/item_meta.dart';
 import 'package:tft_guide/injector.dart';
 
 final class SQLiteAsyncRepository implements LocalDatabaseAPI {
@@ -247,7 +249,7 @@ WHERE f.id = ? AND t.item_id = ? AND t.language_code = ?;
   }
 
   @override
-  Future<List<domain.BaseItemDetail>> loadBaseItemDetails(
+  Future<List<domain.BaseItemMeta>> loadBaseItemMetas(
     LanguageCode languageCode,
   ) async {
     final result = await _db.getAll(
@@ -259,24 +261,24 @@ WHERE b.id = t.item_id AND t.language_code = ?;
       [languageCode.name],
     );
     return result
-        .map((json) => BaseItemDetail.fromJson(json).toDomain())
+        .map((json) => BaseItemMeta.fromJson(json).toDomain())
         .toList();
   }
 
   @override
-  Future<List<domain.FullItemDetail>> loadFullItemDetails(
+  Future<List<domain.FullItemMeta>> loadFullItemMetas(
     LanguageCode languageCode,
   ) async {
     final result = await _db.getAll(
       '''
-SELECT f.id, t.name, t.description, f.item_id_1, f.item_id_2, f.ability_power, f.armor, f.attack_damage, f.attack_speed, f.crit, f.health, f.magic_resist, f.mana
+SELECT f.id, t.name
 FROM $_tableNameFullItem as f, $_tableNameFullItemTranslation as t
 WHERE f.id = t.item_id AND t.language_code = ?;
 ''',
       [languageCode.name],
     );
     return result
-        .map((json) => FullItemDetail.fromJson(json).toDomain())
+        .map((json) => FullItemMeta.fromJson(json).toDomain())
         .toList();
   }
 
