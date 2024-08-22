@@ -121,6 +121,6 @@ final class Assets {
   static const attackSpeed = Asset('assets/item_stats/attack_speed.svg');
   static const crit = Asset('assets/item_stats/crit.svg');
   static const health = Asset('assets/item_stats/health.svg');
-  static const magic_resist = Asset('assets/item_stats/magic_resists.svg');
+  static const magicResist = Asset('assets/item_stats/magic_resist.svg');
   static const mana = Asset('assets/item_stats/mana.svg');
 }
