@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+// TODO: Use extension type
 final class Asset extends Equatable {
   const Asset(this.path);
 
@@ -112,4 +113,14 @@ final class Assets {
   static const thiefsGloves = Asset('assets/items/full/thiefs_gloves.png');
   static const titansResolve = Asset('assets/items/full/titans_resolve.png');
   static const warmogsArmor = Asset('assets/items/full/warmogs_armor.png');
+
+  // TODO: Extract as icon or precache svg
+  static const abilityPower = Asset('assets/item_stats/ability_power.svg');
+  static const armor = Asset('assets/item_stats/armor.svg');
+  static const attackDamage = Asset('assets/item_stats/attack_damage.svg');
+  static const attackSpeed = Asset('assets/item_stats/attack_speed.svg');
+  static const crit = Asset('assets/item_stats/crit.svg');
+  static const health = Asset('assets/item_stats/health.svg');
+  static const magic_resist = Asset('assets/item_stats/magic_resists.svg');
+  static const mana = Asset('assets/item_stats/mana.svg');
 }
