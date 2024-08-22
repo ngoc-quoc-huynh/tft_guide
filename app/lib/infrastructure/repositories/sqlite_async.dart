@@ -20,6 +20,15 @@ final class SQLiteAsyncRepository implements LocalDatabaseAPI {
       path: join(Injector.instance.appDir.path, 'test.db'),
     );
     final migrations = SqliteMigrations()
+      ..createDatabase = SqliteMigration(
+        1,
+        (tx) async {
+          await tx.execute(_createTableBaseItem);
+          await tx.execute(_createTableFullItem);
+          await tx.execute(_createTableBaseItemTranslation);
+          await tx.execute(_createTableFullItemTranslation);
+        },
+      )
       ..add(
         SqliteMigration(
           1,
