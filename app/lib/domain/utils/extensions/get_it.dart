@@ -7,6 +7,7 @@ import 'package:tft_guide/domain/interfaces/local_database.dart';
 import 'package:tft_guide/domain/interfaces/questions.dart';
 import 'package:tft_guide/domain/interfaces/rank.dart';
 import 'package:tft_guide/domain/interfaces/remote_database.dart';
+import 'package:tft_guide/domain/models/database/item_translation.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 
 extension GetItExtension on GetIt {
@@ -15,6 +16,9 @@ extension GetItExtension on GetIt {
   FeedbackAPI get feedbackAPI => get<FeedbackAPI>();
 
   ItemsAPI get itemsAPI => get<ItemsAPI>();
+
+  LanguageCode get languageCode =>
+      LanguageCode.values.byName(translations.$meta.locale.languageCode);
 
   LocalDatabaseAPI get localDatabaseAPI => get<LocalDatabaseAPI>();
 

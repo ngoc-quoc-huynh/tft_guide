@@ -27,13 +27,19 @@ abstract interface class LocalDatabaseAPI {
     List<FullItemTranslationEntity> translations,
   );
 
-  Future<BaseItemDetail> loadBaseItemDetail(String id);
+  Future<BaseItemDetail> loadBaseItemDetail(
+    String id,
+    LanguageCode languageCode,
+  );
 
-  Future<FullItemDetail> loadFullItemDetail(String id);
+  Future<FullItemDetail> loadFullItemDetail(
+    String id,
+    LanguageCode languageCode,
+  );
 
-  Future<List<BaseItemDetail>> loadBaseItemDetails();
+  Future<List<BaseItemDetail>> loadBaseItemDetails(LanguageCode languageCode);
 
-  Future<List<FullItemDetail>> loadFullItemDetails();
+  Future<List<FullItemDetail>> loadFullItemDetails(LanguageCode languageCode);
 
   Future<void> close();
 }
