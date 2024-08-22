@@ -5,6 +5,7 @@ sealed class ItemDetail extends Equatable {
     required this.id,
     required this.name,
     required this.description,
+    required this.hint,
     this.abilityPower,
     this.armor,
     this.attackDamage,
@@ -18,6 +19,7 @@ sealed class ItemDetail extends Equatable {
   final String id;
   final String name;
   final String description;
+  final String hint;
   final int? abilityPower;
   final int? armor;
   final int? attackDamage;
@@ -32,6 +34,7 @@ sealed class ItemDetail extends Equatable {
         id,
         name,
         description,
+        hint,
         abilityPower,
         armor,
         attackDamage,
@@ -48,6 +51,7 @@ final class BaseItemDetail extends ItemDetail {
     required super.id,
     required super.name,
     required super.description,
+    required super.hint,
     super.abilityPower,
     super.armor,
     super.attackDamage,
@@ -64,6 +68,7 @@ final class FullItemDetail extends ItemDetail {
     required super.id,
     required super.name,
     required super.description,
+    required super.hint,
     required this.itemId1,
     required this.itemId2,
     super.abilityPower,
