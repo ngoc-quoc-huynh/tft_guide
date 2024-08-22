@@ -17,12 +17,9 @@ final class SupabaseRepository implements RemoteDatabaseAPI {
   Future<SupabaseRepository> initialize() async {
     await Supabase.initialize(
       // TODO: Extract these as variables
-      url: 'https://desyhvpvijfqxftogtis.supabase.co',
+      url: 'https://awzpjhebnxhevguivkpv.supabase.co',
       anonKey:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI'
-          '6ImRlc3lodnB2aWpmcXhmdG9ndGlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjA'
-          '5Njc2ODAsImV4cCI6MjAzNjU0MzY4MH0.AImzdKJW6dUMLbvSPtHsa5zL7KF-apr'
-          '6lX6_RjKJQiI',
+          '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF3enBqaGVibnhoZXZndWl2a3B2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQwNjQ5ODUsImV4cCI6MjAzOTY0MDk4NX0.wuM0S0LDtIts1DKgCrVMUq4HzC1aFU2_CjE-_hdEywM''',
     );
     return this;
   }
@@ -80,7 +77,7 @@ final class SupabaseRepository implements RemoteDatabaseAPI {
 
   @override
   Future<List<FullItemEntity>> loadFullItems(DateTime? lastUpdated) async {
-    final response = await _client.from('base_item').select().maybeApply(
+    final response = await _client.from('full_item').select().maybeApply(
           lastUpdated,
           (query, lastUpdated) => query.gt('updated_at', lastUpdated),
         );
