@@ -20,6 +20,7 @@ final class SupabaseRepository implements RemoteDatabaseAPI {
       url: 'https://awzpjhebnxhevguivkpv.supabase.co',
       anonKey:
           '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF3enBqaGVibnhoZXZndWl2a3B2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQwNjQ5ODUsImV4cCI6MjAzOTY0MDk4NX0.wuM0S0LDtIts1DKgCrVMUq4HzC1aFU2_CjE-_hdEywM''',
+      debug: false,
     );
     return this;
   }
