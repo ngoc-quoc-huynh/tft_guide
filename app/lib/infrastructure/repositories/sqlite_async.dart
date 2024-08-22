@@ -232,7 +232,7 @@ DO UPDATE SET
   ) async {
     final json = await _db.get(
       '''
-SELECT b.id, t.name, t.description, b.ability_power, b.armor, b.attack_damage, b.attack_speed, b.crit, b.health, b.magic_resist, b.mana
+SELECT b.id, t.name, t.description, t.hint, b.ability_power, b.armor, b.attack_damage, b.attack_speed, b.crit, b.health, b.magic_resist, b.mana
 FROM $_tableNameBaseItem as b, $_tableNameBaseItemTranslation as t
 WHERE b.id = ? AND t.item_id = ? AND t.language_code = ?;
 ''',
@@ -248,7 +248,7 @@ WHERE b.id = ? AND t.item_id = ? AND t.language_code = ?;
   ) async {
     final json = await _db.get(
       '''
-SELECT f.id, t.name, t.description, f.item_id_1, f.item_id_2, f.ability_power, f.armor, f.attack_damage, f.attack_speed, f.crit, f.health, f.magic_resist, f.mana
+SELECT f.id, t.name, t.description, t.hint, f.item_id_1, f.item_id_2, f.ability_power, f.armor, f.attack_damage, f.attack_speed, f.crit, f.health, f.magic_resist, f.mana
 FROM $_tableNameFullItem as f, $_tableNameFullItemTranslation as t
 WHERE f.id = ? AND t.item_id = ? AND t.language_code = ?;
 ''',
