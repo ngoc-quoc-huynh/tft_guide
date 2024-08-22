@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/blocs/elo_gain/cubit.dart';
-import 'package:tft_guide/domain/blocs/items/bloc.dart';
+import 'package:tft_guide/ui/pages/base_item_detail/page.dart';
+import 'package:tft_guide/ui/pages/full_item_detail/page.dart';
 import 'package:tft_guide/ui/pages/game/page.dart';
-import 'package:tft_guide/ui/pages/item/page.dart';
-import 'package:tft_guide/ui/pages/items/page.dart';
+import 'package:tft_guide/ui/pages/item_metas/page.dart';
 import 'package:tft_guide/ui/pages/quotes/page.dart';
 import 'package:tft_guide/ui/pages/ranked/page.dart';
 import 'package:tft_guide/ui/pages/scaffold_navbar.dart';
@@ -23,15 +23,8 @@ final class GoRouterConfig {
     routes: [
       ShellRoute(
         navigatorKey: _rootNavigatorKey,
-        builder: (_, __, child) => MultiBlocProvider(
-          providers: [
-            BlocProvider<EloGainCubit>(
-              create: (_) => EloGainCubit(),
-            ),
-            BlocProvider<ItemsBloc>(
-              create: (_) => ItemsBloc()..add(const ItemsInitializeEvent()),
-            ),
-          ],
+        builder: (_, __, child) => BlocProvider<EloGainCubit>(
+          create: (_) => EloGainCubit(),
           child: child,
         ),
         routes: [
@@ -69,16 +62,24 @@ final class GoRouterConfig {
               StatefulShellBranch(
                 routes: [
                   GoRoute(
-                    name: ItemsPage.routeName,
+                    name: ItemMetasPage.routeName,
                     path: '/items',
-                    builder: (_, __) => const ItemsPage(),
+                    builder: (_, __) => const ItemMetasPage(),
                     routes: [
                       GoRoute(
                         parentNavigatorKey: _rootNavigatorKey,
-                        name: ItemPage.routeName,
-                        path: ':id',
-                        builder: (_, state) => ItemPage(
-                          id: int.parse(state.pathParameters['id']!),
+                        name: BaseItemDetailPage.routeName,
+                        path: ':id/base',
+                        builder: (_, state) => BaseItemDetailPage(
+                          id: state.pathParameters['id']!,
+                        ),
+                      ),
+                      GoRoute(
+                        parentNavigatorKey: _rootNavigatorKey,
+                        name: FullItemDetailPage.routeName,
+                        path: ':id/full',
+                        builder: (_, state) => FullItemDetailPage(
+                          id: state.pathParameters['id']!,
                         ),
                       ),
                     ],
