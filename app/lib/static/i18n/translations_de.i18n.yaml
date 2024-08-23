@@ -22,7 +22,7 @@ pages:
     feedback:
       correct:
         - 'Challenger ich komme!'
-        -  'Ich kann ja doch was.'
+        - 'Ich kann ja doch was.'
         - 'Nice, bald kann ich mit Tom & Quoc spielen.'
         - 'Supa dupa!'
         - 'Easy peasy lemon squeezy.'
@@ -42,10 +42,19 @@ pages:
         - 'Ich weiß nicht, ob ich das schaffen kann.'
         - 'Mist, das war schwer.'
         - 'Fokus Anna!'
-  item:
+  item_detail:
     description: 'Beschreibung'
-    hint: 'Tipp'
-    components: 'Komponente'
+    hint: 'Hinweis'
+    combine: 'Kombiniert durch'
+    stats: 'Werte'
+    abilityPower: 'Fähigkeitsstärke'
+    armor: 'Rüstung'
+    attackDamage: 'Angriffsschaden'
+    attackSpeed: 'Angriffstempo'
+    crit: 'Kritische Chance'
+    health: 'Leben'
+    magicResist: 'Magieresistenz'
+    mana: 'Mana'
   items:
     title: 'Items'
     base:
