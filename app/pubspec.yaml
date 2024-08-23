@@ -88,3 +88,8 @@ flutter:
     - assets/divisions/challenger/
     - assets/items/base/
     - assets/items/full/
+
+  fonts:
+    - family: TFT
+      fonts:
+        - asset: assets/fonts/tft.ttf
