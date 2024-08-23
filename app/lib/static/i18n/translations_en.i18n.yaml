@@ -42,10 +42,19 @@ pages:
         - 'Ich weiß nicht, ob ich das schaffen kann.'
         - 'Mist, das war schwer.'
         - 'Fokus Anna!'
-  item:
-    description: 'Beschreibung'
-    hint: 'Tipp'
-    components: 'Komponente'
+  item_detail:
+    description: 'Description'
+    hint: 'Hint'
+    combine: 'Combined by'
+    stats: 'Stats'
+    abilityPower: 'Ability power'
+    armor: 'Armor'
+    attackDamage: 'Attack damage'
+    attackSpeed: 'Attack speed'
+    crit: 'Critical chance'
+    health: 'Health'
+    magicResist: 'Magic resistance'
+    mana: 'Mana'
   items:
     title: 'Items'
     base:

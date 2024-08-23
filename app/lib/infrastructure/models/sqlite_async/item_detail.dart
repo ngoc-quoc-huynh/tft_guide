@@ -139,7 +139,7 @@ final class FullItemDetail extends ItemDetail {
   domain.FullItemDetail toDomain() => domain.FullItemDetail(
         id: id,
         name: name,
-        description: description,
+        description: description.replaceAll(r'\n', '\n'),
         hint: hint,
         itemId1: itemId1,
         itemId2: itemId2,
