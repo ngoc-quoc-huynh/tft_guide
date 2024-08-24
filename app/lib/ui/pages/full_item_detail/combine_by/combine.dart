@@ -17,29 +17,45 @@ final class _Combine extends FullItemDetailCombineBy {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _Image(itemId1),
+          _Image(
+            id: itemId1,
+            tooltip: _translations.item1,
+          ),
           const Icon(Icons.add),
-          _Image(itemId2),
+          _Image(
+            id: itemId2,
+            tooltip: _translations.item2,
+          ),
         ],
       ),
     );
   }
+
+  TranslationsPagesItemDetailDe get _translations =>
+      Injector.instance.translations.pages.item_detail;
 }
 
 class _Image extends StatelessWidget {
-  const _Image(this.id);
+  const _Image({
+    required this.id,
+    required this.tooltip,
+  });
 
   final String id;
+  final String tooltip;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => _onTap(context),
-      child: Ink.image(
-        image: AssetImage(Assets.bfSword.path),
-        height: FullItemDetailCombineBy.imageSize,
-        width: FullItemDetailCombineBy.imageSize,
-        fit: BoxFit.contain,
+    return Tooltip(
+      message: tooltip,
+      child: InkWell(
+        onTap: () => _onTap(context),
+        child: Ink.image(
+          image: AssetImage(Assets.bfSword.path),
+          height: FullItemDetailCombineBy.imageSize,
+          width: FullItemDetailCombineBy.imageSize,
+          fit: BoxFit.contain,
+        ),
       ),
     );
   }
