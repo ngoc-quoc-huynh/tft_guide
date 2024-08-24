@@ -23,19 +23,19 @@ class SettingsPage extends StatelessWidget {
               onPressed: () => context
                   .read<TranslationLocaleCubit>()
                   .change(TranslationLocale.german),
-              child: Text(_messages.german),
+              child: Text(_translations.german),
             ),
             TextButton(
               onPressed: () => context
                   .read<TranslationLocaleCubit>()
                   .change(TranslationLocale.english),
-              child: Text(_messages.english),
+              child: Text(_translations.english),
             ),
             TextButton(
               onPressed: () => context
                   .read<TranslationLocaleCubit>()
                   .change(TranslationLocale.system),
-              child: Text(_messages.system),
+              child: Text(_translations.system),
             ),
           ],
         ),
@@ -43,6 +43,6 @@ class SettingsPage extends StatelessWidget {
     );
   }
 
-  TranslationsPagesSettingsDe get _messages =>
+  TranslationsPagesSettingsDe get _translations =>
       Injector.instance.translations.pages.settings;
 }

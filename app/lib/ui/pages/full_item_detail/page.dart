@@ -69,7 +69,9 @@ class _Body extends StatelessWidget {
           const SliverSizedBox(height: 20),
           SliverWrapperItemDetail(
             child: ItemDetailCard(
-              title: ItemDetailCardTitle.text(text: _messages.description),
+              title: ItemDetailCardTitle.text(
+                text: _translations.description,
+              ),
               child: ItemDetailCardText.text(
                 text: item.description,
               ),
@@ -78,7 +80,9 @@ class _Body extends StatelessWidget {
           const SliverSizedBox(height: 10),
           SliverWrapperItemDetail(
             child: ItemDetailCard(
-              title: ItemDetailCardTitle.text(text: _messages.stats),
+              title: ItemDetailCardTitle.text(
+                text: _translations.stats,
+              ),
               child: ItemDetailStats.gridView(
                 item: item,
               ),
@@ -87,7 +91,9 @@ class _Body extends StatelessWidget {
           const SliverSizedBox(height: 10),
           SliverWrapperItemDetail(
             child: ItemDetailCard(
-              title: ItemDetailCardTitle.text(text: _messages.hint),
+              title: ItemDetailCardTitle.text(
+                text: _translations.hint,
+              ),
               child: ItemDetailCardText.text(
                 text: item.hint,
               ),
@@ -96,7 +102,9 @@ class _Body extends StatelessWidget {
           const SliverSizedBox(height: 10),
           SliverWrapperItemDetail(
             child: ItemDetailCard(
-              title: ItemDetailCardTitle.text(text: _messages.combine),
+              title: ItemDetailCardTitle.text(
+                text: _translations.combine,
+              ),
               child: FullItemDetailCombineBy.combine(
                 itemId1: item.itemId1,
                 itemId2: item.itemId2,
@@ -109,6 +117,6 @@ class _Body extends StatelessWidget {
     );
   }
 
-  TranslationsPagesItemDetailDe get _messages =>
+  TranslationsPagesItemDetailDe get _translations =>
       Injector.instance.translations.pages.item_detail;
 }
