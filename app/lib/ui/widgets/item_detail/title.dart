@@ -1,39 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-sealed class ItemDetailCardText extends StatelessWidget {
-  const ItemDetailCardText({super.key});
+sealed class ItemDetailCardTitle extends StatelessWidget {
+  const ItemDetailCardTitle({super.key});
 
-  const factory ItemDetailCardText.loading({
+  const factory ItemDetailCardTitle.loading({
     Key? key,
   }) = _Loading;
 
-  const factory ItemDetailCardText.text({
+  const factory ItemDetailCardTitle.text({
     required String text,
     Key? key,
   }) = _Text;
 
   @protected
   TextStyle? getTextStyle(BuildContext context) =>
-      Theme.of(context).textTheme.bodyLarge;
+      Theme.of(context).textTheme.titleLarge;
 }
 
-final class _Loading extends ItemDetailCardText {
+final class _Loading extends ItemDetailCardTitle {
   const _Loading({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 5),
-      child: Bone.multiText(
-        lines: 3,
-        style: getTextStyle(context),
-      ),
+    return Bone.text(
+      words: 1,
+      style: getTextStyle(context),
     );
   }
 }
 
-final class _Text extends ItemDetailCardText {
+final class _Text extends ItemDetailCardTitle {
   const _Text({required this.text, super.key});
 
   final String text;
