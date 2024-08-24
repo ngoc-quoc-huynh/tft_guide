@@ -55,6 +55,8 @@ pages:
     health: 'Leben'
     magicResist: 'Magieresistenz'
     mana: 'Mana'
+    item1: 'Gegenstand 1'
+    item2: 'Gegenstand 2'
   items:
     title: 'Items'
     base:
