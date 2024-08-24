@@ -34,56 +34,56 @@ class _BodyState extends State<_Body> {
         _GridViewItem(
           icon: TftIcons.abilityPower,
           color: const Color(0xFF9BFFF7),
-          name: _messages.abilityPower,
+          name: _translations.abilityPower,
           value: abilityPower,
         ),
       if (widget.item.armor case final int armor)
         _GridViewItem(
           icon: TftIcons.armor,
           color: const Color(0xFFF16F59),
-          name: _messages.armor,
+          name: _translations.armor,
           value: armor,
         ),
       if (widget.item.attackDamage case final int attackDamage)
         _GridViewItem(
           icon: TftIcons.attackDamage,
           color: const Color(0xFFBD7E4C),
-          name: _messages.attackDamage,
+          name: _translations.attackDamage,
           value: attackDamage,
         ),
       if (widget.item.attackSpeed case final int attackSpeed)
         _GridViewItem(
           icon: TftIcons.attackSpeed,
           color: const Color(0xFFF4C452),
-          name: _messages.attackSpeed,
+          name: _translations.attackSpeed,
           value: attackSpeed,
         ),
       if (widget.item.crit case final int crit)
         _GridViewItem(
           icon: TftIcons.crit,
           color: const Color(0xFFCE3B44),
-          name: _messages.crit,
+          name: _translations.crit,
           value: crit,
         ),
       if (widget.item.health case final int health)
         _GridViewItem(
           icon: TftIcons.health,
           color: const Color(0xFF20995D),
-          name: _messages.health,
+          name: _translations.health,
           value: health,
         ),
       if (widget.item.magicResist case final int magicResist)
         _GridViewItem(
           icon: TftIcons.magicResist,
           color: const Color(0xFFCF8DD1),
-          name: _messages.magicResist,
+          name: _translations.magicResist,
           value: magicResist,
         ),
       if (widget.item.mana case final int mana)
         _GridViewItem(
           icon: TftIcons.mana,
           color: const Color(0xFF26C2F4),
-          name: _messages.mana,
+          name: _translations.mana,
           value: mana,
         ),
     ];
@@ -108,7 +108,7 @@ class _BodyState extends State<_Body> {
 
   double _computeGridHeight(int statsLength) => (statsLength / 4).ceil() * 30;
 
-  TranslationsPagesItemDetailDe get _messages =>
+  TranslationsPagesItemDetailDe get _translations =>
       Injector.instance.translations.pages.item_detail;
 }
 

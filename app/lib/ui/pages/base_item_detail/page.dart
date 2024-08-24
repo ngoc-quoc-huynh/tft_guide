@@ -64,7 +64,7 @@ class _Body extends StatelessWidget {
           SliverWrapperItemDetail(
             child: ItemDetailCard(
               title: ItemDetailCardTitle.text(
-                text: _messages.description,
+                text: _translations.description,
               ),
               child: ItemDetailCardText.text(
                 text: item.description,
@@ -75,7 +75,7 @@ class _Body extends StatelessWidget {
           SliverWrapperItemDetail(
             child: ItemDetailCard(
               title: ItemDetailCardTitle.text(
-                text: _messages.stats,
+                text: _translations.stats,
               ),
               child: ItemDetailStats.gridView(
                 item: item,
@@ -86,7 +86,7 @@ class _Body extends StatelessWidget {
           SliverWrapperItemDetail(
             child: ItemDetailCard(
               title: ItemDetailCardTitle.text(
-                text: _messages.hint,
+                text: _translations.hint,
               ),
               child: ItemDetailCardText.text(
                 text: item.hint,
@@ -99,6 +99,6 @@ class _Body extends StatelessWidget {
     );
   }
 
-  TranslationsPagesItemDetailDe get _messages =>
+  TranslationsPagesItemDetailDe get _translations =>
       Injector.instance.translations.pages.item_detail;
 }
