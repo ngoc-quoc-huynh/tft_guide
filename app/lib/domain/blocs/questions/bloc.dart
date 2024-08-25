@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/models/question.dart';
-import 'package:tft_guide/domain/models/question_item.dart';
+import 'package:tft_guide/domain/models/question_item2.dart';
 import 'package:tft_guide/domain/utils/extensions/list.dart';
 import 'package:tft_guide/injector.dart';
 

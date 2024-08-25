@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/blocs/check_selected_item/cubit.dart';
 import 'package:tft_guide/domain/blocs/selected_item/cubit.dart';
 import 'package:tft_guide/domain/models/question.dart';
-import 'package:tft_guide/domain/models/question_item.dart';
+import 'package:tft_guide/domain/models/question_item2.dart';
 import 'package:tft_guide/ui/pages/game/selection_item/selection_item.dart';
 
 class ItemSelection extends StatefulWidget {

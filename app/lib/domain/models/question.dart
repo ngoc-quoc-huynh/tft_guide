@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:tft_guide/domain/models/question_item.dart';
+import 'package:tft_guide/domain/models/question_item2.dart';
 
 sealed class Question extends Equatable {
   const Question({

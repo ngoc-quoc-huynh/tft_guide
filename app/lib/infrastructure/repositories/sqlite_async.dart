@@ -5,8 +5,10 @@ import 'package:tft_guide/domain/models/database/item.dart';
 import 'package:tft_guide/domain/models/database/item_translation.dart';
 import 'package:tft_guide/domain/models/item_detail.dart' as domain;
 import 'package:tft_guide/domain/models/item_meta.dart' as domain;
+import 'package:tft_guide/domain/models/question_item.dart' as domain;
 import 'package:tft_guide/infrastructure/models/sqlite_async/item_detail.dart';
 import 'package:tft_guide/infrastructure/models/sqlite_async/item_meta.dart';
+import 'package:tft_guide/infrastructure/models/sqlite_async/question_item.dart';
 import 'package:tft_guide/injector.dart';
 
 final class SQLiteAsyncRepository implements LocalDatabaseAPI {
@@ -288,6 +290,46 @@ WHERE f.id = t.item_id AND t.language_code = ?;
     );
     return result
         .map((json) => FullItemMeta.fromJson(json).toDomain())
+        .toList();
+  }
+
+  @override
+  Future<List<domain.QuestionBaseItem>> loadQuestionBaseItems(
+    int amount,
+    LanguageCode languageCode,
+  ) async {
+    final result = await _db.getAll(
+      '''
+SELECT b.id, t.name, t.description
+FROM $_tableNameBaseItem as b, $_tableNameBaseItemTranslation as t
+WHERE b.id = t.item_id AND t.language_code = ?
+ORDER BY RANDOM()
+LIMIT ?
+;''',
+      [languageCode.name, amount],
+    );
+    return result
+        .map((json) => QuestionBaseItem.fromJson(json).toDomain())
+        .toList();
+  }
+
+  @override
+  Future<List<domain.QuestionFullItem>> loadQuestionFullItems(
+    int amount,
+    LanguageCode languageCode,
+  ) async {
+    final result = await _db.getAll(
+      '''
+SELECT f.id, t.name, t.description, f.item_id_1, f.item_id_2
+FROM $_tableNameFullItem as f, $_tableNameFullItemTranslation as t
+WHERE f.id = t.item_id AND t.language_code = ?
+ORDER BY RANDOM()
+LIMIT ?
+;''',
+      [languageCode.name, amount],
+    );
+    return result
+        .map((json) => QuestionFullItem.fromJson(json).toDomain())
         .toList();
   }
 

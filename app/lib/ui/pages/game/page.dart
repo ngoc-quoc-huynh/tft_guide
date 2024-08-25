@@ -10,7 +10,7 @@ import 'package:tft_guide/domain/blocs/game_progress/bloc.dart';
 import 'package:tft_guide/domain/blocs/questions/bloc.dart';
 import 'package:tft_guide/domain/blocs/selected_item/cubit.dart';
 import 'package:tft_guide/domain/models/question.dart';
-import 'package:tft_guide/domain/models/question_item.dart';
+import 'package:tft_guide/domain/models/question_item2.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/pages/game/check_button.dart';
 import 'package:tft_guide/ui/pages/game/item_selection.dart';
