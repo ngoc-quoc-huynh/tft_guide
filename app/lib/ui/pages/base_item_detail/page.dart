@@ -57,8 +57,10 @@ class _Body extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           const SliverSizedBox(height: 20),
-          const SliverWrapperItemDetail(
-            child: ImageDetailImage.image(),
+          SliverWrapperItemDetail(
+            child: ImageDetailImage.image(
+              id: item.id,
+            ),
           ),
           const SliverSizedBox(height: 20),
           SliverWrapperItemDetail(

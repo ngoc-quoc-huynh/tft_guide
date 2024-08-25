@@ -17,7 +17,46 @@ Future<void> main() async {
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: Injector.instance.appDir,
   );
+  //await initData();
+
   runApp(const MyApp());
+}
+
+// ignore: prefer-static-class, for testing purpose. TODO: Remove this
+Future<void> initData() async {
+  final stopwatch = Stopwatch()..start();
+  final remoteDatabaseAPI = Injector.instance.remoteDatabaseAPI;
+  final (
+    baseItems,
+    fullItems,
+    baseItemTranslations,
+    fullItemTranslations,
+    assetNames
+  ) = await (
+    remoteDatabaseAPI.loadBaseItems(null),
+    remoteDatabaseAPI.loadFullItems(null),
+    remoteDatabaseAPI.loadBaseItemTranslations(null),
+    remoteDatabaseAPI.loadFullItemTranslations(null),
+    remoteDatabaseAPI.loadAssetsNames(null)
+  ).wait;
+  final localDatabaseAPI = Injector.instance.localDatabaseAPI;
+  await [
+    localDatabaseAPI.storeBaseItems(baseItems),
+    localDatabaseAPI.storeFullItems(fullItems),
+  ].wait;
+  await [
+    localDatabaseAPI.storeBaseItemTranslations(baseItemTranslations),
+    localDatabaseAPI.storeFullItemTranslations(fullItemTranslations),
+  ].wait;
+  final fileStorageAPI = Injector.instance.fileStorageAPI;
+  Future<void> download(String name) async {
+    final asset = await remoteDatabaseAPI.loadAsset(name);
+    await fileStorageAPI.save(name, asset);
+  }
+
+  await assetNames.map(download).wait;
+  debugPrint('Downloaded database in ${stopwatch.elapsed}');
+  stopwatch.stop();
 }
 
 class MyApp extends StatelessWidget {

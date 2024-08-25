@@ -18,11 +18,21 @@ final class CustomTheme {
 
   static ThemeData _themeData(Brightness brightness, TextTheme textTheme) {
     final colorScheme = _colorScheme(brightness);
-    return ThemeData.from(
+    return ThemeData(
       colorScheme: colorScheme,
       textTheme: textTheme.apply(
         bodyColor: colorScheme.onSurface,
         displayColor: colorScheme.onSurface,
+      ),
+      pageTransitionsTheme: PageTransitionsTheme(
+        builders: Map.fromEntries(
+          TargetPlatform.values.map(
+            (platform) => MapEntry(
+              platform,
+              const CupertinoPageTransitionsBuilder(),
+            ),
+          ),
+        ),
       ),
     );
   }

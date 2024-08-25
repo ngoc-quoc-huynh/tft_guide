@@ -51,10 +51,13 @@ class _Image extends StatelessWidget {
       child: InkWell(
         onTap: () => _onTap(context),
         child: Ink.image(
-          image: AssetImage(Assets.bfSword.path),
+          image: FileImage(
+            Injector.instance.fileStorageAPI.loadFile(id),
+          ),
           height: FullItemDetailCombineBy.imageSize,
           width: FullItemDetailCombineBy.imageSize,
           fit: BoxFit.contain,
+          // TODO: Add error widget
         ),
       ),
     );

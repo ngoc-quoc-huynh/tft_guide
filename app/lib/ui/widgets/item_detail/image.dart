@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:tft_guide/static/resources/assets.dart';
+import 'package:tft_guide/injector.dart';
 
 sealed class ImageDetailImage extends StatelessWidget {
   const ImageDetailImage({super.key});
 
   const factory ImageDetailImage.image({
+    required String id,
     Key? key,
   }) = _Image;
 
@@ -18,15 +19,21 @@ sealed class ImageDetailImage extends StatelessWidget {
 }
 
 final class _Image extends ImageDetailImage {
-  const _Image({super.key});
+  const _Image({
+    required this.id,
+    super.key,
+  });
+
+  final String id;
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(
-      Assets.bfSword.path,
+    return Image.file(
+      Injector.instance.fileStorageAPI.loadFile(id),
       width: ImageDetailImage.imageSize,
       height: ImageDetailImage.imageSize,
       fit: BoxFit.contain,
+      // TODO: Add error widget
     );
   }
 }
