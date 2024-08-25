@@ -1,4 +1,4 @@
-import 'package:tft_guide/domain/models/question_item.dart';
+import 'package:tft_guide/domain/models/question_item2.dart';
 
 abstract interface class QuestionsAPI {
   const QuestionsAPI();

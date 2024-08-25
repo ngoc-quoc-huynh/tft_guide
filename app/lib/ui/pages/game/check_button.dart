@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/blocs/check_selected_item/cubit.dart';
 import 'package:tft_guide/domain/blocs/correct_answers/cubit.dart';
 import 'package:tft_guide/domain/blocs/selected_item/cubit.dart';
-import 'package:tft_guide/domain/models/question_item.dart';
+import 'package:tft_guide/domain/models/question_item2.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/pages/game/feedback.dart';
 

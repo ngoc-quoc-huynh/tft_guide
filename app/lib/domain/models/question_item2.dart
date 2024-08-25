@@ -1,48 +1,52 @@
 import 'package:equatable/equatable.dart';
+import 'package:tft_guide/static/resources/assets.dart';
 
 sealed class QuestionItem extends Equatable {
   const QuestionItem({
-    required this.id,
     required this.name,
     required this.description,
+    required this.asset,
   });
 
-  final String id;
   final String name;
   final String description;
+  final Asset asset;
 
   @override
   List<Object?> get props => [
-        id,
         name,
         description,
+        asset,
       ];
 }
 
 final class QuestionBaseItem extends QuestionItem {
   const QuestionBaseItem({
-    required super.id,
     required super.name,
     required super.description,
+    required super.asset,
   });
 }
 
 final class QuestionFullItem extends QuestionItem {
   const QuestionFullItem({
-    required super.id,
     required super.name,
     required super.description,
-    required this.itemId1,
-    required this.itemId2,
+    required super.asset,
+    required this.baseItem1,
+    required this.baseItem2,
+    this.isSpecial = false,
   });
 
-  final String itemId1;
-  final String itemId2;
+  final QuestionBaseItem baseItem1;
+  final QuestionBaseItem baseItem2;
+  final bool isSpecial;
 
   @override
   List<Object?> get props => [
         ...super.props,
-        itemId1,
-        itemId2,
+        baseItem1,
+        baseItem2,
+        isSpecial,
       ];
 }

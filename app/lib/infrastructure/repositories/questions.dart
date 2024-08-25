@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:tft_guide/domain/interfaces/questions.dart';
-import 'package:tft_guide/domain/models/question_item.dart';
+import 'package:tft_guide/domain/models/question_item2.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/assets.dart';
