@@ -334,6 +334,38 @@ LIMIT ?
   }
 
   @override
+  Future<domain.QuestionBaseItem> loadQuestionBaseItem(
+    String id,
+    LanguageCode languageCode,
+  ) async {
+    final json = await _db.get(
+      '''
+SELECT b.id, t.name, t.description
+FROM $_tableNameBaseItem as b, $_tableNameBaseItemTranslation as t
+WHERE b.id = ? AND t.item_id = ? AND t.language_code = ?;
+''',
+      [id, id, languageCode.name],
+    );
+    return QuestionBaseItem.fromJson(json).toDomain();
+  }
+
+  @override
+  Future<domain.QuestionFullItem> loadQuestionFullItem(
+    String id,
+    LanguageCode languageCode,
+  ) async {
+    final json = await _db.get(
+      '''
+SELECT f.id, t.name, t.description, f.item_id_1, f.item_id_2
+FROM $_tableNameFullItem as f, $_tableNameFullItemTranslation as t
+WHERE f.id = ? AND t.item_id = ? AND t.language_code = ?
+''',
+      [id, id, languageCode.name],
+    );
+    return QuestionFullItem.fromJson(json).toDomain();
+  }
+
+  @override
   Future<void> close() => _db.close();
 
   static const _tableNameBaseItem = 'base_item';

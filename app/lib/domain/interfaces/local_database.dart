@@ -43,6 +43,16 @@ abstract interface class LocalDatabaseAPI {
 
   Future<List<FullItemMeta>> loadFullItemMetas(LanguageCode languageCode);
 
+  Future<QuestionBaseItem> loadQuestionBaseItem(
+    String id,
+    LanguageCode languageCode,
+  );
+
+  Future<QuestionFullItem> loadQuestionFullItem(
+    String id,
+    LanguageCode languageCode,
+  );
+
   Future<List<QuestionBaseItem>> loadQuestionBaseItems(
     int amount,
     LanguageCode languageCode,
