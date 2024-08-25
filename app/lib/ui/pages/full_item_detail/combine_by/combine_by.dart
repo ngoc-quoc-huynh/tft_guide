@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
-import 'package:tft_guide/static/resources/assets.dart';
 import 'package:tft_guide/ui/pages/base_item_detail/page.dart';
 
 part 'combine.dart';
