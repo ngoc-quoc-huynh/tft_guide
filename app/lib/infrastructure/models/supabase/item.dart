@@ -95,6 +95,7 @@ final class FullItem extends Item {
   const FullItem({
     required super.id,
     required this.isActive,
+    required this.isSpecial,
     required this.itemId1,
     required this.itemId2,
     required super.createdAt,
@@ -112,6 +113,7 @@ final class FullItem extends Item {
   factory FullItem.fromJson(Map<String, dynamic> json) => FullItem(
         id: json['id'] as String,
         isActive: json['is_active'] as bool,
+        isSpecial: json['is_special'] as bool,
         itemId1: json['item_id_1'] as String,
         itemId2: json['item_id_2'] as String,
         createdAt: DateTime.parse(json['created_at'] as String),
@@ -127,6 +129,7 @@ final class FullItem extends Item {
       );
 
   final bool isActive;
+  final bool isSpecial;
   final String itemId1;
   final String itemId2;
 
@@ -134,6 +137,7 @@ final class FullItem extends Item {
   FullItemEntity toDomain() => FullItemEntity(
         id: id,
         isActive: isActive,
+        isSpecial: isSpecial,
         itemId1: itemId1,
         itemId2: itemId2,
         createdAt: createdAt,
@@ -152,6 +156,7 @@ final class FullItem extends Item {
   List<Object?> get props => [
         ...super.props,
         isActive,
+        isSpecial,
         itemId1,
         itemId2,
       ];
