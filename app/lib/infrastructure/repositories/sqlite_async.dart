@@ -5,10 +5,10 @@ import 'package:tft_guide/domain/models/database/item.dart';
 import 'package:tft_guide/domain/models/database/item_translation.dart';
 import 'package:tft_guide/domain/models/item_detail.dart' as domain;
 import 'package:tft_guide/domain/models/item_meta.dart' as domain;
-import 'package:tft_guide/domain/models/question_item.dart' as domain;
+import 'package:tft_guide/domain/models/question_item_option.dart' as domain;
 import 'package:tft_guide/infrastructure/models/sqlite_async/item_detail.dart';
 import 'package:tft_guide/infrastructure/models/sqlite_async/item_meta.dart';
-import 'package:tft_guide/infrastructure/models/sqlite_async/question_item.dart';
+import 'package:tft_guide/infrastructure/models/sqlite_async/question_item_option.dart';
 import 'package:tft_guide/injector.dart';
 
 final class SQLiteAsyncRepository implements LocalDatabaseAPI {
@@ -22,26 +22,8 @@ final class SQLiteAsyncRepository implements LocalDatabaseAPI {
       path: join(Injector.instance.appDir.path, 'test.db'),
     );
     final migrations = SqliteMigrations()
-      ..createDatabase = SqliteMigration(
-        1,
-        (tx) async {
-          await tx.execute(_createTableBaseItem);
-          await tx.execute(_createTableFullItem);
-          await tx.execute(_createTableBaseItemTranslation);
-          await tx.execute(_createTableFullItemTranslation);
-        },
-      )
-      ..add(
-        SqliteMigration(
-          1,
-          (tx) async {
-            await tx.execute(_createTableBaseItem);
-            await tx.execute(_createTableFullItem);
-            await tx.execute(_createTableBaseItemTranslation);
-            await tx.execute(_createTableFullItemTranslation);
-          },
-        ),
-      );
+      ..createDatabase = _createDatabaseMigration
+      ..add(_createDatabaseMigration);
     await migrations.migrate(_db);
     return this;
   }
@@ -144,7 +126,7 @@ DO UPDATE SET
 INSERT INTO $_tableNameFullItem (
     id,
     is_active,
-    is_special
+    is_special,
     item_id_1,
     item_id_2,
     ability_power,
@@ -388,42 +370,136 @@ WHERE f.is_active;
   }
 
   @override
-  Future<List<domain.QuestionBaseItem>> loadQuestionBaseItems(
+  Future<List<domain.QuestionBaseItemOption>> loadRandomQuestionBaseItemOptions(
     int amount,
     LanguageCode languageCode,
   ) async {
     final result = await _db.getAll(
       '''
 SELECT b.id, t.name, t.description
-FROM $_tableNameBaseItem as b, $_tableNameBaseItemTranslation as t
-WHERE b.id = t.item_id AND t.language_code = ?
+FROM base_item AS b
+LEFT JOIN base_item_translation AS t
+       ON b.id = t.item_id
+       AND t.language_code = ?
 ORDER BY RANDOM()
-LIMIT ?
-;''',
+LIMIT ?;
+''',
       [languageCode.name, amount],
     );
     return result
-        .map((json) => QuestionBaseItem.fromJson(json).toDomain())
+        .map((json) => QuestionBaseItemOption.fromJson(json).toDomain())
         .toList();
   }
 
   @override
-  Future<List<domain.QuestionFullItem>> loadQuestionFullItems(
+  Future<List<domain.QuestionFullItemOption>> loadRandomQuestionFullItemOptions(
     int amount,
     LanguageCode languageCode,
   ) async {
     final result = await _db.getAll(
       '''
-SELECT f.id, t.name, t.description, f.item_id_1, f.item_id_2
-FROM $_tableNameFullItem as f, $_tableNameFullItemTranslation as t
-WHERE f.id = t.item_id AND t.language_code = ?
+SELECT f.id, t.name, t.description, f.is_special, f.item_id_1, f.item_id_2
+FROM full_item AS f
+LEFT JOIN full_item_translation AS t
+       ON f.id = t.item_id
+       AND t.language_code = ?
 ORDER BY RANDOM()
-LIMIT ?
-;''',
+LIMIT ?;
+''',
       [languageCode.name, amount],
     );
     return result
-        .map((json) => QuestionFullItem.fromJson(json).toDomain())
+        .map((json) => QuestionFullItemOption.fromJson(json).toDomain())
+        .toList();
+  }
+
+  @override
+  Future<List<domain.QuestionBaseItemOption>>
+      loadOtherRandomQuestionBaseItemOptions(
+    String id,
+    int amount,
+    LanguageCode languageCode,
+  ) async {
+    final result = await _db.getAll(
+      '''
+WITH random_item AS (
+    SELECT id
+    FROM base_item
+    WHERE id != ?
+    ORDER BY RANDOM()
+    LIMIT ?
+)
+
+SELECT b.id, t.name, t.description
+FROM base_item AS b
+LEFT JOIN base_item_translation AS t
+       ON b.id = t.item_id
+       AND t.language_code = ?
+WHERE b.id IN (SELECT id FROM random_item);
+''',
+      [id, amount, languageCode.name],
+    );
+    return result
+        .map((json) => QuestionBaseItemOption.fromJson(json).toDomain())
+        .toList();
+  }
+
+  @override
+  Future<List<domain.QuestionFullItemOption>>
+      loadOtherRandomQuestionFullItemOptions(
+    String id,
+    int amount,
+    LanguageCode languageCode,
+  ) async {
+    final result = await _db.getAll(
+      '''
+WITH is_special AS (
+    SELECT is_special
+    FROM full_item
+    WHERE id = ?
+),
+related_items AS (
+    SELECT f1.*
+    FROM full_item f1
+    JOIN full_item f2
+        ON f1.id != f2.id
+        AND (
+            f1.item_id_1 = f2.item_id_1
+            OR f1.item_id_1 = f2.item_id_2
+            OR f1.item_id_2 = f2.item_id_1
+            OR f1.item_id_2 = f2.item_id_2
+        )
+    WHERE f2.id = ?
+)
+
+SELECT
+    f.id,
+    t.name,
+    t.description,
+    f.is_special,
+    f.item_id_1,
+    f.item_id_2
+FROM (
+    SELECT * FROM related_items
+    WHERE (SELECT is_special FROM is_special) IS FALSE
+
+    UNION ALL
+
+    SELECT *
+    FROM full_item
+    WHERE (SELECT is_special FROM is_special) IS TRUE
+) AS f
+LEFT JOIN full_item_translation t
+    ON f.id = t.item_id
+    AND t.language_code = ?
+WHERE f.id != ?
+ORDER BY RANDOM()
+LIMIT ?;
+''',
+      [id, id, languageCode.name, id, amount],
+    );
+    return result
+        .map((json) => QuestionFullItemOption.fromJson(json).toDomain())
         .toList();
   }
 
@@ -434,6 +510,16 @@ LIMIT ?
   static const _tableNameFullItem = 'full_item';
   static const _tableNameBaseItemTranslation = 'base_item_translation';
   static const _tableNameFullItemTranslation = 'full_item_translation';
+  static final _createDatabaseMigration = SqliteMigration(
+    1,
+    (tx) async {
+      await tx.execute(_createTableBaseItem);
+      await tx.execute(_createTableFullItem);
+      await tx.execute(_createTableBaseItemTranslation);
+      await tx.execute(_createTableFullItemTranslation);
+      await tx.execute(_createFullItemIdsIndex);
+    },
+  );
   static const _createTableBaseItem = '''
 CREATE TABLE IF NOT EXISTS $_tableNameBaseItem (
     id VARCHAR(50) PRIMARY KEY,
@@ -455,6 +541,7 @@ CREATE TABLE IF NOT EXISTS $_tableNameFullItem (
     item_id_1 VARCHAR(50) NOT NULL,
     item_id_2 VARCHAR(50) NOT NULL,
     is_active BOOLEAN NOT NULL,
+    is_special BOOLEAN NOT NULL,
     ability_power SMALLINT,
     armor SMALLINT,
     attack_damage SMALLINT,
@@ -494,5 +581,10 @@ CREATE TABLE IF NOT EXISTS $_tableNameFullItemTranslation (
     updated_at TIMESTAMPTZ NOT NULL,
     FOREIGN KEY (item_id) REFERENCES $_tableNameFullItem(id) ON DELETE CASCADE
 );
+''';
+
+  static const _createFullItemIdsIndex = '''
+CREATE INDEX idx_full_item_item_id_1 ON full_item(item_id_1);
+CREATE INDEX idx_full_item_item_id_2 ON full_item(item_id_2);
 ''';
 }

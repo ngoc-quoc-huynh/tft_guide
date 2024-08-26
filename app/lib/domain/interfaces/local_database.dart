@@ -2,7 +2,7 @@ import 'package:tft_guide/domain/models/database/item.dart';
 import 'package:tft_guide/domain/models/database/item_translation.dart';
 import 'package:tft_guide/domain/models/item_detail.dart';
 import 'package:tft_guide/domain/models/item_meta.dart';
-import 'package:tft_guide/domain/models/question_item.dart';
+import 'package:tft_guide/domain/models/question_item_option.dart';
 
 abstract interface class LocalDatabaseAPI {
   const LocalDatabaseAPI();
@@ -43,12 +43,24 @@ abstract interface class LocalDatabaseAPI {
 
   Future<List<FullItemMeta>> loadFullItemMetas(LanguageCode languageCode);
 
-  Future<List<QuestionBaseItem>> loadQuestionBaseItems(
+  Future<List<QuestionBaseItemOption>> loadRandomQuestionBaseItemOptions(
     int amount,
     LanguageCode languageCode,
   );
 
-  Future<List<QuestionFullItem>> loadQuestionFullItems(
+  Future<List<QuestionFullItemOption>> loadRandomQuestionFullItemOptions(
+    int amount,
+    LanguageCode languageCode,
+  );
+
+  Future<List<QuestionBaseItemOption>> loadOtherRandomQuestionBaseItemOptions(
+    String id,
+    int amount,
+    LanguageCode languageCode,
+  );
+
+  Future<List<QuestionFullItemOption>> loadOtherRandomQuestionFullItemOptions(
+    String id,
     int amount,
     LanguageCode languageCode,
   );
