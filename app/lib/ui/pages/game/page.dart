@@ -7,7 +7,7 @@ import 'package:tft_guide/domain/blocs/check_selected_item/cubit.dart';
 import 'package:tft_guide/domain/blocs/correct_answers/cubit.dart';
 import 'package:tft_guide/domain/blocs/elo_gain/cubit.dart';
 import 'package:tft_guide/domain/blocs/game_progress/bloc.dart';
-import 'package:tft_guide/domain/blocs/questions/bloc.dart';
+import 'package:tft_guide/domain/blocs/questions_old/bloc.dart';
 import 'package:tft_guide/domain/blocs/selected_item/cubit.dart';
 import 'package:tft_guide/domain/models/question.dart';
 import 'package:tft_guide/domain/models/question_item2.dart';

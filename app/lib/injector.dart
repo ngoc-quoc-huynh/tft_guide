@@ -26,21 +26,21 @@ final class Injector {
 
   static Future<void> setupDependencies() async {
     instance
-      ..registerLazySingleton<ItemsAPI>(LocalItemsRepository.new)
+      ..registerLazySingleton<ItemsApi>(LocalItemsRepository.new)
       ..registerLazySingleton<RankRepository>(LocalRankRepository.new)
-      ..registerLazySingleton<FeedbackAPI>(FeedbackRepository.new)
-      ..registerLazySingleton<QuestionsAPI>(QuestionsRepository.new)
-      ..registerSingletonAsync<RemoteDatabaseAPI>(
+      ..registerLazySingleton<FeedbackApi>(FeedbackRepository.new)
+      ..registerLazySingleton<QuestionsApi>(QuestionsRepository.new)
+      ..registerSingletonAsync<RemoteDatabaseApi>(
         const SupabaseRepository().initialize,
         dispose: (api) => api.close(),
       )
       ..registerSingletonAsync(getApplicationDocumentsDirectory)
-      ..registerSingletonAsync<LocalDatabaseAPI>(
+      ..registerSingletonAsync<LocalDatabaseApi>(
         SQLiteAsyncRepository().initialize,
         dispose: (api) => api.close(),
         dependsOn: [Directory],
       )
-      ..registerLazySingleton<FileStorageAPI>(LocalFileStorageRepository.new);
+      ..registerLazySingleton<FileStorageApi>(LocalFileStorageRepository.new);
     await instance.allReady();
   }
 }

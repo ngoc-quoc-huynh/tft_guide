@@ -5,7 +5,7 @@ import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/assets.dart';
 
-final class QuestionsRepository implements QuestionsAPI {
+final class QuestionsRepository implements QuestionsApi {
   const QuestionsRepository();
 
   @override

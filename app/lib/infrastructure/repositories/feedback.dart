@@ -3,7 +3,7 @@ import 'package:tft_guide/domain/interfaces/feedback.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 
-final class FeedbackRepository implements FeedbackAPI {
+final class FeedbackRepository implements FeedbackApi {
   const FeedbackRepository();
 
   @override

@@ -14,22 +14,22 @@ import 'package:tft_guide/static/i18n/translations.g.dart';
 extension GetItExtension on GetIt {
   Directory get appDir => get<Directory>();
 
-  FeedbackAPI get feedbackAPI => get<FeedbackAPI>();
+  FeedbackApi get feedbackApi => get<FeedbackApi>();
 
-  FileStorageAPI get fileStorageAPI => get<FileStorageAPI>();
+  FileStorageApi get fileStorageApi => get<FileStorageApi>();
 
-  ItemsAPI get itemsAPI => get<ItemsAPI>();
+  ItemsApi get itemsApi => get<ItemsApi>();
 
   LanguageCode get languageCode =>
       LanguageCode.values.byName(translations.$meta.locale.languageCode);
 
-  LocalDatabaseAPI get localDatabaseAPI => get<LocalDatabaseAPI>();
+  LocalDatabaseApi get localDatabaseApi => get<LocalDatabaseApi>();
 
-  QuestionsAPI get questionsAPI => get<QuestionsAPI>();
+  QuestionsApi get questionsApi => get<QuestionsApi>();
 
   RankRepository get rankRepository => get<RankRepository>();
 
-  RemoteDatabaseAPI get remoteDatabaseAPI => get<RemoteDatabaseAPI>();
+  RemoteDatabaseApi get remoteDatabaseApi => get<RemoteDatabaseApi>();
 
   Translations get translations => get<Translations>();
 }

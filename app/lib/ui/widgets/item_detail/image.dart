@@ -29,7 +29,7 @@ final class _Image extends ImageDetailImage {
   @override
   Widget build(BuildContext context) {
     return Image.file(
-      Injector.instance.fileStorageAPI.loadFile(id),
+      Injector.instance.fileStorageApi.loadFile(id),
       width: ImageDetailImage.imageSize,
       height: ImageDetailImage.imageSize,
       fit: BoxFit.contain,

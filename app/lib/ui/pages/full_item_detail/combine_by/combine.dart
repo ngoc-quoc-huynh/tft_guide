@@ -52,7 +52,7 @@ class _Image extends StatelessWidget {
         onTap: () => _onTap(context),
         child: Ink.image(
           image: FileImage(
-            Injector.instance.fileStorageAPI.loadFile(id),
+            Injector.instance.fileStorageApi.loadFile(id),
           ),
           height: FullItemDetailCombineBy.imageSize,
           width: FullItemDetailCombineBy.imageSize,

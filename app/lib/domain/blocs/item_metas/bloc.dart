@@ -16,7 +16,7 @@ final class ItemMetasBloc extends Bloc<ItemMetasEvent, ItemMetasState> {
     );
   }
 
-  static final _localDatabaseAPI = Injector.instance.localDatabaseAPI;
+  static final _localDatabaseApi = Injector.instance.localDatabaseApi;
 
   Future<void> _onItemMetasInitializeEvent(
     ItemMetasInitializeEvent event,
@@ -24,8 +24,8 @@ final class ItemMetasBloc extends Bloc<ItemMetasEvent, ItemMetasState> {
   ) async {
     final languageCode = Injector.instance.languageCode;
     final (baseItems, fullItems) = await (
-      _localDatabaseAPI.loadBaseItemMetas(languageCode),
-      _localDatabaseAPI.loadFullItemMetas(languageCode),
+      _localDatabaseApi.loadBaseItemMetas(languageCode),
+      _localDatabaseApi.loadFullItemMetas(languageCode),
     ).wait;
     emit(ItemMetasLoadOnSuccess([...baseItems, ...fullItems]));
   }

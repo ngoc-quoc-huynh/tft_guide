@@ -15,16 +15,16 @@ final class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
     on<QuestionsInitializeEvent>(_onQuestionsInitializeEvent);
   }
 
-  final _questionsAPI = Injector.instance.questionsAPI;
+  final _questionsApi = Injector.instance.questionsApi;
 
   Future<void> _onQuestionsInitializeEvent(
     QuestionsInitializeEvent event,
     Emitter<QuestionsState> emit,
   ) async {
-    final baseItems = await _questionsAPI.loadRandomQuestionBaseItems(3);
+    final baseItems = await _questionsApi.loadRandomQuestionBaseItems(3);
     final baseItemQuestions =
         await baseItems.map(_buildQuestionsForBaseItem).wait;
-    final fullItems = await _questionsAPI.loadRandomQuestionFullItems(7);
+    final fullItems = await _questionsApi.loadRandomQuestionFullItems(7);
     final fullItemQuestions =
         await fullItems.map(_buildQuestionsForFullItem).wait;
     final questions = [...baseItemQuestions, ...fullItemQuestions]..shuffle();
@@ -38,7 +38,7 @@ final class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
       null,
       {
         #correctItem: item,
-        #otherItems: await _questionsAPI.loadRandomQuestionBaseItems(2),
+        #otherItems: await _questionsApi.loadRandomQuestionBaseItems(2),
       },
     ) as Question;
   }
@@ -54,7 +54,7 @@ final class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
       null,
       {
         #correctItem: item,
-        #otherItems: await _questionsAPI.loadRandomQuestionFullItems(2),
+        #otherItems: await _questionsApi.loadRandomQuestionFullItems(2),
       },
     ) as Question;
   }

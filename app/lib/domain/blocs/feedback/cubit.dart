@@ -7,8 +7,9 @@ part 'state.dart';
 
 final class FeedbackCubit extends Cubit<String?> {
   FeedbackCubit() : super(null);
-  final _feedbackAPI = Injector.instance.feedbackAPI;
+
+  final _feedbackApi = Injector.instance.feedbackApi;
 
   void getFeedback({required bool isCorrect}) =>
-      emit(_feedbackAPI.getFeedback(isCorrect: isCorrect));
+      emit(_feedbackApi.getFeedback(isCorrect: isCorrect));
 }

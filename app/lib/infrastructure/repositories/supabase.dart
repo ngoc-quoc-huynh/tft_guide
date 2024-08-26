@@ -8,7 +8,7 @@ import 'package:tft_guide/infrastructure/models/supabase/item.dart';
 import 'package:tft_guide/infrastructure/models/supabase/item_translation.dart';
 
 // TODO: Error handling
-final class SupabaseRepository implements RemoteDatabaseAPI {
+final class SupabaseRepository implements RemoteDatabaseApi {
   const SupabaseRepository();
 
   static final _client = Supabase.instance.client;

@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-abstract interface class FileStorageAPI {
-  const FileStorageAPI();
+abstract interface class FileStorageApi {
+  const FileStorageApi();
 
   Future<void> save(String id, Uint8List bytes);
 

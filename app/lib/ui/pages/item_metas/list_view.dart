@@ -45,7 +45,7 @@ class _Item extends StatelessWidget {
           horizontal: 15,
         ),
         leading: Image.file(
-          Injector.instance.fileStorageAPI.loadFile(item.id),
+          Injector.instance.fileStorageApi.loadFile(item.id),
           width: 50,
           height: 50,
           fit: BoxFit.contain,
