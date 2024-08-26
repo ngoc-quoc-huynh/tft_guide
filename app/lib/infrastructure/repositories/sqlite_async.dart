@@ -93,19 +93,31 @@ final class SQLiteAsyncRepository implements LocalDatabaseAPI {
   @override
   Future<void> storeBaseItems(List<BaseItemEntity> items) => _db.executeBatch(
         '''
-INSERT INTO $_tableNameBaseItem (id, ability_power, armor, attack_damage, attack_speed, crit, health, magic_resist, mana, created_at, updated_at)
+INSERT INTO $_tableNameBaseItem (
+    id,
+    ability_power,
+    armor,
+    attack_damage,
+    attack_speed,
+    crit,
+    health,
+    magic_resist,
+    mana,
+    created_at,
+    updated_at
+)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-ON CONFLICT(id)
+ON CONFLICT (id)
 DO UPDATE SET
-  ability_power = excluded.ability_power,
-  armor = excluded.armor,
-  attack_damage = excluded.attack_damage,
-  attack_speed = excluded.attack_speed,
-  crit = excluded.crit,
-  health = excluded.health,
-  magic_resist = excluded.magic_resist,
-  mana = excluded.mana,
-  updated_at = excluded.updated_at;
+    ability_power = excluded.ability_power,
+    armor = excluded.armor,
+    attack_damage = excluded.attack_damage,
+    attack_speed = excluded.attack_speed,
+    crit = excluded.crit,
+    health = excluded.health,
+    magic_resist = excluded.magic_resist,
+    mana = excluded.mana,
+    updated_at = excluded.updated_at;
 ''',
         items
             .map(
@@ -129,25 +141,43 @@ DO UPDATE SET
   @override
   Future<void> storeFullItems(List<FullItemEntity> items) => _db.executeBatch(
         '''
-INSERT INTO $_tableNameFullItem (id, is_active, item_id_1, item_id_2, ability_power, armor, attack_damage, attack_speed, crit, health, magic_resist, mana, created_at, updated_at)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-ON CONFLICT(id)
+INSERT INTO $_tableNameFullItem (
+    id,
+    is_active,
+    is_special
+    item_id_1,
+    item_id_2,
+    ability_power,
+    armor,
+    attack_damage,
+    attack_speed,
+    crit,
+    health,
+    magic_resist,
+    mana,
+    created_at,
+    updated_at
+)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+ON CONFLICT (id)
 DO UPDATE SET
-  ability_power = excluded.ability_power,
-  armor = excluded.armor,
-  attack_damage = excluded.attack_damage,
-  attack_speed = excluded.attack_speed,
-  crit = excluded.crit,
-  health = excluded.health,
-  magic_resist = excluded.magic_resist,
-  mana = excluded.mana,
-  updated_at = excluded.updated_at;
+    is_active = excluded.is_active,
+    ability_power = excluded.ability_power,
+    armor = excluded.armor,
+    attack_damage = excluded.attack_damage,
+    attack_speed = excluded.attack_speed,
+    crit = excluded.crit,
+    health = excluded.health,
+    magic_resist = excluded.magic_resist,
+    mana = excluded.mana,
+    updated_at = excluded.updated_at;
 ''',
         items
             .map(
               (item) => [
                 item.id,
                 item.isActive,
+                item.isSpecial,
                 item.itemId1,
                 item.itemId2,
                 item.abilityPower,
@@ -171,14 +201,23 @@ DO UPDATE SET
   ) =>
       _db.executeBatch(
         '''
-INSERT INTO $_tableNameBaseItemTranslation (id, item_id, language_code, name, description, hint, created_at, updated_at)
+INSERT INTO $_tableNameBaseItemTranslation (
+    id,
+    item_id,
+    language_code,
+    name,
+    description,
+    hint,
+    created_at,
+    updated_at
+)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-ON CONFLICT(id)
+ON CONFLICT (id)
 DO UPDATE SET
-  name = excluded.name,
-  description = excluded.description,
-  hint = excluded.hint,
-  updated_at = excluded.updated_at;
+    name = excluded.name,
+    description = excluded.description,
+    hint = excluded.hint,
+    updated_at = excluded.updated_at;
 ''',
         translations
             .map(
@@ -202,14 +241,23 @@ DO UPDATE SET
   ) =>
       _db.executeBatch(
         '''
-INSERT INTO $_tableNameFullItemTranslation (id, item_id, language_code, name, description, hint, created_at, updated_at)
+INSERT INTO $_tableNameFullItemTranslation (
+    id,
+    item_id,
+    language_code,
+    name,
+    description,
+    hint,
+    created_at,
+    updated_at
+)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-ON CONFLICT(id)
+ON CONFLICT (id)
 DO UPDATE SET
-  name = excluded.name,
-  description = excluded.description,
-  hint = excluded.hint,
-  updated_at = excluded.updated_at;
+    name = excluded.name,
+    description = excluded.description,
+    hint = excluded.hint,
+    updated_at = excluded.updated_at;
 ''',
         translations
             .map(
@@ -234,11 +282,25 @@ DO UPDATE SET
   ) async {
     final json = await _db.get(
       '''
-SELECT b.id, t.name, t.description, t.hint, b.ability_power, b.armor, b.attack_damage, b.attack_speed, b.crit, b.health, b.magic_resist, b.mana
-FROM $_tableNameBaseItem as b, $_tableNameBaseItemTranslation as t
-WHERE b.id = ? AND t.item_id = ? AND t.language_code = ?;
+SELECT b.id, 
+       t.name, 
+       t.description, 
+       t.hint, 
+       b.ability_power, 
+       b.armor, 
+       b.attack_damage, 
+       b.attack_speed, 
+       b.crit, 
+       b.health, 
+       b.magic_resist, 
+       b.mana
+FROM $_tableNameBaseItem AS b
+LEFT JOIN $_tableNameBaseItemTranslation AS t 
+       ON b.id = t.item_id 
+       AND t.language_code = ?
+WHERE b.id = ?;
 ''',
-      [id, id, languageCode.name],
+      [languageCode.name, id],
     );
     return BaseItemDetail.fromJson(json).toDomain();
   }
@@ -250,11 +312,27 @@ WHERE b.id = ? AND t.item_id = ? AND t.language_code = ?;
   ) async {
     final json = await _db.get(
       '''
-SELECT f.id, t.name, t.description, t.hint, f.item_id_1, f.item_id_2, f.ability_power, f.armor, f.attack_damage, f.attack_speed, f.crit, f.health, f.magic_resist, f.mana
-FROM $_tableNameFullItem as f, $_tableNameFullItemTranslation as t
-WHERE f.id = ? AND t.item_id = ? AND t.language_code = ?;
+SELECT f.id, 
+       t.name, 
+       t.description, 
+       t.hint, 
+       f.item_id_1, 
+       f.item_id_2, 
+       f.ability_power, 
+       f.armor, 
+       f.attack_damage, 
+       f.attack_speed, 
+       f.crit, 
+       f.health, 
+       f.magic_resist, 
+       f.mana
+FROM $_tableNameFullItem AS f
+LEFT JOIN $_tableNameFullItemTranslation AS t 
+       ON f.id = t.item_id 
+       AND t.language_code = ?
+WHERE f.id = ?;
 ''',
-      [id, id, languageCode.name],
+      [languageCode.name, id],
     );
     return FullItemDetail.fromJson(json).toDomain();
   }
@@ -265,9 +343,21 @@ WHERE f.id = ? AND t.item_id = ? AND t.language_code = ?;
   ) async {
     final result = await _db.getAll(
       '''
-SELECT b.id, t.name, t.description, b.ability_power, b.armor, b.attack_damage, b.attack_speed, b.crit, b.health, b.magic_resist, b.mana
-FROM $_tableNameBaseItem as b, $_tableNameBaseItemTranslation as t
-WHERE b.id = t.item_id AND t.language_code = ?;
+SELECT b.id, 
+       t.name, 
+       t.description, 
+       b.ability_power, 
+       b.armor, 
+       b.attack_damage, 
+       b.attack_speed, 
+       b.crit, 
+       b.health, 
+       b.magic_resist, 
+       b.mana
+FROM $_tableNameBaseItem AS b
+LEFT JOIN $_tableNameBaseItemTranslation AS t 
+       ON b.id = t.item_id 
+       AND t.language_code = ?;
 ''',
       [languageCode.name],
     );
@@ -282,9 +372,13 @@ WHERE b.id = t.item_id AND t.language_code = ?;
   ) async {
     final result = await _db.getAll(
       '''
-SELECT f.id, t.name
-FROM $_tableNameFullItem as f, $_tableNameFullItemTranslation as t
-WHERE f.id = t.item_id AND t.language_code = ?;
+SELECT f.id, 
+       t.name
+FROM $_tableNameFullItem AS f
+LEFT JOIN $_tableNameFullItemTranslation AS t 
+       ON f.id = t.item_id 
+       AND t.language_code = ?
+WHERE f.is_active;
 ''',
       [languageCode.name],
     );
