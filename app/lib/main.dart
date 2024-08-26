@@ -25,7 +25,7 @@ Future<void> main() async {
 // ignore: prefer-static-class, for testing purpose. TODO: Remove this
 Future<void> initData() async {
   final stopwatch = Stopwatch()..start();
-  final remoteDatabaseAPI = Injector.instance.remoteDatabaseAPI;
+  final remoteDatabaseApi = Injector.instance.remoteDatabaseApi;
   final (
     baseItems,
     fullItems,
@@ -33,25 +33,25 @@ Future<void> initData() async {
     fullItemTranslations,
     assetNames
   ) = await (
-    remoteDatabaseAPI.loadBaseItems(null),
-    remoteDatabaseAPI.loadFullItems(null),
-    remoteDatabaseAPI.loadBaseItemTranslations(null),
-    remoteDatabaseAPI.loadFullItemTranslations(null),
-    remoteDatabaseAPI.loadAssetsNames(null)
+    remoteDatabaseApi.loadBaseItems(null),
+    remoteDatabaseApi.loadFullItems(null),
+    remoteDatabaseApi.loadBaseItemTranslations(null),
+    remoteDatabaseApi.loadFullItemTranslations(null),
+    remoteDatabaseApi.loadAssetsNames(null)
   ).wait;
-  final localDatabaseAPI = Injector.instance.localDatabaseAPI;
+  final localDatabaseApi = Injector.instance.localDatabaseApi;
   await [
-    localDatabaseAPI.storeBaseItems(baseItems),
-    localDatabaseAPI.storeFullItems(fullItems),
+    localDatabaseApi.storeBaseItems(baseItems),
+    localDatabaseApi.storeFullItems(fullItems),
   ].wait;
   await [
-    localDatabaseAPI.storeBaseItemTranslations(baseItemTranslations),
-    localDatabaseAPI.storeFullItemTranslations(fullItemTranslations),
+    localDatabaseApi.storeBaseItemTranslations(baseItemTranslations),
+    localDatabaseApi.storeFullItemTranslations(fullItemTranslations),
   ].wait;
-  final fileStorageAPI = Injector.instance.fileStorageAPI;
+  final fileStorageApi = Injector.instance.fileStorageApi;
   Future<void> download(String name) async {
-    final asset = await remoteDatabaseAPI.loadAsset(name);
-    await fileStorageAPI.save(name, asset);
+    final asset = await remoteDatabaseApi.loadAsset(name);
+    await fileStorageApi.save(name, asset);
   }
 
   await assetNames.map(download).wait;

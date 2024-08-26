@@ -4,10 +4,10 @@ import 'package:tft_guide/domain/models/item_detail.dart';
 import 'package:tft_guide/domain/models/item_meta.dart';
 import 'package:tft_guide/domain/models/question_item_option.dart';
 
-abstract interface class LocalDatabaseAPI {
-  const LocalDatabaseAPI();
+abstract interface class LocalDatabaseApi {
+  const LocalDatabaseApi();
 
-  Future<LocalDatabaseAPI> initialize();
+  Future<LocalDatabaseApi> initialize();
 
   Future<DateTime?> loadLatestBaseItemUpdatedAt();
 

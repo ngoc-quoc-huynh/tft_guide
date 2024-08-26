@@ -5,7 +5,7 @@ import 'package:path/path.dart';
 import 'package:tft_guide/domain/interfaces/file.dart';
 import 'package:tft_guide/injector.dart';
 
-final class LocalFileStorageRepository implements FileStorageAPI {
+final class LocalFileStorageRepository implements FileStorageApi {
   const LocalFileStorageRepository();
 
   static final _appDir = Injector.instance.appDir;

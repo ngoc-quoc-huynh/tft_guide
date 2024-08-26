@@ -25,7 +25,7 @@ sealed class ItemDetailBloc<Item extends ItemDetail>
 
   final Future<Item> Function(String, LanguageCode) _loadItemDetail;
   @protected
-  static final localDatabaseAPI = Injector.instance.localDatabaseAPI;
+  static final localDatabaseApi = Injector.instance.localDatabaseApi;
 
   Future<void> _onItemDetailInitializeEvent(
     ItemDetailInitializeEvent event,

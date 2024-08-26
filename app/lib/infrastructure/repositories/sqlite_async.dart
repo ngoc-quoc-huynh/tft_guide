@@ -11,13 +11,13 @@ import 'package:tft_guide/infrastructure/models/sqlite_async/item_meta.dart';
 import 'package:tft_guide/infrastructure/models/sqlite_async/question_item_option.dart';
 import 'package:tft_guide/injector.dart';
 
-final class SQLiteAsyncRepository implements LocalDatabaseAPI {
+final class SQLiteAsyncRepository implements LocalDatabaseApi {
   SQLiteAsyncRepository();
 
   late final SqliteDatabase _db;
 
   @override
-  Future<LocalDatabaseAPI> initialize() async {
+  Future<LocalDatabaseApi> initialize() async {
     _db = SqliteDatabase(
       path: join(Injector.instance.appDir.path, 'test.db'),
     );

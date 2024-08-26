@@ -1,7 +1,7 @@
 import 'package:tft_guide/domain/models/item_preview.dart';
 
-abstract interface class ItemsAPI {
-  const ItemsAPI();
+abstract interface class ItemsApi {
+  const ItemsApi();
 
   Future<List<BaseItemPreview>> loadBaseItems();
 

@@ -3,10 +3,10 @@ import 'dart:typed_data';
 import 'package:tft_guide/domain/models/database/item.dart';
 import 'package:tft_guide/domain/models/database/item_translation.dart';
 
-abstract interface class RemoteDatabaseAPI {
-  const RemoteDatabaseAPI();
+abstract interface class RemoteDatabaseApi {
+  const RemoteDatabaseApi();
 
-  Future<RemoteDatabaseAPI> initialize();
+  Future<RemoteDatabaseApi> initialize();
 
   Future<List<String>> loadAssetsNames(DateTime? lastUpdated);
 

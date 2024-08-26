@@ -4,7 +4,7 @@ import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/assets.dart';
 
-final class LocalItemsRepository implements ItemsAPI {
+final class LocalItemsRepository implements ItemsApi {
   const LocalItemsRepository();
 
   @override
