@@ -63,6 +63,7 @@ final class FullItemEntity extends ItemEntity {
   const FullItemEntity({
     required super.id,
     required this.isActive,
+    required this.isSpecial,
     required this.itemId1,
     required this.itemId2,
     required super.createdAt,
@@ -78,6 +79,7 @@ final class FullItemEntity extends ItemEntity {
   });
 
   final bool isActive;
+  final bool isSpecial;
   final String itemId1;
   final String itemId2;
 
@@ -85,6 +87,7 @@ final class FullItemEntity extends ItemEntity {
   List<Object?> get props => [
         ...super.props,
         isActive,
+        isSpecial,
         itemId1,
         itemId2,
       ];
