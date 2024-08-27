@@ -41,7 +41,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
           ),
           NavigationDestination(
             icon: const Icon(Icons.format_list_bulleted),
-            label: _translations.items.title,
+            label: _translations.item_metas.title,
           ),
           NavigationDestination(
             icon: const Icon(Icons.format_quote),

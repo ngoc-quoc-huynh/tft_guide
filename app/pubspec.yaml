@@ -78,7 +78,6 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/app/
     - assets/divisions/iron/
     - assets/divisions/bronze/
     - assets/divisions/silver/
@@ -89,8 +88,6 @@ flutter:
     - assets/divisions/master/
     - assets/divisions/grandmaster/
     - assets/divisions/challenger/
-    - assets/items/base/
-    - assets/items/full/
 
   fonts:
     - family: TFT
