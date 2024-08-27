@@ -8,6 +8,7 @@ class CustomAppBar extends AppBar {
   }) : super(
           centerTitle: true,
           title: const _Title(),
+          forceMaterialTransparency: true,
         );
 }
 
