@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/blocs/game_progress/bloc.dart';
-import 'package:tft_guide/static/resources/sizes.dart';
 
 class GameProgressBar extends StatelessWidget {
-  const GameProgressBar({super.key});
+  const GameProgressBar({
+    required this.totalQuestion,
+    super.key,
+  });
+
+  final int totalQuestion;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +21,7 @@ class GameProgressBar extends StatelessWidget {
         progressColor: colorScheme.primary,
         size: 16,
         currentValue: currentProgress.toDouble(),
-        maxValue: Sizes.questionsAmount.toDouble(),
+        maxValue: totalQuestion.toDouble(),
       ),
     );
   }

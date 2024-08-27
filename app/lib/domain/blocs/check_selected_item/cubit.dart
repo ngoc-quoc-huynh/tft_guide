@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/domain/models/question_item2.dart';
+import 'package:tft_guide/domain/models/question/item_option.dart';
 
-final class CheckSelectedItemCubit extends Cubit<bool?> {
-  CheckSelectedItemCubit(this._correctItem) : super(null);
+final class CheckSelectedItemOptionCubit extends Cubit<bool?> {
+  CheckSelectedItemOptionCubit(this._correctOption) : super(null);
 
-  final QuestionItem _correctItem;
+  final QuestionItemOption _correctOption;
 
-  void check(QuestionItem item) => emit(item == _correctItem);
+  void check(QuestionItemOption option) => emit(option == _correctOption);
 }

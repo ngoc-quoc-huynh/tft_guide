@@ -1,4 +1,6 @@
 appName: 'TFT Guide'
+general:
+  cancel: 'Cancel'
 pages:
   ranked:
     title: 'Ranked'
@@ -19,6 +21,21 @@ pages:
       four: 'IV'
     lp(int number): '$number LP'
   game:
+    option(int index): 'Option $index'
+    proceed: 'Continue'
+    check: 'Check'
+    questions:
+      baseItemCombine: 'Which items together make up this item?'
+      fullItemCombine: 'Which item results if you combine these two?'
+      titleText: 'Which item matches this title?'
+      titleImage: 'Which title matches this item?'
+      descriptionText: 'Which item matches this description?'
+      descriptionImage: 'Which description matches this item?'
+    quit:
+      tooltip: 'Quit'
+      title: 'Are you sure you want to quit?'
+      content: 'If you quit now, you will lose your current progress.'
+      button: 'Quit'
     feedback:
       correct:
         - 'Challenger ich komme!'

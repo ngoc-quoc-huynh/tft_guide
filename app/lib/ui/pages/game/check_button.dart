@@ -5,7 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/blocs/check_selected_item/cubit.dart';
 import 'package:tft_guide/domain/blocs/correct_answers/cubit.dart';
 import 'package:tft_guide/domain/blocs/selected_item/cubit.dart';
-import 'package:tft_guide/domain/models/question_item2.dart';
+import 'package:tft_guide/domain/models/question/item_option.dart';
+import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/pages/game/feedback.dart';
 
@@ -21,18 +22,19 @@ class CheckButton extends StatelessWidget {
       ),
       child: FractionallySizedBox(
         widthFactor: 1,
-        child: BlocListener<CheckSelectedItemCubit, bool?>(
+        child: BlocListener<CheckSelectedItemOptionCubit, bool?>(
           listener: _onCheckSelectedItemStateChanged,
-          child: BlocSelector<SelectedItemCubit, QuestionItem?, bool>(
+          child:
+              BlocSelector<SelectedItemOptionCubit, QuestionItemOption?, bool>(
             selector: (state) => state != null,
             builder: (context, hasSelected) => FilledButton(
               onPressed: switch (hasSelected) {
                 true => () => context
-                    .read<CheckSelectedItemCubit>()
-                    .check(context.read<SelectedItemCubit>().state!),
+                    .read<CheckSelectedItemOptionCubit>()
+                    .check(context.read<SelectedItemOptionCubit>().state!),
                 false => null
               },
-              child: const Text('Check'),
+              child: Text(Injector.instance.translations.pages.game.check),
             ),
           ),
         ),
