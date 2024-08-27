@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tft_guide/injector.dart';
+import 'package:tft_guide/static/i18n/translations.g.dart';
 
 class QuitDialog extends StatelessWidget {
   const QuitDialog._();
@@ -16,19 +18,23 @@ class QuitDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Are you sure you want to quit?'),
-      content:
-          const Text('If you quit now, you will lose your current progress.'),
+      title: Text(_quitTranslations.title),
+      content: Text(_quitTranslations.content),
       actions: [
         TextButton(
           onPressed: () => context.pop(false),
-          child: const Text('Cancel'),
+          child: Text(_translations.general.cancel),
         ),
         TextButton(
           onPressed: () => context.pop(true),
-          child: const Text('Quit'),
+          child: Text(_quitTranslations.button),
         ),
       ],
     );
   }
+
+  Translations get _translations => Injector.instance.translations;
+
+  TranslationsPagesGameQuitDe get _quitTranslations =>
+      _translations.pages.game.quit;
 }

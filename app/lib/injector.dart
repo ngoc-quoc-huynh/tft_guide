@@ -6,13 +6,11 @@ import 'package:tft_guide/domain/interfaces/feedback.dart';
 import 'package:tft_guide/domain/interfaces/file.dart';
 import 'package:tft_guide/domain/interfaces/items.dart';
 import 'package:tft_guide/domain/interfaces/local_database.dart';
-import 'package:tft_guide/domain/interfaces/questions.dart';
 import 'package:tft_guide/domain/interfaces/rank.dart';
 import 'package:tft_guide/domain/interfaces/remote_database.dart';
 import 'package:tft_guide/infrastructure/repositories/feedback.dart';
 import 'package:tft_guide/infrastructure/repositories/items.dart';
 import 'package:tft_guide/infrastructure/repositories/local_file_storage.dart';
-import 'package:tft_guide/infrastructure/repositories/questions.dart';
 import 'package:tft_guide/infrastructure/repositories/rank.dart';
 import 'package:tft_guide/infrastructure/repositories/sqlite_async.dart';
 import 'package:tft_guide/infrastructure/repositories/supabase.dart';
@@ -29,7 +27,6 @@ final class Injector {
       ..registerLazySingleton<ItemsApi>(LocalItemsRepository.new)
       ..registerLazySingleton<RankRepository>(LocalRankRepository.new)
       ..registerLazySingleton<FeedbackApi>(FeedbackRepository.new)
-      ..registerLazySingleton<QuestionsApi>(QuestionsRepository.new)
       ..registerSingletonAsync<RemoteDatabaseApi>(
         const SupabaseRepository().initialize,
         dispose: (api) => api.close(),

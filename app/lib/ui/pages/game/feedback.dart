@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tft_guide/domain/blocs/feedback/cubit.dart';
 import 'package:tft_guide/domain/blocs/game_progress/bloc.dart';
-import 'package:tft_guide/ui/widgets/loading_indicator.dart';
+import 'package:tft_guide/injector.dart';
 
 class FeedbackBottomSheet extends StatelessWidget {
   const FeedbackBottomSheet._(this.isCorrect);
@@ -27,57 +26,57 @@ class FeedbackBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = _color;
-    return BottomSheet(
-      enableDrag: false,
-      onClosing: () {
-        return;
-      },
-      builder: (context) => Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              children: [
-                Icon(
-                  Icons.check_circle,
-                  color: color,
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: BlocProvider<FeedbackCubit>(
-                    create: (_) =>
-                        FeedbackCubit()..getFeedback(isCorrect: isCorrect),
-                    child: BlocBuilder<FeedbackCubit, String?>(
-                      builder: (context, feedback) => switch (feedback) {
-                        null => const LoadingIndicator(),
-                        String() => Text(
-                            feedback,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall
-                                ?.copyWith(color: color),
-                          ),
-                      },
+    return PopScope(
+      canPop: false,
+      child: BottomSheet(
+        enableDrag: false,
+        onClosing: () {
+          return;
+        },
+        builder: (context) => Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    _icon,
+                    color: _color,
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      Injector.instance.feedbackApi
+                          .getFeedback(isCorrect: isCorrect),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineSmall
+                          ?.copyWith(color: _color),
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            FractionallySizedBox(
-              widthFactor: 1,
-              child: FilledButton(
-                onPressed: () => _onContinue(context),
-                child: const Text('Continue'),
+                ],
               ),
-            ),
-          ],
+              const SizedBox(height: 10),
+              FractionallySizedBox(
+                widthFactor: 1,
+                child: FilledButton(
+                  onPressed: () => _onContinue(context),
+                  child:
+                      Text(Injector.instance.translations.pages.game.proceed),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
+
+  IconData get _icon => switch (isCorrect) {
+        false => Icons.error,
+        true => Icons.check_circle,
+      };
 
   Color get _color => switch (isCorrect) {
         false => Colors.red,

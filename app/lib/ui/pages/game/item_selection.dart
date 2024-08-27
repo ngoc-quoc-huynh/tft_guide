@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/blocs/check_selected_item/cubit.dart';
 import 'package:tft_guide/domain/blocs/selected_item/cubit.dart';
-import 'package:tft_guide/domain/models/question.dart';
-import 'package:tft_guide/domain/models/question_item2.dart';
+import 'package:tft_guide/domain/models/question/item_option.dart';
+import 'package:tft_guide/domain/models/question/question.dart';
 import 'package:tft_guide/ui/pages/game/selection_item/selection_item.dart';
 
 class ItemSelection extends StatefulWidget {
@@ -20,69 +20,77 @@ class ItemSelection extends StatefulWidget {
 }
 
 class _ItemSelectionState extends State<ItemSelection> {
-  late final List<QuestionItem> _items;
+  late final List<QuestionItemOption> _itemOptions;
 
   @override
   void initState() {
     super.initState();
-    _items = [widget.question.correctItem, ...widget.question.otherItems]
-      ..shuffle();
+    _itemOptions = [
+      widget.question.correctOption,
+      ...widget.question.otherOptions,
+    ]..shuffle();
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: _items
+      children: _itemOptions
           .mapIndexed(
             (index, item) => Padding(
               padding: EdgeInsets.only(
                 bottom: index != 2 ? 20 : 0,
               ),
-              child: BlocBuilder<CheckSelectedItemCubit, bool?>(
+              child: BlocBuilder<CheckSelectedItemOptionCubit, bool?>(
                 builder: (context, isCorrect) => IgnorePointer(
                   ignoring: isCorrect != null,
-                  child: BlocBuilder<SelectedItemCubit, QuestionItem?>(
-                    builder: (context, selectedItem) =>
-                        // TODO: Extract widget
+                  child:
+                      BlocBuilder<SelectedItemOptionCubit, QuestionItemOption?>(
+                    builder: (context, selectedOption) =>
                         switch (widget.question) {
                       BaseItemsTextQuestion() ||
                       BaseItemsImageQuestion() =>
-                        SelectionItemImages(
-                          asset1: (item as QuestionFullItem).baseItem1.asset,
-                          asset2: item.baseItem2.asset,
+                        SelectionItem.images(
+                          index: index,
+                          itemId1: (item as QuestionFullItemOption).itemId1,
+                          itemId2: item.itemId2,
                           state: _determineSelectionItemState(
                             item,
-                            selectedItem,
+                            selectedOption,
                             isCorrect,
                           ),
-                          onPressed: () =>
-                              context.read<SelectedItemCubit>().select(item),
+                          onPressed: () => context
+                              .read<SelectedItemOptionCubit>()
+                              .select(item),
                         ),
                       FullItemTextQuestion() ||
                       TitleImageQuestion() ||
                       DescriptionImageQuestion() =>
-                        SelectionItemText(
+                        SelectionItem.text(
+                          index: index,
                           text: item.name,
                           state: _determineSelectionItemState(
                             item,
-                            selectedItem,
+                            selectedOption,
                             isCorrect,
                           ),
-                          onPressed: () =>
-                              context.read<SelectedItemCubit>().select(item),
+                          onPressed: () => context
+                              .read<SelectedItemOptionCubit>()
+                              .select(item),
                         ),
                       FullItemImageQuestion() ||
                       TitleTextQuestion() ||
                       DescriptionTextQuestion() =>
-                        SelectionItemImage(
-                          asset: item.asset,
+                        SelectionItem.image(
+                          index: index,
+                          id: item.id,
                           state: _determineSelectionItemState(
                             item,
-                            selectedItem,
+                            selectedOption,
                             isCorrect,
                           ),
-                          onPressed: () =>
-                              context.read<SelectedItemCubit>().select(item),
+                          onPressed: () => context
+                              .read<SelectedItemOptionCubit>()
+                              .select(item),
                         ),
                     },
                   ),
@@ -95,13 +103,15 @@ class _ItemSelectionState extends State<ItemSelection> {
   }
 
   SelectionItemState _determineSelectionItemState(
-    QuestionItem item,
-    QuestionItem? selectedItem,
+    QuestionItemOption itemOption,
+    QuestionItemOption? selectedItemOption,
     bool? isCorrect,
   ) =>
-      switch (item == selectedItem) {
+      switch (itemOption == selectedItemOption) {
         true when isCorrect == false => SelectionItemState.wrong,
-        _ when isCorrect != null && item == widget.question.correctItem =>
+        _
+            when isCorrect != null &&
+                itemOption == widget.question.correctOption =>
           SelectionItemState.correct,
         true => SelectionItemState.selected,
         _ => SelectionItemState.unselected,

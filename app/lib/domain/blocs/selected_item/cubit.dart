@@ -1,13 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/domain/models/question_item2.dart';
+import 'package:tft_guide/domain/models/question/item_option.dart';
 
-final class SelectedItemCubit extends Cubit<QuestionItem?> {
-  SelectedItemCubit() : super(null);
+final class SelectedItemOptionCubit extends Cubit<QuestionItemOption?> {
+  SelectedItemOptionCubit() : super(null);
 
-  void select(QuestionItem item) => emit(
-        switch (state == item) {
+  void select(QuestionItemOption option) => emit(
+        switch (state == option) {
           true => null,
-          false => item,
+          false => option,
         },
       );
 }

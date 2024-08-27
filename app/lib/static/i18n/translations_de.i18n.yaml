@@ -1,4 +1,6 @@
 appName: 'TFT Guide'
+general:
+  cancel: 'Abbrechen'
 pages:
   ranked:
     title: 'Rangliste'
@@ -19,6 +21,21 @@ pages:
       four: 'IV'
     lp(int number): '$number LP'
   game:
+    option(int index): 'Auswahl $index'
+    proceed: 'Weiter'
+    check: 'Überprüfen'
+    questions:
+      baseItemCombine: 'Welche Gegenstände bilden zusammen diesen Gegenstand?'
+      fullItemCombine: 'Welcher Gegenstand ergibt sich, wenn man diese beiden kombiniert?'
+      titleText: 'Welcher Gegenstand passt zu diesem Titel?'
+      titleImage: 'Welcher Titel passt zu diesem Gegenstand?'
+      descriptionText: 'Welcher Gegenstand passt zu dieser Beschreibung?'
+      descriptionImage: 'Welche Beschreibung passt zu diesem Gegenstand?'
+    quit:
+      tooltip: 'Aufhören'
+      title: 'Willst du wirklich aufhören?'
+      content: 'Wenn du jetzt aufhörst, wirst du deinen bisherigen Fortschritt verlieren.'
+      button: 'Aufhören'
     feedback:
       correct:
         - 'Challenger ich komme!'

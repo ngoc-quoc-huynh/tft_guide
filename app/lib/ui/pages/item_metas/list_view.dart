@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/models/item_meta.dart';
-import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/ui/pages/base_item_detail/page.dart';
 import 'package:tft_guide/ui/pages/full_item_detail/page.dart';
 import 'package:tft_guide/ui/pages/item_metas/prototype_item.dart';
+import 'package:tft_guide/ui/widgets/file_storage_image.dart';
 
 class ItemMetasListView extends StatelessWidget {
   const ItemMetasListView({
@@ -44,11 +44,10 @@ class _Item extends StatelessWidget {
           vertical: 10,
           horizontal: 15,
         ),
-        leading: Image.file(
-          Injector.instance.fileStorageApi.loadFile(item.id),
+        leading: FileStorageImage(
+          id: item.id,
           width: 50,
           height: 50,
-          fit: BoxFit.contain,
           gaplessPlayback: true,
           // TODO: Add error widget
         ),

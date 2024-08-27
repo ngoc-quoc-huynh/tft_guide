@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-final class QuestionHeader extends StatelessWidget {
+class QuestionHeader extends StatelessWidget {
   const QuestionHeader({required this.text, super.key});
 
   final String text;

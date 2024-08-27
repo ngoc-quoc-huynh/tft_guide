@@ -1,15 +1,36 @@
-// ignore_for_file: prefer-single-widget-per-file,
-// otherwise we have to create a library and use part/parts of.
-
 import 'package:flutter/material.dart';
-import 'package:tft_guide/static/resources/assets.dart';
+import 'package:tft_guide/ui/widgets/file_storage_image.dart';
 
 sealed class QuestionBody extends StatelessWidget {
   const QuestionBody({super.key});
+
+  const factory QuestionBody.title({
+    required String text,
+    Key? key,
+  }) = _Title;
+
+  const factory QuestionBody.description({
+    required String text,
+    Key? key,
+  }) = _Description;
+
+  const factory QuestionBody.image({
+    required String id,
+    Key? key,
+  }) = _Image;
+
+  const factory QuestionBody.images({
+    required String itemId1,
+    required String itemId2,
+    Key? key,
+  }) = _Images;
+
+  @protected
+  static const imageSize = 100.0;
 }
 
-sealed class QuestionBodyText extends QuestionBody {
-  const QuestionBodyText({
+sealed class _Text extends QuestionBody {
+  const _Text({
     required this.text,
     super.key,
   });
@@ -27,8 +48,8 @@ sealed class QuestionBodyText extends QuestionBody {
   }
 }
 
-final class QuestionBodyTitle extends QuestionBodyText {
-  const QuestionBodyTitle({
+final class _Title extends _Text {
+  const _Title({
     required super.text,
     super.key,
   });
@@ -38,8 +59,8 @@ final class QuestionBodyTitle extends QuestionBodyText {
       Theme.of(context).textTheme.titleLarge;
 }
 
-final class QuestionBodyDescription extends QuestionBodyText {
-  const QuestionBodyDescription({
+final class _Description extends _Text {
+  const _Description({
     required super.text,
     super.key,
   });
@@ -49,47 +70,49 @@ final class QuestionBodyDescription extends QuestionBodyText {
       Theme.of(context).textTheme.titleMedium;
 }
 
-final class QuestionBodyImage extends QuestionBody {
-  const QuestionBodyImage({required this.asset, super.key});
+final class _Image extends QuestionBody {
+  const _Image({
+    required this.id,
+    super.key,
+  });
 
-  final Asset asset;
+  final String id;
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Extract the widget or the size
-    return Image.asset(
-      asset.path,
-      height: 100,
-      width: 100,
+    return FileStorageImage(
+      id: id,
+      width: QuestionBody.imageSize,
+      height: QuestionBody.imageSize,
     );
   }
 }
 
-final class QuestionBodyImages extends QuestionBody {
-  const QuestionBodyImages({
-    required this.asset1,
-    required this.asset2,
+final class _Images extends QuestionBody {
+  const _Images({
+    required this.itemId1,
+    required this.itemId2,
     super.key,
   });
 
-  final Asset asset1;
-  final Asset asset2;
+  final String itemId1;
+  final String itemId2;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Image.asset(
-          asset1.path,
-          height: 100,
-          width: 100,
+        FileStorageImage(
+          id: itemId1,
+          width: QuestionBody.imageSize,
+          height: QuestionBody.imageSize,
         ),
         const Icon(Icons.add),
-        Image.asset(
-          asset2.path,
-          height: 100,
-          width: 100,
+        FileStorageImage(
+          id: itemId2,
+          width: QuestionBody.imageSize,
+          height: QuestionBody.imageSize,
         ),
       ],
     );

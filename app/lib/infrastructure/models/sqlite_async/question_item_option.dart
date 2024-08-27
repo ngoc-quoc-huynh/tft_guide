@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:tft_guide/domain/models/question_item_option.dart' as domain;
+import 'package:tft_guide/domain/models/question/item_option.dart' as domain;
 import 'package:tft_guide/domain/utils/extensions/bool.dart';
 
 sealed class QuestionItemOption extends Equatable {
