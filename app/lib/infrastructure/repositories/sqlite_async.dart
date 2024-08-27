@@ -403,6 +403,7 @@ FROM full_item AS f
 LEFT JOIN full_item_translation AS t
        ON f.id = t.item_id
        AND t.language_code = ?
+WHERE f.is_active IS TRUE
 ORDER BY RANDOM()
 LIMIT ?;
 ''',
@@ -470,6 +471,7 @@ related_items AS (
             OR f1.item_id_2 = f2.item_id_2
         )
     WHERE f2.id = ?
+    AND f1.is_active IS TRUE
 )
 
 SELECT
@@ -482,12 +484,14 @@ SELECT
 FROM (
     SELECT * FROM related_items
     WHERE (SELECT is_special FROM is_special) IS FALSE
-
+    AND is_active IS TRUE
+    
     UNION ALL
 
     SELECT *
     FROM full_item
     WHERE (SELECT is_special FROM is_special) IS TRUE
+    AND is_active IS TRUE
 ) AS f
 LEFT JOIN full_item_translation t
     ON f.id = t.item_id
