@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:get_it/get_it.dart';
 import 'package:tft_guide/domain/interfaces/feedback.dart';
 import 'package:tft_guide/domain/interfaces/file.dart';
-import 'package:tft_guide/domain/interfaces/items.dart';
 import 'package:tft_guide/domain/interfaces/local_database.dart';
 import 'package:tft_guide/domain/interfaces/rank.dart';
 import 'package:tft_guide/domain/interfaces/remote_database.dart';
@@ -16,8 +15,6 @@ extension GetItExtension on GetIt {
   FeedbackApi get feedbackApi => get<FeedbackApi>();
 
   FileStorageApi get fileStorageApi => get<FileStorageApi>();
-
-  ItemsApi get itemsApi => get<ItemsApi>();
 
   LanguageCode get languageCode =>
       LanguageCode.values.byName(translations.$meta.locale.languageCode);

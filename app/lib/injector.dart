@@ -4,12 +4,10 @@ import 'package:get_it/get_it.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tft_guide/domain/interfaces/feedback.dart';
 import 'package:tft_guide/domain/interfaces/file.dart';
-import 'package:tft_guide/domain/interfaces/items.dart';
 import 'package:tft_guide/domain/interfaces/local_database.dart';
 import 'package:tft_guide/domain/interfaces/rank.dart';
 import 'package:tft_guide/domain/interfaces/remote_database.dart';
 import 'package:tft_guide/infrastructure/repositories/feedback.dart';
-import 'package:tft_guide/infrastructure/repositories/items.dart';
 import 'package:tft_guide/infrastructure/repositories/local_file_storage.dart';
 import 'package:tft_guide/infrastructure/repositories/rank.dart';
 import 'package:tft_guide/infrastructure/repositories/sqlite_async.dart';
@@ -24,7 +22,6 @@ final class Injector {
 
   static Future<void> setupDependencies() async {
     instance
-      ..registerLazySingleton<ItemsApi>(LocalItemsRepository.new)
       ..registerLazySingleton<RankRepository>(LocalRankRepository.new)
       ..registerLazySingleton<FeedbackApi>(FeedbackRepository.new)
       ..registerSingletonAsync<RemoteDatabaseApi>(
