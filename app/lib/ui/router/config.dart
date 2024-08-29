@@ -91,7 +91,7 @@ final class GoRouterConfig {
                   GoRoute(
                     name: QuotesPage.routeName,
                     path: '/quotes',
-                    builder: (_, __) => const SettingsPage(),
+                    builder: (_, __) => const QuotesPage(),
                   ),
                 ],
               ),

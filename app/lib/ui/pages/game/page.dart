@@ -8,6 +8,7 @@ import 'package:tft_guide/ui/pages/game/body.dart';
 import 'package:tft_guide/ui/pages/game/progress_bar.dart';
 import 'package:tft_guide/ui/pages/game/quit/button.dart';
 import 'package:tft_guide/ui/widgets/loading_indicator.dart';
+import 'package:tft_guide/ui/widgets/spatula_background.dart';
 
 class GamePage extends StatelessWidget {
   const GamePage({super.key});
@@ -41,9 +42,11 @@ class GamePage extends StatelessWidget {
                 ),
                 forceMaterialTransparency: true,
               ),
-              body: BlocProvider<CorrectAnswersCubit>(
-                create: (_) => CorrectAnswersCubit(),
-                child: GameBody(questions: questions),
+              body: SpatulaBackground(
+                child: BlocProvider<CorrectAnswersCubit>(
+                  create: (_) => CorrectAnswersCubit(),
+                  child: GameBody(questions: questions),
+                ),
               ),
             ),
         },
