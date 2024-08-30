@@ -14,10 +14,17 @@ final class ItemDetailLoadInProgress extends ItemDetailState {
 
 final class ItemDetailLoadOnSuccess<Item extends ItemDetail>
     extends ItemDetailState {
-  const ItemDetailLoadOnSuccess(this.item);
+  const ItemDetailLoadOnSuccess({
+    required this.item,
+    required this.themeData,
+  });
 
   final Item item;
+  final ThemeData themeData;
 
   @override
-  List<Object?> get props => [item];
+  List<Object?> get props => [
+        item,
+        themeData,
+      ];
 }

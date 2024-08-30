@@ -1,6 +1,6 @@
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/models/database/item_translation.dart';
 import 'package:tft_guide/domain/models/item_detail.dart';
@@ -26,15 +26,35 @@ sealed class ItemDetailBloc<Item extends ItemDetail>
   final Future<Item> Function(String, LanguageCode) _loadItemDetail;
   @protected
   static final localDatabaseApi = Injector.instance.localDatabaseApi;
+  static final _fileStorageApi = Injector.instance.fileStorageApi;
 
   Future<void> _onItemDetailInitializeEvent(
     ItemDetailInitializeEvent event,
     Emitter<ItemDetailState> emit,
   ) async {
-    final item = await _loadItemDetail(
-      event.id,
-      Injector.instance.languageCode,
+    final (item, colorScheme) = await (
+      _loadItemDetail(
+        event.id,
+        Injector.instance.languageCode,
+      ),
+      // TODO: Extract this method to infrastructure for easier testing
+      ColorScheme.fromImageProvider(
+        provider: FileImage(
+          _fileStorageApi.loadFile(event.id),
+        ),
+        brightness: event.brightness,
+      ),
+    ).wait;
+    final themeData = ThemeData.from(
+      colorScheme: colorScheme,
+      textTheme: event.textTheme,
     );
-    emit(ItemDetailLoadOnSuccess<Item>(item));
+
+    emit(
+      ItemDetailLoadOnSuccess<Item>(
+        item: item,
+        themeData: themeData,
+      ),
+    );
   }
 }

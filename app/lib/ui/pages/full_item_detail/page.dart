@@ -27,10 +27,15 @@ class FullItemDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return BlocProvider<FullItemDetailBloc>(
       create: (_) => FullItemDetailBloc()
         ..add(
-          ItemDetailInitializeEvent(id),
+          ItemDetailInitializeEvent(
+            id: id,
+            brightness: theme.brightness,
+            textTheme: theme.textTheme,
+          ),
         ),
       child: BlocBuilder<FullItemDetailBloc, ItemDetailState>(
         builder: (context, state) => switch (state) {
@@ -40,7 +45,10 @@ class FullItemDetailPage extends StatelessWidget {
                 child: FullItemDetailCombineBy.loading(),
               ),
             ),
-          FullItemDetailLoadOnSuccess(:final item) => _Body(item),
+          FullItemDetailLoadOnSuccess(:final item, :final themeData) => _Body(
+              item: item,
+              themeData: themeData,
+            ),
           ItemDetailLoadOnSuccess<ItemDetail>() => throw StateError(
               'This state will never be emitted within BaseItemDetailBloc.',
             ),
@@ -51,72 +59,81 @@ class FullItemDetailPage extends StatelessWidget {
 }
 
 class _Body extends StatelessWidget {
-  const _Body(this.item);
+  const _Body({
+    required this.item,
+    required this.themeData,
+  });
 
   final FullItemDetail item;
+  final ThemeData themeData;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(item.name),
-      ),
-      body: SpatulaBackground(
-        child: CustomScrollView(
-          slivers: [
-            const SliverSizedBox(height: 20),
-            SliverWrapperItemDetail(
-              child: ImageDetailImage.image(
-                id: item.id,
-              ),
-            ),
-            const SliverSizedBox(height: 20),
-            SliverWrapperItemDetail(
-              child: ItemDetailCard(
-                title: ItemDetailCardTitle.text(
-                  text: _translations.description,
-                ),
-                child: ItemDetailCardText.text(
-                  text: item.description,
+    return Theme(
+      data: themeData,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(item.name),
+        ),
+        body: SpatulaBackground(
+          child: CustomScrollView(
+            slivers: [
+              const SliverSizedBox(height: 20),
+              SliverWrapperItemDetail(
+                child: ImageDetailImage.image(
+                  id: item.id,
                 ),
               ),
-            ),
-            const SliverSizedBox(height: 10),
-            SliverWrapperItemDetail(
-              child: ItemDetailCard(
-                title: ItemDetailCardTitle.text(
-                  text: _translations.stats,
-                ),
-                child: ItemDetailStats.gridView(
-                  item: item,
-                ),
-              ),
-            ),
-            const SliverSizedBox(height: 10),
-            SliverWrapperItemDetail(
-              child: ItemDetailCard(
-                title: ItemDetailCardTitle.text(
-                  text: _translations.hint,
-                ),
-                child: ItemDetailCardText.text(
-                  text: item.hint,
+              const SliverSizedBox(height: 20),
+              SliverWrapperItemDetail(
+                child: ItemDetailCard(
+                  title: ItemDetailCardTitle.text(
+                    text: _translations.description,
+                  ),
+                  child: ItemDetailCardText.text(
+                    text: item.description,
+                  ),
                 ),
               ),
-            ),
-            const SliverSizedBox(height: 10),
-            SliverWrapperItemDetail(
-              child: ItemDetailCard(
-                title: ItemDetailCardTitle.text(
-                  text: _translations.combine,
+              if (item.hasStats) ...[
+                const SliverSizedBox(height: 10),
+                SliverWrapperItemDetail(
+                  child: ItemDetailCard(
+                    title: ItemDetailCardTitle.text(
+                      text: _translations.stats,
+                    ),
+                    child: ItemDetailStats.gridView(
+                      item: item,
+                    ),
+                  ),
                 ),
-                child: FullItemDetailCombineBy.combine(
-                  itemId1: item.itemId1,
-                  itemId2: item.itemId2,
+              ],
+              const SliverSizedBox(height: 10),
+              SliverWrapperItemDetail(
+                child: ItemDetailCard(
+                  title: ItemDetailCardTitle.text(
+                    text: _translations.hint,
+                  ),
+                  child: ItemDetailCardText.text(
+                    text: item.hint,
+                  ),
                 ),
               ),
-            ),
-            const SliverSizedBox(height: 20),
-          ],
+              const SliverSizedBox(height: 10),
+              SliverWrapperItemDetail(
+                child: ItemDetailCard(
+                  title: ItemDetailCardTitle.text(
+                    text: _translations.combine,
+                  ),
+                  child: FullItemDetailCombineBy.combine(
+                    itemId1: item.itemId1,
+                    itemId2: item.itemId2,
+                  ),
+                ),
+              ),
+              const SliverSizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );

@@ -6,7 +6,13 @@ sealed class ItemDetailEvent {
 }
 
 final class ItemDetailInitializeEvent extends ItemDetailEvent {
-  const ItemDetailInitializeEvent(this.id);
+  const ItemDetailInitializeEvent({
+    required this.id,
+    required this.brightness,
+    required this.textTheme,
+  });
 
   final String id;
+  final Brightness brightness;
+  final TextTheme textTheme;
 }

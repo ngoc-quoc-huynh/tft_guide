@@ -29,6 +29,17 @@ sealed class ItemDetail extends Equatable {
   final int? magicResist;
   final int? mana;
 
+  bool get hasStats => [
+        abilityPower,
+        armor,
+        attackDamage,
+        attackSpeed,
+        crit,
+        health,
+        magicResist,
+        mana,
+      ].any((stat) => stat != null);
+
   @override
   List<Object?> get props => [
         id,

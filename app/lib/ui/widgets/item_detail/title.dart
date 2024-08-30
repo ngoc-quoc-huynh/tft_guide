@@ -14,8 +14,11 @@ sealed class ItemDetailCardTitle extends StatelessWidget {
   }) = _Text;
 
   @protected
-  TextStyle? getTextStyle(BuildContext context) =>
-      Theme.of(context).textTheme.titleLarge;
+  TextStyle? getTextStyle(BuildContext context) {
+    final theme = Theme.of(context);
+    return theme.textTheme.titleLarge
+        ?.copyWith(color: theme.colorScheme.primary);
+  }
 }
 
 final class _Loading extends ItemDetailCardTitle {
