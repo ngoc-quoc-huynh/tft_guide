@@ -3,8 +3,8 @@ import 'package:tft_guide/domain/models/translation_locale.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 
-final class TranslationLocaleCubit extends HydratedCubit<TranslationLocale?> {
-  TranslationLocaleCubit() : super(null) {
+final class TranslationLocaleCubit extends HydratedCubit<TranslationLocale> {
+  TranslationLocaleCubit() : super(TranslationLocale.system) {
     Injector.instance.registerLazySingleton<Translations>(
       () => _computeTranslations(state),
     );
@@ -29,17 +29,15 @@ final class TranslationLocaleCubit extends HydratedCubit<TranslationLocale?> {
         'language': state?.name,
       };
 
-  Translations _computeTranslations(TranslationLocale? language) {
+  Translations _computeTranslations(TranslationLocale language) {
     final localCountryCode =
         LocaleSettings.instance.utils.findDeviceLocale().countryCode;
     return switch ((language, localCountryCode)) {
       (TranslationLocale.german, _) ||
-      (TranslationLocale.system, 'de') ||
-      (null, 'de') =>
+      (TranslationLocale.system, 'de') =>
         AppLocale.de,
       (TranslationLocale.english, _) ||
       (TranslationLocale.system, 'en') ||
-      (null, 'en') ||
       (_, _) =>
         AppLocale.en,
     }
