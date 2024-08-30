@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
+import 'package:tft_guide/static/resources/sizes.dart';
+import 'package:tft_guide/ui/widgets/alert_dialog/action.dart';
+import 'package:tft_guide/ui/widgets/alert_dialog/dialog.dart';
 
 class QuitDialog extends StatelessWidget {
   const QuitDialog._();
@@ -17,17 +20,20 @@ class QuitDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text(_quitTranslations.title),
-      content: Text(_quitTranslations.content),
+    return CustomAlertDialog(
+      title: _quitTranslations.title,
+      content: Padding(
+        padding:
+            const EdgeInsets.symmetric(horizontal: Sizes.horizontalPadding),
+        child: Text(_quitTranslations.content),
+      ),
       actions: [
-        TextButton(
+        AlertDialogAction.cancel(
           onPressed: () => context.pop(false),
-          child: Text(_translations.general.cancel),
         ),
-        TextButton(
+        AlertDialogAction.custom(
           onPressed: () => context.pop(true),
-          child: Text(_quitTranslations.button),
+          text: _quitTranslations.button,
         ),
       ],
     );
