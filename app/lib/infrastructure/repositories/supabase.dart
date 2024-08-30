@@ -4,8 +4,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:tft_guide/domain/interfaces/remote_database.dart';
 import 'package:tft_guide/domain/models/database/item.dart';
 import 'package:tft_guide/domain/models/database/item_translation.dart';
-import 'package:tft_guide/infrastructure/models/supabase/item.dart';
-import 'package:tft_guide/infrastructure/models/supabase/item_translation.dart';
+import 'package:tft_guide/infrastructure/dtos/supabase/item.dart';
+import 'package:tft_guide/infrastructure/dtos/supabase/item_translation.dart';
 
 // TODO: Error handling
 final class SupabaseRepository implements RemoteDatabaseApi {
