@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 
+@staticIconProvider
 class TftIcons {
   TftIcons._();
 
