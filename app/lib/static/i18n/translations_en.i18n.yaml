@@ -1,6 +1,7 @@
 appName: 'TFT Guide'
 general:
   cancel: 'Cancel'
+  confirm: 'OK'
 pages:
   ranked:
     title: 'Ranked'
@@ -77,8 +78,22 @@ pages:
     item1: 'Item 1'
     item2: 'Item 2'
   settings:
-    title: 'Einstellungen'
-    language: 'Language'
-    german: 'German'
-    english: 'English'
-    system: 'Device language'
+    title: 'Settings'
+    design:
+      name: 'Design'
+      title: 'Choose design'
+      bright: 'Bright'
+      dark: 'Dark'
+      system: 'Device design'
+    language:
+      name: 'Language'
+      title: 'Choose language'
+      german: 'German'
+      english: 'English'
+      system: 'Device language'
+    repair:
+      name: 'Repair'
+    reset:
+      name: 'Reset'
+    license:
+      name: 'External libraries and licenses'

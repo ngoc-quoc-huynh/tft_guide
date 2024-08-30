@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/domain/blocs/translation_locale/cubit.dart';
-import 'package:tft_guide/domain/models/translation_locale.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
+import 'package:tft_guide/static/resources/sizes.dart';
+import 'package:tft_guide/ui/pages/settings/card.dart';
+import 'package:tft_guide/ui/pages/settings/dialogs/language.dart';
+import 'package:tft_guide/ui/pages/settings/divider.dart';
+import 'package:tft_guide/ui/pages/settings/item.dart';
 import 'package:tft_guide/ui/widgets/custom_app_bar.dart';
 import 'package:tft_guide/ui/widgets/spatula_background.dart';
 
@@ -17,29 +21,80 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(),
       body: SpatulaBackground(
-        child: BlocBuilder<TranslationLocaleCubit, TranslationLocale?>(
-          builder: (context, _) => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextButton(
-                onPressed: () => context
-                    .read<TranslationLocaleCubit>()
-                    .change(TranslationLocale.german),
-                child: Text(_translations.german),
-              ),
-              TextButton(
-                onPressed: () => context
-                    .read<TranslationLocaleCubit>()
-                    .change(TranslationLocale.english),
-                child: Text(_translations.english),
-              ),
-              TextButton(
-                onPressed: () => context
-                    .read<TranslationLocaleCubit>()
-                    .change(TranslationLocale.system),
-                child: Text(_translations.system),
-              ),
-            ],
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: Sizes.horizontalPadding,
+            ),
+            child: Column(
+              children: [
+                const SizedBox(height: 20),
+                Expanded(
+                  child: Column(
+                    children: [
+                      SettingsCard(
+                        child: Column(
+                          children: [
+                            SettingsItem(
+                              icon: Icons.brightness_6_rounded,
+                              title: _translations.design.name,
+                              onTap: () {
+                                // TODO: Add functionality
+                              },
+                            ),
+                            const SettingsDivider(),
+                            SettingsItem(
+                              icon: Icons.flag_outlined,
+                              title: _translations.language.name,
+                              onTap: () => unawaited(
+                                SettingsLanguageDialog.show(context),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      SettingsCard(
+                        child: Column(
+                          children: [
+                            SettingsItem(
+                              icon: Icons.build,
+                              title: _translations.repair.name,
+                              onTap: () {
+                                // TODO: Add functionality
+                              },
+                            ),
+                            const SettingsDivider(),
+                            SettingsItem(
+                              icon: Icons.restart_alt,
+                              title: _translations.reset.name,
+                              onTap: () {
+                                // TODO: Add functionality
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      SettingsCard(
+                        child: SettingsItem(
+                          icon: Icons.library_books,
+                          title: _translations.license.name,
+                          onTap: () {
+                            // TODO: Add functionality
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                // TODO: Retrieve version
+                const Center(
+                  child: Text('Version 1.0.0'),
+                ),
+              ],
+            ),
           ),
         ),
       ),
