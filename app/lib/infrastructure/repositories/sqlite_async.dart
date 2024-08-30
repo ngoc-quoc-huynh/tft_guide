@@ -339,7 +339,8 @@ SELECT b.id,
 FROM $_tableNameBaseItem AS b
 LEFT JOIN $_tableNameBaseItemTranslation AS t 
        ON b.id = t.item_id 
-       AND t.language_code = ?;
+       AND t.language_code = ?
+ORDER BY t.name ASC;
 ''',
       [languageCode.name],
     );
@@ -360,7 +361,8 @@ FROM $_tableNameFullItem AS f
 LEFT JOIN $_tableNameFullItemTranslation AS t 
        ON f.id = t.item_id 
        AND t.language_code = ?
-WHERE f.is_active;
+WHERE f.is_active
+ORDER BY t.name ASC;
 ''',
       [languageCode.name],
     );
