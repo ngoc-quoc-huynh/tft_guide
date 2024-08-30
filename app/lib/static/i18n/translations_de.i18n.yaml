@@ -82,7 +82,7 @@ pages:
     design:
       name: 'Design'
       title: 'Design auswählen'
-      bright: 'Hell'
+      light: 'Hell'
       dark: 'Dunkel'
       system: 'Gerätedesign'
     language:

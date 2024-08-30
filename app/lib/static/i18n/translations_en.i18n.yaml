@@ -82,7 +82,7 @@ pages:
     design:
       name: 'Design'
       title: 'Choose design'
-      bright: 'Bright'
+      light: 'Bright'
       dark: 'Dark'
       system: 'Device design'
     language:

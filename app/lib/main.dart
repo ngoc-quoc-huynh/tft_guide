@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:tft_guide/domain/blocs/theme_mode/cubit.dart';
 import 'package:tft_guide/domain/blocs/translation_locale/cubit.dart';
 import 'package:tft_guide/domain/models/translation_locale.dart';
 import 'package:tft_guide/injector.dart';
@@ -65,22 +66,32 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    return BlocProvider<TranslationLocaleCubit>(
-      create: (_) => TranslationLocaleCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<TranslationLocaleCubit>(
+          create: (_) => TranslationLocaleCubit(),
+        ),
+        BlocProvider<ThemeModeCubit>(
+          create: (_) => ThemeModeCubit(),
+        ),
+      ],
       child: BlocBuilder<TranslationLocaleCubit, TranslationLocale?>(
-        builder: (context, locale) => MaterialApp.router(
-          title: Injector.instance.translations.appName,
-          theme: CustomTheme.lightTheme(textTheme),
-          darkTheme: CustomTheme.darkTheme(textTheme),
-          localizationsDelegates: GlobalMaterialLocalizations.delegates,
-          locale: switch (locale?.code) {
-            null => null,
-            final String code => Locale(code),
-          },
-          supportedLocales: AppLocaleUtils.supportedLocales,
-          routerConfig: GoRouterConfig.routes,
-          builder: (context, child) => CustomSkeletonizerConfig(
-            child: child!,
+        builder: (context, locale) => BlocBuilder<ThemeModeCubit, ThemeMode>(
+          builder: (context, themeMode) => MaterialApp.router(
+            title: Injector.instance.translations.appName,
+            theme: CustomTheme.lightTheme(textTheme),
+            darkTheme: CustomTheme.darkTheme(textTheme),
+            themeMode: themeMode,
+            localizationsDelegates: GlobalMaterialLocalizations.delegates,
+            locale: switch (locale?.code) {
+              null => null,
+              final String code => Locale(code),
+            },
+            supportedLocales: AppLocaleUtils.supportedLocales,
+            routerConfig: GoRouterConfig.routes,
+            builder: (context, child) => CustomSkeletonizerConfig(
+              child: child!,
+            ),
           ),
         ),
       ),
