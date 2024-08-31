@@ -8,3 +8,9 @@ sealed class ItemMetasEvent {
 final class ItemMetasInitializeEvent extends ItemMetasEvent {
   const ItemMetasInitializeEvent();
 }
+
+final class ItemMetasUpdateLanguageEvent extends ItemMetasEvent {
+  const ItemMetasUpdateLanguageEvent(this.languageCode);
+
+  final LanguageCode languageCode;
+}
