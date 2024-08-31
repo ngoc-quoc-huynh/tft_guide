@@ -6,6 +6,7 @@ import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/ui/pages/settings/page.dart';
 import 'package:tft_guide/ui/widgets/custom_app_bar.dart';
+import 'package:tft_guide/ui/widgets/language/builder.dart';
 
 class ScaffoldWithNavBar extends StatelessWidget {
   const ScaffoldWithNavBar({
@@ -17,39 +18,41 @@ class ScaffoldWithNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        actions: [
-          IconButton(
-            onPressed: () => unawaited(
-              context.pushNamed(SettingsPage.routeName),
+    return LanguageBuilder(
+      builder: (context) => Scaffold(
+        appBar: CustomAppBar(
+          actions: [
+            IconButton(
+              onPressed: () => unawaited(
+                context.pushNamed(SettingsPage.routeName),
+              ),
+              icon: const Icon(Icons.settings),
             ),
-            icon: const Icon(Icons.settings),
-          ),
-        ],
-      ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: navigationShell.currentIndex,
-        onDestinationSelected: (index) => navigationShell.goBranch(
-          index,
-          initialLocation: index == navigationShell.currentIndex,
+          ],
         ),
-        destinations: [
-          NavigationDestination(
-            icon: const Icon(Icons.quiz),
-            label: _translations.ranked.title,
+        bottomNavigationBar: NavigationBar(
+          selectedIndex: navigationShell.currentIndex,
+          onDestinationSelected: (index) => navigationShell.goBranch(
+            index,
+            initialLocation: index == navigationShell.currentIndex,
           ),
-          NavigationDestination(
-            icon: const Icon(Icons.format_list_bulleted),
-            label: _translations.item_metas.title,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.format_quote),
-            label: _translations.settings.title,
-          ),
-        ],
+          destinations: [
+            NavigationDestination(
+              icon: const Icon(Icons.quiz),
+              label: _translations.ranked.title,
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.format_list_bulleted),
+              label: _translations.item_metas.title,
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.format_quote),
+              label: _translations.settings.title,
+            ),
+          ],
+        ),
+        body: navigationShell,
       ),
-      body: navigationShell,
     );
   }
 

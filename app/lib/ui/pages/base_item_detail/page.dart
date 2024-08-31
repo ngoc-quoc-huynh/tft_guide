@@ -12,6 +12,7 @@ import 'package:tft_guide/ui/widgets/item_detail/sliver_wrapper.dart';
 import 'package:tft_guide/ui/widgets/item_detail/stats/stats.dart';
 import 'package:tft_guide/ui/widgets/item_detail/text.dart';
 import 'package:tft_guide/ui/widgets/item_detail/title.dart';
+import 'package:tft_guide/ui/widgets/language/listener.dart';
 import 'package:tft_guide/ui/widgets/slivers/box.dart';
 import 'package:tft_guide/ui/widgets/spatula_background.dart';
 import 'package:tft_guide/ui/widgets/widget_observer.dart';
@@ -69,60 +70,62 @@ class _Body extends StatelessWidget {
     return WidgetObserver(
       onBrightnessChanged: (brightness) =>
           _onBrightnessChanged(context, brightness),
-      onLanguageChanged: (languageCode) =>
-          _onLanguageChanged(context, languageCode),
-      child: Theme(
-        data: themeData,
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text(item.name),
-          ),
-          body: SpatulaBackground(
-            child: CustomScrollView(
-              slivers: [
-                const SliverSizedBox(height: 20),
-                SliverWrapperItemDetail(
-                  child: ImageDetailImage.image(
-                    id: item.id,
-                  ),
-                ),
-                const SliverSizedBox(height: 20),
-                SliverWrapperItemDetail(
-                  child: ItemDetailCard(
-                    title: ItemDetailCardTitle.text(
-                      text: _translations.description,
-                    ),
-                    child: ItemDetailCardText.text(
-                      text: item.description,
+      child: LanguageListener(
+        onLanguageChanged: (languageCode) =>
+            _onLanguageChanged(context, languageCode),
+        child: Theme(
+          data: themeData,
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text(item.name),
+            ),
+            body: SpatulaBackground(
+              child: CustomScrollView(
+                slivers: [
+                  const SliverSizedBox(height: 20),
+                  SliverWrapperItemDetail(
+                    child: ImageDetailImage.image(
+                      id: item.id,
                     ),
                   ),
-                ),
-                if (item.hasStats) ...[
+                  const SliverSizedBox(height: 20),
+                  SliverWrapperItemDetail(
+                    child: ItemDetailCard(
+                      title: ItemDetailCardTitle.text(
+                        text: _translations.description,
+                      ),
+                      child: ItemDetailCardText.text(
+                        text: item.description,
+                      ),
+                    ),
+                  ),
+                  if (item.hasStats) ...[
+                    const SliverSizedBox(height: 10),
+                    SliverWrapperItemDetail(
+                      child: ItemDetailCard(
+                        title: ItemDetailCardTitle.text(
+                          text: _translations.stats,
+                        ),
+                        child: ItemDetailStats.gridView(
+                          item: item,
+                        ),
+                      ),
+                    ),
+                  ],
                   const SliverSizedBox(height: 10),
                   SliverWrapperItemDetail(
                     child: ItemDetailCard(
                       title: ItemDetailCardTitle.text(
-                        text: _translations.stats,
+                        text: _translations.hint,
                       ),
-                      child: ItemDetailStats.gridView(
-                        item: item,
+                      child: ItemDetailCardText.text(
+                        text: item.hint,
                       ),
                     ),
                   ),
+                  const SliverSizedBox(height: 20),
                 ],
-                const SliverSizedBox(height: 10),
-                SliverWrapperItemDetail(
-                  child: ItemDetailCard(
-                    title: ItemDetailCardTitle.text(
-                      text: _translations.hint,
-                    ),
-                    child: ItemDetailCardText.text(
-                      text: item.hint,
-                    ),
-                  ),
-                ),
-                const SliverSizedBox(height: 20),
-              ],
+              ),
             ),
           ),
         ),

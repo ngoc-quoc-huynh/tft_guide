@@ -10,6 +10,7 @@ import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/theme.dart';
 import 'package:tft_guide/ui/router/config.dart';
 import 'package:tft_guide/ui/widgets/custom_skeletonizer_config.dart';
+import 'package:tft_guide/ui/widgets/language/provider.dart';
 
 Future<void> main() async {
   // TODO: Preload SVGs
@@ -75,16 +76,17 @@ class MyApp extends StatelessWidget {
           create: (_) => ThemeModeCubit(),
         ),
       ],
-      child: BlocBuilder<TranslationLocaleCubit, TranslationLocale?>(
-        builder: (context, locale) {
-          return BlocBuilder<ThemeModeCubit, ThemeMode>(
+      child: BlocBuilder<TranslationLocaleCubit, TranslationLocale>(
+        builder: (context, locale) => LanguageProvider(
+          locale: locale,
+          child: BlocBuilder<ThemeModeCubit, ThemeMode>(
             builder: (context, themeMode) => MaterialApp.router(
               title: Injector.instance.translations.appName,
               theme: CustomTheme.lightTheme(textTheme),
               darkTheme: CustomTheme.darkTheme(textTheme),
               themeMode: themeMode,
               localizationsDelegates: GlobalMaterialLocalizations.delegates,
-              locale: switch (locale?.code) {
+              locale: switch (locale.code) {
                 null => null,
                 final String code => Locale(code),
               },
@@ -94,8 +96,8 @@ class MyApp extends StatelessWidget {
                 child: child!,
               ),
             ),
-          );
-        },
+          ),
+        ),
       ),
     );
   }
