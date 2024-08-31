@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/blocs/item_detail/bloc.dart';
+import 'package:tft_guide/domain/models/database/language_code.dart';
 import 'package:tft_guide/domain/models/item_detail.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
@@ -73,6 +74,8 @@ class _Body extends StatelessWidget {
     return WidgetObserver(
       onBrightnessChanged: (brightness) =>
           _onBrightnessChanged(context, brightness),
+      onLanguageChanged: (languageCode) =>
+          _onLanguageChanged(context, languageCode),
       child: Theme(
         data: themeData,
         child: Scaffold(
@@ -151,6 +154,12 @@ class _Body extends StatelessWidget {
               textTheme: Theme.of(context).textTheme,
             ),
           );
+
+  void _onLanguageChanged(BuildContext context, LanguageCode languageCode) {
+    context.read<FullItemDetailBloc>().add(
+          ItemDetailUpdateLanguageCodeEvent(languageCode),
+        );
+  }
 
   TranslationsPagesItemDetailDe get _translations =>
       Injector.instance.translations.pages.item_detail;

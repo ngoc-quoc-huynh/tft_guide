@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/blocs/theme_mode/cubit.dart';
+import 'package:tft_guide/domain/blocs/translation_locale/cubit.dart';
+import 'package:tft_guide/domain/models/database/language_code.dart';
+import 'package:tft_guide/domain/models/translation_locale.dart';
+import 'package:tft_guide/injector.dart';
 
 class WidgetObserver extends StatefulWidget {
   const WidgetObserver({
     required this.child,
     this.onBrightnessChanged,
+    this.onLanguageChanged,
     super.key,
   });
 
   final Widget child;
   final ValueChanged<Brightness>? onBrightnessChanged;
+  final ValueChanged<LanguageCode>? onLanguageChanged;
 
   @override
   State<WidgetObserver> createState() => _WidgetObserverState();
@@ -18,6 +24,8 @@ class WidgetObserver extends StatefulWidget {
 
 class _WidgetObserverState extends State<WidgetObserver>
     with WidgetsBindingObserver {
+  static final _widgetsBindingApi = Injector.instance.widgetsBindingApi;
+
   @override
   void initState() {
     super.initState();
@@ -29,7 +37,20 @@ class _WidgetObserverState extends State<WidgetObserver>
     super.didChangePlatformBrightness();
     if (context.read<ThemeModeCubit>().state == ThemeMode.system) {
       widget.onBrightnessChanged?.call(
-        View.of(context).platformDispatcher.platformBrightness,
+        _widgetsBindingApi.brightness,
+      );
+    }
+  }
+
+  @override
+  void didChangeLocales(List<Locale>? locales) {
+    super.didChangeLocales(locales);
+    if (context.read<TranslationLocaleCubit>().state ==
+        TranslationLocale.system) {
+      widget.onLanguageChanged?.call(
+        LanguageCode.byLanguageCode(
+          _widgetsBindingApi.locale.languageCode,
+        ),
       );
     }
   }

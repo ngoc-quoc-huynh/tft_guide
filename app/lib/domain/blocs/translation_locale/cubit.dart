@@ -10,6 +10,8 @@ final class TranslationLocaleCubit extends HydratedCubit<TranslationLocale> {
     );
   }
 
+  static final _widgetsBindingApi = Injector.instance.widgetsBindingApi;
+
   void change(TranslationLocale language) {
     Injector.instance
       // ignore: discarded_futures, since this is not a future and we cannot use unawaited.
@@ -29,18 +31,14 @@ final class TranslationLocaleCubit extends HydratedCubit<TranslationLocale> {
         'language': state?.name,
       };
 
-  Translations _computeTranslations(TranslationLocale language) {
-    final localCountryCode =
-        LocaleSettings.instance.utils.findDeviceLocale().countryCode;
-    return switch ((language, localCountryCode)) {
-      (TranslationLocale.german, _) ||
-      (TranslationLocale.system, 'de') =>
-        AppLocale.de,
-      (TranslationLocale.english, _) ||
-      (TranslationLocale.system, 'en') ||
-      (_, _) =>
-        AppLocale.en,
-    }
-        .build();
-  }
+  Translations _computeTranslations(TranslationLocale language) =>
+      switch ((language, _widgetsBindingApi.locale.languageCode)) {
+        (TranslationLocale.system, final code) when code.startsWith('de') =>
+          AppLocale.de,
+        (TranslationLocale.system, final code) when code.startsWith('en') =>
+          AppLocale.en,
+        (TranslationLocale.german, _) => AppLocale.de,
+        (TranslationLocale.english, _) || (_, _) => AppLocale.en,
+      }
+          .build();
 }
