@@ -21,34 +21,32 @@ sealed class ItemDetailBloc<Item extends ItemDetail>
       _onItemDetailInitializeEvent,
       transformer: droppable(),
     );
+    on<ItemDetailUpdateThemeDataEvent>(
+      _onItemDetailUpdateThemeDataEvent,
+      transformer: restartable(),
+    );
   }
 
   final Future<Item> Function(String, LanguageCode) _loadItemDetail;
   @protected
   static final localDatabaseApi = Injector.instance.localDatabaseApi;
-  static final _fileStorageApi = Injector.instance.fileStorageApi;
+  static final _themeApi = Injector.instance.themeApi;
 
   Future<void> _onItemDetailInitializeEvent(
     ItemDetailInitializeEvent event,
     Emitter<ItemDetailState> emit,
   ) async {
-    final (item, colorScheme) = await (
+    final (item, themeData) = await (
       _loadItemDetail(
         event.id,
         Injector.instance.languageCode,
       ),
-      // TODO: Extract this method to infrastructure for easier testing
-      ColorScheme.fromImageProvider(
-        provider: FileImage(
-          _fileStorageApi.loadFile(event.id),
-        ),
+      _themeApi.computeThemeFromFileImage(
+        fileName: event.id,
         brightness: event.brightness,
+        textTheme: event.textTheme,
       ),
     ).wait;
-    final themeData = ThemeData.from(
-      colorScheme: colorScheme,
-      textTheme: event.textTheme,
-    );
 
     emit(
       ItemDetailLoadOnSuccess<Item>(
@@ -56,5 +54,26 @@ sealed class ItemDetailBloc<Item extends ItemDetail>
         themeData: themeData,
       ),
     );
+  }
+
+  Future<void> _onItemDetailUpdateThemeDataEvent(
+    ItemDetailUpdateThemeDataEvent event,
+    Emitter<ItemDetailState> emit,
+  ) async {
+    if (state case ItemDetailLoadOnSuccess<Item>(:final item)) {
+      emit(const ItemDetailLoadInProgress());
+      final themeData = await _themeApi.computeThemeFromFileImage(
+        fileName: item.id,
+        brightness: event.brightness,
+        textTheme: event.textTheme,
+      );
+
+      emit(
+        ItemDetailLoadOnSuccess<Item>(
+          item: item,
+          themeData: themeData,
+        ),
+      );
+    }
   }
 }

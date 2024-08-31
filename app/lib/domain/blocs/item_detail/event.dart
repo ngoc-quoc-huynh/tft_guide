@@ -16,3 +16,13 @@ final class ItemDetailInitializeEvent extends ItemDetailEvent {
   final Brightness brightness;
   final TextTheme textTheme;
 }
+
+final class ItemDetailUpdateThemeDataEvent extends ItemDetailEvent {
+  const ItemDetailUpdateThemeDataEvent({
+    required this.brightness,
+    required this.textTheme,
+  });
+
+  final Brightness brightness;
+  final TextTheme textTheme;
+}

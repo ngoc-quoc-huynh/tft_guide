@@ -7,8 +7,10 @@ import 'package:tft_guide/domain/interfaces/file.dart';
 import 'package:tft_guide/domain/interfaces/local_database.dart';
 import 'package:tft_guide/domain/interfaces/rank.dart';
 import 'package:tft_guide/domain/interfaces/remote_database.dart';
+import 'package:tft_guide/domain/interfaces/theme.dart';
 import 'package:tft_guide/infrastructure/repositories/feedback.dart';
 import 'package:tft_guide/infrastructure/repositories/local_file_storage.dart';
+import 'package:tft_guide/infrastructure/repositories/material_theme.dart';
 import 'package:tft_guide/infrastructure/repositories/rank.dart';
 import 'package:tft_guide/infrastructure/repositories/sqlite_async.dart';
 import 'package:tft_guide/infrastructure/repositories/supabase.dart';
@@ -34,7 +36,8 @@ final class Injector {
         dispose: (api) => api.close(),
         dependsOn: [Directory],
       )
-      ..registerLazySingleton<FileStorageApi>(LocalFileStorageRepository.new);
+      ..registerLazySingleton<FileStorageApi>(LocalFileStorageRepository.new)
+      ..registerLazySingleton<ThemeApi>(MaterialThemeRepository.new);
     await instance.allReady();
   }
 }
