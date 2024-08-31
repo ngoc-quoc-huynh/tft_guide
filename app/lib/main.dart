@@ -76,24 +76,26 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: BlocBuilder<TranslationLocaleCubit, TranslationLocale?>(
-        builder: (context, locale) => BlocBuilder<ThemeModeCubit, ThemeMode>(
-          builder: (context, themeMode) => MaterialApp.router(
-            title: Injector.instance.translations.appName,
-            theme: CustomTheme.lightTheme(textTheme),
-            darkTheme: CustomTheme.darkTheme(textTheme),
-            themeMode: themeMode,
-            localizationsDelegates: GlobalMaterialLocalizations.delegates,
-            locale: switch (locale?.code) {
-              null => null,
-              final String code => Locale(code),
-            },
-            supportedLocales: AppLocaleUtils.supportedLocales,
-            routerConfig: GoRouterConfig.routes,
-            builder: (context, child) => CustomSkeletonizerConfig(
-              child: child!,
+        builder: (context, locale) {
+          return BlocBuilder<ThemeModeCubit, ThemeMode>(
+            builder: (context, themeMode) => MaterialApp.router(
+              title: Injector.instance.translations.appName,
+              theme: CustomTheme.lightTheme(textTheme),
+              darkTheme: CustomTheme.darkTheme(textTheme),
+              themeMode: themeMode,
+              localizationsDelegates: GlobalMaterialLocalizations.delegates,
+              locale: switch (locale?.code) {
+                null => null,
+                final String code => Locale(code),
+              },
+              supportedLocales: AppLocaleUtils.supportedLocales,
+              routerConfig: GoRouterConfig.routes,
+              builder: (context, child) => CustomSkeletonizerConfig(
+                child: child!,
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }

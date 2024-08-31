@@ -1,13 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:tft_guide/domain/models/database/item_translation.dart'
     as domain;
-
-enum LanguageCode {
-  de,
-  en;
-
-  domain.LanguageCode toDomain() => domain.LanguageCode.values.byName(name);
-}
+import 'package:tft_guide/infrastructure/dtos/supabase/language_code.dart';
 
 sealed class ItemTranslation extends Equatable {
   const ItemTranslation({

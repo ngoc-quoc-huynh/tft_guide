@@ -26,3 +26,9 @@ final class ItemDetailUpdateThemeDataEvent extends ItemDetailEvent {
   final Brightness brightness;
   final TextTheme textTheme;
 }
+
+final class ItemDetailUpdateLanguageCodeEvent extends ItemDetailEvent {
+  const ItemDetailUpdateLanguageCodeEvent(this.languageCode);
+
+  final LanguageCode languageCode;
+}

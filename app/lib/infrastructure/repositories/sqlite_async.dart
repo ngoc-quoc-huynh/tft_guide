@@ -3,6 +3,7 @@ import 'package:sqlite_async/sqlite_async.dart';
 import 'package:tft_guide/domain/interfaces/local_database.dart';
 import 'package:tft_guide/domain/models/database/item.dart';
 import 'package:tft_guide/domain/models/database/item_translation.dart';
+import 'package:tft_guide/domain/models/database/language_code.dart';
 import 'package:tft_guide/domain/models/item_detail.dart' as domain;
 import 'package:tft_guide/domain/models/item_meta.dart' as domain;
 import 'package:tft_guide/domain/models/question/item_option.dart' as domain;

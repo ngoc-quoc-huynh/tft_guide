@@ -2,7 +2,7 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/domain/models/database/item_translation.dart';
+import 'package:tft_guide/domain/models/database/language_code.dart';
 import 'package:tft_guide/domain/models/item_detail.dart';
 import 'package:tft_guide/injector.dart';
 
@@ -23,6 +23,10 @@ sealed class ItemDetailBloc<Item extends ItemDetail>
     );
     on<ItemDetailUpdateThemeDataEvent>(
       _onItemDetailUpdateThemeDataEvent,
+      transformer: restartable(),
+    );
+    on<ItemDetailUpdateLanguageCodeEvent>(
+      _onItemDetailUpdateLocaleEvent,
       transformer: restartable(),
     );
   }
@@ -62,6 +66,7 @@ sealed class ItemDetailBloc<Item extends ItemDetail>
   ) async {
     if (state case ItemDetailLoadOnSuccess<Item>(:final item)) {
       emit(const ItemDetailLoadInProgress());
+
       final themeData = await _themeApi.computeThemeFromFileImage(
         fileName: item.id,
         brightness: event.brightness,
@@ -71,6 +76,28 @@ sealed class ItemDetailBloc<Item extends ItemDetail>
       emit(
         ItemDetailLoadOnSuccess<Item>(
           item: item,
+          themeData: themeData,
+        ),
+      );
+    }
+  }
+
+  Future<void> _onItemDetailUpdateLocaleEvent(
+    ItemDetailUpdateLanguageCodeEvent event,
+    Emitter<ItemDetailState> emit,
+  ) async {
+    if (state
+        case ItemDetailLoadOnSuccess<Item>(:final item, :final themeData)) {
+      emit(const ItemDetailLoadInProgress());
+
+      final newItem = await _loadItemDetail(
+        item.id,
+        event.languageCode,
+      );
+
+      emit(
+        ItemDetailLoadOnSuccess<Item>(
+          item: newItem,
           themeData: themeData,
         ),
       );

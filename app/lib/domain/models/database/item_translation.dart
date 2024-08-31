@@ -1,9 +1,5 @@
 import 'package:equatable/equatable.dart';
-
-enum LanguageCode {
-  de,
-  en;
-}
+import 'package:tft_guide/domain/models/database/language_code.dart';
 
 sealed class ItemTranslationEntity extends Equatable {
   const ItemTranslationEntity({
