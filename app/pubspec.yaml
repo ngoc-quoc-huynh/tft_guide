@@ -60,9 +60,6 @@ dev_dependencies:
   slang_flutter: ^3.29.0
   slang_build_runner: ^3.29.0
 
-  # Launcher icon
-  flutter_launcher_icons: ^0.13.1
-
   # Splash Screen
   flutter_native_splash: ^2.3.5
 
