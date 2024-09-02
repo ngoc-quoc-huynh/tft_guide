@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:get_it/get_it.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tft_guide/domain/interfaces/feedback.dart';
 import 'package:tft_guide/domain/interfaces/file.dart';
@@ -40,7 +41,8 @@ final class Injector {
       )
       ..registerLazySingleton<FileStorageApi>(LocalFileStorageRepository.new)
       ..registerLazySingleton<ThemeApi>(MaterialThemeRepository.new)
-      ..registerLazySingleton<WidgetsBindingApi>(WidgetsBindingRepository.new);
+      ..registerLazySingleton<WidgetsBindingApi>(WidgetsBindingRepository.new)
+      ..registerSingletonAsync<PackageInfo>(PackageInfo.fromPlatform);
     await instance.allReady();
   }
 }
