@@ -31,7 +31,7 @@ final class _Combine extends FullItemDetailCombineBy {
     );
   }
 
-  TranslationsPagesItemDetailDe get _translations =>
+  TranslationsPagesItemDetailEn get _translations =>
       Injector.instance.translations.pages.item_detail;
 }
 
