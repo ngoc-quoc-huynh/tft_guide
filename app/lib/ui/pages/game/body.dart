@@ -165,6 +165,6 @@ class _Header extends QuestionHeader {
           },
         );
 
-  static TranslationsPagesGameQuestionsDe get _translations =>
+  static TranslationsPagesGameQuestionsEn get _translations =>
       Injector.instance.translations.pages.game.questions;
 }

@@ -102,6 +102,6 @@ class SettingsPage extends StatelessWidget {
     );
   }
 
-  TranslationsPagesSettingsDe get _translations =>
+  TranslationsPagesSettingsEn get _translations =>
       Injector.instance.translations.pages.settings;
 }

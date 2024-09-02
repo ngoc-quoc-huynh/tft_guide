@@ -13,7 +13,7 @@ final class FeedbackRepository implements FeedbackApi {
       }
           .first;
 
-  TranslationsPagesGameFeedbackDe get _translations =>
+  TranslationsPagesGameFeedbackEn get _translations =>
       Injector.instance.translations.pages.game.feedback;
 
   List<String> get _correctTranslations => _translations.correct;

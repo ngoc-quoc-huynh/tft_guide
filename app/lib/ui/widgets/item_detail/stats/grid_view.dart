@@ -97,7 +97,7 @@ class _GridView extends ItemDetailStats {
     ];
   }
 
-  TranslationsPagesItemDetailDe get _translations =>
+  TranslationsPagesItemDetailEn get _translations =>
       Injector.instance.translations.pages.item_detail;
 }
 

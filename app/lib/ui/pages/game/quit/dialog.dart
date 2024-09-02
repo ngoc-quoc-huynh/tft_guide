@@ -41,6 +41,6 @@ class QuitDialog extends StatelessWidget {
 
   Translations get _translations => Injector.instance.translations;
 
-  TranslationsPagesGameQuitDe get _quitTranslations =>
+  TranslationsPagesGameQuitEn get _quitTranslations =>
       _translations.pages.game.quit;
 }

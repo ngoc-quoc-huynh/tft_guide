@@ -47,6 +47,6 @@ class SettingsDesignDialog extends StatelessWidget {
     );
   }
 
-  TranslationsPagesSettingsDesignDe get _translations =>
+  TranslationsPagesSettingsDesignEn get _translations =>
       Injector.instance.translations.pages.settings.design;
 }

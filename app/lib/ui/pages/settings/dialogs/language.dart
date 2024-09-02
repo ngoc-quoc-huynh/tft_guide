@@ -48,6 +48,6 @@ class SettingsLanguageDialog extends StatelessWidget {
     );
   }
 
-  TranslationsPagesSettingsLanguageDe get _translations =>
+  TranslationsPagesSettingsLanguageEn get _translations =>
       Injector.instance.translations.pages.settings.language;
 }
