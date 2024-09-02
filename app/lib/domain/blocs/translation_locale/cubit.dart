@@ -7,7 +7,7 @@ final class TranslationLocaleCubit extends HydratedCubit<TranslationLocale> {
   void change(TranslationLocale language) => emit(language);
 
   @override
-  TranslationLocale? fromJson(Map<String, dynamic> json) =>
+  TranslationLocale fromJson(Map<String, dynamic> json) =>
       TranslationLocale.values.byName(json['language'] as String);
 
   @override
