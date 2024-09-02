@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
+import 'package:tft_guide/ui/pages/settings/app_version.dart';
 import 'package:tft_guide/ui/pages/settings/card.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/design.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/language.dart';
@@ -90,10 +91,7 @@ class SettingsPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                // TODO: Retrieve version
-                const Center(
-                  child: Text('Version 1.0.0'),
-                ),
+                const SettingsAppVersion(),
               ],
             ),
           ),

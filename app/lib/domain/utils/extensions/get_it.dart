@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:get_it/get_it.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tft_guide/domain/interfaces/feedback.dart';
 import 'package:tft_guide/domain/interfaces/file.dart';
 import 'package:tft_guide/domain/interfaces/local_database.dart';
@@ -22,6 +23,8 @@ extension GetItExtension on GetIt {
       LanguageCode.values.byName(translations.$meta.locale.languageCode);
 
   LocalDatabaseApi get localDatabaseApi => get<LocalDatabaseApi>();
+
+  PackageInfo get packageInfo => get<PackageInfo>();
 
   RankRepository get rankRepository => get<RankRepository>();
 
