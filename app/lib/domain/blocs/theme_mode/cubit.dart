@@ -7,7 +7,7 @@ final class ThemeModeCubit extends HydratedCubit<ThemeMode> {
   void change(ThemeMode mode) => emit(mode);
 
   @override
-  ThemeMode? fromJson(Map<String, dynamic> json) =>
+  ThemeMode fromJson(Map<String, dynamic> json) =>
       ThemeMode.values.byName(json['theme_mode'] as String);
 
   @override
