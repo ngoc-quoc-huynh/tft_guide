@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/models/item_meta.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
-import 'package:tft_guide/ui/pages/base_item_detail/page.dart';
-import 'package:tft_guide/ui/pages/full_item_detail/page.dart';
 import 'package:tft_guide/ui/pages/item_metas/prototype_item.dart';
+import 'package:tft_guide/ui/router/routes.dart';
 import 'package:tft_guide/ui/widgets/file_storage_image.dart';
 
 class ItemMetasListView extends StatelessWidget {
@@ -55,11 +54,11 @@ class _Item extends StatelessWidget {
 
   void _onTap(BuildContext context) {
     final routeName = switch (item) {
-      BaseItemMeta() => BaseItemDetailPage.routeName,
-      FullItemMeta() => FullItemDetailPage.routeName,
+      BaseItemMeta() => Routes.baseItemsPage,
+      FullItemMeta() => Routes.fullItemsPage,
     };
     context.goNamed(
-      routeName,
+      routeName(),
       pathParameters: {'id': item.id},
     );
   }

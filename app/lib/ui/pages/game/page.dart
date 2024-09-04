@@ -13,8 +13,6 @@ import 'package:tft_guide/ui/widgets/spatula_background.dart';
 class GamePage extends StatelessWidget {
   const GamePage({super.key});
 
-  static const routeName = 'game';
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(

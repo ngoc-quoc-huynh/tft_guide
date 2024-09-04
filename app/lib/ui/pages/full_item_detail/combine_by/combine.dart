@@ -61,7 +61,7 @@ class _Image extends StatelessWidget {
 
   void _onTap(BuildContext context) => unawaited(
         context.pushNamed(
-          BaseItemDetailPage.routeName,
+          Routes.baseItemsPage(),
           pathParameters: {'id': id},
         ),
       );

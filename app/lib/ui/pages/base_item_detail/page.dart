@@ -27,8 +27,6 @@ class BaseItemDetailPage extends StatelessWidget {
 
   final String id;
 
-  static const routeName = 'base-item-detail';
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

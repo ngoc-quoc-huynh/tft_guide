@@ -9,8 +9,6 @@ import 'package:tft_guide/ui/widgets/widget_observer.dart';
 class ItemMetasPage extends StatelessWidget {
   const ItemMetasPage({super.key});
 
-  static const routeName = 'item-metas';
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ItemMetasBloc>(
