@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/models/item_meta.dart';
+import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/pages/base_item_detail/page.dart';
 import 'package:tft_guide/ui/pages/full_item_detail/page.dart';
 import 'package:tft_guide/ui/pages/item_metas/prototype_item.dart';
@@ -40,10 +41,7 @@ class _Item extends StatelessWidget {
     return Card.filled(
       child: ListTile(
         onTap: () => _onTap(context),
-        contentPadding: const EdgeInsets.symmetric(
-          vertical: 10,
-          horizontal: 15,
-        ),
+        contentPadding: Sizes.cardPadding,
         leading: FileStorageImage(
           id: item.id,
           width: 50,
