@@ -50,14 +50,10 @@ class _Image extends StatelessWidget {
       message: tooltip,
       child: InkWell(
         onTap: () => _onTap(context),
-        child: Ink.image(
-          image: FileImage(
-            Injector.instance.fileStorageApi.loadFile(id),
-          ),
+        child: FileStorageImage(
+          id: id,
           height: FullItemDetailCombineBy.imageSize,
           width: FullItemDetailCombineBy.imageSize,
-          fit: BoxFit.contain,
-          // TODO: Add error widget
         ),
       ),
     );
