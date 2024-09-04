@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tft_guide/domain/blocs/data_sync/bloc.dart';
 import 'package:tft_guide/domain/blocs/elo_gain/cubit.dart';
 import 'package:tft_guide/ui/pages/base_item_detail/page.dart';
 import 'package:tft_guide/ui/pages/full_item_detail/page.dart';
 import 'package:tft_guide/ui/pages/game/page.dart';
+import 'package:tft_guide/ui/pages/init/page.dart';
 import 'package:tft_guide/ui/pages/item_metas/page.dart';
 import 'package:tft_guide/ui/pages/quotes/page.dart';
 import 'package:tft_guide/ui/pages/ranked/page.dart';
@@ -21,8 +23,14 @@ final class GoRouterConfig {
   static final routes = GoRouter(
     initialLocation: '/ranked',
     routes: [
+      GoRoute(
+        path: '/',
+        name: InitPage.routeName,
+        builder: (_, __) => const InitPage(),
+      ),
       ShellRoute(
         navigatorKey: _rootNavigatorKey,
+        redirect: _handleRedirect,
         builder: (_, __, child) => BlocProvider<EloGainCubit>(
           create: (_) => EloGainCubit(),
           child: child,
@@ -101,4 +109,11 @@ final class GoRouterConfig {
       ),
     ],
   );
+
+  static String? _handleRedirect(BuildContext context, _) {
+    if (context.read<DataSyncBloc>().state is! DataSyncLoadOnSuccess) {
+      return '/';
+    }
+    return null;
+  }
 }

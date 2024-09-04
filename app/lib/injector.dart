@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:get_it/get_it.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
@@ -29,16 +27,9 @@ final class Injector {
     instance
       ..registerLazySingleton<RankRepository>(LocalRankRepository.new)
       ..registerLazySingleton<FeedbackApi>(FeedbackRepository.new)
-      ..registerSingletonAsync<RemoteDatabaseApi>(
-        const SupabaseRepository().initialize,
-        dispose: (api) => api.close(),
-      )
+      ..registerLazySingleton<RemoteDatabaseApi>(SupabaseRepository.new)
       ..registerSingletonAsync(getApplicationDocumentsDirectory)
-      ..registerSingletonAsync<LocalDatabaseApi>(
-        SQLiteAsyncRepository().initialize,
-        dispose: (api) => api.close(),
-        dependsOn: [Directory],
-      )
+      ..registerLazySingleton<LocalDatabaseApi>(SQLiteAsyncRepository.new)
       ..registerLazySingleton<FileStorageApi>(LocalFileStorageRepository.new)
       ..registerLazySingleton<ThemeApi>(MaterialThemeRepository.new)
       ..registerLazySingleton<WidgetsBindingApi>(WidgetsBindingRepository.new)

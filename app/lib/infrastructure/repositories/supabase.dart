@@ -11,10 +11,10 @@ import 'package:tft_guide/infrastructure/dtos/supabase/item_translation.dart';
 final class SupabaseRepository implements RemoteDatabaseApi {
   const SupabaseRepository();
 
-  static final _client = Supabase.instance.client;
+  SupabaseClient get _client => Supabase.instance.client;
 
   @override
-  Future<SupabaseRepository> initialize() async {
+  Future<void> initialize() async {
     await Supabase.initialize(
       // TODO: Extract these as variables
       url: 'https://awzpjhebnxhevguivkpv.supabase.co',
@@ -22,7 +22,6 @@ final class SupabaseRepository implements RemoteDatabaseApi {
           '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF3enBqaGVibnhoZXZndWl2a3B2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQwNjQ5ODUsImV4cCI6MjAzOTY0MDk4NX0.wuM0S0LDtIts1DKgCrVMUq4HzC1aFU2_CjE-_hdEywM''',
       debug: false,
     );
-    return this;
   }
 
   @override

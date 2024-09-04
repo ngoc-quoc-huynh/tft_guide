@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:tft_guide/domain/blocs/data_sync/bloc.dart';
 import 'package:tft_guide/domain/blocs/theme_mode/cubit.dart';
 import 'package:tft_guide/domain/blocs/translation_locale/cubit.dart';
 import 'package:tft_guide/domain/models/translation_locale.dart';
@@ -74,6 +75,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<ThemeModeCubit>(
           create: (_) => ThemeModeCubit(),
+        ),
+        BlocProvider<DataSyncBloc>(
+          create: (_) => DataSyncBloc()..add(const DataSyncInitializeEvent()),
         ),
       ],
       child: BlocBuilder<TranslationLocaleCubit, TranslationLocale>(
