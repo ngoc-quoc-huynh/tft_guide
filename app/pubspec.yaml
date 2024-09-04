@@ -25,8 +25,6 @@ dependencies:
   bloc_concurrency: ^0.2.2
   hydrated_bloc: ^9.1.2
 
-  equatable: ^2.0.5
-
   # UI
   animated_flip_counter: ^0.3.4
   flutter_svg: ^2.0.10+1
@@ -36,13 +34,16 @@ dependencies:
 
   # Utils
   collection: ^1.18.0
+  equatable: ^2.0.5
   path: ^1.9.0
   path_provider: ^2.1.1
   package_info_plus: ^8.0.2
 
+  # Network
   supabase_flutter: ^2.6.0
 
-  # SQLite
+  # Local storage
+  shared_preferences: ^2.3.2
   sqlite_async: ^0.8.1
   sqlite3_flutter_libs: ^0.5.24
 

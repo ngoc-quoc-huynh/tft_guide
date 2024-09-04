@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:get_it/get_it.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tft_guide/domain/interfaces/feedback.dart';
 import 'package:tft_guide/domain/interfaces/file.dart';
 import 'package:tft_guide/domain/interfaces/local_database.dart';
+import 'package:tft_guide/domain/interfaces/local_storage.dart';
 import 'package:tft_guide/domain/interfaces/rank.dart';
 import 'package:tft_guide/domain/interfaces/remote_database.dart';
 import 'package:tft_guide/domain/interfaces/theme.dart';
@@ -24,11 +26,16 @@ extension GetItExtension on GetIt {
 
   LocalDatabaseApi get localDatabaseApi => get<LocalDatabaseApi>();
 
+  LocalStorageApi get localStorageApi => get<LocalStorageApi>();
+
   PackageInfo get packageInfo => get<PackageInfo>();
 
   RankRepository get rankRepository => get<RankRepository>();
 
   RemoteDatabaseApi get remoteDatabaseApi => get<RemoteDatabaseApi>();
+
+  SharedPreferencesWithCache get sharedPrefs =>
+      get<SharedPreferencesWithCache>();
 
   ThemeApi get themeApi => get<ThemeApi>();
 

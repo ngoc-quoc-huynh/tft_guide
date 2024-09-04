@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/models/database/item.dart';
 import 'package:tft_guide/domain/models/database/item_translation.dart';
+import 'package:tft_guide/domain/utils/extensions/date_time.dart';
 import 'package:tft_guide/injector.dart';
 
 part 'event.dart';
@@ -19,23 +20,26 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState> {
   static final _fileStorageApi = Injector.instance.fileStorageApi;
   static final _localDatabaseApi = Injector.instance.localDatabaseApi;
   static final _remoteDatabaseApi = Injector.instance.remoteDatabaseApi;
+  static final _localStorageApi = Injector.instance.localStorageApi;
 
   // TODO: Error handling
   Future<void> _onDataInitializeEvent(
     DataSyncInitializeEvent event,
     Emitter<DataSyncState> emit,
   ) async {
-    // TODO: Check if we already updated today
-    await _check(emit);
-    await _initSync(emit);
-    final operationResults = await _loadLatestUpdatedAts(emit);
-    final items = await _loadRemoteData(emit, operationResults);
-    await _storeDataLocally(emit, items);
+    if (!_checkIfUpdateIsNeeded(emit)) {
+      await _initSync(emit);
+      final operationResults = await _loadLatestUpdatedAts(emit);
+      final items = await _loadRemoteData(emit, operationResults);
+      await _storeDataLocally(emit, items);
+      await _localStorageApi.updateLastAppUpdate(DateTime.now());
+    }
     emit(const DataSyncLoadOnSuccess());
   }
 
-  Future<void> _check(Emitter<DataSyncState> emit) async {
+  bool _checkIfUpdateIsNeeded(Emitter<DataSyncState> emit) {
     emit(const DataSyncCheckInProgress(1));
+    return _localStorageApi.lastAppUpdate?.isToday ?? false;
   }
 
   // ignore: avoid-redundant-async, false positive
