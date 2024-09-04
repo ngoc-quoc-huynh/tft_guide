@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/pages/item_metas/prototype_item.dart';
 
 class ItemLoadingIndicator extends StatelessWidget {
@@ -30,10 +31,7 @@ class _Item extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Card.filled(
       child: ListTile(
-        contentPadding: EdgeInsets.symmetric(
-          vertical: 10,
-          horizontal: 15,
-        ),
+        contentPadding: Sizes.cardPadding,
         leading: Bone.square(size: 50),
         title: Bone.text(words: 2),
       ),
