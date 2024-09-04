@@ -15,7 +15,6 @@ import 'package:tft_guide/ui/widgets/custom_skeletonizer_config.dart';
 import 'package:tft_guide/ui/widgets/language/provider.dart';
 
 Future<void> main() async {
-  // TODO: Preload SVGs
   WidgetsFlutterBinding.ensureInitialized();
   await Injector.setupDependencies();
   HydratedBloc.storage = const SharedPrefsHydratedStorage();
