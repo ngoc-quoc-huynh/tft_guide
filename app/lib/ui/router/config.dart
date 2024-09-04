@@ -23,17 +23,16 @@ final class GoRouterConfig {
   static final routes = GoRouter(
     initialLocation: '/ranked',
     routes: [
-      GoRoute(
-        path: '/',
-        name: InitPage.routeName,
-        builder: (_, __) => const InitPage(),
-      ),
       ShellRoute(
         navigatorKey: _rootNavigatorKey,
-        redirect: _handleRedirect,
-        builder: (_, __, child) => BlocProvider<EloGainCubit>(
-          create: (_) => EloGainCubit(),
-          child: child,
+        builder: (_, __, child) => BlocBuilder<DataSyncBloc, DataSyncState>(
+          builder: (context, state) => switch (state) {
+            DataSyncLoadInProgress() => const InitPage(),
+            DataSyncLoadOnSuccess() => BlocProvider<EloGainCubit>(
+                create: (_) => EloGainCubit(),
+                child: child,
+              ),
+          },
         ),
         routes: [
           GoRoute(
@@ -109,11 +108,4 @@ final class GoRouterConfig {
       ),
     ],
   );
-
-  static String? _handleRedirect(BuildContext context, _) {
-    if (context.read<DataSyncBloc>().state is! DataSyncLoadOnSuccess) {
-      return '/';
-    }
-    return null;
-  }
 }
