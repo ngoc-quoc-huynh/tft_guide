@@ -16,6 +16,7 @@ import 'package:tft_guide/ui/widgets/item_detail/title.dart';
 import 'package:tft_guide/ui/widgets/language/listener.dart';
 import 'package:tft_guide/ui/widgets/slivers/box.dart';
 import 'package:tft_guide/ui/widgets/spatula_background.dart';
+import 'package:tft_guide/ui/widgets/theme_provider.dart';
 import 'package:tft_guide/ui/widgets/widget_observer.dart';
 
 class FullItemDetailPage extends StatelessWidget {
@@ -68,7 +69,7 @@ class _Body extends StatelessWidget {
   });
 
   final FullItemDetail item;
-  final ThemeData themeData;
+  final ThemeData? themeData;
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +79,7 @@ class _Body extends StatelessWidget {
       child: LanguageListener(
         onLanguageChanged: (languageCode) =>
             _onLanguageChanged(context, languageCode),
-        child: Theme(
+        child: ThemeProvider(
           data: themeData,
           child: Scaffold(
             appBar: AppBar(
