@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
-import 'package:tft_guide/ui/pages/settings/page.dart';
+import 'package:tft_guide/ui/router/routes.dart';
 import 'package:tft_guide/ui/widgets/custom_app_bar.dart';
 import 'package:tft_guide/ui/widgets/language/builder.dart';
 
@@ -24,7 +24,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () => unawaited(
-                context.pushNamed(SettingsPage.routeName),
+                context.pushNamed(Routes.settingsPage()),
               ),
               icon: const Icon(Icons.settings),
             ),

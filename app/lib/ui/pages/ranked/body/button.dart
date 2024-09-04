@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tft_guide/ui/pages/game/page.dart';
+import 'package:tft_guide/ui/router/routes.dart';
 
 class StartGameButton extends StatelessWidget {
   const StartGameButton({super.key});
@@ -8,7 +8,7 @@ class StartGameButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FilledButton(
-      onPressed: () => context.goNamed(GamePage.routeName),
+      onPressed: () => context.goNamed(Routes.gamePage()),
       child: const Text('Start Game'),
     );
   }

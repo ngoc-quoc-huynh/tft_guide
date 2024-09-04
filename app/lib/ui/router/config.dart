@@ -12,8 +12,8 @@ import 'package:tft_guide/ui/pages/quotes/page.dart';
 import 'package:tft_guide/ui/pages/ranked/page.dart';
 import 'package:tft_guide/ui/pages/scaffold_navbar.dart';
 import 'package:tft_guide/ui/pages/settings/page.dart';
+import 'package:tft_guide/ui/router/routes.dart';
 
-// TODO: Refactor
 final class GoRouterConfig {
   const GoRouterConfig._();
 
@@ -36,7 +36,7 @@ final class GoRouterConfig {
         ),
         routes: [
           GoRoute(
-            name: SettingsPage.routeName,
+            name: Routes.settingsPage(),
             path: '/settings',
             builder: (_, __) => const SettingsPage(),
           ),
@@ -50,13 +50,13 @@ final class GoRouterConfig {
                     builder: (_, __, child) => child,
                     routes: [
                       GoRoute(
-                        name: RankedPage.routeName,
+                        name: Routes.rankedPage(),
                         path: '/ranked',
                         builder: (_, __) => const RankedPage(),
                         routes: [
                           GoRoute(
                             parentNavigatorKey: _rootNavigatorKey,
-                            name: GamePage.routeName,
+                            name: Routes.gamePage(),
                             path: 'game',
                             builder: (_, __) => const GamePage(),
                           ),
@@ -69,13 +69,13 @@ final class GoRouterConfig {
               StatefulShellBranch(
                 routes: [
                   GoRoute(
-                    name: ItemMetasPage.routeName,
+                    name: Routes.itemMetasPage(),
                     path: '/items',
                     builder: (_, __) => const ItemMetasPage(),
                     routes: [
                       GoRoute(
                         parentNavigatorKey: _rootNavigatorKey,
-                        name: BaseItemDetailPage.routeName,
+                        name: Routes.baseItemsPage(),
                         path: ':id/base',
                         builder: (_, state) => BaseItemDetailPage(
                           id: state.pathParameters['id']!,
@@ -83,7 +83,7 @@ final class GoRouterConfig {
                       ),
                       GoRoute(
                         parentNavigatorKey: _rootNavigatorKey,
-                        name: FullItemDetailPage.routeName,
+                        name: Routes.fullItemsPage(),
                         path: ':id/full',
                         builder: (_, state) => FullItemDetailPage(
                           id: state.pathParameters['id']!,
@@ -96,7 +96,7 @@ final class GoRouterConfig {
               StatefulShellBranch(
                 routes: [
                   GoRoute(
-                    name: QuotesPage.routeName,
+                    name: Routes.quotesPage(),
                     path: '/quotes',
                     builder: (_, __) => const QuotesPage(),
                   ),

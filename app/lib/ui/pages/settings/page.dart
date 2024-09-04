@@ -16,8 +16,6 @@ import 'package:tft_guide/ui/widgets/spatula_background.dart';
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
-  static const routeName = 'settings';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

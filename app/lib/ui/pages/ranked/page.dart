@@ -6,8 +6,6 @@ import 'package:tft_guide/ui/pages/ranked/header.dart';
 class RankedPage extends StatelessWidget {
   const RankedPage({super.key});
 
-  static const routeName = 'ranked';
-
   @override
   Widget build(BuildContext context) {
     return const Padding(

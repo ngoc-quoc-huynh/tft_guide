@@ -18,7 +18,7 @@ import 'package:tft_guide/ui/pages/game/item_selection.dart';
 import 'package:tft_guide/ui/pages/game/question/body.dart';
 import 'package:tft_guide/ui/pages/game/question/header.dart';
 import 'package:tft_guide/ui/pages/game/question/question.dart';
-import 'package:tft_guide/ui/pages/ranked/page.dart';
+import 'package:tft_guide/ui/router/routes.dart';
 
 class GameBody extends StatefulWidget {
   const GameBody({
@@ -143,7 +143,7 @@ class _GameBodyState extends State<GameBody> {
         };
         context
           ..read<EloGainCubit>().gain(eloGain)
-          ..goNamed(RankedPage.routeName);
+          ..goNamed(Routes.rankedPage());
     }
   }
 }
