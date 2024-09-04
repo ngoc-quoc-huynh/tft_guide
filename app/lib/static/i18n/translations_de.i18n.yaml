@@ -3,6 +3,13 @@ general:
   cancel: 'Abbrechen'
   confirm: 'OK'
 pages:
+  init:
+    checkUpdates: 'Checke für Aktualiserungen\u{00A0}…'
+    init: 'Starte Aktualiserung\u{00A0}…'
+    checkLatestUpdate: 'Suche nach neuesten Aktualiserungen\u{00A0}…'
+    loadRemoteData: 'Lade Assets und Daten\u{00A0}…'
+    storeDataLocally: 'Speichere Assets und Daten lokal ab\u{00A0}…'
+    finish: 'Aktualiserung erfolgreich abgeschlossen\u{00A0}…'
   ranked:
     title: 'Rangliste'
     divisions:

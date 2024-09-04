@@ -7,6 +7,7 @@ final class MaterialThemeRepository implements ThemeApi {
 
   static final _fileStorageApi = Injector.instance.fileStorageApi;
 
+  // TODO: Error handling if file does not exists
   @override
   Future<ThemeData> computeThemeFromFileImage({
     required String fileName,

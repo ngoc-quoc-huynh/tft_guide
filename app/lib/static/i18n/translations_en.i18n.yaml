@@ -3,6 +3,13 @@ general:
   cancel: 'Cancel'
   confirm: 'OK'
 pages:
+  init:
+    checkUpdates: 'Checking for updates\u{00A0}…'
+    init: 'Starting update\u{00A0}…'
+    checkLatestUpdate: 'Checking for latest updates\u{00A0}…'
+    loadRemoteData: 'Loading assets and data\u{00A0}…'
+    storeDataLocally: 'Store assets and data locally\u{00A0}…'
+    finish: 'Update successfully completed\u{00A0}…'
   ranked:
     title: 'Ranked'
     divisions:

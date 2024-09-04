@@ -8,7 +8,7 @@ import 'package:tft_guide/domain/models/question/item_option.dart';
 abstract interface class LocalDatabaseApi {
   const LocalDatabaseApi();
 
-  Future<LocalDatabaseApi> initialize();
+  Future<void> initialize();
 
   Future<DateTime?> loadLatestBaseItemUpdatedAt();
 

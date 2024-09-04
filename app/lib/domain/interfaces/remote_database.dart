@@ -6,7 +6,7 @@ import 'package:tft_guide/domain/models/database/item_translation.dart';
 abstract interface class RemoteDatabaseApi {
   const RemoteDatabaseApi();
 
-  Future<RemoteDatabaseApi> initialize();
+  Future<void> initialize();
 
   Future<List<String>> loadAssetsNames(DateTime? lastUpdated);
 

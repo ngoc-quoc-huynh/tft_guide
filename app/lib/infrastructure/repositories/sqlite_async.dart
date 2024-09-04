@@ -15,18 +15,16 @@ import 'package:tft_guide/injector.dart';
 final class SQLiteAsyncRepository implements LocalDatabaseApi {
   SQLiteAsyncRepository();
 
-  late final SqliteDatabase _db;
+  final _db = SqliteDatabase(
+    path: join(Injector.instance.appDir.path, 'test.db'),
+  );
 
   @override
-  Future<LocalDatabaseApi> initialize() async {
-    _db = SqliteDatabase(
-      path: join(Injector.instance.appDir.path, 'test.db'),
-    );
+  Future<void> initialize() async {
     final migrations = SqliteMigrations()
       ..createDatabase = _createDatabaseMigration
       ..add(_createDatabaseMigration);
     await migrations.migrate(_db);
-    return this;
   }
 
   @override
