@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 abstract interface class ThemeApi {
   const ThemeApi();
 
-  Future<ThemeData> computeThemeFromFileImage({
+  Future<ThemeData?> computeThemeFromFileImage({
     required String fileName,
     required Brightness brightness,
     required TextTheme textTheme,

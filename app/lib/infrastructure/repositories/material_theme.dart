@@ -7,17 +7,19 @@ final class MaterialThemeRepository implements ThemeApi {
 
   static final _fileStorageApi = Injector.instance.fileStorageApi;
 
-  // TODO: Error handling if file does not exists
   @override
-  Future<ThemeData> computeThemeFromFileImage({
+  Future<ThemeData?> computeThemeFromFileImage({
     required String fileName,
     required Brightness brightness,
     required TextTheme textTheme,
   }) async {
+    final file = _fileStorageApi.loadFile(fileName);
+    if (!file.existsSync()) {
+      return null;
+    }
+
     final colorScheme = await ColorScheme.fromImageProvider(
-      provider: FileImage(
-        _fileStorageApi.loadFile(fileName),
-      ),
+      provider: FileImage(file),
       brightness: brightness,
     );
     return ThemeData.from(

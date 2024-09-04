@@ -20,7 +20,7 @@ final class ItemDetailLoadOnSuccess<Item extends ItemDetail>
   });
 
   final Item item;
-  final ThemeData themeData;
+  final ThemeData? themeData;
 
   @override
   List<Object?> get props => [

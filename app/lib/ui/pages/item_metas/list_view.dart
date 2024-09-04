@@ -47,7 +47,6 @@ class _Item extends StatelessWidget {
           width: 50,
           height: 50,
           gaplessPlayback: true,
-          // TODO: Add error widget
         ),
         title: Text(item.name),
       ),
