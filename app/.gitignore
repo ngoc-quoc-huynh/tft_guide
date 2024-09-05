@@ -59,3 +59,6 @@ test/**/*.g.dart
 
 # Don't check in golden failure output
 test/**/failures/
+
+# Env variables
+.env.json

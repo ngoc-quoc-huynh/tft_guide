@@ -14,15 +14,11 @@ final class SupabaseRepository implements RemoteDatabaseApi {
   SupabaseClient get _client => Supabase.instance.client;
 
   @override
-  Future<void> initialize() async {
-    await Supabase.initialize(
-      // TODO: Extract these as variables
-      url: 'https://awzpjhebnxhevguivkpv.supabase.co',
-      anonKey:
-          '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF3enBqaGVibnhoZXZndWl2a3B2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQwNjQ5ODUsImV4cCI6MjAzOTY0MDk4NX0.wuM0S0LDtIts1DKgCrVMUq4HzC1aFU2_CjE-_hdEywM''',
-      debug: false,
-    );
-  }
+  Future<void> initialize() => Supabase.initialize(
+        url: const String.fromEnvironment('url'),
+        anonKey: const String.fromEnvironment('anon_key'),
+        debug: false,
+      );
 
   @override
   Future<List<String>> loadAssetsNames(DateTime? lastUpdated) async {
