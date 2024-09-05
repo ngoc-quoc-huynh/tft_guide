@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/blocs/data_sync/bloc.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/widgets/custom_app_bar.dart';
+import 'package:tft_guide/ui/widgets/progress_bar.dart';
 import 'package:tft_guide/ui/widgets/spatula_background.dart';
 
 class InitPage extends StatelessWidget {
@@ -13,7 +13,6 @@ class InitPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: CustomAppBar(),
       body: SpatulaBackground(
@@ -40,11 +39,8 @@ class InitPage extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 20),
-                FAProgressBar(
-                  backgroundColor: colorScheme.primaryContainer,
-                  progressColor: colorScheme.primary,
-                  size: 16,
-                  currentValue: state.progress,
+                ProgressBar(
+                  value: state.progress,
                 ),
               ],
             ),
