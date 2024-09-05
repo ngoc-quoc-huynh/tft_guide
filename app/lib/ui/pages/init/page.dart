@@ -37,6 +37,8 @@ class InitPage extends StatelessWidget {
                     DataSyncStoreDataLocallyInProgress() =>
                       _translations.storeDataLocally,
                   },
+                  style: Theme.of(context).textTheme.titleLarge,
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 20),
                 ProgressBar(
