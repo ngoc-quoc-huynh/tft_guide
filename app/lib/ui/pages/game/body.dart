@@ -100,14 +100,10 @@ class _GameBodyState extends State<GameBody> {
                               ),
                           },
                         ),
-                        const Spacer(),
-                        Expanded(
-                          flex: 5,
-                          child: ItemSelection(
-                            question: question,
-                          ),
+                        const SizedBox(height: 50),
+                        ItemSelection(
+                          question: question,
                         ),
-                        const Spacer(flex: 2),
                       ],
                     ),
                   ),
