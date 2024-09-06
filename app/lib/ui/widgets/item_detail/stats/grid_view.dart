@@ -137,8 +137,7 @@ class _GridViewItem extends StatelessWidget {
         children: [
           Icon(
             icon,
-            // TODO: harmonize color
-            color: color,
+            color: color.harmonizeWith(Theme.of(context).colorScheme.primary),
           ),
           const SizedBox(width: 5),
           Text(

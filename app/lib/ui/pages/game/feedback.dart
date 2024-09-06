@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/blocs/game_progress/bloc.dart';
+import 'package:tft_guide/domain/utils/extensions/theme.dart';
 import 'package:tft_guide/injector.dart';
 
 class FeedbackBottomSheet extends StatelessWidget {
@@ -42,7 +43,7 @@ class FeedbackBottomSheet extends StatelessWidget {
                 children: [
                   Icon(
                     _icon,
-                    color: _color,
+                    color: _getColor(context),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
@@ -52,7 +53,7 @@ class FeedbackBottomSheet extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .headlineSmall
-                          ?.copyWith(color: _color),
+                          ?.copyWith(color: _getColor(context)),
                     ),
                   ),
                 ],
@@ -78,10 +79,13 @@ class FeedbackBottomSheet extends StatelessWidget {
         true => Icons.check_circle,
       };
 
-  Color get _color => switch (isCorrect) {
-        false => Colors.red,
-        true => Colors.green,
-      };
+  Color _getColor(BuildContext context) {
+    final theme = Theme.of(context);
+    return switch (isCorrect) {
+      false => theme.colorScheme.error,
+      true => theme.customColors.success,
+    };
+  }
 
   void _onContinue(BuildContext context) {
     context.pop();

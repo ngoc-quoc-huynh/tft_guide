@@ -1,3 +1,4 @@
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:tft_guide/domain/interfaces/theme.dart';
 import 'package:tft_guide/injector.dart';
@@ -22,11 +23,12 @@ final class MaterialThemeRepository implements ThemeApi {
       provider: FileImage(file),
       brightness: brightness,
     );
+    final harmonizedColorScheme = colorScheme.harmonized();
     return ThemeData.from(
-      colorScheme: colorScheme,
+      colorScheme: harmonizedColorScheme,
       textTheme: textTheme.apply(
-        bodyColor: colorScheme.onSurface,
-        displayColor: colorScheme.onSurface,
+        bodyColor: harmonizedColorScheme.onSurface,
+        displayColor: harmonizedColorScheme.onSurface,
       ),
     );
   }
