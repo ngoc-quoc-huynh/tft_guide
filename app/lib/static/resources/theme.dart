@@ -1,4 +1,6 @@
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:tft_guide/domain/models/theme_colors.dart';
 import 'package:tft_guide/static/resources/colors.dart';
 
 final class CustomTheme {
@@ -14,7 +16,7 @@ final class CustomTheme {
       ColorScheme.fromSeed(
         brightness: brightness,
         seedColor: CustomColors.purple,
-      );
+      ).harmonized();
 
   static ThemeData _themeData(Brightness brightness, TextTheme textTheme) {
     final colorScheme = _colorScheme(brightness);
@@ -24,6 +26,9 @@ final class CustomTheme {
         bodyColor: colorScheme.onSurface,
         displayColor: colorScheme.onSurface,
       ),
+      extensions: [
+        const CustomThemeColors().harmonized(colorScheme),
+      ],
       pageTransitionsTheme: PageTransitionsTheme(
         builders: Map.fromEntries(
           TargetPlatform.values.map(

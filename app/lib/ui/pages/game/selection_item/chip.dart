@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tft_guide/domain/utils/extensions/theme.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/ui/pages/game/selection_item/selection_item.dart';
 
@@ -37,10 +38,10 @@ final class SelectionChip extends StatelessWidget {
   }
 
   Color _getColor(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     return switch (state) {
-      // TODO: Harmonize colors
-      SelectionItemState.correct => Colors.green,
+      SelectionItemState.correct => theme.customColors.success,
       SelectionItemState.wrong => colorScheme.error,
       SelectionItemState.selected => colorScheme.primary,
       SelectionItemState.unselected => colorScheme.outlineVariant,
