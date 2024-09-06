@@ -41,56 +41,56 @@ class _GridView extends ItemDetailStats {
       if (item.abilityPower case final int abilityPower)
         _GridItemData(
           icon: TftIcons.abilityPower,
-          color: const Color(0xFF9BFFF7),
+          color: Colors.cyan,
           name: _translations.abilityPower,
           value: abilityPower,
         ),
       if (item.armor case final int armor)
         _GridItemData(
           icon: TftIcons.armor,
-          color: const Color(0xFFF16F59),
+          color: Colors.deepOrange,
           name: _translations.armor,
           value: armor,
         ),
       if (item.attackDamage case final int attackDamage)
         _GridItemData(
           icon: TftIcons.attackDamage,
-          color: const Color(0xFFBD7E4C),
+          color: Colors.orange,
           name: _translations.attackDamage,
           value: attackDamage,
         ),
       if (item.attackSpeed case final int attackSpeed)
         _GridItemData(
           icon: TftIcons.attackSpeed,
-          color: const Color(0xFFF4C452),
+          color: Colors.amber,
           name: _translations.attackSpeed,
           value: attackSpeed,
         ),
       if (item.crit case final int crit)
         _GridItemData(
           icon: TftIcons.crit,
-          color: const Color(0xFFCE3B44),
+          color: Colors.red,
           name: _translations.crit,
           value: crit,
         ),
       if (item.health case final int health)
         _GridItemData(
           icon: TftIcons.health,
-          color: const Color(0xFF20995D),
+          color: Colors.green,
           name: _translations.health,
           value: health,
         ),
       if (item.magicResist case final int magicResist)
         _GridItemData(
           icon: TftIcons.magicResist,
-          color: const Color(0xFFCF8DD1),
+          color: Colors.purple,
           name: _translations.magicResist,
           value: magicResist,
         ),
       if (item.mana case final int mana)
         _GridItemData(
           icon: TftIcons.mana,
-          color: const Color(0xFF26C2F4),
+          color: Colors.blue,
           name: _translations.mana,
           value: mana,
         ),
