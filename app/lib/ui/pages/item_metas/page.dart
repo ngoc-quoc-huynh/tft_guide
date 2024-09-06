@@ -4,7 +4,7 @@ import 'package:tft_guide/domain/blocs/item_metas/bloc.dart';
 import 'package:tft_guide/domain/models/database/language_code.dart';
 import 'package:tft_guide/ui/pages/item_metas/list_view.dart';
 import 'package:tft_guide/ui/pages/item_metas/loading_indicator.dart';
-import 'package:tft_guide/ui/widgets/widget_observer.dart';
+import 'package:tft_guide/ui/widgets/language/listener.dart';
 
 class ItemMetasPage extends StatelessWidget {
   const ItemMetasPage({super.key});
@@ -23,7 +23,7 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WidgetObserver(
+    return LanguageListener(
       onLanguageChanged: (languageCode) =>
           _onLanguageChanged(context, languageCode),
       child: BlocBuilder<ItemMetasBloc, ItemMetasState>(
