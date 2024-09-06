@@ -159,11 +159,10 @@ class _Body extends StatelessWidget {
             ),
           );
 
-  void _onLanguageChanged(BuildContext context, LanguageCode languageCode) {
-    context.read<FullItemDetailBloc>().add(
-          ItemDetailUpdateLanguageCodeEvent(languageCode),
-        );
-  }
+  void _onLanguageChanged(BuildContext context, LanguageCode languageCode) =>
+      context.read<FullItemDetailBloc>().add(
+            ItemDetailUpdateLanguageCodeEvent(languageCode),
+          );
 
   TranslationsPagesItemDetailEn get _translations =>
       Injector.instance.translations.pages.item_detail;
