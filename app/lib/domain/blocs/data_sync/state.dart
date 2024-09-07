@@ -58,7 +58,7 @@ final class DataSyncLoadLatestUpdatedAtInProgress
   const DataSyncLoadLatestUpdatedAtInProgress([int currentStep = 0])
       : super(
           currentStep: currentStep,
-          maxSteps: 5,
+          maxSteps: 7,
           percentageOffset: 40,
         );
 }
@@ -67,7 +67,7 @@ final class DataSyncLoadRemoteDataInProgress extends DataSyncLoadInProgress {
   const DataSyncLoadRemoteDataInProgress([int currentStep = 0])
       : super(
           currentStep: currentStep,
-          maxSteps: 5,
+          maxSteps: 7,
           percentageOffset: 60,
         );
 }
@@ -76,7 +76,7 @@ final class DataSyncStoreDataLocallyInProgress extends DataSyncLoadInProgress {
   const DataSyncStoreDataLocallyInProgress([int currentStep = 0])
       : super(
           currentStep: currentStep,
-          maxSteps: 5,
+          maxSteps: 7,
           percentageOffset: 80,
         );
 }

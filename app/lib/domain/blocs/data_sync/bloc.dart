@@ -5,6 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/models/database/item.dart';
 import 'package:tft_guide/domain/models/database/item_translation.dart';
+import 'package:tft_guide/domain/models/database/patch_note.dart';
+import 'package:tft_guide/domain/models/database/patch_note_translation.dart';
 import 'package:tft_guide/domain/utils/extensions/date_time.dart';
 import 'package:tft_guide/injector.dart';
 
@@ -78,6 +80,12 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState> {
             _localDatabaseApi.storeFullItems(val as List<FullItemEntity>),
       ),
       _SyncOperation(
+        loadLatestUpdatedAt: _localDatabaseApi.loadLatestPatchNoteUpdatedAt(),
+        loadData: _remoteDatabaseApi.loadPatchNotes,
+        storeData: (val) =>
+            _localDatabaseApi.storePatchNotes(val as List<PatchNoteEntity>),
+      ),
+      _SyncOperation(
         loadLatestUpdatedAt:
             _localDatabaseApi.loadLatestBaseItemTranslationUpdatedAt(),
         loadData: _remoteDatabaseApi.loadBaseItemTranslations,
@@ -90,6 +98,14 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState> {
         loadData: _remoteDatabaseApi.loadFullItemTranslations,
         storeData: (val) => _localDatabaseApi
             .storeFullItemTranslations(val as List<FullItemTranslationEntity>),
+      ),
+      _SyncOperation(
+        loadLatestUpdatedAt:
+            _localDatabaseApi.loadLatestPatchNoteTranslationUpdatedAt(),
+        loadData: _remoteDatabaseApi.loadPatchNoteTranslations,
+        storeData: (val) => _localDatabaseApi.storePatchNoteTranslations(
+          val as List<PatchNoteTranslationTranslationEntity>,
+        ),
       ),
     ];
 

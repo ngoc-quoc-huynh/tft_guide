@@ -104,3 +104,5 @@ pages:
       name: 'Reset'
     license:
       name: 'External libraries and licenses'
+  patchNotes:
+    title: 'Patch Notes'

@@ -4,8 +4,12 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:tft_guide/domain/interfaces/remote_database.dart';
 import 'package:tft_guide/domain/models/database/item.dart';
 import 'package:tft_guide/domain/models/database/item_translation.dart';
+import 'package:tft_guide/domain/models/database/patch_note.dart';
+import 'package:tft_guide/domain/models/database/patch_note_translation.dart';
 import 'package:tft_guide/infrastructure/dtos/supabase/item.dart';
 import 'package:tft_guide/infrastructure/dtos/supabase/item_translation.dart';
+import 'package:tft_guide/infrastructure/dtos/supabase/patch_note.dart';
+import 'package:tft_guide/infrastructure/dtos/supabase/patch_note_translation.dart';
 
 // TODO: Error handling
 final class SupabaseRepository implements RemoteDatabaseApi {
@@ -32,6 +36,33 @@ final class SupabaseRepository implements RemoteDatabaseApi {
   @override
   Future<Uint8List> loadAsset(String name) =>
       _client.storage.from('assets').download(name);
+
+  @override
+  Future<List<BaseItemEntity>> loadBaseItems(DateTime? lastUpdated) async {
+    final response = await _client.from('base_item').select().maybeApply(
+          lastUpdated,
+          (query, lastUpdated) => query.gt('updated_at', lastUpdated),
+        );
+    return response.map((json) => BaseItem.fromJson(json).toDomain()).toList();
+  }
+
+  @override
+  Future<List<FullItemEntity>> loadFullItems(DateTime? lastUpdated) async {
+    final response = await _client.from('full_item').select().maybeApply(
+          lastUpdated,
+          (query, lastUpdated) => query.gt('updated_at', lastUpdated),
+        );
+    return response.map((json) => FullItem.fromJson(json).toDomain()).toList();
+  }
+
+  @override
+  Future<List<PatchNoteEntity>> loadPatchNotes(DateTime? lastUpdated) async {
+    final response = await _client.from('patch_note').select().maybeApply(
+          lastUpdated,
+          (query, lastUpdated) => query.gt('updated_at', lastUpdated),
+        );
+    return response.map((json) => PatchNote.fromJson(json).toDomain()).toList();
+  }
 
   @override
   Future<List<BaseItemTranslationEntity>> loadBaseItemTranslations(
@@ -63,21 +94,18 @@ final class SupabaseRepository implements RemoteDatabaseApi {
   }
 
   @override
-  Future<List<BaseItemEntity>> loadBaseItems(DateTime? lastUpdated) async {
-    final response = await _client.from('base_item').select().maybeApply(
-          lastUpdated,
-          (query, lastUpdated) => query.gt('updated_at', lastUpdated),
-        );
-    return response.map((json) => BaseItem.fromJson(json).toDomain()).toList();
-  }
+  Future<List<PatchNoteTranslationTranslationEntity>> loadPatchNoteTranslations(
+    DateTime? lastUpdated,
+  ) async {
+    final response =
+        await _client.from('patch_note_translation').select().maybeApply(
+              lastUpdated,
+              (query, lastUpdated) => query.gt('updated_at', lastUpdated),
+            );
 
-  @override
-  Future<List<FullItemEntity>> loadFullItems(DateTime? lastUpdated) async {
-    final response = await _client.from('full_item').select().maybeApply(
-          lastUpdated,
-          (query, lastUpdated) => query.gt('updated_at', lastUpdated),
-        );
-    return response.map((json) => FullItem.fromJson(json).toDomain()).toList();
+    return response
+        .map((json) => PatchNoteTranslation.fromJson(json).toDomain())
+        .toList();
   }
 
   @override
