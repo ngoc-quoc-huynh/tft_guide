@@ -4,11 +4,15 @@ import 'package:tft_guide/domain/interfaces/local_database.dart';
 import 'package:tft_guide/domain/models/database/item.dart';
 import 'package:tft_guide/domain/models/database/item_translation.dart';
 import 'package:tft_guide/domain/models/database/language_code.dart';
+import 'package:tft_guide/domain/models/database/patch_note.dart';
+import 'package:tft_guide/domain/models/database/patch_note_translation.dart';
 import 'package:tft_guide/domain/models/item_detail.dart' as domain;
 import 'package:tft_guide/domain/models/item_meta.dart' as domain;
+import 'package:tft_guide/domain/models/patch_note.dart' as domain;
 import 'package:tft_guide/domain/models/question/item_option.dart' as domain;
 import 'package:tft_guide/infrastructure/dtos/sqlite_async/item_detail.dart';
 import 'package:tft_guide/infrastructure/dtos/sqlite_async/item_meta.dart';
+import 'package:tft_guide/infrastructure/dtos/sqlite_async/patch_note.dart';
 import 'package:tft_guide/infrastructure/dtos/sqlite_async/question_item_option.dart';
 import 'package:tft_guide/injector.dart';
 
@@ -28,48 +32,28 @@ final class SQLiteAsyncRepository implements LocalDatabaseApi {
   }
 
   @override
-  Future<DateTime?> loadLatestBaseItemUpdatedAt() async {
-    final result =
-        await _db.get('SELECT MAX(updated_at) FROM $_tableNameBaseItem');
-    final updatedAt = result['MAX(updated_at)'] as String?;
-    return switch (updatedAt) {
-      null => null,
-      String() => DateTime.parse(updatedAt),
-    };
-  }
+  Future<DateTime?> loadLatestBaseItemUpdatedAt() =>
+      _loadLatestUpdatedAt(_tableNameBaseItem);
 
   @override
-  Future<DateTime?> loadLatestFullItemUpdatedAt() async {
-    final result =
-        await _db.get('SELECT MAX(updated_at) FROM $_tableNameFullItem');
-    final updatedAt = result['MAX(updated_at)'] as String?;
-    return switch (updatedAt) {
-      null => null,
-      String() => DateTime.parse(updatedAt),
-    };
-  }
+  Future<DateTime?> loadLatestFullItemUpdatedAt() =>
+      _loadLatestUpdatedAt(_tableNameFullItem);
 
   @override
-  Future<DateTime?> loadLatestBaseItemTranslationUpdatedAt() async {
-    final result = await _db
-        .get('SELECT MAX(updated_at) FROM $_tableNameBaseItemTranslation');
-    final updatedAt = result['MAX(updated_at)'] as String?;
-    return switch (updatedAt) {
-      null => null,
-      String() => DateTime.parse(updatedAt),
-    };
-  }
+  Future<DateTime?> loadLatestPatchNoteUpdatedAt() =>
+      _loadLatestUpdatedAt(_tableNamePatchNote);
 
   @override
-  Future<DateTime?> loadLatestFullItemTranslationUpdatedAt() async {
-    final result = await _db
-        .get('SELECT MAX(updated_at) FROM $_tableNameFullItemTranslation');
-    final updatedAt = result['MAX(updated_at)'] as String?;
-    return switch (updatedAt) {
-      null => null,
-      String() => DateTime.parse(updatedAt),
-    };
-  }
+  Future<DateTime?> loadLatestBaseItemTranslationUpdatedAt() =>
+      _loadLatestUpdatedAt(_tableNameBaseItemTranslation);
+
+  @override
+  Future<DateTime?> loadLatestFullItemTranslationUpdatedAt() =>
+      _loadLatestUpdatedAt(_tableNameFullItemTranslation);
+
+  @override
+  Future<DateTime?> loadLatestPatchNoteTranslationUpdatedAt() =>
+      _loadLatestUpdatedAt(_tableNamePatchNoteTranslation);
 
   @override
   Future<void> storeBaseItems(List<BaseItemEntity> items) => _db.executeBatch(
@@ -177,6 +161,31 @@ DO UPDATE SET
       );
 
   @override
+  Future<void> storePatchNotes(List<PatchNoteEntity> patchNotes) =>
+      _db.executeBatch(
+        '''
+INSERT INTO $_tableNamePatchNote (
+    id,
+    created_at,
+    updated_at
+)
+VALUES (?, ?, ?)
+ON CONFLICT (id)
+DO UPDATE SET
+    updated_at = excluded.updated_at;
+''',
+        patchNotes
+            .map(
+              (item) => [
+                item.id,
+                item.createdAt.toIso8601String(),
+                item.updatedAt.toIso8601String(),
+              ],
+            )
+            .toList(),
+      );
+
+  @override
   Future<void> storeBaseItemTranslations(
     List<BaseItemTranslationEntity> translations,
   ) =>
@@ -249,6 +258,40 @@ DO UPDATE SET
                 item.name,
                 item.description,
                 item.hint,
+                item.createdAt.toIso8601String(),
+                item.updatedAt.toIso8601String(),
+              ],
+            )
+            .toList(),
+      );
+
+  @override
+  Future<void> storePatchNoteTranslations(
+    List<PatchNoteTranslationTranslationEntity> translations,
+  ) =>
+      _db.executeBatch(
+        '''
+INSERT INTO $_tableNamePatchNoteTranslation (
+    id,
+    patch_note_id,
+    language_code,
+    text,
+    created_at,
+    updated_at
+)
+VALUES (?, ?, ?, ?, ?, ?)
+ON CONFLICT (id)
+DO UPDATE SET
+    text = excluded.text,
+    updated_at = excluded.updated_at;
+''',
+        translations
+            .map(
+              (item) => [
+                item.id,
+                item.patchNoteId,
+                item.languageCode.name,
+                item.text,
                 item.createdAt.toIso8601String(),
                 item.updatedAt.toIso8601String(),
               ],
@@ -509,19 +552,61 @@ LIMIT ?;
   }
 
   @override
+  Future<List<domain.PatchNote>> loadPatchNotes(
+    LanguageCode languageCode, {
+    int offset = 0,
+    int limit = 10,
+  }) async {
+    final result = await _db.getAll(
+      '''
+SELECT t.text, p.created_at
+FROM $_tableNamePatchNote AS p
+LEFT JOIN 
+    $_tableNamePatchNoteTranslation AS t
+    ON p.id = t.patch_note_id
+    AND t.language_code = ?
+WHERE 
+    p.oid NOT IN (
+        SELECT p.oid 
+        FROM $_tableNamePatchNote AS p
+        ORDER BY p.created_at DESC
+        LIMIT ?
+    )
+ORDER BY p.created_at DESC
+LIMIT ?;
+''',
+      [languageCode.name, offset, limit],
+    );
+    return result.map((json) => PatchNote.fromJson(json).toDomain()).toList();
+  }
+
+  @override
   Future<void> close() => _db.close();
+
+  Future<DateTime?> _loadLatestUpdatedAt(String table) async {
+    final result = await _db.get('SELECT MAX(updated_at) FROM $table');
+    final updatedAt = result['MAX(updated_at)'] as String?;
+    return switch (updatedAt) {
+      null => null,
+      String() => DateTime.parse(updatedAt),
+    };
+  }
 
   static const _tableNameBaseItem = 'base_item';
   static const _tableNameFullItem = 'full_item';
+  static const _tableNamePatchNote = 'patch_note';
   static const _tableNameBaseItemTranslation = 'base_item_translation';
   static const _tableNameFullItemTranslation = 'full_item_translation';
+  static const _tableNamePatchNoteTranslation = 'patch_note_translation';
   static final _createDatabaseMigration = SqliteMigration(
     1,
     (tx) async {
       await tx.execute(_createTableBaseItem);
       await tx.execute(_createTableFullItem);
+      await tx.execute(_createTablePatchNote);
       await tx.execute(_createTableBaseItemTranslation);
       await tx.execute(_createTableFullItemTranslation);
+      await tx.execute(_createTablePatchNoteTranslation);
       await tx.execute(_createFullItemIdsIndex);
     },
   );
@@ -561,6 +646,13 @@ CREATE TABLE IF NOT EXISTS $_tableNameFullItem (
     FOREIGN KEY (item_id_2) REFERENCES $_tableNameBaseItem(id) ON DELETE CASCADE
 );
 ''';
+  static const _createTablePatchNote = '''
+CREATE TABLE IF NOT EXISTS $_tableNamePatchNote (
+    id VARCHAR(50) PRIMARY KEY,
+    created_at TIMESTAMPTZ NOT NULL,
+    updated_at TIMESTAMPTZ NOT NULL
+);
+''';
   static const _createTableBaseItemTranslation = '''
 CREATE TABLE IF NOT EXISTS $_tableNameBaseItemTranslation (
     id VARCHAR(50) PRIMARY KEY,
@@ -585,6 +677,17 @@ CREATE TABLE IF NOT EXISTS $_tableNameFullItemTranslation (
     created_at TIMESTAMPTZ NOT NULL,
     updated_at TIMESTAMPTZ NOT NULL,
     FOREIGN KEY (item_id) REFERENCES $_tableNameFullItem(id) ON DELETE CASCADE
+);
+''';
+  static const _createTablePatchNoteTranslation = '''
+CREATE TABLE IF NOT EXISTS $_tableNamePatchNoteTranslation (
+    id VARCHAR(50) PRIMARY KEY,
+    language_code CHAR(2) NOT NULL,
+    patch_note_id VARCHAR(50),
+    text VARCHAR(255) NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL,
+    updated_at TIMESTAMPTZ NOT NULL,
+    FOREIGN KEY (patch_note_id) REFERENCES $_tableNamePatchNote(id) ON DELETE CASCADE
 );
 ''';
 

@@ -104,3 +104,5 @@ pages:
       name: 'Zurücksetzen'
     license:
       name: 'Externe Bibliotheken und Lizensen'
+  patchNotes:
+    title: 'Patch Notizen'

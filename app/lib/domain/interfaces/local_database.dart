@@ -1,8 +1,11 @@
 import 'package:tft_guide/domain/models/database/item.dart';
 import 'package:tft_guide/domain/models/database/item_translation.dart';
 import 'package:tft_guide/domain/models/database/language_code.dart';
+import 'package:tft_guide/domain/models/database/patch_note.dart';
+import 'package:tft_guide/domain/models/database/patch_note_translation.dart';
 import 'package:tft_guide/domain/models/item_detail.dart';
 import 'package:tft_guide/domain/models/item_meta.dart';
+import 'package:tft_guide/domain/models/patch_note.dart';
 import 'package:tft_guide/domain/models/question/item_option.dart';
 
 abstract interface class LocalDatabaseApi {
@@ -14,13 +17,19 @@ abstract interface class LocalDatabaseApi {
 
   Future<DateTime?> loadLatestFullItemUpdatedAt();
 
+  Future<DateTime?> loadLatestPatchNoteUpdatedAt();
+
   Future<DateTime?> loadLatestBaseItemTranslationUpdatedAt();
 
   Future<DateTime?> loadLatestFullItemTranslationUpdatedAt();
 
+  Future<DateTime?> loadLatestPatchNoteTranslationUpdatedAt();
+
   Future<void> storeBaseItems(List<BaseItemEntity> items);
 
   Future<void> storeFullItems(List<FullItemEntity> items);
+
+  Future<void> storePatchNotes(List<PatchNoteEntity> patchNotes);
 
   Future<void> storeBaseItemTranslations(
     List<BaseItemTranslationEntity> translations,
@@ -28,6 +37,10 @@ abstract interface class LocalDatabaseApi {
 
   Future<void> storeFullItemTranslations(
     List<FullItemTranslationEntity> translations,
+  );
+
+  Future<void> storePatchNoteTranslations(
+    List<PatchNoteTranslationTranslationEntity> translations,
   );
 
   Future<BaseItemDetail> loadBaseItemDetail(
@@ -65,6 +78,13 @@ abstract interface class LocalDatabaseApi {
     int amount,
     LanguageCode languageCode,
   );
+
+  // TODO: Add pagination
+  Future<List<PatchNote>> loadPatchNotes(
+    LanguageCode languageCode, {
+    int offset = 0,
+    int limit = 10,
+  });
 
   Future<void> close();
 }
