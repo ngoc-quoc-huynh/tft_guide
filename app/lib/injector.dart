@@ -28,7 +28,7 @@ final class Injector {
 
   static Future<void> setupDependencies() async {
     instance
-      ..registerLazySingleton<RankRepository>(LocalRankRepository.new)
+      ..registerLazySingleton<RankRepository>(LocalRankRepository2.new)
       ..registerLazySingleton<FeedbackApi>(FeedbackRepository.new)
       ..registerLazySingleton<RemoteDatabaseApi>(SupabaseRepository.new)
       ..registerSingletonAsync(getApplicationDocumentsDirectory)
@@ -42,7 +42,8 @@ final class Injector {
           cacheOptions: const SharedPreferencesWithCacheOptions(),
         ),
       )
-      ..registerLazySingleton<LocalStorageApi>(SharedPreferencesRepository.new);
+      ..registerLazySingleton<LocalStorageApi>(SharedPreferencesRepository.new)
+      ..registerLazySingleton<RankApi>(LocalRankRepository.new);
     await instance.allReady();
   }
 }

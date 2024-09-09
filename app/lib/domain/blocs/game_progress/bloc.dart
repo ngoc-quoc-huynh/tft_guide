@@ -1,16 +1,17 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/static/resources/sizes.dart';
 
 part 'event.dart';
 part 'state.dart';
 
 final class GameProgressBloc
     extends Bloc<GameProgressEvent, GameProgressState> {
-  GameProgressBloc() : super(const GameProgressInProgress(0)) {
+  GameProgressBloc(this._maxLevels) : super(const GameProgressInProgress(0)) {
     on<GameProgressNextEvent>(_onGameProgressNextEvent);
   }
+
+  final int _maxLevels;
 
   void _onGameProgressNextEvent(
     GameProgressNextEvent event,
@@ -18,8 +19,7 @@ final class GameProgressBloc
   ) {
     if (state case GameProgressInProgress(:final currentProgress)) {
       final nextProgress = currentProgress + 1;
-      final stateToConstruct =
-          switch (nextProgress > Sizes.questionsAmount - 1) {
+      final stateToConstruct = switch (nextProgress > _maxLevels - 1) {
         false => GameProgressInProgress.new,
         true => GameProgressFinished.new,
       };

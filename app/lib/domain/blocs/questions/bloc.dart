@@ -23,8 +23,6 @@ final class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
   final int totalFullItemQuestions;
 
   static final _localDatabaseApi = Injector.instance.localDatabaseApi;
-  static const _baseItemQuestionAmount = 3;
-  static const _fullItemQuestionAmount = 7;
 
   static LanguageCode get _languageCode => Injector.instance.languageCode;
 
@@ -44,11 +42,11 @@ final class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
   Future<(List<QuestionBaseItemOption>, List<QuestionFullItemOption>)>
       _loadRandomQuestionItems() => (
             _localDatabaseApi.loadRandomQuestionBaseItemOptions(
-              _baseItemQuestionAmount,
+              totalBaseItemQuestions,
               _languageCode,
             ),
             _localDatabaseApi.loadRandomQuestionFullItemOptions(
-              _fullItemQuestionAmount,
+              totalFullItemQuestions,
               _languageCode,
             ),
           ).wait;

@@ -13,15 +13,13 @@ class RankedPage extends StatelessWidget {
         horizontal: Sizes.horizontalPadding,
         vertical: Sizes.verticalPadding,
       ),
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            RankedHeader(),
-            SizedBox(height: 30),
-            RankedBody(),
-          ],
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          RankedHeader(),
+          SizedBox(height: 30),
+          RankedBody(),
+        ],
       ),
     );
   }

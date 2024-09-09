@@ -1,4 +1,7 @@
-extension type Asset(String path) {}
+// TODO: Move to domain
+extension type Asset(String path) {
+  String call() => path;
+}
 
 final class Assets {
   const Assets._();

@@ -2,22 +2,22 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable
-final class Rank extends Equatable {
-  const Rank({
+final class RankOld extends Equatable {
+  const RankOld({
     required this.tier,
     required this.division,
     required this.lp,
   });
 
-  final Tier tier;
-  final Division division;
+  final Tier2 tier;
+  final Division2 division;
   final int lp;
 
   @override
   List<Object?> get props => [tier, division, lp];
 }
 
-enum Tier {
+enum Tier2 {
   iron,
   bronze,
   silver,
@@ -30,7 +30,7 @@ enum Tier {
   challenger,
 }
 
-enum Division {
+enum Division2 {
   one,
   two,
   three,

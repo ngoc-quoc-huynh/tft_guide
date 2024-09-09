@@ -30,7 +30,7 @@ extension GetItExtension on GetIt {
 
   PackageInfo get packageInfo => get<PackageInfo>();
 
-  RankRepository get rankRepository => get<RankRepository>();
+  RankApi get rankApi => get<RankApi>();
 
   RemoteDatabaseApi get remoteDatabaseApi => get<RemoteDatabaseApi>();
 

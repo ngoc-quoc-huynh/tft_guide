@@ -9,6 +9,4 @@ final class Sizes {
     vertical: 10,
     horizontal: 15,
   );
-
-  static const questionsAmount = 10;
 }
