@@ -24,7 +24,9 @@ class GamePage extends StatelessWidget {
           )..add(const QuestionsInitializeEvent()),
         ),
         BlocProvider<GameProgressBloc>(
-          create: (_) => GameProgressBloc(),
+          create: (_) => GameProgressBloc(
+            Config.totalBaseItemQuestions + Config.totalFullItemQuestions,
+          ),
         ),
       ],
       child: BlocBuilder<QuestionsBloc, QuestionsState>(

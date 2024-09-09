@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/blocs/data_sync/bloc.dart';
+import 'package:tft_guide/domain/blocs/elo/cubit.dart';
 import 'package:tft_guide/domain/blocs/elo_gain/cubit.dart';
 import 'package:tft_guide/ui/pages/base_item_detail/page.dart';
 import 'package:tft_guide/ui/pages/full_item_detail/page.dart';
@@ -28,8 +29,15 @@ final class GoRouterConfig {
         builder: (_, __, child) => BlocBuilder<DataSyncBloc, DataSyncState>(
           builder: (context, state) => switch (state) {
             DataSyncLoadInProgress() => const InitPage(),
-            DataSyncLoadOnSuccess() => BlocProvider<EloGainCubit>(
-                create: (_) => EloGainCubit(),
+            DataSyncLoadOnSuccess() => MultiBlocProvider(
+                providers: [
+                  BlocProvider<EloCubit>(
+                    create: (_) => EloCubit(),
+                  ),
+                  BlocProvider<EloGainCubit>(
+                    create: (_) => EloGainCubit(),
+                  ),
+                ],
                 child: child,
               ),
           },
