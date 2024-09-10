@@ -25,7 +25,7 @@ class _Title extends StatelessWidget {
         String.fromCharCode(TftIcons.logo.codePoint),
         style: const TextStyle(
           fontFamily: TftIcons.fontFamily,
-          fontSize: kToolbarHeight,
+          fontSize: kToolbarHeight - 10,
         ),
         textAlign: TextAlign.center,
       ),
