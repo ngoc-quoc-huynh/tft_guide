@@ -81,6 +81,10 @@ final class DataSyncStoreDataLocallyInProgress extends DataSyncLoadInProgress {
         );
 }
 
+final class DataSyncAnimationInProgress extends DataSyncState {
+  const DataSyncAnimationInProgress() : super(100);
+}
+
 final class DataSyncLoadOnSuccess extends DataSyncState {
   const DataSyncLoadOnSuccess() : super(100);
 }

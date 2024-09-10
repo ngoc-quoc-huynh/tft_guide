@@ -27,7 +27,9 @@ class InitPage extends StatelessWidget {
               children: [
                 Text(
                   switch (state) {
-                    DataSyncLoadOnSuccess() => _translations.finish,
+                    DataSyncLoadOnSuccess() ||
+                    DataSyncAnimationInProgress() =>
+                      _translations.finish,
                     DataSyncCheckInProgress() => _translations.checkUpdates,
                     DataSyncInitInProgress() => _translations.init,
                     DataSyncLoadLatestUpdatedAtInProgress() =>
