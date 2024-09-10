@@ -85,5 +85,17 @@ abstract interface class LocalDatabaseApi {
     required LanguageCode languageCode,
   });
 
+  Future<int> loadBaseItemsCount();
+
+  Future<int> loadFullItemsCount();
+
+  Future<int> loadPatchNotesCount();
+
+  Future<int> loadBaseItemTranslationsCount();
+
+  Future<int> loadFullItemTranslationsCount();
+
+  Future<int> loadPatchNoteTranslationsCount();
+
   Future<void> close();
 }

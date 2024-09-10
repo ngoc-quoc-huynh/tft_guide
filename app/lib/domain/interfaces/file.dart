@@ -9,4 +9,6 @@ abstract interface class FileStorageApi {
   Future<void> save(String id, Uint8List bytes);
 
   File loadFile(String id);
+
+  int loadAssetCount();
 }
