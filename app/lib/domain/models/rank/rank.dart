@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:tft_guide/domain/models/asset.dart';
 import 'package:tft_guide/domain/models/rank/division.dart';
 import 'package:tft_guide/domain/models/rank/tier.dart';
 import 'package:tft_guide/static/resources/assets.dart';

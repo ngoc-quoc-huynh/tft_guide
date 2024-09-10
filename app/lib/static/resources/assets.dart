@@ -1,7 +1,4 @@
-// TODO: Move to domain
-extension type Asset(String path) {
-  String call() => path;
-}
+import 'package:tft_guide/domain/models/asset.dart';
 
 final class Assets {
   const Assets._();

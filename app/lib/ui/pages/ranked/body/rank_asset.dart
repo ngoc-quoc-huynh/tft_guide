@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tft_guide/static/resources/assets.dart';
+import 'package:tft_guide/domain/models/asset.dart';
 
 class RankedRankAsset extends StatelessWidget {
   const RankedRankAsset({
