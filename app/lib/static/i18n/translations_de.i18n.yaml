@@ -102,6 +102,8 @@ pages:
       german: 'Deutsch'
       english: 'Englisch'
       system: 'Gerätesprache'
+    check:
+      name: 'App-Check'
     repair:
       name: 'Reparieren'
     reset:
