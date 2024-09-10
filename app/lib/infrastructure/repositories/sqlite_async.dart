@@ -552,12 +552,16 @@ LIMIT ?;
   }
 
   @override
-  Future<List<domain.PatchNote>> loadPatchNotes(
-    LanguageCode languageCode, {
-    int offset = 0,
-    int limit = 10,
+  Future<domain.PaginatedPatchNotes> loadPatchNotes({
+    required int currentPage,
+    required int pageSize,
+    required LanguageCode languageCode,
   }) async {
-    final result = await _db.getAll(
+    final countResult = await _db.get('''
+SELECT COUNT(id) AS count
+FROM $_tableNamePatchNote
+''');
+    final patchNotesResult = await _db.getAll(
       '''
 SELECT t.text, p.created_at
 FROM $_tableNamePatchNote AS p
@@ -575,9 +579,17 @@ WHERE
 ORDER BY p.created_at DESC
 LIMIT ?;
 ''',
-      [languageCode.name, offset, limit],
+      [
+        languageCode.name,
+        currentPage * pageSize,
+        pageSize,
+      ],
     );
-    return result.map((json) => PatchNote.fromJson(json).toDomain()).toList();
+    return PaginatedPatchNotes.fromJson(
+      pageSize: pageSize,
+      countJson: countResult,
+      patchNotesJson: patchNotesResult,
+    ).toDomain();
   }
 
   @override

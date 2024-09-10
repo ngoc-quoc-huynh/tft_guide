@@ -1,6 +1,41 @@
 import 'package:equatable/equatable.dart';
 import 'package:tft_guide/domain/models/patch_note.dart' as domain;
 
+final class PaginatedPatchNotes extends Equatable {
+  const PaginatedPatchNotes({
+    required this.patchNotes,
+    required this.totalPages,
+  });
+
+  factory PaginatedPatchNotes.fromJson({
+    required int pageSize,
+    required Map<String, dynamic> countJson,
+    required List<Map<String, dynamic>> patchNotesJson,
+  }) =>
+      PaginatedPatchNotes(
+        totalPages: ((countJson['count'] as int) / pageSize).ceil(),
+        patchNotes: patchNotesJson.map(PatchNote.fromJson).toList(),
+      );
+
+  final List<PatchNote> patchNotes;
+  final int totalPages;
+
+  domain.PaginatedPatchNotes toDomain() => domain.PaginatedPatchNotes(
+        totalPages: totalPages,
+        patchNotes: patchNotes
+            .map(
+              (patchNote) => patchNote.toDomain(),
+            )
+            .toList(),
+      );
+
+  @override
+  List<Object?> get props => [
+        patchNotes,
+        totalPages,
+      ];
+}
+
 final class PatchNote extends Equatable {
   const PatchNote({
     required this.text,

@@ -9,7 +9,7 @@ import 'package:tft_guide/ui/pages/full_item_detail/page.dart';
 import 'package:tft_guide/ui/pages/game/page.dart';
 import 'package:tft_guide/ui/pages/init/page.dart';
 import 'package:tft_guide/ui/pages/item_metas/page.dart';
-import 'package:tft_guide/ui/pages/quotes/page.dart';
+import 'package:tft_guide/ui/pages/patch_notes/page.dart';
 import 'package:tft_guide/ui/pages/ranked/page.dart';
 import 'package:tft_guide/ui/pages/scaffold_navbar.dart';
 import 'package:tft_guide/ui/pages/settings/page.dart';
@@ -104,9 +104,9 @@ final class GoRouterConfig {
               StatefulShellBranch(
                 routes: [
                   GoRoute(
-                    name: Routes.quotesPage(),
-                    path: '/quotes',
-                    builder: (_, __) => const QuotesPage(),
+                    name: Routes.pageNotesPage(),
+                    path: '/patch-notes',
+                    builder: (_, __) => const PatchNotesPage(),
                   ),
                 ],
               ),

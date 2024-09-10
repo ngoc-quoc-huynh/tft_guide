@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 extension DateTimeExtension on DateTime {
   static DateTime? tryParseOrNull(String? formattedString) =>
       switch (formattedString) {
@@ -12,4 +14,8 @@ extension DateTimeExtension on DateTime {
         date.month == today.month &&
         date.day == today.day;
   }
+
+  String format() => _format.format(this);
+
+  static final _format = DateFormat('dd.MM.yy');
 }

@@ -16,6 +16,7 @@ dependencies:
   # Localization
   flutter_localizations:
     sdk: flutter
+  intl: ^0.19.0
 
   # Navigator
   go_router: ^14.0.0
@@ -28,9 +29,10 @@ dependencies:
   # UI
   animated_flip_counter: ^0.3.4
   dynamic_color: ^1.7.0
-  skeletonizer: ^1.1.2+1
   flutter_animation_progress_bar: ^2.3.1
+  flutter_markdown: ^0.7.3+1
   flutter_staggered_grid_view: ^0.7.0
+  skeletonizer: ^1.1.2+1
 
   # Utils
   collection: ^1.18.0
@@ -38,6 +40,7 @@ dependencies:
   path: ^1.9.0
   path_provider: ^2.1.1
   package_info_plus: ^8.0.2
+  stream_transform: ^2.1.0
 
   # Network
   supabase_flutter: ^2.6.0

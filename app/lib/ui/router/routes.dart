@@ -11,5 +11,5 @@ final class Routes {
   static final itemMetasPage = Route('item-metas');
   static final rankedPage = Route('ranked');
   static final settingsPage = Route('settings');
-  static final quotesPage = Route('quotes');
+  static final pageNotesPage = Route('patch-notes');
 }

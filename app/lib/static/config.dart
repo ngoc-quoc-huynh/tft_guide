@@ -4,4 +4,6 @@ final class Config {
   static const totalBaseItemQuestions = 3;
   static const totalFullItemQuestions = 7;
   static const totalQuestions = totalBaseItemQuestions + totalFullItemQuestions;
+
+  static const patchNotesPageSize = 8;
 }

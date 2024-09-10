@@ -79,11 +79,10 @@ abstract interface class LocalDatabaseApi {
     LanguageCode languageCode,
   );
 
-  // TODO: Add pagination
-  Future<List<PatchNote>> loadPatchNotes(
-    LanguageCode languageCode, {
-    int offset = 0,
-    int limit = 10,
+  Future<PaginatedPatchNotes> loadPatchNotes({
+    required int currentPage,
+    required int pageSize,
+    required LanguageCode languageCode,
   });
 
   Future<void> close();
