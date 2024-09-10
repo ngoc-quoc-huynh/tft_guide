@@ -58,6 +58,14 @@ class SettingsPage extends StatelessWidget {
                         child: Column(
                           children: [
                             SettingsItem(
+                              icon: Icons.checklist,
+                              title: _translations.check.name,
+                              onTap: () {
+                                // TODO: Add functionality
+                              },
+                            ),
+                            const SettingsDivider(),
+                            SettingsItem(
                               icon: Icons.build,
                               title: _translations.repair.name,
                               onTap: () {
