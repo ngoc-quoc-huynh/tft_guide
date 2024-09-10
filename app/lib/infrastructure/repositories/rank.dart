@@ -1,48 +1,7 @@
 import 'package:tft_guide/domain/interfaces/rank.dart';
-import 'package:tft_guide/domain/models/rank.dart';
 import 'package:tft_guide/domain/models/rank/division.dart';
 import 'package:tft_guide/domain/models/rank/rank.dart';
 import 'package:tft_guide/domain/models/rank/tier.dart';
-
-final class LocalRankRepository2 implements RankRepository {
-  const LocalRankRepository2();
-
-  static const _promotionPoints = 100;
-
-  @override
-  RankOld computeRank(int elo) => RankOld(
-        tier: _computeTier(elo),
-        division: _computeDivision(elo),
-        lp: _computeLp(elo),
-      );
-
-  Tier2 _computeTier(int elo) {
-    final tierIndex = (elo / (Division2.values.length * _promotionPoints))
-        .floor()
-        .clamp(0, Tier2.values.length - 1);
-    return Tier2.values[tierIndex];
-  }
-
-  static final _challengerOnePoints =
-      Tier2.values.length * Division2.values.length * _promotionPoints -
-          _promotionPoints;
-
-  Division2 _computeDivision(int elo) {
-    final divisionLength = Division2.values.length;
-    final divisionIndex = switch (elo < _challengerOnePoints) {
-      false => divisionLength - 1,
-      true => elo % (divisionLength * _promotionPoints) ~/ _promotionPoints,
-    };
-    return Division2.values.reversed.toList()[divisionIndex];
-  }
-
-  int _computeLp(int elo) {
-    return switch (elo < _challengerOnePoints) {
-      false => elo - _challengerOnePoints,
-      true => elo % _promotionPoints,
-    };
-  }
-}
 
 final class LocalRankRepository implements RankApi {
   const LocalRankRepository();
