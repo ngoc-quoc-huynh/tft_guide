@@ -557,10 +557,7 @@ LIMIT ?;
     required int pageSize,
     required LanguageCode languageCode,
   }) async {
-    final countResult = await _db.get('''
-SELECT COUNT(id) AS count
-FROM $_tableNamePatchNote
-''');
+    final count = await _loadCount(_tableNamePatchNote);
     final patchNotesResult = await _db.getAll(
       '''
 SELECT t.text, p.created_at
@@ -587,10 +584,31 @@ LIMIT ?;
     );
     return PaginatedPatchNotes.fromJson(
       pageSize: pageSize,
-      countJson: countResult,
+      count: count,
       patchNotesJson: patchNotesResult,
     ).toDomain();
   }
+
+  @override
+  Future<int> loadBaseItemsCount() => _loadCount(_tableNameBaseItem);
+
+  @override
+  Future<int> loadFullItemsCount() => _loadCount(_tableNameFullItem);
+
+  @override
+  Future<int> loadPatchNotesCount() => _loadCount(_tableNamePatchNote);
+
+  @override
+  Future<int> loadBaseItemTranslationsCount() =>
+      _loadCount(_tableNameBaseItemTranslation);
+
+  @override
+  Future<int> loadFullItemTranslationsCount() =>
+      _loadCount(_tableNameFullItemTranslation);
+
+  @override
+  Future<int> loadPatchNoteTranslationsCount() =>
+      _loadCount(_tableNamePatchNoteTranslation);
 
   @override
   Future<void> close() => _db.close();
@@ -602,6 +620,16 @@ LIMIT ?;
       null => null,
       String() => DateTime.parse(updatedAt),
     };
+  }
+
+  Future<int> _loadCount(String tableName) async {
+    final result = await _db.get(
+      '''
+SELECT COUNT(id) AS count
+FROM $tableName
+''',
+    );
+    return result['count'] as int;
   }
 
   static const _tableNameBaseItem = 'base_item';

@@ -9,11 +9,11 @@ final class PaginatedPatchNotes extends Equatable {
 
   factory PaginatedPatchNotes.fromJson({
     required int pageSize,
-    required Map<String, dynamic> countJson,
+    required int count,
     required List<Map<String, dynamic>> patchNotesJson,
   }) =>
       PaginatedPatchNotes(
-        totalPages: ((countJson['count'] as int) / pageSize).ceil(),
+        totalPages: (count / pageSize).ceil(),
         patchNotes: patchNotesJson.map(PatchNote.fromJson).toList(),
       );
 

@@ -36,4 +36,7 @@ final class LocalFileStorageRepository implements FileStorageApi {
   File loadFile(String id) => File(
         join(_assetsDir.path, '$id.$_mimeType'),
       );
+
+  @override
+  int loadAssetCount() => _assetsDir.listSync().whereType<File>().length;
 }
