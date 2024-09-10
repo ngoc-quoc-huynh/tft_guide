@@ -38,7 +38,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
           ),
           destinations: [
             NavigationDestination(
-              icon: const Icon(Icons.quiz),
+              icon: const Icon(Icons.emoji_events),
               label: _translations.ranked.title,
             ),
             NavigationDestination(
