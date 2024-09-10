@@ -1,7 +1,7 @@
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
-class SliverSizedBox extends SingleChildRenderObjectWidget {
+class SliverSizedBox extends LeafRenderObjectWidget {
   const SliverSizedBox({
     this.width,
     this.height,
@@ -58,14 +58,35 @@ class RenderSliverSizedBox extends RenderSliver {
 
   @override
   void performLayout() {
-    final paintExtent = height ?? constraints.remainingPaintExtent;
-    final crossAxisExtent = width ?? constraints.crossAxisExtent;
+    final (mainAxisExtent, crossAxisExtent) = switch (constraints.axis) {
+      Axis.horizontal => (width, height),
+      Axis.vertical => (height, width),
+    };
+    final effectiveMainAxisExtent =
+        mainAxisExtent ?? constraints.viewportMainAxisExtent;
+    final effectiveCrossAxisExtent =
+        crossAxisExtent ?? constraints.crossAxisExtent;
+    final paintExtent = calculatePaintOffset(
+      constraints,
+      from: 0,
+      to: effectiveMainAxisExtent,
+    );
+    final cacheExtent = calculateCacheOffset(
+      constraints,
+      from: 0,
+      to: effectiveCrossAxisExtent,
+    );
 
     geometry = SliverGeometry(
-      scrollExtent: paintExtent,
-      paintExtent: paintExtent.clamp(0, constraints.remainingPaintExtent),
-      maxPaintExtent: paintExtent,
-      crossAxisExtent: crossAxisExtent,
+      scrollExtent: effectiveMainAxisExtent,
+      paintExtent: paintExtent.clamp(0.0, constraints.remainingPaintExtent),
+      cacheExtent: cacheExtent,
+      maxPaintExtent: effectiveMainAxisExtent,
+      hitTestExtent: paintExtent,
+      hasVisualOverflow:
+          effectiveMainAxisExtent > constraints.remainingPaintExtent ||
+              constraints.scrollOffset > 0.0,
+      crossAxisExtent: effectiveCrossAxisExtent,
     );
   }
 }
