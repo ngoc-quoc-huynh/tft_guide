@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/models/rank/rank.dart';
 import 'package:tft_guide/injector.dart';
 
-part 'event.dart';
 part 'state.dart';
 
 final class RankCubit extends Cubit<RankState> {
