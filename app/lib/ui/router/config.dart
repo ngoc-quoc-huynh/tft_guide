@@ -28,7 +28,9 @@ final class GoRouterConfig {
         navigatorKey: _rootNavigatorKey,
         builder: (_, __, child) => BlocBuilder<DataSyncBloc, DataSyncState>(
           builder: (context, state) => switch (state) {
-            DataSyncLoadInProgress() => const InitPage(),
+            DataSyncLoadInProgress() ||
+            DataSyncAnimationInProgress() =>
+              const InitPage(),
             DataSyncLoadOnSuccess() => MultiBlocProvider(
                 providers: [
                   BlocProvider<EloCubit>(

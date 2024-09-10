@@ -9,6 +9,7 @@ import 'package:tft_guide/domain/models/database/patch_note.dart';
 import 'package:tft_guide/domain/models/database/patch_note_translation.dart';
 import 'package:tft_guide/domain/utils/extensions/date_time.dart';
 import 'package:tft_guide/injector.dart';
+import 'package:tft_guide/static/resources/sizes.dart';
 
 part 'event.dart';
 part 'models.dart';
@@ -37,7 +38,21 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState> {
       await _storeDataLocally(emit, items);
       await _localStorageApi.updateLastAppUpdate(DateTime.now());
     }
+    await _waitForProgressBarAnimation(emit, hasUpdated: hasUpdated);
     emit(const DataSyncLoadOnSuccess());
+  }
+
+  Future<void> _waitForProgressBarAnimation(
+    Emitter<DataSyncState> emit, {
+    required bool hasUpdated,
+  }) async {
+    emit(const DataSyncAnimationInProgress());
+    await Future<void>.delayed(
+      switch (hasUpdated) {
+        false => Sizes.progressBarAnimationShortDuration,
+        true => Sizes.progressBarAnimationLongDuration,
+      },
+    );
   }
 
   bool _hasAppBeenUpdatedToday(Emitter<DataSyncState> emit) {
