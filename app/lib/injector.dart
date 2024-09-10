@@ -28,7 +28,6 @@ final class Injector {
 
   static Future<void> setupDependencies() async {
     instance
-      ..registerLazySingleton<RankRepository>(LocalRankRepository2.new)
       ..registerLazySingleton<FeedbackApi>(FeedbackRepository.new)
       ..registerLazySingleton<RemoteDatabaseApi>(SupabaseRepository.new)
       ..registerSingletonAsync(getApplicationDocumentsDirectory)
