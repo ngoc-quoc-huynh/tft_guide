@@ -108,6 +108,8 @@ pages:
       name: 'Reparieren'
     reset:
       name: 'Zurücksetzen'
+      title: 'Fortschritt zurücksetzen'
+      content: 'Bist du sicher, dass du deinen Fortschritt zurücksetzen möchtest? Dieser Vorgang kann nicht rückgängig gemacht werden.'
     license:
       name: 'Externe Bibliotheken und Lizensen'
   patchNotes:

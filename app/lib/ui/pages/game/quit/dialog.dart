@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
@@ -28,9 +27,9 @@ class QuitDialog extends StatelessWidget {
         child: Text(_quitTranslations.content),
       ),
       actions: [
-        const AlertDialogAction.cancel(),
+        const AlertDialogAction<void>.cancel(),
         AlertDialogAction.custom(
-          onPressed: () => context.pop(true),
+          result: true,
           text: _quitTranslations.button,
         ),
       ],

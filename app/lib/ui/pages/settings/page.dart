@@ -8,11 +8,13 @@ import 'package:tft_guide/ui/pages/settings/app_version.dart';
 import 'package:tft_guide/ui/pages/settings/card.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/design.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/language.dart';
+import 'package:tft_guide/ui/pages/settings/dialogs/reset.dart';
 import 'package:tft_guide/ui/pages/settings/divider.dart';
 import 'package:tft_guide/ui/pages/settings/item.dart';
 import 'package:tft_guide/ui/widgets/custom_app_bar.dart';
 import 'package:tft_guide/ui/widgets/spatula_background.dart';
 
+// TODO: Add SnackBar with feedback
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
@@ -76,9 +78,8 @@ class SettingsPage extends StatelessWidget {
                             SettingsItem(
                               icon: Icons.restart_alt,
                               title: _translations.reset.name,
-                              onTap: () {
-                                // TODO: Add functionality
-                              },
+                              onTap: () =>
+                                  unawaited(SettingsResetDialog.show(context)),
                             ),
                           ],
                         ),
