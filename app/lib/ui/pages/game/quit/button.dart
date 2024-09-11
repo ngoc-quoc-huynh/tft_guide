@@ -22,7 +22,8 @@ class QuitButton extends StatelessWidget {
         child: IconButton(
           tooltip: Injector.instance.translations.pages.game.quit.tooltip,
           icon: const Icon(Icons.close),
-          onPressed: () => unawaited(_onQuit(context)),
+          onPressed: () =>
+              unawaited(_onQuit(context, isFirstLevel: isFirstLevel)),
         ),
       ),
     );
@@ -35,8 +36,14 @@ class QuitButton extends StatelessWidget {
     await _onQuit(context);
   }
 
-  Future<void> _onQuit(BuildContext context) async {
-    final isQuitting = await QuitDialog.show(context);
+  Future<void> _onQuit(
+    BuildContext context, {
+    bool isFirstLevel = false,
+  }) async {
+    final isQuitting = switch (isFirstLevel) {
+      false => await QuitDialog.show(context),
+      true => true,
+    };
     if (context.mounted && isQuitting) {
       context.pop();
     }

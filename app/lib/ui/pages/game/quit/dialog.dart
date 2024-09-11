@@ -28,9 +28,7 @@ class QuitDialog extends StatelessWidget {
         child: Text(_quitTranslations.content),
       ),
       actions: [
-        AlertDialogAction.cancel(
-          onPressed: () => context.pop(false),
-        ),
+        const AlertDialogAction.cancel(),
         AlertDialogAction.custom(
           onPressed: () => context.pop(true),
           text: _quitTranslations.button,
