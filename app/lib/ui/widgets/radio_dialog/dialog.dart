@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/blocs/value/cubit.dart';
 import 'package:tft_guide/ui/widgets/alert_dialog/action.dart';
 import 'package:tft_guide/ui/widgets/alert_dialog/dialog.dart';
@@ -25,11 +24,9 @@ class RadioDialog<T> extends StatelessWidget {
         children: options,
       ),
       actions: [
-        const AlertDialogAction.cancel(),
+        const AlertDialogAction<bool>.cancel(),
         AlertDialogAction.confirm(
-          onPressed: () => context.pop(
-            context.read<ValueCubit<T>>().state,
-          ),
+          result: context.read<ValueCubit<T>>().state,
         ),
       ],
     );

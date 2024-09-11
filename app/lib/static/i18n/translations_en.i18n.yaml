@@ -108,6 +108,8 @@ pages:
       name: 'Repair'
     reset:
       name: 'Reset'
+      title: 'Reset progress'
+      content: 'Are you sure you want to reset your progress? This process cannot be undone.'
     license:
       name: 'External libraries and licenses'
   patchNotes:

@@ -3,80 +3,76 @@ import 'package:go_router/go_router.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 
-sealed class AlertDialogAction extends StatelessWidget {
+sealed class AlertDialogAction<T> extends StatelessWidget {
   const AlertDialogAction({
     super.key,
   });
 
   const factory AlertDialogAction.cancel({
-    VoidCallback? onPressed,
     Key? key,
-  }) = _Cancel;
+  }) = _Cancel<T>;
 
   const factory AlertDialogAction.confirm({
-    required VoidCallback onPressed,
+    required T result,
     Key? key,
-  }) = _Confirm;
+  }) = _Confirm<T>;
 
   const factory AlertDialogAction.custom({
     required String text,
-    required VoidCallback onPressed,
+    required T result,
     Key? key,
-  }) = _Custom;
+  }) = _Custom<T>;
 
   @protected
   TranslationsGeneralEn get translations =>
       Injector.instance.translations.general;
 }
 
-final class _Cancel extends AlertDialogAction {
+final class _Cancel<T> extends AlertDialogAction<T> {
   const _Cancel({
-    this.onPressed,
     super.key,
   });
-
-  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: onPressed ?? () => context.pop(),
+      onPressed: () => context.pop(),
       child: Text(translations.cancel),
     );
   }
 }
 
-final class _Confirm extends AlertDialogAction {
+final class _Confirm<T> extends AlertDialogAction<T> {
   const _Confirm({
-    required this.onPressed,
+    required this.result,
     super.key,
   });
 
-  final VoidCallback onPressed;
+  final T result;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: onPressed,
+      onPressed: () => context.pop(result),
       child: Text(translations.confirm),
     );
   }
 }
 
-final class _Custom extends AlertDialogAction {
+final class _Custom<T> extends AlertDialogAction<T> {
   const _Custom({
     required this.text,
-    required this.onPressed,
+    required this.result,
     super.key,
   });
 
   final String text;
-  final VoidCallback onPressed;
+  final T result;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: onPressed,
+      onPressed: () => context.pop(result),
       child: Text(text),
     );
   }
