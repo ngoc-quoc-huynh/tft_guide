@@ -11,7 +11,7 @@ import 'package:tft_guide/infrastructure/dtos/supabase/item_translation.dart';
 import 'package:tft_guide/infrastructure/dtos/supabase/patch_note.dart';
 import 'package:tft_guide/infrastructure/dtos/supabase/patch_note_translation.dart';
 
-// TODO: Error handling
+// TODO: Error handling & refactor
 final class SupabaseRepository implements RemoteDatabaseApi {
   const SupabaseRepository();
 
@@ -39,7 +39,7 @@ final class SupabaseRepository implements RemoteDatabaseApi {
 
   @override
   Future<List<BaseItemEntity>> loadBaseItems(DateTime? lastUpdated) async {
-    final response = await _client.from('base_item').select().maybeApply(
+    final response = await _client.from(_tableNameBaseItem).select().maybeApply(
           lastUpdated,
           (query, lastUpdated) => query.gt('updated_at', lastUpdated),
         );
@@ -48,7 +48,7 @@ final class SupabaseRepository implements RemoteDatabaseApi {
 
   @override
   Future<List<FullItemEntity>> loadFullItems(DateTime? lastUpdated) async {
-    final response = await _client.from('full_item').select().maybeApply(
+    final response = await _client.from(_tableNameFullItem).select().maybeApply(
           lastUpdated,
           (query, lastUpdated) => query.gt('updated_at', lastUpdated),
         );
@@ -57,10 +57,11 @@ final class SupabaseRepository implements RemoteDatabaseApi {
 
   @override
   Future<List<PatchNoteEntity>> loadPatchNotes(DateTime? lastUpdated) async {
-    final response = await _client.from('patch_note').select().maybeApply(
-          lastUpdated,
-          (query, lastUpdated) => query.gt('updated_at', lastUpdated),
-        );
+    final response =
+        await _client.from(_tableNamePatchNote).select().maybeApply(
+              lastUpdated,
+              (query, lastUpdated) => query.gt('updated_at', lastUpdated),
+            );
     return response.map((json) => PatchNote.fromJson(json).toDomain()).toList();
   }
 
@@ -69,7 +70,7 @@ final class SupabaseRepository implements RemoteDatabaseApi {
     DateTime? lastUpdated,
   ) async {
     final response =
-        await _client.from('base_item_translation').select().maybeApply(
+        await _client.from(_tableNameBaseItemTranslation).select().maybeApply(
               lastUpdated,
               (query, lastUpdated) => query.gt('updated_at', lastUpdated),
             );
@@ -83,7 +84,7 @@ final class SupabaseRepository implements RemoteDatabaseApi {
     DateTime? lastUpdated,
   ) async {
     final response =
-        await _client.from('full_item_translation').select().maybeApply(
+        await _client.from(_tableNameFullItemTranslation).select().maybeApply(
               lastUpdated,
               (query, lastUpdated) => query.gt('updated_at', lastUpdated),
             );
@@ -98,7 +99,7 @@ final class SupabaseRepository implements RemoteDatabaseApi {
     DateTime? lastUpdated,
   ) async {
     final response =
-        await _client.from('patch_note_translation').select().maybeApply(
+        await _client.from(_tableNamePatchNoteTranslation).select().maybeApply(
               lastUpdated,
               (query, lastUpdated) => query.gt('updated_at', lastUpdated),
             );
@@ -109,7 +110,38 @@ final class SupabaseRepository implements RemoteDatabaseApi {
   }
 
   @override
+  Future<int> loadAssetsCount() => _client.rpc<int>('load_assets_count');
+
+  @override
+  Future<int> loadBaseItemsCount() => _client.from(_tableNameBaseItem).count();
+
+  @override
+  Future<int> loadFullItemsCount() => _client.from(_tableNameFullItem).count();
+
+  @override
+  Future<int> loadPatchNotesCount() =>
+      _client.from(_tableNamePatchNote).count();
+
+  @override
+  Future<int> loadBaseItemTranslationsCount() =>
+      _client.from(_tableNameBaseItemTranslation).count();
+
+  @override
+  Future<int> loadFullItemTranslationsCount() =>
+      _client.from(_tableNameFullItemTranslation).count();
+
+  @override
+  Future<int> loadPatchNoteTranslationsCount() =>
+      _client.from(_tableNamePatchNoteTranslation).count();
+
+  @override
   Future<void> close() => _client.dispose();
+  static const _tableNameBaseItem = 'base_item';
+  static const _tableNameFullItem = 'full_item';
+  static const _tableNamePatchNote = 'patch_note';
+  static const _tableNameBaseItemTranslation = 'base_item_translation';
+  static const _tableNameFullItemTranslation = 'full_item_translation';
+  static const _tableNamePatchNoteTranslation = 'patch_note_translation';
 }
 
 extension<T> on PostgrestFilterBuilder<T> {

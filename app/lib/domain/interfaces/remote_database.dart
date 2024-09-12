@@ -32,5 +32,19 @@ abstract interface class RemoteDatabaseApi {
     DateTime? lastUpdated,
   );
 
+  Future<int> loadAssetsCount();
+
+  Future<int> loadBaseItemsCount();
+
+  Future<int> loadFullItemsCount();
+
+  Future<int> loadPatchNotesCount();
+
+  Future<int> loadBaseItemTranslationsCount();
+
+  Future<int> loadFullItemTranslationsCount();
+
+  Future<int> loadPatchNoteTranslationsCount();
+
   Future<void> close();
 }

@@ -26,7 +26,7 @@ class RadioDialog<T> extends StatelessWidget {
       actions: [
         const AlertDialogAction<bool>.cancel(),
         AlertDialogAction.confirm(
-          result: context.read<ValueCubit<T>>().state,
+          result: () => context.read<ValueCubit<T>>().state,
         ),
       ],
     );

@@ -29,7 +29,7 @@ class QuitDialog extends StatelessWidget {
       actions: [
         const AlertDialogAction<void>.cancel(),
         AlertDialogAction.custom(
-          result: true,
+          result: () => true,
           text: _quitTranslations.button,
         ),
       ],

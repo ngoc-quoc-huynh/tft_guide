@@ -104,6 +104,12 @@ pages:
       system: 'Device language'
     check:
       name: 'App Check'
+      description: 'We will check if all essential data, such as assets, base- and full items, and patch notes, are correctly downloaded.'
+      button: 'Starte Check'
+      assets: 'Assets'
+      baseItems: 'Base items'
+      fullItems: 'Full items'
+      patchNotes: 'Patch notes'
     repair:
       name: 'Repair'
     reset:

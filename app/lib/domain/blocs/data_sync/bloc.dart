@@ -31,7 +31,7 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState> {
     Emitter<DataSyncState> emit,
   ) async {
     final hasUpdated = _hasAppBeenUpdatedToday(emit);
-    await _initSync(emit, initRemoteDatabase: !hasUpdated);
+    await _initSync(emit);
     if (!hasUpdated) {
       final operationResults = await _loadLatestUpdatedAts(emit);
       final items = await _loadRemoteData(emit, operationResults);
@@ -61,14 +61,11 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState> {
   }
 
   // ignore: avoid-redundant-async, false positive
-  Future<void> _initSync(
-    Emitter<DataSyncState> emit, {
-    required bool initRemoteDatabase,
-  }) async {
+  Future<void> _initSync(Emitter<DataSyncState> emit) async {
     emit(const DataSyncInitInProgress());
     final initStream = Stream.fromFutures([
       _localDatabaseApi.initialize(),
-      if (initRemoteDatabase) _remoteDatabaseApi.initialize(),
+      _remoteDatabaseApi.initialize(),
     ]);
 
     int step = 1;
