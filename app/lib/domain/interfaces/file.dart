@@ -10,5 +10,5 @@ abstract interface class FileStorageApi {
 
   File loadFile(String id);
 
-  int loadAssetCount();
+  int loadAssetsCount();
 }

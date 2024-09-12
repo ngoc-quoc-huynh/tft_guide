@@ -37,7 +37,7 @@ class SettingsResetDialog extends StatelessWidget {
         const AlertDialogAction<void>.cancel(),
         AlertDialogAction.custom(
           text: _translations.name,
-          result: true,
+          result: () => true,
         ),
       ],
     );

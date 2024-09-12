@@ -6,6 +6,7 @@ import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/pages/settings/app_version.dart';
 import 'package:tft_guide/ui/pages/settings/card.dart';
+import 'package:tft_guide/ui/pages/settings/dialogs/check/dialog.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/design.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/language.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/reset.dart';
@@ -62,9 +63,8 @@ class SettingsPage extends StatelessWidget {
                             SettingsItem(
                               icon: Icons.checklist,
                               title: _translations.check.name,
-                              onTap: () {
-                                // TODO: Add functionality
-                              },
+                              onTap: () =>
+                                  unawaited(SettingsCheckDialog.show(context)),
                             ),
                             const SettingsDivider(),
                             SettingsItem(

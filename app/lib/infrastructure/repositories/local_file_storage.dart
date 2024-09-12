@@ -38,5 +38,5 @@ final class LocalFileStorageRepository implements FileStorageApi {
       );
 
   @override
-  int loadAssetCount() => _assetsDir.listSync().whereType<File>().length;
+  int loadAssetsCount() => _assetsDir.listSync().whereType<File>().length;
 }

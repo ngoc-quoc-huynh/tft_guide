@@ -13,13 +13,13 @@ sealed class AlertDialogAction<T> extends StatelessWidget {
   }) = _Cancel<T>;
 
   const factory AlertDialogAction.confirm({
-    required T result,
+    required T Function() result,
     Key? key,
   }) = _Confirm<T>;
 
   const factory AlertDialogAction.custom({
     required String text,
-    required T result,
+    required T Function() result,
     Key? key,
   }) = _Custom<T>;
 
@@ -48,12 +48,12 @@ final class _Confirm<T> extends AlertDialogAction<T> {
     super.key,
   });
 
-  final T result;
+  final T Function() result;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () => context.pop(result),
+      onPressed: () => context.pop(result.call()),
       child: Text(translations.confirm),
     );
   }
@@ -67,12 +67,12 @@ final class _Custom<T> extends AlertDialogAction<T> {
   });
 
   final String text;
-  final T result;
+  final T Function() result;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () => context.pop(result),
+      onPressed: () => context.pop(result.call()),
       child: Text(text),
     );
   }

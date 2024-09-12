@@ -103,7 +103,13 @@ pages:
       english: 'Englisch'
       system: 'Gerätesprache'
     check:
-      name: 'App-Check'
+      name: 'App Prüfung'
+      description: 'Wir prüfen, ob alle wichtigen Daten wie Assets, Grund- und Vollgegenstände sowie Patch Notes fehlerfrei heruntergeladen wurden.'
+      button: 'Starte Prüfung'
+      assets: 'Assets'
+      baseItems: 'Grundgegenstände'
+      fullItems: 'Vollgegenstände'
+      patchNotes: 'Patch Notizen'
     repair:
       name: 'Reparieren'
     reset:
