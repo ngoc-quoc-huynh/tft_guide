@@ -96,12 +96,14 @@ pages:
       light: 'Hell'
       dark: 'Dunkel'
       system: 'Gerätedesign'
+      feedback: 'Design wurde erfolgreich aktualisiert.'
     language:
       name: 'Sprache'
       title: 'Sprache auswählen'
       german: 'Deutsch'
       english: 'Englisch'
       system: 'Gerätesprache'
+      feedback: 'Sprache wurde erfolgreich aktualisiert.'
     check:
       name: 'App Prüfung'
       description: 'Wir prüfen, ob alle wichtigen Daten wie Assets, Grund- und Vollgegenstände sowie Patch Notes fehlerfrei heruntergeladen wurden.'
@@ -118,6 +120,7 @@ pages:
       name: 'Zurücksetzen'
       title: 'Fortschritt zurücksetzen'
       content: 'Bist du sicher, dass du deinen Fortschritt zurücksetzen möchtest? Dieser Vorgang kann nicht rückgängig gemacht werden.'
+      feedback: 'Fortschritt wurde erfolgreich zurückgesetzt.'
     license:
       name: 'Externe Bibliotheken und Lizensen'
   patchNotes:

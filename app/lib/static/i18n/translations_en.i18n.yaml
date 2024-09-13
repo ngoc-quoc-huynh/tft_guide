@@ -96,12 +96,14 @@ pages:
       light: 'Bright'
       dark: 'Dark'
       system: 'Device design'
+      feedback: 'Design has been updated successfully.'
     language:
       name: 'Language'
       title: 'Choose language'
       german: 'German'
       english: 'English'
       system: 'Device language'
+      feedback: 'Language has been updated successfully.'
     check:
       name: 'App Check'
       description: 'We will check if all essential data, such as assets, base- and full items, and patch notes, are correctly downloaded.'
@@ -118,6 +120,7 @@ pages:
       name: 'Reset'
       title: 'Reset progress'
       content: 'Are you sure you want to reset your progress? This process cannot be undone.'
+      feedback: 'Progress has been successfully reset.'
     license:
       name: 'External libraries and licenses'
   patchNotes:

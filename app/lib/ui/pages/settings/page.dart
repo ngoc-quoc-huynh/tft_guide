@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tft_guide/domain/blocs/theme_mode/cubit.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
@@ -14,9 +16,10 @@ import 'package:tft_guide/ui/pages/settings/dialogs/reset.dart';
 import 'package:tft_guide/ui/pages/settings/divider.dart';
 import 'package:tft_guide/ui/pages/settings/item.dart';
 import 'package:tft_guide/ui/widgets/custom_app_bar.dart';
+import 'package:tft_guide/ui/widgets/language/listener.dart';
+import 'package:tft_guide/ui/widgets/snack_bar.dart';
 import 'package:tft_guide/ui/widgets/spatula_background.dart';
 
-// TODO: Add SnackBar with feedback
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
@@ -39,19 +42,35 @@ class SettingsPage extends StatelessWidget {
                       SettingsCard(
                         child: Column(
                           children: [
-                            SettingsItem(
-                              icon: Icons.brightness_6_rounded,
-                              title: _translations.design.name,
-                              onTap: () => unawaited(
-                                SettingsDesignDialog.show(context),
+                            BlocListener<ThemeModeCubit, ThemeMode>(
+                              listener: (context, _) =>
+                                  CustomSnackBar.showSuccess(
+                                context,
+                                Injector.instance.translations.pages.settings
+                                    .design.feedback,
+                              ),
+                              child: SettingsItem(
+                                icon: Icons.brightness_6_rounded,
+                                title: _translations.design.name,
+                                onTap: () => unawaited(
+                                  SettingsDesignDialog.show(context),
+                                ),
                               ),
                             ),
                             const SettingsDivider(),
-                            SettingsItem(
-                              icon: Icons.flag_outlined,
-                              title: _translations.language.name,
-                              onTap: () => unawaited(
-                                SettingsLanguageDialog.show(context),
+                            LanguageListener(
+                              onLanguageChanged: (_) =>
+                                  CustomSnackBar.showSuccess(
+                                context,
+                                Injector.instance.translations.pages.settings
+                                    .language.feedback,
+                              ),
+                              child: SettingsItem(
+                                icon: Icons.flag_outlined,
+                                title: _translations.language.name,
+                                onTap: () => unawaited(
+                                  SettingsLanguageDialog.show(context),
+                                ),
                               ),
                             ),
                           ],
@@ -78,8 +97,9 @@ class SettingsPage extends StatelessWidget {
                             SettingsItem(
                               icon: Icons.restart_alt,
                               title: _translations.reset.name,
-                              onTap: () =>
-                                  unawaited(SettingsResetDialog.show(context)),
+                              onTap: () {
+                                unawaited(SettingsResetDialog.show(context));
+                              },
                             ),
                           ],
                         ),
@@ -107,6 +127,6 @@ class SettingsPage extends StatelessWidget {
     );
   }
 
-  TranslationsPagesSettingsEn get _translations =>
+  static TranslationsPagesSettingsEn get _translations =>
       Injector.instance.translations.pages.settings;
 }
