@@ -54,6 +54,6 @@ class InitPage extends StatelessWidget {
     );
   }
 
-  TranslationsPagesInitEn get _translations =>
+  static TranslationsPagesInitEn get _translations =>
       Injector.instance.translations.pages.init;
 }

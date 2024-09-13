@@ -7,6 +7,7 @@ import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/widgets/alert_dialog/action.dart';
 import 'package:tft_guide/ui/widgets/alert_dialog/dialog.dart';
+import 'package:tft_guide/ui/widgets/snack_bar.dart';
 
 class SettingsResetDialog extends StatelessWidget {
   const SettingsResetDialog._();
@@ -21,6 +22,8 @@ class SettingsResetDialog extends StatelessWidget {
       context
         ..read<EloCubit>().reset()
         ..read<EloGainCubit>().gain(null);
+
+      CustomSnackBar.showSuccess(context, _translations.feedback);
     }
   }
 
@@ -43,6 +46,6 @@ class SettingsResetDialog extends StatelessWidget {
     );
   }
 
-  TranslationsPagesSettingsResetEn get _translations =>
+  static TranslationsPagesSettingsResetEn get _translations =>
       Injector.instance.translations.pages.settings.reset;
 }

@@ -146,6 +146,6 @@ class _Body extends StatelessWidget {
         );
   }
 
-  TranslationsPagesItemDetailEn get _translations =>
+  static TranslationsPagesItemDetailEn get _translations =>
       Injector.instance.translations.pages.item_detail;
 }

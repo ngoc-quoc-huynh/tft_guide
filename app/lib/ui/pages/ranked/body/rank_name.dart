@@ -42,11 +42,12 @@ class RankedRankName extends StatelessWidget {
         Tier.challenger => _tiersTranslation.challenger,
       };
 
-  TranslationsPagesRankedEn get _translations =>
+  static TranslationsPagesRankedEn get _translations =>
       Injector.instance.translations.pages.ranked;
 
-  TranslationsPagesRankedDivisionsEn get _divisionsTranslations =>
+  static TranslationsPagesRankedDivisionsEn get _divisionsTranslations =>
       _translations.divisions;
 
-  TranslationsPagesRankedTiersEn get _tiersTranslation => _translations.tiers;
+  static TranslationsPagesRankedTiersEn get _tiersTranslation =>
+      _translations.tiers;
 }

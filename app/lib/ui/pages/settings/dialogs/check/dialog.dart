@@ -62,6 +62,6 @@ class SettingsCheckDialog extends StatelessWidget {
     );
   }
 
-  TranslationsPagesSettingsCheckEn get _translations =>
+  static TranslationsPagesSettingsCheckEn get _translations =>
       Injector.instance.translations.pages.settings.check;
 }
