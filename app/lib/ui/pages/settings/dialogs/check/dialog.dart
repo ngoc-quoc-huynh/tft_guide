@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/blocs/check_data/bloc.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
-import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/check/button.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/check/data_item.dart';
+import 'package:tft_guide/ui/widgets/dialog.dart';
 
 class SettingsCheckDialog extends StatelessWidget {
   const SettingsCheckDialog._();
@@ -33,21 +33,8 @@ class SettingsCheckDialog extends StatelessWidget {
           create: (_) => CheckPatchNotesBloc(),
         ),
       ],
-      child: AlertDialog(
-        shape: _shape,
-        titlePadding: _titlePadding,
-        title: Row(
-          children: [
-            Text(_translations.name),
-            const Expanded(
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: CloseButton(),
-              ),
-            ),
-          ],
-        ),
-        contentPadding: _contentPadding,
+      child: CustomDialog(
+        title: _translations.name,
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -70,34 +57,10 @@ class SettingsCheckDialog extends StatelessWidget {
             ),
           ],
         ),
-        actionsPadding: _actionsPadding,
-        actionsAlignment: MainAxisAlignment.center,
-        actions: const [
-          SettingsCheckStartButton(),
-        ],
+        action: const SettingsCheckStartButton(),
       ),
     );
   }
-
-  // TODO: Extract
-  static const _titlePadding = EdgeInsets.only(
-    top: Sizes.verticalPadding,
-    left: Sizes.horizontalPadding,
-  );
-  static const _contentPadding = EdgeInsets.only(
-    top: Sizes.verticalPadding / 2,
-    bottom: Sizes.verticalPadding / 2,
-    right: Sizes.horizontalPadding,
-    left: Sizes.horizontalPadding,
-  );
-  static const _actionsPadding = EdgeInsets.only(
-    left: Sizes.horizontalPadding,
-    right: Sizes.horizontalPadding,
-    bottom: Sizes.verticalPadding / 2,
-  );
-  static const _shape = RoundedRectangleBorder(
-    borderRadius: BorderRadius.all(Radius.circular(20)),
-  );
 
   TranslationsPagesSettingsCheckEn get _translations =>
       Injector.instance.translations.pages.settings.check;
