@@ -9,6 +9,7 @@ import 'package:tft_guide/ui/pages/settings/card.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/check/dialog.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/design.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/language.dart';
+import 'package:tft_guide/ui/pages/settings/dialogs/repair/dialog.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/reset.dart';
 import 'package:tft_guide/ui/pages/settings/divider.dart';
 import 'package:tft_guide/ui/pages/settings/item.dart';
@@ -70,9 +71,8 @@ class SettingsPage extends StatelessWidget {
                             SettingsItem(
                               icon: Icons.build,
                               title: _translations.repair.name,
-                              onTap: () {
-                                // TODO: Add functionality
-                              },
+                              onTap: () =>
+                                  unawaited(SettingsRepairDialog.show(context)),
                             ),
                             const SettingsDivider(),
                             SettingsItem(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/blocs/check_data/bloc.dart';
 import 'package:tft_guide/injector.dart';
 
@@ -8,28 +9,38 @@ class SettingsCheckStartButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<CheckAssetsBloc, CheckDataState, bool>(
-      selector: (state) => state is CheckDataLoadInProgress,
-      builder: (context, isAssetsLoading) =>
-          BlocSelector<CheckBaseItemsBloc, CheckDataState, bool>(
-        selector: (state) => state is CheckDataLoadInProgress,
-        builder: (context, isBaseItemsLoading) =>
-            BlocSelector<CheckFullItemsBloc, CheckDataState, bool>(
-          selector: (state) => state is CheckDataLoadInProgress,
-          builder: (context, isFullItemsLoading) =>
-              BlocSelector<CheckPatchNotesBloc, CheckDataState, bool>(
-            selector: (state) => state is CheckDataLoadInProgress,
-            builder: (context, isPatchNotesLoading) => FilledButton(
+    return BlocBuilder<CheckAssetsBloc, CheckDataState>(
+      builder: (context, assetsState) =>
+          BlocBuilder<CheckBaseItemsBloc, CheckDataState>(
+        builder: (context, baseItemsState) =>
+            BlocBuilder<CheckFullItemsBloc, CheckDataState>(
+          builder: (context, fullItemsState) =>
+              BlocBuilder<CheckPatchNotesBloc, CheckDataState>(
+            builder: (context, patchNotesState) => FilledButton(
               onPressed: _onPressed(
                 context: context,
-                isAssetsLoading: isAssetsLoading,
-                isBaseItemsLoading: isBaseItemsLoading,
-                isFullItemsLoading: isFullItemsLoading,
-                isPatchNotesLoading: isPatchNotesLoading,
+                assetsState: assetsState,
+                baseItemsState: baseItemsState,
+                fullItemsState: fullItemsState,
+                patchNotesState: patchNotesState,
               ),
-              child: Text(
-                Injector.instance.translations.pages.settings.check.button,
-              ),
+              child: switch ((
+                assetsState,
+                baseItemsState,
+                fullItemsState,
+                patchNotesState
+              )) {
+                (
+                  CheckDataLoadOnSuccess(),
+                  CheckDataLoadOnSuccess(),
+                  CheckDataLoadOnSuccess(),
+                  CheckDataLoadOnSuccess(),
+                ) =>
+                  const Icon(Icons.check),
+                (_, _, _, _) => Text(
+                    Injector.instance.translations.pages.settings.check.button,
+                  ),
+              },
             ),
           ),
         ),
@@ -39,23 +50,36 @@ class SettingsCheckStartButton extends StatelessWidget {
 
   VoidCallback? _onPressed({
     required BuildContext context,
-    required bool isAssetsLoading,
-    required bool isBaseItemsLoading,
-    required bool isFullItemsLoading,
-    required bool isPatchNotesLoading,
+    required CheckDataState assetsState,
+    required CheckDataState baseItemsState,
+    required CheckDataState fullItemsState,
+    required CheckDataState patchNotesState,
   }) {
     return switch ((
-      isAssetsLoading,
-      isBaseItemsLoading,
-      isFullItemsLoading,
-      isPatchNotesLoading
+      assetsState,
+      baseItemsState,
+      fullItemsState,
+      patchNotesState
     )) {
-      (false, false, false, false) => () => context
-        ..read<CheckAssetsBloc>().add(const CheckDataStartEvent())
-        ..read<CheckBaseItemsBloc>().add(const CheckDataStartEvent())
-        ..read<CheckFullItemsBloc>().add(const CheckDataStartEvent())
-        ..read<CheckPatchNotesBloc>().add(const CheckDataStartEvent()),
-      (_, _, _, _) => null,
+      (
+        CheckDataInitial(),
+        CheckDataInitial(),
+        CheckDataInitial(),
+        CheckDataInitial()
+      ) =>
+        () => context
+          ..read<CheckAssetsBloc>().add(const CheckDataStartEvent())
+          ..read<CheckBaseItemsBloc>().add(const CheckDataStartEvent())
+          ..read<CheckFullItemsBloc>().add(const CheckDataStartEvent())
+          ..read<CheckPatchNotesBloc>().add(const CheckDataStartEvent()),
+      (
+        CheckDataLoadOnSuccess(),
+        CheckDataLoadOnSuccess(),
+        CheckDataLoadOnSuccess(),
+        CheckDataLoadOnSuccess(),
+      ) =>
+        () => context.pop(),
+      (_, _, _, _) => null
     };
   }
 }

@@ -112,6 +112,8 @@ pages:
       patchNotes: 'Patch notes'
     repair:
       name: 'Repair'
+      description: 'We will download all essential data, such as assets, base- and full items, and patch notes again.'
+      button: 'Start Repair'
     reset:
       name: 'Reset'
       title: 'Reset progress'

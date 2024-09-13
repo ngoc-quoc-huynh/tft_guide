@@ -112,6 +112,8 @@ pages:
       patchNotes: 'Patch Notizen'
     repair:
       name: 'Reparieren'
+      description: 'Wir werden alle Daten wie Assets, Grund- und Vollgegenstände sowie Patch Notes erneut herunterladen.'
+      button: 'Starte Reperatur'
     reset:
       name: 'Zurücksetzen'
       title: 'Fortschritt zurücksetzen'
