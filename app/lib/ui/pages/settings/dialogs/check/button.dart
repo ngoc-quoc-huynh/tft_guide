@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/domain/blocs/check_assets/bloc.dart';
-import 'package:tft_guide/domain/blocs/check_database/bloc.dart';
+import 'package:tft_guide/domain/blocs/check_data/bloc.dart';
 import 'package:tft_guide/injector.dart';
 
 class SettingsCheckStartButton extends StatelessWidget {
@@ -9,17 +8,17 @@ class SettingsCheckStartButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<CheckAssetsBloc, CheckAssetsState, bool>(
-      selector: (state) => state is CheckAssetsLoadInProgress,
+    return BlocSelector<CheckAssetsBloc, CheckDataState, bool>(
+      selector: (state) => state is CheckDataLoadInProgress,
       builder: (context, isAssetsLoading) =>
-          BlocSelector<CheckBaseItemsBloc, CheckDatabaseState, bool>(
-        selector: (state) => state is CheckDatabaseLoadInProgress,
+          BlocSelector<CheckBaseItemsBloc, CheckDataState, bool>(
+        selector: (state) => state is CheckDataLoadInProgress,
         builder: (context, isBaseItemsLoading) =>
-            BlocSelector<CheckFullItemsBloc, CheckDatabaseState, bool>(
-          selector: (state) => state is CheckDatabaseLoadInProgress,
+            BlocSelector<CheckFullItemsBloc, CheckDataState, bool>(
+          selector: (state) => state is CheckDataLoadInProgress,
           builder: (context, isFullItemsLoading) =>
-              BlocSelector<CheckPatchNotesBloc, CheckDatabaseState, bool>(
-            selector: (state) => state is CheckDatabaseLoadInProgress,
+              BlocSelector<CheckPatchNotesBloc, CheckDataState, bool>(
+            selector: (state) => state is CheckDataLoadInProgress,
             builder: (context, isPatchNotesLoading) => FilledButton(
               onPressed: _onPressed(
                 context: context,
@@ -52,10 +51,10 @@ class SettingsCheckStartButton extends StatelessWidget {
       isPatchNotesLoading
     )) {
       (false, false, false, false) => () => context
-        ..read<CheckAssetsBloc>().add(const CheckAssetsStartEvent())
-        ..read<CheckBaseItemsBloc>().add(const CheckDatabaseStartEvent())
-        ..read<CheckFullItemsBloc>().add(const CheckDatabaseStartEvent())
-        ..read<CheckPatchNotesBloc>().add(const CheckDatabaseStartEvent()),
+        ..read<CheckAssetsBloc>().add(const CheckDataStartEvent())
+        ..read<CheckBaseItemsBloc>().add(const CheckDataStartEvent())
+        ..read<CheckFullItemsBloc>().add(const CheckDataStartEvent())
+        ..read<CheckPatchNotesBloc>().add(const CheckDataStartEvent()),
       (_, _, _, _) => null,
     };
   }

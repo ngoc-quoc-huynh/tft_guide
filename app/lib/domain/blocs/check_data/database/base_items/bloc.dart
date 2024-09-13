@@ -1,4 +1,4 @@
-part of '../bloc.dart';
+part of '../../bloc.dart';
 
 final class CheckBaseItemsBloc extends CheckDatabaseBloc {
   CheckBaseItemsBloc()
