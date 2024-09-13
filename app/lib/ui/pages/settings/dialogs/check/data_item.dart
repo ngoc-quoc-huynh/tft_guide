@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/domain/blocs/check_database/bloc.dart';
+import 'package:tft_guide/domain/blocs/check_data/bloc.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/check/icon.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/check/item.dart';
 
-class SettingsCheckDatabaseItem<Bloc extends CheckDatabaseBloc>
+class SettingsCheckDataItem<Bloc extends CheckDataBloc>
     extends StatelessWidget {
-  const SettingsCheckDatabaseItem({
+  const SettingsCheckDataItem({
     required this.text,
     super.key,
   });
@@ -16,13 +16,13 @@ class SettingsCheckDatabaseItem<Bloc extends CheckDatabaseBloc>
   @override
   Widget build(BuildContext context) {
     return SettingsCheckItem(
-      icon: BlocBuilder<Bloc, CheckDatabaseState>(
+      icon: BlocBuilder<Bloc, CheckDataState>(
         builder: (context, state) => switch (state) {
-          CheckDatabaseInitial() => const SettingsCheckIcon.initial(),
-          CheckDatabaseLoadInProgress() => const SettingsCheckIcon.loading(),
-          CheckDatabaseLoadOnSuccess(:final success) when success =>
+          CheckDataInitial() => const SettingsCheckIcon.initial(),
+          CheckDataLoadInProgress() => const SettingsCheckIcon.loading(),
+          CheckDataLoadOnSuccess(:final success) when success =>
             const SettingsCheckIcon.success(),
-          CheckDatabaseLoadOnSuccess() => const SettingsCheckIcon.error(),
+          CheckDataLoadOnSuccess() => const SettingsCheckIcon.error(),
         },
       ),
       text: text,

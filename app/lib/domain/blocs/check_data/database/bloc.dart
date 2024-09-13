@@ -1,24 +1,19 @@
-import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/injector.dart';
+part of '../bloc.dart';
 
-part 'base_items/bloc.dart';
-part 'event.dart';
-part 'full_items/bloc.dart';
-part 'patch_notes/bloc.dart';
-part 'state.dart';
-
-sealed class CheckDatabaseBloc
-    extends Bloc<CheckBaseItemsEvent, CheckDatabaseState> {
+sealed class CheckDatabaseBloc extends CheckDataBloc {
   CheckDatabaseBloc({
     required this.loadLocalDataCount,
     required this.loadRemoteDataCount,
     required this.loadLocalTranslationCount,
     required this.loadRemoteTranslationCount,
-  }) : super(const CheckDatabaseInitial()) {
-    on<CheckDatabaseStartEvent>(_onCheckDatabaseStartEvent);
-  }
+  }) : super(
+          () => _compareDataCounts(
+            loadLocalDataCount,
+            loadRemoteDataCount,
+            loadLocalTranslationCount,
+            loadRemoteTranslationCount,
+          ),
+        );
 
   final Future<int> Function() loadLocalDataCount;
   final Future<int> Function() loadRemoteDataCount;
@@ -30,13 +25,14 @@ sealed class CheckDatabaseBloc
   @protected
   static final remoteDatabaseApi = Injector.instance.remoteDatabaseApi;
 
-  Future<void> _onCheckDatabaseStartEvent(
-    CheckDatabaseStartEvent event,
-    Emitter<CheckDatabaseState> emit,
+  static Future<bool> _compareDataCounts(
+    Future<int> Function() loadLocalDataCount,
+    Future<int> Function() loadRemoteDataCount,
+    Future<int> Function() loadLocalTranslationCount,
+    Future<int> Function() loadRemoteTranslationCount,
   ) async {
-    emit(const CheckDatabaseLoadInProgress());
     final (
-      localDataCountCount,
+      localDataCount,
       remoteDataCount,
       localTranslationCount,
       remoteTranslationCount,
@@ -46,8 +42,7 @@ sealed class CheckDatabaseBloc
       loadLocalTranslationCount(),
       loadRemoteTranslationCount(),
     ).wait;
-    final success = localDataCountCount == remoteDataCount &&
+    return localDataCount == remoteDataCount &&
         localTranslationCount == remoteTranslationCount;
-    emit(CheckDatabaseLoadOnSuccess(success: success));
   }
 }

@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/domain/blocs/check_assets/bloc.dart';
-import 'package:tft_guide/domain/blocs/check_database/bloc.dart';
+import 'package:tft_guide/domain/blocs/check_data/bloc.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/check/button.dart';
-import 'package:tft_guide/ui/pages/settings/dialogs/check/database_item.dart';
-import 'package:tft_guide/ui/pages/settings/dialogs/check/icon.dart';
-import 'package:tft_guide/ui/pages/settings/dialogs/check/item.dart';
+import 'package:tft_guide/ui/pages/settings/dialogs/check/data_item.dart';
 
 class SettingsCheckDialog extends StatelessWidget {
   const SettingsCheckDialog._();
@@ -56,29 +53,19 @@ class SettingsCheckDialog extends StatelessWidget {
           children: [
             Text(_translations.description),
             const SizedBox(height: 10),
-            SettingsCheckItem(
-              icon: BlocBuilder<CheckAssetsBloc, CheckAssetsState>(
-                builder: (context, state) => switch (state) {
-                  CheckAssetsInitial() => const SettingsCheckIcon.initial(),
-                  CheckAssetsLoadInProgress() =>
-                    const SettingsCheckIcon.loading(),
-                  CheckAssetsLoadOnSuccess(:final success) when success =>
-                    const SettingsCheckIcon.success(),
-                  CheckAssetsLoadOnSuccess() => const SettingsCheckIcon.error(),
-                },
-              ),
+            SettingsCheckDataItem<CheckAssetsBloc>(
               text: _translations.assets,
             ),
             const SizedBox(height: 5),
-            SettingsCheckDatabaseItem<CheckBaseItemsBloc>(
+            SettingsCheckDataItem<CheckBaseItemsBloc>(
               text: _translations.baseItems,
             ),
             const SizedBox(height: 5),
-            SettingsCheckDatabaseItem<CheckFullItemsBloc>(
+            SettingsCheckDataItem<CheckFullItemsBloc>(
               text: _translations.fullItems,
             ),
             const SizedBox(height: 5),
-            SettingsCheckDatabaseItem<CheckPatchNotesBloc>(
+            SettingsCheckDataItem<CheckPatchNotesBloc>(
               text: _translations.patchNotes,
             ),
           ],
