@@ -56,5 +56,6 @@ class ScaffoldWithNavBar extends StatelessWidget {
     );
   }
 
-  TranslationsPagesEn get _translations => Injector.instance.translations.pages;
+  static TranslationsPagesEn get _translations =>
+      Injector.instance.translations.pages;
 }

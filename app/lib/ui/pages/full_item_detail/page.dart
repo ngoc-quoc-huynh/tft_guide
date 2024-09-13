@@ -164,6 +164,6 @@ class _Body extends StatelessWidget {
             ItemDetailUpdateLanguageCodeEvent(languageCode),
           );
 
-  TranslationsPagesItemDetailEn get _translations =>
+  static TranslationsPagesItemDetailEn get _translations =>
       Injector.instance.translations.pages.item_detail;
 }

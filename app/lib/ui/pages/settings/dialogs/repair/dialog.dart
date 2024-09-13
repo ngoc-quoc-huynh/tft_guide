@@ -38,6 +38,6 @@ class SettingsRepairDialog extends StatelessWidget {
     );
   }
 
-  TranslationsPagesSettingsRepairEn get _translations =>
+  static TranslationsPagesSettingsRepairEn get _translations =>
       Injector.instance.translations.pages.settings.repair;
 }
