@@ -420,7 +420,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     required String methodName,
     required Object e,
     required StackTrace stackTrace,
-    Map<String, dynamic>? parameters,
+    Map<String, String?>? parameters,
   }) {
     final (loggerException, throwException) = switch (e) {
       ArgumentError(message: final String message)
