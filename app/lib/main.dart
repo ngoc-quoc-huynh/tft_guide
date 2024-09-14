@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:tft_guide/domain/blocs/data_sync/bloc.dart';
 import 'package:tft_guide/domain/blocs/theme_mode/cubit.dart';
 import 'package:tft_guide/domain/blocs/translation_locale/cubit.dart';
 import 'package:tft_guide/domain/models/translation_locale.dart';
-import 'package:tft_guide/infrastructure/repositories/hydrated_storage.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/theme.dart';
@@ -17,7 +15,7 @@ import 'package:tft_guide/ui/widgets/language/provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Injector.setupDependencies();
-  HydratedBloc.storage = const SharedPrefsHydratedStorage();
+
   runApp(const TftApp());
 }
 
