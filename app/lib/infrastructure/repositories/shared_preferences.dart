@@ -16,5 +16,14 @@ final class SharedPreferencesRepository implements LocalStorageApi {
         date.toUtc().toIso8601String(),
       );
 
+  @override
+  int get readPatchNotesCount =>
+      _sharedPrefs.getInt(_readPatchNotesCountKey) ?? 0;
+
+  @override
+  Future<void> updateReadPatchNotesCount(int count) =>
+      _sharedPrefs.setInt(_readPatchNotesCountKey, count);
+
   static const _lastAppUpdateKey = 'last_app_update';
+  static const _readPatchNotesCountKey = 'read_patch_notes_count';
 }
