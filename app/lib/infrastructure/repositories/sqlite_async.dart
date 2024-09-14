@@ -10,13 +10,14 @@ import 'package:tft_guide/domain/models/item_detail.dart' as domain;
 import 'package:tft_guide/domain/models/item_meta.dart' as domain;
 import 'package:tft_guide/domain/models/patch_note.dart' as domain;
 import 'package:tft_guide/domain/models/question/item_option.dart' as domain;
+import 'package:tft_guide/domain/utils/mixins/logger.dart';
 import 'package:tft_guide/infrastructure/dtos/sqlite_async/item_detail.dart';
 import 'package:tft_guide/infrastructure/dtos/sqlite_async/item_meta.dart';
 import 'package:tft_guide/infrastructure/dtos/sqlite_async/patch_note.dart';
 import 'package:tft_guide/infrastructure/dtos/sqlite_async/question_item_option.dart';
 import 'package:tft_guide/injector.dart';
 
-final class SQLiteAsyncRepository implements LocalDatabaseApi {
+final class SQLiteAsyncRepository with LoggerMixin implements LocalDatabaseApi {
   SQLiteAsyncRepository();
 
   final _db = SqliteDatabase(
@@ -29,35 +30,94 @@ final class SQLiteAsyncRepository implements LocalDatabaseApi {
       ..createDatabase = _createDatabaseMigration
       ..add(_createDatabaseMigration);
     await migrations.migrate(_db);
+    logInfo(
+      'SQLiteAsyncRepository.initialize',
+      'Initialized SQLite.',
+      stackTrace: StackTrace.current,
+    );
   }
 
   @override
-  Future<DateTime?> loadLatestBaseItemUpdatedAt() =>
-      _loadLatestUpdatedAt(_tableNameBaseItem);
+  Future<DateTime?> loadLatestBaseItemUpdatedAt() async {
+    final updatedAt = await _loadLatestUpdatedAt(_tableNameBaseItem);
+    logInfo(
+      'SQLiteAsyncRepository.loadLatestBaseItemUpdatedAt',
+      'Retrieved latest base item updated at: ${updatedAt?.toIso8601String()}.',
+      stackTrace: StackTrace.current,
+    );
+
+    return updatedAt;
+  }
 
   @override
-  Future<DateTime?> loadLatestFullItemUpdatedAt() =>
-      _loadLatestUpdatedAt(_tableNameFullItem);
+  Future<DateTime?> loadLatestFullItemUpdatedAt() async {
+    final updatedAt = await _loadLatestUpdatedAt(_tableNameFullItem);
+    logInfo(
+      'SQLiteAsyncRepository.loadLatestFullItemUpdatedAt',
+      'Retrieved latest full item updated at: ${updatedAt?.toIso8601String()}.',
+      stackTrace: StackTrace.current,
+    );
+
+    return updatedAt;
+  }
 
   @override
-  Future<DateTime?> loadLatestPatchNoteUpdatedAt() =>
-      _loadLatestUpdatedAt(_tableNamePatchNote);
+  Future<DateTime?> loadLatestPatchNoteUpdatedAt() async {
+    final updatedAt = await _loadLatestUpdatedAt(_tableNamePatchNote);
+    logInfo(
+      'SQLiteAsyncRepository.loadLatestPatchNoteUpdatedAt',
+      'Retrieved latest patch note updated at: '
+          '${updatedAt?.toIso8601String()}.',
+      stackTrace: StackTrace.current,
+    );
+
+    return updatedAt;
+  }
 
   @override
-  Future<DateTime?> loadLatestBaseItemTranslationUpdatedAt() =>
-      _loadLatestUpdatedAt(_tableNameBaseItemTranslation);
+  Future<DateTime?> loadLatestBaseItemTranslationUpdatedAt() async {
+    final updatedAt = await _loadLatestUpdatedAt(_tableNamePatchNote);
+    logInfo(
+      'SQLiteAsyncRepository.loadLatestBaseItemTranslationUpdatedAt',
+      'Retrieved latest base item translation updated at: '
+          '${updatedAt?.toIso8601String()}.',
+      stackTrace: StackTrace.current,
+    );
+
+    return updatedAt;
+  }
 
   @override
-  Future<DateTime?> loadLatestFullItemTranslationUpdatedAt() =>
-      _loadLatestUpdatedAt(_tableNameFullItemTranslation);
+  Future<DateTime?> loadLatestFullItemTranslationUpdatedAt() async {
+    final updatedAt = await _loadLatestUpdatedAt(_tableNameFullItemTranslation);
+    logInfo(
+      'SQLiteAsyncRepository.loadLatestFullItemTranslationUpdatedAt',
+      'Retrieved latest full item translation updated at: '
+          '${updatedAt?.toIso8601String()}.',
+      stackTrace: StackTrace.current,
+    );
+
+    return updatedAt;
+  }
 
   @override
-  Future<DateTime?> loadLatestPatchNoteTranslationUpdatedAt() =>
-      _loadLatestUpdatedAt(_tableNamePatchNoteTranslation);
+  Future<DateTime?> loadLatestPatchNoteTranslationUpdatedAt() async {
+    final updatedAt =
+        await _loadLatestUpdatedAt(_tableNamePatchNoteTranslation);
+    logInfo(
+      'SQLiteAsyncRepository.loadLatestPatchNoteTranslationUpdatedAt',
+      'Retrieved latest patch note translation updated at: '
+          '${updatedAt?.toIso8601String()}.',
+      stackTrace: StackTrace.current,
+    );
+
+    return updatedAt;
+  }
 
   @override
-  Future<void> storeBaseItems(List<BaseItemEntity> items) => _db.executeBatch(
-        '''
+  Future<void> storeBaseItems(List<BaseItemEntity> items) async {
+    await _db.executeBatch(
+      '''
 INSERT INTO $_tableNameBaseItem (
     id,
     ability_power,
@@ -84,28 +144,36 @@ DO UPDATE SET
     mana = excluded.mana,
     updated_at = excluded.updated_at;
 ''',
-        items
-            .map(
-              (item) => [
-                item.id,
-                item.abilityPower,
-                item.armor,
-                item.attackDamage,
-                item.attackSpeed,
-                item.crit,
-                item.health,
-                item.magicResist,
-                item.mana,
-                item.createdAt.toIso8601String(),
-                item.updatedAt.toIso8601String(),
-              ],
-            )
-            .toList(),
-      );
+      items
+          .map(
+            (item) => [
+              item.id,
+              item.abilityPower,
+              item.armor,
+              item.attackDamage,
+              item.attackSpeed,
+              item.crit,
+              item.health,
+              item.magicResist,
+              item.mana,
+              item.createdAt.toIso8601String(),
+              item.updatedAt.toIso8601String(),
+            ],
+          )
+          .toList(),
+    );
+    logInfo(
+      'SQLiteAsyncRepository.storeBaseItems',
+      'Stored ${items.length} base items.',
+      stackTrace: StackTrace.current,
+      parameters: {'items': items.map((item) => item.id).join(',')},
+    );
+  }
 
   @override
-  Future<void> storeFullItems(List<FullItemEntity> items) => _db.executeBatch(
-        '''
+  Future<void> storeFullItems(List<FullItemEntity> items) async {
+    await _db.executeBatch(
+      '''
 INSERT INTO $_tableNameFullItem (
     id,
     is_active,
@@ -137,33 +205,40 @@ DO UPDATE SET
     mana = excluded.mana,
     updated_at = excluded.updated_at;
 ''',
-        items
-            .map(
-              (item) => [
-                item.id,
-                item.isActive,
-                item.isSpecial,
-                item.itemId1,
-                item.itemId2,
-                item.abilityPower,
-                item.armor,
-                item.attackDamage,
-                item.attackSpeed,
-                item.crit,
-                item.health,
-                item.magicResist,
-                item.mana,
-                item.createdAt.toIso8601String(),
-                item.updatedAt.toIso8601String(),
-              ],
-            )
-            .toList(),
-      );
+      items
+          .map(
+            (item) => [
+              item.id,
+              item.isActive,
+              item.isSpecial,
+              item.itemId1,
+              item.itemId2,
+              item.abilityPower,
+              item.armor,
+              item.attackDamage,
+              item.attackSpeed,
+              item.crit,
+              item.health,
+              item.magicResist,
+              item.mana,
+              item.createdAt.toIso8601String(),
+              item.updatedAt.toIso8601String(),
+            ],
+          )
+          .toList(),
+    );
+    logInfo(
+      'SQLiteAsyncRepository.storeFullItems',
+      'Stored ${items.length} full items.',
+      stackTrace: StackTrace.current,
+      parameters: {'items': items.map((item) => item.id).join(',')},
+    );
+  }
 
   @override
-  Future<void> storePatchNotes(List<PatchNoteEntity> patchNotes) =>
-      _db.executeBatch(
-        '''
+  Future<void> storePatchNotes(List<PatchNoteEntity> patchNotes) async {
+    await _db.executeBatch(
+      '''
 INSERT INTO $_tableNamePatchNote (
     id,
     created_at,
@@ -174,23 +249,32 @@ ON CONFLICT (id)
 DO UPDATE SET
     updated_at = excluded.updated_at;
 ''',
-        patchNotes
-            .map(
-              (item) => [
-                item.id,
-                item.createdAt.toIso8601String(),
-                item.updatedAt.toIso8601String(),
-              ],
-            )
-            .toList(),
-      );
+      patchNotes
+          .map(
+            (item) => [
+              item.id,
+              item.createdAt.toIso8601String(),
+              item.updatedAt.toIso8601String(),
+            ],
+          )
+          .toList(),
+    );
+    logInfo(
+      'SQLiteAsyncRepository.storePatchNotes',
+      'Stored ${patchNotes.length} patch notes.',
+      stackTrace: StackTrace.current,
+      parameters: {
+        'patchNotes': patchNotes.map((patchNote) => patchNote.id).join(','),
+      },
+    );
+  }
 
   @override
   Future<void> storeBaseItemTranslations(
     List<BaseItemTranslationEntity> translations,
-  ) =>
-      _db.executeBatch(
-        '''
+  ) async {
+    await _db.executeBatch(
+      '''
 INSERT INTO $_tableNameBaseItemTranslation (
     id,
     item_id,
@@ -209,28 +293,38 @@ DO UPDATE SET
     hint = excluded.hint,
     updated_at = excluded.updated_at;
 ''',
-        translations
-            .map(
-              (item) => [
-                item.id,
-                item.itemId,
-                item.languageCode.name,
-                item.name,
-                item.description,
-                item.hint,
-                item.createdAt.toIso8601String(),
-                item.updatedAt.toIso8601String(),
-              ],
-            )
-            .toList(),
-      );
+      translations
+          .map(
+            (item) => [
+              item.id,
+              item.itemId,
+              item.languageCode.name,
+              item.name,
+              item.description,
+              item.hint,
+              item.createdAt.toIso8601String(),
+              item.updatedAt.toIso8601String(),
+            ],
+          )
+          .toList(),
+    );
+    logInfo(
+      'SQLiteAsyncRepository.storeBaseItemTranslations',
+      'Stored ${translations.length} base item translations.',
+      stackTrace: StackTrace.current,
+      parameters: {
+        'translations':
+            translations.map((translation) => translation.id).join(','),
+      },
+    );
+  }
 
   @override
   Future<void> storeFullItemTranslations(
     List<FullItemTranslationEntity> translations,
-  ) =>
-      _db.executeBatch(
-        '''
+  ) async {
+    await _db.executeBatch(
+      '''
 INSERT INTO $_tableNameFullItemTranslation (
     id,
     item_id,
@@ -249,28 +343,38 @@ DO UPDATE SET
     hint = excluded.hint,
     updated_at = excluded.updated_at;
 ''',
-        translations
-            .map(
-              (item) => [
-                item.id,
-                item.itemId,
-                item.languageCode.name,
-                item.name,
-                item.description,
-                item.hint,
-                item.createdAt.toIso8601String(),
-                item.updatedAt.toIso8601String(),
-              ],
-            )
-            .toList(),
-      );
+      translations
+          .map(
+            (item) => [
+              item.id,
+              item.itemId,
+              item.languageCode.name,
+              item.name,
+              item.description,
+              item.hint,
+              item.createdAt.toIso8601String(),
+              item.updatedAt.toIso8601String(),
+            ],
+          )
+          .toList(),
+    );
+    logInfo(
+      'SQLiteAsyncRepository.storeFullItemTranslations',
+      'Stored ${translations.length} full item translations.',
+      stackTrace: StackTrace.current,
+      parameters: {
+        'translations':
+            translations.map((translation) => translation.id).join(','),
+      },
+    );
+  }
 
   @override
   Future<void> storePatchNoteTranslations(
     List<PatchNoteTranslationTranslationEntity> translations,
-  ) =>
-      _db.executeBatch(
-        '''
+  ) async {
+    await _db.executeBatch(
+      '''
 INSERT INTO $_tableNamePatchNoteTranslation (
     id,
     patch_note_id,
@@ -285,19 +389,29 @@ DO UPDATE SET
     text = excluded.text,
     updated_at = excluded.updated_at;
 ''',
-        translations
-            .map(
-              (item) => [
-                item.id,
-                item.patchNoteId,
-                item.languageCode.name,
-                item.text,
-                item.createdAt.toIso8601String(),
-                item.updatedAt.toIso8601String(),
-              ],
-            )
-            .toList(),
-      );
+      translations
+          .map(
+            (item) => [
+              item.id,
+              item.patchNoteId,
+              item.languageCode.name,
+              item.text,
+              item.createdAt.toIso8601String(),
+              item.updatedAt.toIso8601String(),
+            ],
+          )
+          .toList(),
+    );
+    logInfo(
+      'SQLiteAsyncRepository.storePatchNoteTranslations',
+      'Stored ${translations.length} patch note translations.',
+      stackTrace: StackTrace.current,
+      parameters: {
+        'translations':
+            translations.map((translation) => translation.id).join(','),
+      },
+    );
+  }
 
   @override
   Future<domain.BaseItemDetail> loadBaseItemDetail(
@@ -326,7 +440,18 @@ WHERE b.id = ?;
 ''',
       [languageCode.name, id],
     );
-    return BaseItemDetail.fromJson(json).toDomain();
+    final item = BaseItemDetail.fromJson(json).toDomain();
+    logInfo(
+      'SQLiteAsyncRepository.loadBaseItemDetail',
+      'Loaded base item detail.',
+      stackTrace: StackTrace.current,
+      parameters: {
+        'id': id,
+        'languageCode': languageCode.toString(),
+      },
+    );
+
+    return item;
   }
 
   @override
@@ -358,7 +483,18 @@ WHERE f.id = ?;
 ''',
       [languageCode.name, id],
     );
-    return FullItemDetail.fromJson(json).toDomain();
+    final item = FullItemDetail.fromJson(json).toDomain();
+    logInfo(
+      'SQLiteAsyncRepository.loadFullItemDetail',
+      'Loaded full item detail.',
+      stackTrace: StackTrace.current,
+      parameters: {
+        'id': id,
+        'languageCode': languageCode.toString(),
+      },
+    );
+
+    return item;
   }
 
   @override
@@ -386,9 +522,16 @@ ORDER BY t.name ASC;
 ''',
       [languageCode.name],
     );
-    return result
-        .map((json) => BaseItemMeta.fromJson(json).toDomain())
-        .toList();
+    final items =
+        result.map((json) => BaseItemMeta.fromJson(json).toDomain()).toList();
+    logInfo(
+      'SQLiteAsyncRepository.loadBaseItemMetas',
+      'Loaded ${items.length} base item metas.',
+      stackTrace: StackTrace.current,
+      parameters: {'languageCode': languageCode.toString()},
+    );
+
+    return items;
   }
 
   @override
@@ -408,9 +551,16 @@ ORDER BY t.name ASC;
 ''',
       [languageCode.name],
     );
-    return result
-        .map((json) => FullItemMeta.fromJson(json).toDomain())
-        .toList();
+    final items =
+        result.map((json) => FullItemMeta.fromJson(json).toDomain()).toList();
+    logInfo(
+      'SQLiteAsyncRepository.loadFullItemMetas',
+      'Loaded ${items.length} full item metas.',
+      stackTrace: StackTrace.current,
+      parameters: {'languageCode': languageCode.toString()},
+    );
+
+    return items;
   }
 
   @override
@@ -430,9 +580,21 @@ LIMIT ?;
 ''',
       [languageCode.name, amount],
     );
-    return result
+    final options = result
         .map((json) => QuestionBaseItemOption.fromJson(json).toDomain())
         .toList();
+    logInfo(
+      'SQLiteAsyncRepository.loadRandomQuestionBaseItemOptions',
+      'Loaded random question base item options: '
+          '${options.map((option) => option.id)}.',
+      stackTrace: StackTrace.current,
+      parameters: {
+        'amount': amount.toString(),
+        'languageCode': languageCode.toString(),
+      },
+    );
+
+    return options;
   }
 
   @override
@@ -453,9 +615,21 @@ LIMIT ?;
 ''',
       [languageCode.name, amount],
     );
-    return result
+    final options = result
         .map((json) => QuestionFullItemOption.fromJson(json).toDomain())
         .toList();
+    logInfo(
+      'SQLiteAsyncRepository.loadRandomQuestionFullItemOptions',
+      'Loaded random question full item options: '
+          '${options.map((option) => option.id)}.',
+      stackTrace: StackTrace.current,
+      parameters: {
+        'amount': amount.toString(),
+        'languageCode': languageCode.toString(),
+      },
+    );
+
+    return options;
   }
 
   @override
@@ -484,9 +658,22 @@ WHERE b.id IN (SELECT id FROM random_item);
 ''',
       [id, amount, languageCode.name],
     );
-    return result
+    final options = result
         .map((json) => QuestionBaseItemOption.fromJson(json).toDomain())
         .toList();
+    logInfo(
+      'SQLiteAsyncRepository.loadOtherRandomQuestionBaseItemOptions',
+      'Loaded other random question base item options: '
+          '${options.map((option) => option.id)}.',
+      stackTrace: StackTrace.current,
+      parameters: {
+        'id': id,
+        'amount': amount.toString(),
+        'languageCode': languageCode.toString(),
+      },
+    );
+
+    return options;
   }
 
   @override
@@ -546,9 +733,22 @@ LIMIT ?;
 ''',
       [id, id, languageCode.name, id, amount],
     );
-    return result
+    final options = result
         .map((json) => QuestionFullItemOption.fromJson(json).toDomain())
         .toList();
+    logInfo(
+      'SQLiteAsyncRepository.loadOtherRandomQuestionFullItemOptions',
+      'Loaded other random question full item options: '
+          '${options.map((option) => option.id)}.',
+      stackTrace: StackTrace.current,
+      parameters: {
+        'id': id,
+        'amount': amount.toString(),
+        'languageCode': languageCode.toString(),
+      },
+    );
+
+    return options;
   }
 
   @override
@@ -582,36 +782,110 @@ LIMIT ?;
         pageSize,
       ],
     );
-    return PaginatedPatchNotes.fromJson(
+    final paginatedPatchNotes = PaginatedPatchNotes.fromJson(
       pageSize: pageSize,
       count: count,
       patchNotesJson: patchNotesResult,
     ).toDomain();
+
+    logInfo(
+      'SQLiteAsyncRepository.loadPatchNotes',
+      'Loaded patch notes. '
+          '${paginatedPatchNotes.patchNotes.map(
+        (patchNote) => patchNote.createdAt,
+      )}.',
+      stackTrace: StackTrace.current,
+      parameters: {
+        'currentPage': currentPage.toString(),
+        'pageSize': pageSize.toString(),
+        'languageCode': languageCode.toString(),
+      },
+    );
+
+    return paginatedPatchNotes;
   }
 
   @override
-  Future<int> loadBaseItemsCount() => _loadCount(_tableNameBaseItem);
+  Future<int> loadBaseItemsCount() async {
+    final count = await _loadCount(_tableNameBaseItem);
+    logInfo(
+      'SQLiteAsyncRepository.loadBaseItemsCount',
+      'Loaded base items count: $count.',
+      stackTrace: StackTrace.current,
+    );
+
+    return count;
+  }
 
   @override
-  Future<int> loadFullItemsCount() => _loadCount(_tableNameFullItem);
+  Future<int> loadFullItemsCount() async {
+    final count = await _loadCount(_tableNameFullItem);
+    logInfo(
+      'SQLiteAsyncRepository.loadFullItemsCount',
+      'Loaded full items count: $count.',
+      stackTrace: StackTrace.current,
+    );
+
+    return count;
+  }
 
   @override
-  Future<int> loadPatchNotesCount() => _loadCount(_tableNamePatchNote);
+  Future<int> loadPatchNotesCount() async {
+    final count = await _loadCount(_tableNamePatchNote);
+    logInfo(
+      'SQLiteAsyncRepository.loadPatchNotesCount',
+      'Loaded patch notes count: $count.',
+      stackTrace: StackTrace.current,
+    );
+
+    return count;
+  }
 
   @override
-  Future<int> loadBaseItemTranslationsCount() =>
-      _loadCount(_tableNameBaseItemTranslation);
+  Future<int> loadBaseItemTranslationsCount() async {
+    final count = await _loadCount(_tableNameBaseItemTranslation);
+    logInfo(
+      'SQLiteAsyncRepository.loadBaseItemTranslationsCount',
+      'Loaded base item translations count: $count.',
+      stackTrace: StackTrace.current,
+    );
+
+    return count;
+  }
 
   @override
-  Future<int> loadFullItemTranslationsCount() =>
-      _loadCount(_tableNameFullItemTranslation);
+  Future<int> loadFullItemTranslationsCount() async {
+    final count = await _loadCount(_tableNameFullItemTranslation);
+    logInfo(
+      'SQLiteAsyncRepository.loadFullItemTranslationsCount',
+      'Loaded full item translations count: $count.',
+      stackTrace: StackTrace.current,
+    );
+
+    return count;
+  }
 
   @override
-  Future<int> loadPatchNoteTranslationsCount() =>
-      _loadCount(_tableNamePatchNoteTranslation);
+  Future<int> loadPatchNoteTranslationsCount() async {
+    final count = await _loadCount(_tableNamePatchNoteTranslation);
+    logInfo(
+      'SQLiteAsyncRepository.loadPatchNoteTranslationsCount',
+      'Loaded patch note translations count: $count.',
+      stackTrace: StackTrace.current,
+    );
+
+    return count;
+  }
 
   @override
-  Future<void> close() => _db.close();
+  Future<void> close() async {
+    await _db.close();
+    logInfo(
+      'SQLiteAsyncRepository.close',
+      'Closed repository.',
+      stackTrace: StackTrace.current,
+    );
+  }
 
   Future<DateTime?> _loadLatestUpdatedAt(String table) async {
     final result = await _db.get('SELECT MAX(updated_at) FROM $table');
