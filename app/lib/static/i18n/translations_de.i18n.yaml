@@ -106,7 +106,7 @@ pages:
       feedback: 'Sprache wurde erfolgreich aktualisiert.'
     check:
       name: 'App Prüfung'
-      description: 'Wir prüfen, ob alle wichtigen Daten wie Assets, Grund- und Vollgegenstände sowie Patch Notes fehlerfrei heruntergeladen wurden.'
+      description: 'Wir prüfen, ob alle wichtigen Daten wie Assets, Grund- und Vollgegenstände sowie Patch Notizen fehlerfrei heruntergeladen wurden.'
       button: 'Starte Prüfung'
       assets: 'Assets'
       baseItems: 'Grundgegenstände'
@@ -114,7 +114,7 @@ pages:
       patchNotes: 'Patch Notizen'
     repair:
       name: 'Reparieren'
-      description: 'Wir werden alle Daten wie Assets, Grund- und Vollgegenstände sowie Patch Notes erneut herunterladen.'
+      description: 'Wir werden alle Daten wie Assets, Grund- und Vollgegenstände sowie Patch Notizen erneut herunterladen.'
       button: 'Starte Reperatur'
     reset:
       name: 'Zurücksetzen'

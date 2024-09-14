@@ -107,7 +107,7 @@ pages:
     check:
       name: 'App Check'
       description: 'We will check if all essential data, such as assets, base- and full items, and patch notes, are correctly downloaded.'
-      button: 'Starte Check'
+      button: 'Start check'
       assets: 'Assets'
       baseItems: 'Base items'
       fullItems: 'Full items'
@@ -115,7 +115,7 @@ pages:
     repair:
       name: 'Repair'
       description: 'We will download all essential data, such as assets, base- and full items, and patch notes again.'
-      button: 'Start Repair'
+      button: 'Start repair'
     reset:
       name: 'Reset'
       title: 'Reset progress'
