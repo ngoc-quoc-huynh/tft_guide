@@ -1,9 +1,10 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:tft_guide/domain/interfaces/theme.dart';
+import 'package:tft_guide/domain/utils/mixins/logger.dart';
 import 'package:tft_guide/injector.dart';
 
-final class MaterialThemeRepository implements ThemeApi {
+final class MaterialThemeRepository with LoggerMixin implements ThemeApi {
   const MaterialThemeRepository();
 
   static final _fileStorageApi = Injector.instance.fileStorageApi;
@@ -14,8 +15,20 @@ final class MaterialThemeRepository implements ThemeApi {
     required Brightness brightness,
     required TextTheme textTheme,
   }) async {
+    const methodName = 'MaterialThemeRepository.computeThemeFromFileImage';
+    final parameters = {
+      'fileName': fileName,
+      'brightness': brightness.toString(),
+      'textTheme': textTheme.toString(),
+    };
+
     final file = _fileStorageApi.loadFile(fileName);
     if (!file.existsSync()) {
+      logWarning(
+        methodName,
+        'Could not retrieve file to compute the theme.',
+        parameters: parameters,
+      );
       return null;
     }
 
@@ -24,6 +37,12 @@ final class MaterialThemeRepository implements ThemeApi {
       brightness: brightness,
     );
     final harmonizedColorScheme = colorScheme.harmonized();
+    logInfo(
+      methodName,
+      'Computed theme from image.',
+      parameters: parameters,
+    );
+
     return ThemeData.from(
       colorScheme: harmonizedColorScheme,
       textTheme: textTheme.apply(
