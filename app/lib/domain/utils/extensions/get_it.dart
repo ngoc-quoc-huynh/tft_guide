@@ -7,6 +7,7 @@ import 'package:tft_guide/domain/interfaces/feedback.dart';
 import 'package:tft_guide/domain/interfaces/file.dart';
 import 'package:tft_guide/domain/interfaces/local_database.dart';
 import 'package:tft_guide/domain/interfaces/local_storage.dart';
+import 'package:tft_guide/domain/interfaces/logger.dart';
 import 'package:tft_guide/domain/interfaces/rank.dart';
 import 'package:tft_guide/domain/interfaces/remote_database.dart';
 import 'package:tft_guide/domain/interfaces/theme.dart';
@@ -27,6 +28,8 @@ extension GetItExtension on GetIt {
   LocalDatabaseApi get localDatabaseApi => get<LocalDatabaseApi>();
 
   LocalStorageApi get localStorageApi => get<LocalStorageApi>();
+
+  LoggerApi get loggerApi => get<LoggerApi>();
 
   PackageInfo get packageInfo => get<PackageInfo>();
 
