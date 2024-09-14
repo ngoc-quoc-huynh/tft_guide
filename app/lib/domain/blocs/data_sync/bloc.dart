@@ -81,7 +81,7 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState> {
     final operations = [
       _SyncOperation(
         loadLatestUpdatedAt: _fileStorageApi.loadLatestFileUpdatedAt(),
-        loadData: _remoteDatabaseApi.loadAssetsNames,
+        loadData: _remoteDatabaseApi.loadAssetNames,
         storeData: (val) => _downloadAssets(val as List<String>),
       ),
       _SyncOperation(
