@@ -28,6 +28,7 @@ final class MaterialThemeRepository with LoggerMixin implements ThemeApi {
         methodName,
         'Could not retrieve file to compute the theme.',
         parameters: parameters,
+        stackTrace: StackTrace.current,
       );
       return null;
     }
@@ -41,6 +42,7 @@ final class MaterialThemeRepository with LoggerMixin implements ThemeApi {
       methodName,
       'Computed theme from image.',
       parameters: parameters,
+      stackTrace: StackTrace.current,
     );
 
     return ThemeData.from(

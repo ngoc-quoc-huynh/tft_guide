@@ -2,19 +2,21 @@ abstract interface class LoggerApi {
   const LoggerApi();
 
   void logInfo(
-    String name,
+    String methodName,
     String message, {
+    required StackTrace stackTrace,
     Map<String, String?>? parameters,
   });
 
   void logWarning(
-    String name,
+    String methodName,
     String message, {
+    required StackTrace stackTrace,
     Map<String, String?>? parameters,
   });
 
   void logException(
-    String name, {
+    String methodName, {
     required Exception exception,
     required StackTrace stackTrace,
     Map<String, String?>? parameters,

@@ -21,7 +21,11 @@ final class LocalFileStorageRepository
     const methodName = 'LocalFileStorageRepository.loadLatestFileUpdatedAt';
 
     if (!_assetsDir.existsSync()) {
-      logInfo(methodName, 'Retrieved no latest file updated at.');
+      logInfo(
+        methodName,
+        'Retrieved no latest file updated at.',
+        stackTrace: StackTrace.current,
+      );
       return null;
     }
 
@@ -31,6 +35,7 @@ final class LocalFileStorageRepository
     logInfo(
       methodName,
       'Retrieved latest file updated at: ${updatedAt?.toIso8601String()}.',
+      stackTrace: StackTrace.current,
     );
 
     return updatedAt;
@@ -49,6 +54,7 @@ final class LocalFileStorageRepository
         'id': id,
         'bytes': '${bytes.length} bytes',
       },
+      stackTrace: StackTrace.current,
     );
   }
 
@@ -59,6 +65,7 @@ final class LocalFileStorageRepository
       'LocalFileStorageRepository.loadFile',
       'Loaded file: ${file.path}.',
       parameters: {'id': id},
+      stackTrace: StackTrace.current,
     );
 
     return file;
@@ -70,6 +77,7 @@ final class LocalFileStorageRepository
     logInfo(
       'LocalFileStorageRepository.loadAssetsCount',
       'Loaded assets count: $count.',
+      stackTrace: StackTrace.current,
     );
     return count;
   }
