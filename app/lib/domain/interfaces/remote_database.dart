@@ -10,7 +10,7 @@ abstract interface class RemoteDatabaseApi {
 
   Future<void> initialize();
 
-  Future<List<String>> loadAssetsNames(DateTime? lastUpdated);
+  Future<List<String>> loadAssetNames(DateTime? lastUpdated);
 
   Future<Uint8List> loadAsset(String name);
 

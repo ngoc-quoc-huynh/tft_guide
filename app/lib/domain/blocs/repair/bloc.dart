@@ -35,7 +35,7 @@ final class RepairBloc extends Bloc<RepairEvent, RepairState> {
     emit(const RepairLoadRemoteDataInProgress());
     final operations = [
       _RepairOperation(
-        loadData: _remoteDatabaseApi.loadAssetsNames,
+        loadData: _remoteDatabaseApi.loadAssetNames,
         storeData: (val) => _downloadAssets(val as List<String>),
       ),
       _RepairOperation(

@@ -30,6 +30,7 @@ dependencies:
   go_router: ^14.0.0
 
   # Network
+  http: ^1.2.2
   supabase_flutter: ^2.6.0
 
   # State Management
