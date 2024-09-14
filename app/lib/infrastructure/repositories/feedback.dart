@@ -1,17 +1,29 @@
 import 'package:collection/collection.dart';
 import 'package:tft_guide/domain/interfaces/feedback.dart';
+import 'package:tft_guide/domain/utils/mixins/logger.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 
-final class FeedbackRepository implements FeedbackApi {
+final class FeedbackRepository with LoggerMixin implements FeedbackApi {
   const FeedbackRepository();
 
   @override
-  String getFeedback({required bool isCorrect}) => switch (isCorrect) {
-        false => _wrongFeedback.sample(1),
-        true => _correctTranslations.sample(1),
-      }
-          .first;
+  String getFeedback({required bool isCorrect}) {
+    final feedback = switch (isCorrect) {
+      false => _wrongFeedback.sample(1),
+      true => _correctTranslations.sample(1),
+    }
+        .first;
+    logInfo(
+      'FeedbackRepository.getFeedback',
+      'Retrieved feedback: $feedback',
+      parameters: {
+        'isCorrect': isCorrect.toString(),
+      },
+    );
+
+    return feedback;
+  }
 
   TranslationsPagesGameFeedbackEn get _translations =>
       Injector.instance.translations.pages.game.feedback;
