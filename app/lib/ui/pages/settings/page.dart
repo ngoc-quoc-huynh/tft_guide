@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/blocs/theme_mode/cubit.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
@@ -15,6 +16,7 @@ import 'package:tft_guide/ui/pages/settings/dialogs/repair/dialog.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/reset.dart';
 import 'package:tft_guide/ui/pages/settings/divider.dart';
 import 'package:tft_guide/ui/pages/settings/item.dart';
+import 'package:tft_guide/ui/router/routes.dart';
 import 'package:tft_guide/ui/widgets/custom_app_bar.dart';
 import 'package:tft_guide/ui/widgets/language/listener.dart';
 import 'package:tft_guide/ui/widgets/snack_bar.dart';
@@ -109,9 +111,11 @@ class SettingsPage extends StatelessWidget {
                         child: SettingsItem(
                           icon: Icons.library_books,
                           title: _translations.license.name,
-                          onTap: () {
-                            // TODO: Add functionality
-                          },
+                          onTap: () => unawaited(
+                            context.pushNamed(
+                              Routes.licensePage(),
+                            ),
+                          ),
                         ),
                       ),
                     ],

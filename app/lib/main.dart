@@ -15,7 +15,6 @@ import 'package:tft_guide/ui/widgets/language/provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Injector.setupDependencies();
-
   runApp(const TftApp());
 }
 
