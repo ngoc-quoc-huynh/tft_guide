@@ -9,6 +9,7 @@ final class Routes {
   static final fullItemsPage = Route('full-items');
   static final gamePage = Route('game');
   static final itemMetasPage = Route('item-metas');
+  static final licensePage = Route('license');
   static final rankedPage = Route('ranked');
   static final settingsPage = Route('settings');
   static final pageNotesPage = Route('patch-notes');

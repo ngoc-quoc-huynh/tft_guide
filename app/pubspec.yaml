@@ -79,6 +79,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/app/launcher_icon.webp
     - assets/divisions/iron/
     - assets/divisions/bronze/
     - assets/divisions/silver/

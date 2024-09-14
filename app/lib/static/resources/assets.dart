@@ -3,6 +3,8 @@ import 'package:tft_guide/domain/models/asset.dart';
 final class Assets {
   const Assets._();
 
+  static final launcherIcon = Asset('assets/app/launcher_icon.webp');
+
   static final iron1 = Asset('assets/divisions/iron/1.webp');
   static final iron2 = Asset('assets/divisions/iron/2.webp');
   static final iron3 = Asset('assets/divisions/iron/3.webp');
