@@ -31,6 +31,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     logInfo(
       'SupabaseRepository.initialize',
       'Initialized supabase.',
+      stackTrace: StackTrace.current,
     );
   }
 
@@ -50,6 +51,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
         methodName,
         'Loaded ${assetNames.length} assets.',
         parameters: parameters,
+        stackTrace: StackTrace.current,
       );
 
       return assetNames;
@@ -74,6 +76,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
         methodName,
         'Loaded asset.',
         parameters: parameters,
+        stackTrace: StackTrace.current,
       );
 
       return bytes;
@@ -105,6 +108,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
         methodName,
         'Loaded ${items.length} base items.',
         parameters: parameters,
+        stackTrace: StackTrace.current,
       );
 
       return items;
@@ -136,6 +140,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
         methodName,
         'Loaded ${items.length} full items.',
         parameters: parameters,
+        stackTrace: StackTrace.current,
       );
 
       return items;
@@ -167,6 +172,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
         methodName,
         'Loaded ${patchNotes.length} patch notes.',
         parameters: parameters,
+        stackTrace: StackTrace.current,
       );
 
       return patchNotes;
@@ -201,6 +207,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
         methodName,
         'Loaded ${translations.length} base item translations.',
         parameters: parameters,
+        stackTrace: StackTrace.current,
       );
 
       return translations;
@@ -235,6 +242,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
         methodName,
         'Loaded ${translations.length} full item translations.',
         parameters: parameters,
+        stackTrace: StackTrace.current,
       );
 
       return translations;
@@ -271,6 +279,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
         methodName,
         'Loaded ${translations.length} patch notes translations.',
         parameters: parameters,
+        stackTrace: StackTrace.current,
       );
 
       return translations;
@@ -290,7 +299,11 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
 
     try {
       final count = await _client.rpc<int>('load_assets_count');
-      logInfo(methodName, 'Loaded assets count: $count.');
+      logInfo(
+        methodName,
+        'Loaded assets count: $count.',
+        stackTrace: StackTrace.current,
+      );
 
       return count;
     } catch (e, stackTrace) {
@@ -308,7 +321,11 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
 
     try {
       final count = await _client.from(_tableNameBaseItem).count();
-      logInfo(methodName, 'Loaded base items count: $count.');
+      logInfo(
+        methodName,
+        'Loaded base items count: $count.',
+        stackTrace: StackTrace.current,
+      );
 
       return count;
     } catch (e, stackTrace) {
@@ -326,7 +343,11 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
 
     try {
       final count = await _client.from(_tableNameFullItem).count();
-      logInfo(methodName, 'Loaded full items count: $count.');
+      logInfo(
+        methodName,
+        'Loaded full items count: $count.',
+        stackTrace: StackTrace.current,
+      );
 
       return count;
     } catch (e, stackTrace) {
@@ -344,7 +365,11 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
 
     try {
       final count = await _client.from(_tableNamePatchNote).count();
-      logInfo(methodName, 'Loaded patch notes count: $count.');
+      logInfo(
+        methodName,
+        'Loaded patch notes count: $count.',
+        stackTrace: StackTrace.current,
+      );
 
       return count;
     } catch (e, stackTrace) {
@@ -362,7 +387,11 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
 
     try {
       final count = await _client.from(_tableNameBaseItemTranslation).count();
-      logInfo(methodName, 'Loaded base item translations count: $count.');
+      logInfo(
+        methodName,
+        'Loaded base item translations count: $count.',
+        stackTrace: StackTrace.current,
+      );
 
       return count;
     } catch (e, stackTrace) {
@@ -380,7 +409,11 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
 
     try {
       final count = await _client.from(_tableNameFullItemTranslation).count();
-      logInfo(methodName, 'Loaded full item translations count: $count.');
+      logInfo(
+        methodName,
+        'Loaded full item translations count: $count.',
+        stackTrace: StackTrace.current,
+      );
 
       return count;
     } catch (e, stackTrace) {
@@ -398,7 +431,11 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
 
     try {
       final count = await _client.from(_tableNamePatchNoteTranslation).count();
-      logInfo(methodName, 'Loaded patch note translations count: $count.');
+      logInfo(
+        methodName,
+        'Loaded patch note translations count: $count.',
+        stackTrace: StackTrace.current,
+      );
 
       return count;
     } catch (e, stackTrace) {
@@ -413,7 +450,11 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
   @override
   Future<void> close() async {
     await _client.dispose();
-    logInfo('SupabaseRepository.close', 'Closed repository.');
+    logInfo(
+      'SupabaseRepository.close',
+      'Closed repository.',
+      stackTrace: StackTrace.current,
+    );
   }
 
   Never _handleException({

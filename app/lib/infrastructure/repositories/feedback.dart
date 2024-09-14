@@ -17,11 +17,9 @@ final class FeedbackRepository with LoggerMixin implements FeedbackApi {
     logInfo(
       'FeedbackRepository.getFeedback',
       'Retrieved feedback: $feedback',
-      parameters: {
-        'isCorrect': isCorrect.toString(),
-      },
+      parameters: {'isCorrect': isCorrect.toString()},
+      stackTrace: StackTrace.current,
     );
-
     return feedback;
   }
 

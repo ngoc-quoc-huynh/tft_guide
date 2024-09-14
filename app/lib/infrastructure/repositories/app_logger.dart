@@ -11,14 +11,14 @@ final class AppLogger implements LoggerApi {
 
   @override
   void logException(
-    String name, {
+    String methodName, {
     required Exception exception,
     required StackTrace stackTrace,
     Map<String, dynamic>? parameters,
   }) =>
       _logger.e(
         _buildMessage(
-          name,
+          methodName,
           parameters: parameters,
         ),
         error: exception,
@@ -27,39 +27,43 @@ final class AppLogger implements LoggerApi {
 
   @override
   void logInfo(
-    String name,
+    String methodName,
     String message, {
+    required StackTrace stackTrace,
     Map<String, dynamic>? parameters,
   }) =>
       _logger.i(
         _buildMessage(
-          name,
+          methodName,
           message: message,
           parameters: parameters,
         ),
+        stackTrace: stackTrace,
       );
 
   @override
   void logWarning(
-    String name,
+    String methodName,
     String message, {
+    required StackTrace stackTrace,
     Map<String, dynamic>? parameters,
   }) =>
       _logger.w(
         _buildMessage(
-          name,
+          methodName,
           message: message,
           parameters: parameters,
         ),
+        stackTrace: stackTrace,
       );
 
   String _buildMessage(
-    String name, {
+    String methodName, {
     String? message,
     Map<String, dynamic>? parameters,
   }) =>
       '''
-$name
+$methodName
 ${_encoder.convert(
         {
           if (parameters != null) 'parameters': parameters,
