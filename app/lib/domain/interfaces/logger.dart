@@ -4,19 +4,19 @@ abstract interface class LoggerApi {
   void logInfo(
     String name,
     String message, {
-    Map<String, dynamic>? parameters,
+    Map<String, String?>? parameters,
   });
 
   void logWarning(
     String name,
     String message, {
-    Map<String, dynamic>? parameters,
+    Map<String, String?>? parameters,
   });
 
   void logException(
     String name, {
     required Exception exception,
     required StackTrace stackTrace,
-    Map<String, dynamic>? parameters,
+    Map<String, String?>? parameters,
   });
 }

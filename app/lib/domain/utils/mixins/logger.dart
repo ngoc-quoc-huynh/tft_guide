@@ -5,7 +5,7 @@ mixin LoggerMixin {
   void logInfo(
     String name,
     String message, {
-    Map<String, dynamic>? parameters,
+    Map<String, String?>? parameters,
   }) =>
       _loggerAPI.logInfo(
         name,
@@ -16,7 +16,7 @@ mixin LoggerMixin {
   void logWarning(
     String name,
     String message, {
-    Map<String, dynamic>? parameters,
+    Map<String, String?>? parameters,
   }) =>
       _loggerAPI.logWarning(
         name,
@@ -28,7 +28,7 @@ mixin LoggerMixin {
     String name, {
     required Exception exception,
     required StackTrace stackTrace,
-    Map<String, dynamic>? parameters,
+    Map<String, String?>? parameters,
   }) =>
       _loggerAPI.logException(
         name,
@@ -41,7 +41,7 @@ mixin LoggerMixin {
     String name, {
     required Exception exception,
     required StackTrace stackTrace,
-    Map<String, dynamic>? parameters,
+    Map<String, String?>? parameters,
   }) {
     if (exception is! CustomException) {
       logException(
