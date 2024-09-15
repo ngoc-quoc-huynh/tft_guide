@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tft_guide/domain/blocs/check_selected_item/cubit.dart';
+import 'package:tft_guide/domain/blocs/selected_item/cubit.dart';
+import 'package:tft_guide/domain/models/question/item_option.dart';
 import 'package:tft_guide/ui/pages/game/selection_item/chip.dart';
 import 'package:tft_guide/ui/widgets/file_storage_image.dart';
 
@@ -12,39 +16,35 @@ enum SelectionItemState {
 sealed class SelectionItem extends StatelessWidget {
   const SelectionItem({
     required this.index,
-    required this.state,
-    required this.onPressed,
+    required this.isCorrectOption,
+    required this.option,
     super.key,
   });
 
   const factory SelectionItem.text({
-    required String text,
     required int index,
-    required SelectionItemState state,
-    required VoidCallback onPressed,
+    required bool isCorrectOption,
+    required QuestionItemOption option,
     Key? key,
   }) = _Text;
 
   const factory SelectionItem.image({
-    required String id,
     required int index,
-    required SelectionItemState state,
-    required VoidCallback onPressed,
+    required bool isCorrectOption,
+    required QuestionItemOption option,
     Key? key,
   }) = _Image;
 
   const factory SelectionItem.images({
-    required String itemId1,
-    required String itemId2,
     required int index,
-    required SelectionItemState state,
-    required VoidCallback onPressed,
+    required bool isCorrectOption,
+    required QuestionFullItemOption fullItemOption,
     Key? key,
   }) = _Images;
 
   final int index;
-  final SelectionItemState state;
-  final VoidCallback onPressed;
+  final bool isCorrectOption;
+  final QuestionItemOption option;
 
   @protected
   static const imageSize = 50.0;
@@ -52,26 +52,23 @@ sealed class SelectionItem extends StatelessWidget {
 
 final class _Text extends SelectionItem {
   const _Text({
-    required this.text,
     required super.index,
-    required super.state,
-    required super.onPressed,
+    required super.isCorrectOption,
+    required super.option,
     super.key,
   });
 
-  final String text;
-
   @override
   Widget build(BuildContext context) {
-    return SelectionChip(
+    return _Content(
       index: index,
-      onPressed: onPressed,
-      state: state,
+      isCorrectOption: isCorrectOption,
+      option: option,
       child: SizedBox(
         height: 35,
         child: Center(
           child: Text(
-            text,
+            option.name,
             style: Theme.of(context).textTheme.titleLarge,
           ),
         ),
@@ -82,24 +79,21 @@ final class _Text extends SelectionItem {
 
 final class _Image extends SelectionItem {
   const _Image({
-    required this.id,
     required super.index,
-    required super.state,
-    required super.onPressed,
+    required super.isCorrectOption,
+    required super.option,
     super.key,
   });
 
-  final String id;
-
   @override
   Widget build(BuildContext context) {
-    return SelectionChip(
+    return _Content(
       index: index,
-      onPressed: onPressed,
-      state: state,
+      isCorrectOption: isCorrectOption,
+      option: option,
       child: Center(
         child: FileStorageImage(
-          id: id,
+          id: option.id,
           height: SelectionItem.imageSize,
           width: SelectionItem.imageSize,
         ),
@@ -111,34 +105,31 @@ final class _Image extends SelectionItem {
 final class _Images extends SelectionItem {
   const _Images({
     required super.index,
-    required this.itemId1,
-    required this.itemId2,
-    required super.state,
-    required super.onPressed,
+    required super.isCorrectOption,
+    required this.fullItemOption,
     super.key,
-  });
+  }) : super(option: fullItemOption);
 
-  final String itemId1;
-  final String itemId2;
+  final QuestionFullItemOption fullItemOption;
 
   @override
   Widget build(BuildContext context) {
-    return SelectionChip(
+    return _Content(
       index: index,
-      onPressed: onPressed,
-      state: state,
+      isCorrectOption: isCorrectOption,
+      option: fullItemOption,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           const SizedBox.shrink(),
           FileStorageImage(
-            id: itemId1,
+            id: fullItemOption.itemId1,
             height: SelectionItem.imageSize,
             width: SelectionItem.imageSize,
           ),
           const Icon(Icons.add),
           FileStorageImage(
-            id: itemId2,
+            id: fullItemOption.itemId2,
             height: SelectionItem.imageSize,
             width: SelectionItem.imageSize,
           ),
@@ -147,4 +138,58 @@ final class _Images extends SelectionItem {
       ),
     );
   }
+}
+
+class _Content extends StatelessWidget {
+  const _Content({
+    required this.index,
+    required this.isCorrectOption,
+    required this.option,
+    required this.child,
+  });
+
+  final int index;
+  final bool isCorrectOption;
+  final QuestionItemOption option;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<CheckSelectedItemOptionCubit, bool?>(
+      builder: (context, isSelectedCorrect) =>
+          BlocSelector<SelectedItemOptionCubit, QuestionItemOption?, bool>(
+        selector: (selectedOption) => selectedOption == option,
+        builder: (context, isSelected) => SelectionChip(
+          index: index,
+          onPressed: () => _onPressed(context),
+          state: _determineSelectionItemState(
+            isCorrectOption: isCorrectOption,
+            isSelected: isSelected,
+            isSelectedCorrect: isSelectedCorrect,
+          ),
+          child: child,
+        ),
+      ),
+    );
+  }
+
+  void _onPressed(BuildContext context) =>
+      context.read<SelectedItemOptionCubit>().select(option);
+
+  SelectionItemState _determineSelectionItemState({
+    required bool isCorrectOption,
+    required bool isSelected,
+    required bool? isSelectedCorrect,
+  }) =>
+      switch ((
+        isCorrectOption,
+        isSelected,
+        isSelectedCorrect,
+      )) {
+        (_, true, null) => SelectionItemState.selected,
+        (_, false, null) => SelectionItemState.unselected,
+        (true, _, _) => SelectionItemState.correct,
+        (false, true, bool()) => SelectionItemState.wrong,
+        (false, false, bool()) => SelectionItemState.unselected,
+      };
 }
