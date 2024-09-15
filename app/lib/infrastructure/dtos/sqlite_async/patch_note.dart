@@ -51,7 +51,7 @@ final class PatchNote extends Equatable {
   final DateTime createdAt;
 
   domain.PatchNote toDomain() => domain.PatchNote(
-        text: text.replaceAll(r'\n', '\n'),
+        text: text,
         createdAt: createdAt,
       );
 
