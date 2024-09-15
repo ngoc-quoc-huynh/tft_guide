@@ -93,6 +93,7 @@ class SettingsPage extends StatelessWidget {
                               icon: Icons.build,
                               title: _translations.repair.name,
                               onTap: () =>
+                                  // TODO: Restart app
                                   unawaited(SettingsRepairDialog.show(context)),
                             ),
                             const SettingsDivider(),
