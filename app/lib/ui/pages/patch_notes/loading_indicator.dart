@@ -9,19 +9,21 @@ class PatchNotesLoadingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Skeletonizer(
-      child: Align(
-        alignment: Alignment.topLeft,
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: Sizes.horizontalPadding,
-            vertical: Sizes.verticalPadding,
-          ),
-          child: Column(
-            children: [
-              _Card(),
-              _Card(),
-            ],
+    return const SingleChildScrollView(
+      child: Skeletonizer(
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: Sizes.horizontalPadding,
+              vertical: Sizes.verticalPadding,
+            ),
+            child: Column(
+              children: [
+                _Card(),
+                _Card(),
+              ],
+            ),
           ),
         ),
       ),
@@ -56,5 +58,5 @@ class _Card extends StatelessWidget {
     );
   }
 
-  int _getRandomNumberOfLines() => Random().nextInt(5) + 3;
+  int _getRandomNumberOfLines() => Random().nextInt(8) + 3;
 }
