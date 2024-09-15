@@ -18,6 +18,7 @@ class MarkdownText extends StatelessWidget {
         strong: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
         p: textTheme.bodyLarge,
         h1: textTheme.headlineSmall,
+        h2: textTheme.titleLarge,
       ),
     );
   }
