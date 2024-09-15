@@ -998,7 +998,7 @@ CREATE TABLE IF NOT EXISTS $_tableNamePatchNoteTranslation (
     id VARCHAR(50) PRIMARY KEY,
     language_code CHAR(2) NOT NULL,
     patch_note_id VARCHAR(50),
-    text VARCHAR(255) NOT NULL,
+    text TEXT NOT NULL,
     created_at TIMESTAMPTZ NOT NULL,
     updated_at TIMESTAMPTZ NOT NULL,
     FOREIGN KEY (patch_note_id) REFERENCES $_tableNamePatchNote(id) ON DELETE CASCADE
