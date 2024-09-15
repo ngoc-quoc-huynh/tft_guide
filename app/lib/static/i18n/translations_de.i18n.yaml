@@ -106,15 +106,15 @@ pages:
       feedback: 'Sprache wurde erfolgreich aktualisiert.'
     check:
       name: 'App Prüfung'
-      description: 'Wir prüfen, ob alle wichtigen Daten wie Assets, Grund- und Vollgegenstände sowie Patch Notizen fehlerfrei heruntergeladen wurden.'
+      description: 'Wir prüfen, ob alle wichtigen Daten wie Assets, Grund- und Vollgegenstände sowie Patch-Notizen fehlerfrei heruntergeladen wurden.'
       button: 'Starte Prüfung'
       assets: 'Assets'
       baseItems: 'Grundgegenstände'
       fullItems: 'Vollgegenstände'
-      patchNotes: 'Patch Notizen'
+      patchNotes: 'Patch-Notizen'
     repair:
       name: 'Reparieren'
-      description: 'Wir werden alle Daten wie Assets, Grund- und Vollgegenstände sowie Patch Notizen erneut herunterladen.'
+      description: 'Wir werden alle Daten wie Assets, Grund- und Vollgegenstände sowie Patch-Notizen erneut herunterladen.'
       button: 'Starte Reperatur'
     reset:
       name: 'Zurücksetzen'
@@ -124,7 +124,7 @@ pages:
     license:
       name: 'Externe Bibliotheken und Lizensen'
   patchNotes:
-    title: 'Patch Notizen'
+    title: 'Patch-Notizen'
   license:
     copyright: '© 2024 Ngoc Quoc Huynh. Alle Rechte vorbehalten. Lizensiert unter der BSD 3-Klausel-Lizenz. Die Weitergabe und Verwendung in Quell- und Binärform, mit oder ohne Änderungen, ist unter den Lizenzbedingungen gestattet.'
     license: 'Copyright 2024 Ngoc Quoc Huynh
