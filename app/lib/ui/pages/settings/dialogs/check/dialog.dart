@@ -41,19 +41,19 @@ class SettingsCheckDialog extends StatelessWidget {
             Text(_translations.description),
             const SizedBox(height: 10),
             SettingsCheckDataItem<CheckAssetsBloc>(
-              text: _translations.assets,
+              text: _translations.assets.name,
             ),
             const SizedBox(height: 5),
             SettingsCheckDataItem<CheckBaseItemsBloc>(
-              text: _translations.baseItems,
+              text: _translations.baseItems.name,
             ),
             const SizedBox(height: 5),
             SettingsCheckDataItem<CheckFullItemsBloc>(
-              text: _translations.fullItems,
+              text: _translations.fullItems.name,
             ),
             const SizedBox(height: 5),
             SettingsCheckDataItem<CheckPatchNotesBloc>(
-              text: _translations.patchNotes,
+              text: _translations.patchNotes.name,
             ),
           ],
         ),

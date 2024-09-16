@@ -1,14 +1,25 @@
 part of '../bloc.dart';
 
 final class CheckAssetsBloc extends CheckDataBloc {
-  CheckAssetsBloc() : super(_compareFileCounts);
+  CheckAssetsBloc() : super(_computeSuccessState);
 
   static final _fileStorageApi = Injector.instance.fileStorageApi;
   static final _remoteDatabaseApi = Injector.instance.remoteDatabaseApi;
 
-  static Future<bool> _compareFileCounts() async {
+  static Future<CheckDataLoadOnSuccess> _computeSuccessState() async {
     final localCount = _fileStorageApi.loadAssetsCount();
     final remoteCount = await _remoteDatabaseApi.loadAssetsCount();
-    return localCount == remoteCount;
+
+    if (localCount == remoteCount) {
+      return CheckAssetsLoadOnValid(
+        localCount: localCount,
+        remoteCount: remoteCount,
+      );
+    } else {
+      return CheckAssetsLoadOnInvalid(
+        localCount: localCount,
+        remoteCount: remoteCount,
+      );
+    }
   }
 }
