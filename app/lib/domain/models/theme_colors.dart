@@ -5,13 +5,17 @@ import 'package:flutter/material.dart';
 class CustomThemeColors extends ThemeExtension<CustomThemeColors> {
   const CustomThemeColors({
     this.success = Colors.green,
+    this.warning = Colors.yellow,
   });
 
   final Color success;
+  final Color warning;
 
   @override
-  CustomThemeColors copyWith({Color? success}) => CustomThemeColors(
+  CustomThemeColors copyWith({Color? success, Color? warning}) =>
+      CustomThemeColors(
         success: success ?? this.success,
+        warning: warning ?? this.warning,
       );
 
   @override
@@ -19,6 +23,7 @@ class CustomThemeColors extends ThemeExtension<CustomThemeColors> {
     return switch (other) {
       CustomThemeColors() => CustomThemeColors(
           success: Color.lerp(success, other.success, t)!,
+          warning: Color.lerp(warning, other.warning, t)!,
         ),
       _ => this,
     };
@@ -26,5 +31,6 @@ class CustomThemeColors extends ThemeExtension<CustomThemeColors> {
 
   CustomThemeColors harmonized(ColorScheme colorScheme) => copyWith(
         success: success.harmonizeWith(colorScheme.primary),
+        warning: warning.harmonizeWith(colorScheme.primary),
       );
 }

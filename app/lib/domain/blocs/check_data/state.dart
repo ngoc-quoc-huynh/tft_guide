@@ -16,11 +16,18 @@ final class CheckDataLoadInProgress extends CheckDataState {
   const CheckDataLoadInProgress();
 }
 
-final class CheckDataLoadOnSuccess extends CheckDataState {
-  const CheckDataLoadOnSuccess({required this.success});
+sealed class CheckDataLoadOnSuccess extends CheckDataState {
+  const CheckDataLoadOnSuccess();
+}
 
-  final bool success;
+sealed class CheckDataLoadOnValid extends CheckDataLoadOnSuccess {
+  const CheckDataLoadOnValid();
+}
 
-  @override
-  List<Object?> get props => [success];
+sealed class CheckDataLoadOnInvalid extends CheckDataLoadOnSuccess {
+  const CheckDataLoadOnInvalid();
+}
+
+final class CheckDataLoadOnFailure extends CheckDataState {
+  const CheckDataLoadOnFailure();
 }

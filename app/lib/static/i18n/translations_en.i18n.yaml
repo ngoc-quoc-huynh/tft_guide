@@ -108,10 +108,23 @@ pages:
       name: 'App Check'
       description: 'We will check if all essential data, such as assets, base- and full items, and patch notes, are correctly downloaded.'
       button: 'Start check'
-      assets: 'Assets'
-      baseItems: 'Base items'
-      fullItems: 'Full items'
-      patchNotes: 'Patch notes'
+      networkError: 'Network error'
+      assets:
+        name: 'Assets'
+        check(int localCount, int remoteCount): '$localCount/$remoteCount assets'
+      baseItems:
+        name: 'Base items'
+        checkItems(int localCount, int remoteCount): '$localCount/$remoteCount base items'
+        checkTranslations(int localCount, int remoteCount): '$localCount/$remoteCount translations'
+      fullItems:
+        name: 'Full items'
+        checkItems(int localCount, int remoteCount): '$localCount/$remoteCount full items'
+        checkTranslations(int localCount, int remoteCount): '$localCount/$remoteCount translations'
+      patchNotes:
+        name: 'Patch notes'
+        checkPatchNotes(int localCount, int remoteCount): '$localCount/$remoteCount patch notes'
+        checkTranslations(int localCount, int remoteCount): '$localCount/$remoteCount translations'
+
     repair:
       name: 'Repair'
       description: 'We will download all essential data, such as assets, base- and full items, and patch notes again.'

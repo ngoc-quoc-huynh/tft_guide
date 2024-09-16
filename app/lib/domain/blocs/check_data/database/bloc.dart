@@ -7,13 +7,52 @@ sealed class CheckDatabaseBloc extends CheckDataBloc {
     required this.loadLocalTranslationCount,
     required this.loadRemoteTranslationCount,
   }) : super(
-          () => _compareDataCounts(
-            loadLocalDataCount,
-            loadRemoteDataCount,
-            loadLocalTranslationCount,
-            loadRemoteTranslationCount,
+          () => _computeSuccessState(
+            loadLocalDataCount: loadLocalDataCount,
+            loadRemoteDataCount: loadRemoteDataCount,
+            loadLocalTranslationCount: loadLocalTranslationCount,
+            loadRemoteTranslationCount: loadRemoteTranslationCount,
           ),
         );
+
+  static Future<CheckDataLoadOnSuccess> _computeSuccessState({
+    required Future<int> Function() loadLocalDataCount,
+    required Future<int> Function() loadRemoteDataCount,
+    required Future<int> Function() loadLocalTranslationCount,
+    required Future<int> Function() loadRemoteTranslationCount,
+  }) async {
+    final [
+      localDataCount,
+      remoteDataCount,
+      localTranslationCount,
+      remoteTranslationCount,
+    ] = await Future.wait<int>(
+      [
+        loadLocalDataCount(),
+        loadRemoteDataCount(),
+        loadLocalTranslationCount(),
+        loadRemoteTranslationCount(),
+      ],
+      eagerError: true,
+    );
+    final isValid = localDataCount == remoteDataCount &&
+        localTranslationCount == remoteTranslationCount;
+    if (isValid) {
+      return CheckDatabaseLoadOnValid(
+        localDataCount: localDataCount,
+        remoteDataCount: remoteDataCount,
+        localTranslationCount: localTranslationCount,
+        remoteTranslationCount: remoteTranslationCount,
+      );
+    } else {
+      return CheckDatabaseLoadOnInvalid(
+        localDataCount: localDataCount,
+        remoteDataCount: remoteDataCount,
+        localTranslationCount: localTranslationCount,
+        remoteTranslationCount: remoteTranslationCount,
+      );
+    }
+  }
 
   final Future<int> Function() loadLocalDataCount;
   final Future<int> Function() loadRemoteDataCount;
@@ -24,25 +63,4 @@ sealed class CheckDatabaseBloc extends CheckDataBloc {
   static final localDatabaseApi = Injector.instance.localDatabaseApi;
   @protected
   static final remoteDatabaseApi = Injector.instance.remoteDatabaseApi;
-
-  static Future<bool> _compareDataCounts(
-    Future<int> Function() loadLocalDataCount,
-    Future<int> Function() loadRemoteDataCount,
-    Future<int> Function() loadLocalTranslationCount,
-    Future<int> Function() loadRemoteTranslationCount,
-  ) async {
-    final (
-      localDataCount,
-      remoteDataCount,
-      localTranslationCount,
-      remoteTranslationCount,
-    ) = await (
-      loadLocalDataCount(),
-      loadRemoteDataCount(),
-      loadLocalTranslationCount(),
-      loadRemoteTranslationCount(),
-    ).wait;
-    return localDataCount == remoteDataCount &&
-        localTranslationCount == remoteTranslationCount;
-  }
 }

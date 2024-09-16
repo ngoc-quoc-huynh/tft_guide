@@ -108,10 +108,22 @@ pages:
       name: 'App Prüfung'
       description: 'Wir prüfen, ob alle wichtigen Daten wie Assets, Grund- und Vollgegenstände sowie Patch-Notizen fehlerfrei heruntergeladen wurden.'
       button: 'Starte Prüfung'
-      assets: 'Assets'
-      baseItems: 'Grundgegenstände'
-      fullItems: 'Vollgegenstände'
-      patchNotes: 'Patch-Notizen'
+      networkError: 'Netzwerkfehler'
+      assets:
+        name: 'Assets'
+        check(int localCount, int remoteCount): '$localCount/$remoteCount Assets'
+      baseItems:
+        name: 'Grundgegenstände'
+        checkItems(int localCount, int remoteCount): '$localCount/$remoteCount Grundgegenstände'
+        checkTranslations(int localCount, int remoteCount): '$localCount/$remoteCount Übersetzungen'
+      fullItems:
+        name: 'Vollgegenstände'
+        checkItems(int localCount, int remoteCount): '$localCount/$remoteCount Vollgegenstände'
+        checkTranslations(int localCount, int remoteCount): '$localCount/$remoteCount Übersetzungen'
+      patchNotes:
+        name: 'Patch-Notizen'
+        checkPatchNotes(int localCount, int remoteCount): '$localCount/$remoteCount Patch-Notizen'
+        checkTranslations(int localCount, int remoteCount): '$localCount/$remoteCount Übersetzungen'
     repair:
       name: 'Reparieren'
       description: 'Wir werden alle Daten wie Assets, Grund- und Vollgegenstände sowie Patch-Notizen erneut herunterladen.'

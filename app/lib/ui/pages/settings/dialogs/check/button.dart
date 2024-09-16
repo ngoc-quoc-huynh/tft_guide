@@ -31,10 +31,10 @@ class SettingsCheckStartButton extends StatelessWidget {
                 patchNotesState
               )) {
                 (
-                  CheckDataLoadOnSuccess(),
-                  CheckDataLoadOnSuccess(),
-                  CheckDataLoadOnSuccess(),
-                  CheckDataLoadOnSuccess(),
+                  CheckDataLoadOnValid(),
+                  CheckDataLoadOnValid(),
+                  CheckDataLoadOnValid(),
+                  CheckDataLoadOnValid(),
                 ) =>
                   const Icon(Icons.check),
                 (_, _, _, _) => Text(
@@ -62,24 +62,22 @@ class SettingsCheckStartButton extends StatelessWidget {
       patchNotesState
     )) {
       (
-        CheckDataInitial(),
-        CheckDataInitial(),
-        CheckDataInitial(),
-        CheckDataInitial()
-      ) =>
-        () => context
-          ..read<CheckAssetsBloc>().add(const CheckDataStartEvent())
-          ..read<CheckBaseItemsBloc>().add(const CheckDataStartEvent())
-          ..read<CheckFullItemsBloc>().add(const CheckDataStartEvent())
-          ..read<CheckPatchNotesBloc>().add(const CheckDataStartEvent()),
-      (
-        CheckDataLoadOnSuccess(),
-        CheckDataLoadOnSuccess(),
-        CheckDataLoadOnSuccess(),
-        CheckDataLoadOnSuccess(),
+        CheckDataLoadOnValid(),
+        CheckDataLoadOnValid(),
+        CheckDataLoadOnValid(),
+        CheckDataLoadOnValid(),
       ) =>
         () => context.pop(),
-      (_, _, _, _) => null
+      (CheckDataLoadInProgress(), _, _, _) ||
+      (_, CheckDataLoadInProgress(), _, _) ||
+      (_, _, CheckDataLoadInProgress(), _) ||
+      (_, _, _, CheckDataLoadInProgress()) =>
+        null,
+      (_, _, _, _) => () => context
+        ..read<CheckAssetsBloc>().add(const CheckDataStartEvent())
+        ..read<CheckBaseItemsBloc>().add(const CheckDataStartEvent())
+        ..read<CheckFullItemsBloc>().add(const CheckDataStartEvent())
+        ..read<CheckPatchNotesBloc>().add(const CheckDataStartEvent()),
     };
   }
 }
