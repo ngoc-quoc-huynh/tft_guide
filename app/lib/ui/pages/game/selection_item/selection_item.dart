@@ -4,6 +4,8 @@ import 'package:tft_guide/domain/blocs/check_selected_item/cubit.dart';
 import 'package:tft_guide/domain/blocs/selected_item/cubit.dart';
 import 'package:tft_guide/domain/models/question/item_option.dart';
 import 'package:tft_guide/ui/pages/game/selection_item/chip.dart';
+import 'package:tft_guide/ui/widgets/bloc/builder.dart';
+import 'package:tft_guide/ui/widgets/bloc/selector.dart';
 import 'package:tft_guide/ui/widgets/file_storage_image.dart';
 
 enum SelectionItemState {
@@ -155,11 +157,11 @@ class _Content extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CheckSelectedItemOptionCubit, bool?>(
-      builder: (context, isSelectedCorrect) =>
-          BlocSelector<SelectedItemOptionCubit, QuestionItemOption?, bool>(
+    return BlocBuilderWithChild<CheckSelectedItemOptionCubit, bool?>(
+      builder: (context, isSelectedCorrect, child) => BlocSelectorWithChild<
+          SelectedItemOptionCubit, QuestionItemOption?, bool>(
         selector: (selectedOption) => selectedOption == option,
-        builder: (context, isSelected) => SelectionChip(
+        builder: (context, isSelected, child) => SelectionChip(
           index: index,
           onPressed: () => _onPressed(context),
           state: _determineSelectionItemState(
@@ -167,9 +169,11 @@ class _Content extends StatelessWidget {
             isSelected: isSelected,
             isSelectedCorrect: isSelectedCorrect,
           ),
-          child: child,
+          child: child!,
         ),
+        child: child,
       ),
+      child: child,
     );
   }
 
