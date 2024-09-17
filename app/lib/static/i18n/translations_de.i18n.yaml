@@ -2,6 +2,8 @@ appName: 'TFT Guide'
 general:
   cancel: 'Abbrechen'
   confirm: 'OK'
+  errors:
+    network: 'Netzwerkfehler'
 pages:
   init:
     checkUpdates: 'Checke für Aktualiserungen\u{00A0}…'
@@ -107,8 +109,8 @@ pages:
     check:
       name: 'App Prüfung'
       description: 'Wir prüfen, ob alle wichtigen Daten wie Assets, Grund- und Vollgegenstände sowie Patch-Notizen fehlerfrei heruntergeladen wurden.'
-      button: 'Starte Prüfung'
-      networkError: 'Netzwerkfehler'
+      start: 'Starte Prüfung'
+      retry: 'Prüfung wiederholen'
       assets:
         name: 'Assets'
         check(int localCount, int remoteCount): '$localCount/$remoteCount Assets'
@@ -127,7 +129,8 @@ pages:
     repair:
       name: 'Reparieren'
       description: 'Wir werden alle Daten wie Assets, Grund- und Vollgegenstände sowie Patch-Notizen erneut herunterladen.'
-      button: 'Starte Reperatur'
+      start: 'Starte Reperatur'
+      retry: 'Reperatur wiederholen'
     reset:
       name: 'Zurücksetzen'
       title: 'Fortschritt zurücksetzen'

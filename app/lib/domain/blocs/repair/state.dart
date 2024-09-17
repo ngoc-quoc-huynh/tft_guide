@@ -63,3 +63,7 @@ final class RepairAnimationInProgress extends RepairState {
 final class RepairLoadOnSuccess extends RepairState {
   const RepairLoadOnSuccess() : super(100);
 }
+
+final class RepairLoadOnFailure extends RepairState {
+  const RepairLoadOnFailure(super.progress);
+}

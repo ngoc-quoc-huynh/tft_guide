@@ -257,7 +257,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
   }
 
   @override
-  Future<List<PatchNoteTranslationTranslationEntity>> loadPatchNoteTranslations(
+  Future<List<PatchNoteTranslationEntity>> loadPatchNoteTranslations(
     DateTime? lastUpdated,
   ) async {
     final lastUpdatedInUtc = lastUpdated?.toUtc();

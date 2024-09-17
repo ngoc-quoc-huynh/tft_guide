@@ -9,7 +9,7 @@ class CustomDialog extends StatelessWidget {
     super.key,
   });
 
-  final String title;
+  final Widget title;
   final Widget content;
   final Widget action;
 
@@ -20,7 +20,7 @@ class CustomDialog extends StatelessWidget {
       titlePadding: _titlePadding,
       title: Row(
         children: [
-          Text(title),
+          title,
           const Expanded(
             child: Align(
               alignment: Alignment.centerRight,

@@ -34,7 +34,7 @@ class SettingsCheckDialog extends StatelessWidget {
         ),
       ],
       child: CustomDialog(
-        title: _translations.name,
+        title: Text(_translations.name),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

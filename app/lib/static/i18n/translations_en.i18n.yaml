@@ -2,6 +2,8 @@ appName: 'TFT Guide'
 general:
   cancel: 'Cancel'
   confirm: 'OK'
+  errors:
+    network: 'Network error'
 pages:
   init:
     checkUpdates: 'Checking for updates\u{00A0}…'
@@ -107,8 +109,8 @@ pages:
     check:
       name: 'App Check'
       description: 'We will check if all essential data, such as assets, base- and full items, and patch notes, are correctly downloaded.'
-      button: 'Start check'
-      networkError: 'Network error'
+      start: 'Start check'
+      retry: 'Retry check'
       assets:
         name: 'Assets'
         check(int localCount, int remoteCount): '$localCount/$remoteCount assets'
@@ -128,7 +130,8 @@ pages:
     repair:
       name: 'Repair'
       description: 'We will download all essential data, such as assets, base- and full items, and patch notes again.'
-      button: 'Start repair'
+      start: 'Start repair'
+      retry: 'Retry repair'
     reset:
       name: 'Reset'
       title: 'Reset progress'

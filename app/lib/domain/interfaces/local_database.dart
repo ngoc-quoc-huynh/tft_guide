@@ -40,7 +40,7 @@ abstract interface class LocalDatabaseApi {
   );
 
   Future<void> storePatchNoteTranslations(
-    List<PatchNoteTranslationTranslationEntity> translations,
+    List<PatchNoteTranslationEntity> translations,
   );
 
   Future<BaseItemDetail> loadBaseItemDetail(
