@@ -58,7 +58,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     } catch (e, stackTrace) {
       _handleException(
         methodName: methodName,
-        e: e,
+        exception: e,
         stackTrace: stackTrace,
         parameters: parameters,
       );
@@ -83,7 +83,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     } catch (e, stackTrace) {
       _handleException(
         methodName: methodName,
-        e: e,
+        exception: e,
         stackTrace: stackTrace,
         parameters: parameters,
       );
@@ -115,7 +115,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     } catch (e, stackTrace) {
       _handleException(
         methodName: methodName,
-        e: e,
+        exception: e,
         stackTrace: stackTrace,
         parameters: parameters,
       );
@@ -147,7 +147,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     } catch (e, stackTrace) {
       _handleException(
         methodName: methodName,
-        e: e,
+        exception: e,
         stackTrace: stackTrace,
         parameters: parameters,
       );
@@ -179,7 +179,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     } catch (e, stackTrace) {
       _handleException(
         methodName: methodName,
-        e: e,
+        exception: e,
         stackTrace: stackTrace,
         parameters: parameters,
       );
@@ -214,7 +214,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     } catch (e, stackTrace) {
       _handleException(
         methodName: methodName,
-        e: e,
+        exception: e,
         stackTrace: stackTrace,
         parameters: parameters,
       );
@@ -249,7 +249,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     } catch (e, stackTrace) {
       _handleException(
         methodName: methodName,
-        e: e,
+        exception: e,
         stackTrace: stackTrace,
         parameters: parameters,
       );
@@ -286,7 +286,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     } catch (e, stackTrace) {
       _handleException(
         methodName: methodName,
-        e: e,
+        exception: e,
         stackTrace: stackTrace,
         parameters: parameters,
       );
@@ -309,7 +309,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     } catch (e, stackTrace) {
       _handleException(
         methodName: methodName,
-        e: e,
+        exception: e,
         stackTrace: stackTrace,
       );
     }
@@ -331,7 +331,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     } catch (e, stackTrace) {
       _handleException(
         methodName: methodName,
-        e: e,
+        exception: e,
         stackTrace: stackTrace,
       );
     }
@@ -353,7 +353,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     } catch (e, stackTrace) {
       _handleException(
         methodName: methodName,
-        e: e,
+        exception: e,
         stackTrace: stackTrace,
       );
     }
@@ -375,7 +375,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     } catch (e, stackTrace) {
       _handleException(
         methodName: methodName,
-        e: e,
+        exception: e,
         stackTrace: stackTrace,
       );
     }
@@ -397,7 +397,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     } catch (e, stackTrace) {
       _handleException(
         methodName: methodName,
-        e: e,
+        exception: e,
         stackTrace: stackTrace,
       );
     }
@@ -419,7 +419,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     } catch (e, stackTrace) {
       _handleException(
         methodName: methodName,
-        e: e,
+        exception: e,
         stackTrace: stackTrace,
       );
     }
@@ -441,7 +441,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     } catch (e, stackTrace) {
       _handleException(
         methodName: methodName,
-        e: e,
+        exception: e,
         stackTrace: stackTrace,
       );
     }
@@ -459,33 +459,33 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
 
   Never _handleException({
     required String methodName,
-    required Object e,
+    required Object exception,
     required StackTrace stackTrace,
     Map<String, String?>? parameters,
   }) {
-    final (loggerException, throwException) = switch (e) {
+    final (loggerException, throwException) = switch (exception) {
       ArgumentError(message: final String message)
           when message.contains('No host specified in URI') =>
         (const InvalidUrlException(), const InvalidUrlException()),
-      ClientException() => (e, const NoConnectionException()),
-      SocketException() => (e, const NoConnectionException()),
+      ClientException() => (exception, const NoConnectionException()),
+      SocketException() => (exception, const NoConnectionException()),
       PostgrestException(:final code) when code == '42P01' => (
-          e,
+          exception,
           const TableNotFoundException(),
         ),
       PostgrestException(:final code) when code == 'PGRST202' => (
-          e,
+          exception,
           const FunctionNotFoundException(),
         ),
       StorageException(:final statusCode, :final message)
           when statusCode == '404' && message == 'Object not found' =>
-        (e, const AssetNotFoundException()),
+        (exception, const AssetNotFoundException()),
       StorageException(:final statusCode, :final message)
           when statusCode == '404' && message == 'Bucket not found' =>
-        (e, const BucketNotFoundException()),
-      Error() => throw e,
-      Exception() => (e, const UnknownException()),
-      _ => throw ArgumentError('$e is not an error or exception'),
+        (exception, const BucketNotFoundException()),
+      Error() => throw exception,
+      Exception() => (exception, const UnknownException()),
+      _ => throw ArgumentError('$exception is not an error or exception'),
     };
     logException(
       methodName,
