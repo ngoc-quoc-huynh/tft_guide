@@ -99,7 +99,7 @@ final class _Error extends SettingsCheckIcon {
   @override
   Widget build(BuildContext context) {
     return _Icon(
-      message: Injector.instance.translations.pages.settings.check.networkError,
+      message: Injector.instance.translations.general.errors.network,
       icon: Icons.warning_amber,
       color: Theme.of(context).customColors.warning,
     );

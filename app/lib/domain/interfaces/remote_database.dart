@@ -28,7 +28,7 @@ abstract interface class RemoteDatabaseApi {
     DateTime? lastUpdated,
   );
 
-  Future<List<PatchNoteTranslationTranslationEntity>> loadPatchNoteTranslations(
+  Future<List<PatchNoteTranslationEntity>> loadPatchNoteTranslations(
     DateTime? lastUpdated,
   );
 

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/blocs/repair/bloc.dart';
 import 'package:tft_guide/injector.dart';
+import 'package:tft_guide/static/i18n/translations.g.dart';
 
 class SettingsRepairStartButton extends StatelessWidget {
   const SettingsRepairStartButton({super.key});
@@ -16,9 +17,8 @@ class SettingsRepairStartButton extends StatelessWidget {
           RepairInitial() ||
           RepairLoadInProgress() ||
           RepairAnimationInProgress() =>
-            Text(
-              Injector.instance.translations.pages.settings.repair.button,
-            ),
+            Text(_translations.start),
+          RepairLoadOnFailure() => Text(_translations.retry),
           RepairAnimationInProgress() ||
           RepairLoadOnSuccess() =>
             const Icon(Icons.check),
@@ -32,9 +32,12 @@ class SettingsRepairStartButton extends StatelessWidget {
     RepairState state,
   ) =>
       switch (state) {
-        RepairInitial() => () =>
+        RepairInitial() || RepairLoadOnFailure() => () =>
             context.read<RepairBloc>().add(const RepairStartEvent()),
         RepairLoadInProgress() || RepairAnimationInProgress() => null,
         RepairLoadOnSuccess() => () => context.pop(),
       };
+
+  TranslationsPagesSettingsRepairEn get _translations =>
+      Injector.instance.translations.pages.settings.repair;
 }

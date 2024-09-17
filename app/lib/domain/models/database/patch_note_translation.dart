@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:tft_guide/domain/models/database/language_code.dart';
 
-final class PatchNoteTranslationTranslationEntity extends Equatable {
-  const PatchNoteTranslationTranslationEntity({
+final class PatchNoteTranslationEntity extends Equatable {
+  const PatchNoteTranslationEntity({
     required this.id,
     required this.patchNoteId,
     required this.languageCode,

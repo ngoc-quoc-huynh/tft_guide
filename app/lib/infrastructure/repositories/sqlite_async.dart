@@ -510,7 +510,7 @@ DO UPDATE SET
 
   @override
   Future<void> storePatchNoteTranslations(
-    List<PatchNoteTranslationTranslationEntity> translations,
+    List<PatchNoteTranslationEntity> translations,
   ) async {
     const methodName = 'SqliteAsyncRepository.storePatchNoteTranslations';
     final parameters = {

@@ -9,7 +9,6 @@ import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 
 part 'event.dart';
-part 'models.dart';
 part 'state.dart';
 
 final class RepairBloc extends Bloc<RepairEvent, RepairState> {
@@ -25,81 +24,100 @@ final class RepairBloc extends Bloc<RepairEvent, RepairState> {
     RepairStartEvent event,
     Emitter<RepairState> emit,
   ) async {
-    final items = await _loadRemoteData(emit);
-    await _storeDataLocally(emit, items);
-    await _waitForProgressBarAnimation(emit);
-    emit(const RepairLoadOnSuccess());
+    emit(const RepairInitial());
+
+    try {
+      final [
+        assetNames,
+        baseItems,
+        fullItems,
+        patchNotes,
+        baseItemTranslations,
+        fullItemTranslations,
+        patchNoteTranslations,
+      ] = await _loadRemoteData(emit);
+      await _storeDataLocally(
+        emit: emit,
+        assetNames: assetNames as List<String>,
+        baseItems: baseItems as List<BaseItemEntity>,
+        fullItems: fullItems as List<FullItemEntity>,
+        patchNotes: patchNotes as List<PatchNoteEntity>,
+        baseItemTranslations:
+            baseItemTranslations as List<BaseItemTranslationEntity>,
+        fullItemTranslations:
+            fullItemTranslations as List<FullItemTranslationEntity>,
+        patchNoteTranslations:
+            patchNoteTranslations as List<PatchNoteTranslationEntity>,
+      );
+      await _waitForProgressBarAnimation(emit);
+
+      emit(const RepairLoadOnSuccess());
+    } on Exception {
+      emit(RepairLoadOnFailure(state.progress));
+    }
   }
 
-  Future<List<_RepairItem>> _loadRemoteData(Emitter<RepairState> emit) {
+  Future<List<Object>> _loadRemoteData(Emitter<RepairState> emit) {
     emit(const RepairLoadRemoteDataInProgress());
     final operations = [
-      _RepairOperation(
-        loadData: _remoteDatabaseApi.loadAssetNames,
-        storeData: (val) => _downloadAssets(val as List<String>),
-      ),
-      _RepairOperation(
-        loadData: _remoteDatabaseApi.loadBaseItems,
-        storeData: (val) =>
-            _localDatabaseApi.storeBaseItems(val as List<BaseItemEntity>),
-      ),
-      _RepairOperation(
-        loadData: _remoteDatabaseApi.loadFullItems,
-        storeData: (val) =>
-            _localDatabaseApi.storeFullItems(val as List<FullItemEntity>),
-      ),
-      _RepairOperation(
-        loadData: _remoteDatabaseApi.loadPatchNotes,
-        storeData: (val) =>
-            _localDatabaseApi.storePatchNotes(val as List<PatchNoteEntity>),
-      ),
-      _RepairOperation(
-        loadData: _remoteDatabaseApi.loadBaseItemTranslations,
-        storeData: (val) => _localDatabaseApi
-            .storeBaseItemTranslations(val as List<BaseItemTranslationEntity>),
-      ),
-      _RepairOperation(
-        loadData: _remoteDatabaseApi.loadFullItemTranslations,
-        storeData: (val) => _localDatabaseApi
-            .storeFullItemTranslations(val as List<FullItemTranslationEntity>),
-      ),
-      _RepairOperation(
-        loadData: _remoteDatabaseApi.loadPatchNoteTranslations,
-        storeData: (val) => _localDatabaseApi.storePatchNoteTranslations(
-          val as List<PatchNoteTranslationTranslationEntity>,
-        ),
-      ),
+      () => _remoteDatabaseApi.loadAssetNames(null),
+      () => _remoteDatabaseApi.loadBaseItems(null),
+      () => _remoteDatabaseApi.loadFullItems(null),
+      () => _remoteDatabaseApi.loadPatchNotes(null),
+      () => _remoteDatabaseApi.loadBaseItemTranslations(null),
+      () => _remoteDatabaseApi.loadFullItemTranslations(null),
+      () => _remoteDatabaseApi.loadPatchNoteTranslations(null),
     ];
 
     int step = 1;
-    final stream = Stream.fromIterable(operations).asyncMap((operation) async {
-      final result = await operation.loadData(null);
+    final futures = operations.map((loadData) async {
+      final data = await loadData();
       emit(RepairLoadRemoteDataInProgress(step++));
-      return _RepairItem(result: result, storeData: operation.storeData);
+      return data;
     });
-    return stream.toList();
+
+    return Future.wait(
+      futures,
+      eagerError: true,
+    );
   }
 
-  // ignore: avoid-redundant-async, false positive
-  Future<void> _storeDataLocally(
-    Emitter<RepairState> emit,
-    List<_RepairItem> items,
-  ) async {
+  Future<void> _storeDataLocally({
+    required Emitter<RepairState> emit,
+    required List<String> assetNames,
+    required List<BaseItemEntity> baseItems,
+    required List<FullItemEntity> fullItems,
+    required List<PatchNoteEntity> patchNotes,
+    required List<BaseItemTranslationEntity> baseItemTranslations,
+    required List<FullItemTranslationEntity> fullItemTranslations,
+    required List<PatchNoteTranslationEntity> patchNoteTranslations,
+  }) async {
     emit(const RepairStoreDataLocallyInProgress());
-    final stream = Stream.fromIterable(items).asyncMap(
-      (item) => item.storeData(item.result),
-    );
+    final operations = [
+      () => _downloadAssets(assetNames),
+      () => _localDatabaseApi.storeBaseItems(baseItems),
+      () => _localDatabaseApi.storeFullItems(fullItems),
+      () => _localDatabaseApi.storePatchNotes(patchNotes),
+      () => _localDatabaseApi.storeBaseItemTranslations(baseItemTranslations),
+      () => _localDatabaseApi.storeFullItemTranslations(fullItemTranslations),
+      () => _localDatabaseApi.storePatchNoteTranslations(patchNoteTranslations),
+    ];
+
     int step = 1;
-    await for (final _ in stream) {
+    final futures = operations.map((storeData) async {
+      await storeData();
       emit(RepairStoreDataLocallyInProgress(step++));
-    }
+    });
+
+    await Future.wait(
+      futures,
+      eagerError: true,
+    );
   }
 
   Future<void> _waitForProgressBarAnimation(Emitter<RepairState> emit) async {
     emit(const RepairAnimationInProgress());
-    await Future<void>.delayed(
-      Sizes.progressBarAnimationShortDuration,
-    );
+    await Future<void>.delayed(Sizes.progressBarAnimationShortDuration);
   }
 
   Future<void> _downloadAssets(List<String> assetNames) async {
@@ -108,6 +126,9 @@ final class RepairBloc extends Bloc<RepairEvent, RepairState> {
       await _fileStorageApi.save(name, asset);
     }
 
-    await assetNames.map(downloadAsset).wait;
+    await Future.wait(
+      assetNames.map(downloadAsset),
+      eagerError: true,
+    );
   }
 }

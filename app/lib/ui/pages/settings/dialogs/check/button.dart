@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/blocs/check_data/bloc.dart';
 import 'package:tft_guide/injector.dart';
+import 'package:tft_guide/static/i18n/translations.g.dart';
+import 'package:tft_guide/ui/widgets/loading_indicator.dart';
 
 class SettingsCheckStartButton extends StatelessWidget {
   const SettingsCheckStartButton({super.key});
@@ -24,23 +26,12 @@ class SettingsCheckStartButton extends StatelessWidget {
                 fullItemsState: fullItemsState,
                 patchNotesState: patchNotesState,
               ),
-              child: switch ((
-                assetsState,
-                baseItemsState,
-                fullItemsState,
-                patchNotesState
-              )) {
-                (
-                  CheckDataLoadOnValid(),
-                  CheckDataLoadOnValid(),
-                  CheckDataLoadOnValid(),
-                  CheckDataLoadOnValid(),
-                ) =>
-                  const Icon(Icons.check),
-                (_, _, _, _) => Text(
-                    Injector.instance.translations.pages.settings.check.button,
-                  ),
-              },
+              child: _Content(
+                assetsState: assetsState,
+                baseItemsState: baseItemsState,
+                fullItemsState: fullItemsState,
+                patchNotesState: patchNotesState,
+              ),
             ),
           ),
         ),
@@ -80,4 +71,59 @@ class SettingsCheckStartButton extends StatelessWidget {
         ..read<CheckPatchNotesBloc>().add(const CheckDataStartEvent()),
     };
   }
+}
+
+class _Content extends StatelessWidget {
+  const _Content({
+    required this.assetsState,
+    required this.baseItemsState,
+    required this.fullItemsState,
+    required this.patchNotesState,
+  });
+
+  final CheckDataState assetsState;
+  final CheckDataState baseItemsState;
+  final CheckDataState fullItemsState;
+  final CheckDataState patchNotesState;
+
+  @override
+  Widget build(BuildContext context) {
+    return switch ((
+      assetsState,
+      baseItemsState,
+      fullItemsState,
+      patchNotesState
+    )) {
+      (
+        CheckDataLoadOnValid(),
+        CheckDataLoadOnValid(),
+        CheckDataLoadOnValid(),
+        CheckDataLoadOnValid(),
+      ) =>
+        const Icon(Icons.check),
+      (CheckDataLoadInProgress(), _, _, _) ||
+      (_, CheckDataLoadInProgress(), _, _) ||
+      (_, _, CheckDataLoadInProgress(), _) ||
+      (_, _, _, CheckDataLoadInProgress()) =>
+        SizedBox.square(
+          dimension: IconTheme.of(context).size,
+          child: const LoadingIndicator(),
+        ),
+      (CheckDataLoadOnInvalid(), _, _, _) ||
+      (_, CheckDataLoadOnInvalid(), _, _) ||
+      (_, _, CheckDataLoadOnInvalid(), _) ||
+      (_, _, _, CheckDataLoadOnInvalid()) ||
+      (CheckDataLoadOnFailure(), _, _, _) ||
+      (_, CheckDataLoadOnFailure(), _, _) ||
+      (_, _, CheckDataLoadOnFailure(), _) ||
+      (_, _, _, CheckDataLoadOnFailure()) =>
+        Text(_translations.retry),
+      (_, _, _, _) => Text(
+          _translations.start,
+        ),
+    };
+  }
+
+  TranslationsPagesSettingsCheckEn get _translations =>
+      Injector.instance.translations.pages.settings.check;
 }

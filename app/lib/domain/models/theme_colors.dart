@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class CustomThemeColors extends ThemeExtension<CustomThemeColors> {
   const CustomThemeColors({
     this.success = Colors.green,
-    this.warning = Colors.yellow,
+    this.warning = Colors.amber,
   });
 
   final Color success;

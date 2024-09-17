@@ -31,8 +31,8 @@ final class PatchNoteTranslation extends Equatable {
   final DateTime createdAt;
   final DateTime updatedAt;
 
-  domain.PatchNoteTranslationTranslationEntity toDomain() =>
-      domain.PatchNoteTranslationTranslationEntity(
+  domain.PatchNoteTranslationEntity toDomain() =>
+      domain.PatchNoteTranslationEntity(
         id: id,
         patchNoteId: patchNoteId,
         languageCode: languageCode,

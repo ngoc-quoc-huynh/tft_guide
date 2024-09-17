@@ -121,7 +121,7 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState> {
             _localDatabaseApi.loadLatestPatchNoteTranslationUpdatedAt(),
         loadData: _remoteDatabaseApi.loadPatchNoteTranslations,
         storeData: (val) => _localDatabaseApi.storePatchNoteTranslations(
-          val as List<PatchNoteTranslationTranslationEntity>,
+          val as List<PatchNoteTranslationEntity>,
         ),
       ),
     ];
