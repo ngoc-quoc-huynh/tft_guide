@@ -35,7 +35,7 @@ final class Injector {
       ..registerLazySingleton<FeedbackApi>(FeedbackRepository.new)
       ..registerLazySingleton<RemoteDatabaseApi>(SupabaseRepository.new)
       ..registerSingletonAsync(getApplicationDocumentsDirectory)
-      ..registerLazySingleton<LocalDatabaseApi>(SQLiteAsyncRepository.new)
+      ..registerLazySingleton<LocalDatabaseApi>(SqliteAsyncRepository.new)
       ..registerLazySingleton<FileStorageApi>(LocalFileStorageRepository.new)
       ..registerLazySingleton<ThemeApi>(MaterialThemeRepository.new)
       ..registerLazySingleton<WidgetsBindingApi>(WidgetsBindingRepository.new)
