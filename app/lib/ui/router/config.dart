@@ -30,7 +30,8 @@ final class GoRouterConfig {
         builder: (_, __, child) => BlocBuilder<DataSyncBloc, DataSyncState>(
           builder: (context, state) => switch (state) {
             DataSyncLoadInProgress() ||
-            DataSyncAnimationInProgress() =>
+            DataSyncAnimationInProgress() ||
+            DataSyncLoadOnFailure() =>
               const InitPage(),
             DataSyncLoadOnSuccess() => MultiBlocProvider(
                 providers: [

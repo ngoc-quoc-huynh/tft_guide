@@ -47,8 +47,8 @@ final class RepairLoadRemoteDataInProgress extends RepairLoadInProgress {
         );
 }
 
-final class RepairStoreDataLocallyInProgress extends RepairLoadInProgress {
-  const RepairStoreDataLocallyInProgress([int currentStep = 0])
+final class RepairSaveDataLocallyInProgress extends RepairLoadInProgress {
+  const RepairSaveDataLocallyInProgress([int currentStep = 0])
       : super(
           currentStep: currentStep,
           maxSteps: 7,

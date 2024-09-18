@@ -72,8 +72,8 @@ final class DataSyncLoadRemoteDataInProgress extends DataSyncLoadInProgress {
         );
 }
 
-final class DataSyncStoreDataLocallyInProgress extends DataSyncLoadInProgress {
-  const DataSyncStoreDataLocallyInProgress([int currentStep = 0])
+final class DataSyncSaveDataLocallyInProgress extends DataSyncLoadInProgress {
+  const DataSyncSaveDataLocallyInProgress([int currentStep = 0])
       : super(
           currentStep: currentStep,
           maxSteps: 7,
@@ -87,4 +87,20 @@ final class DataSyncAnimationInProgress extends DataSyncState {
 
 final class DataSyncLoadOnSuccess extends DataSyncState {
   const DataSyncLoadOnSuccess() : super(100);
+}
+
+sealed class DataSyncLoadOnFailure extends DataSyncState {
+  const DataSyncLoadOnFailure() : super(100);
+}
+
+final class DataSyncInitOnFailure extends DataSyncLoadOnFailure {
+  const DataSyncInitOnFailure();
+}
+
+final class DataSyncLocalDatabaseOnFailure extends DataSyncLoadOnFailure {
+  const DataSyncLocalDatabaseOnFailure();
+}
+
+final class DataSyncLoadAndSaveOnFailure extends DataSyncLoadOnFailure {
+  const DataSyncLoadAndSaveOnFailure();
 }
