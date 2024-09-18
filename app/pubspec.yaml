@@ -52,6 +52,7 @@ dependencies:
   path: ^1.9.0
   path_provider: ^2.1.1
   package_info_plus: ^8.0.2
+  restart: ^1.0.0+1
   stream_transform: ^2.1.0
 
 dev_dependencies:

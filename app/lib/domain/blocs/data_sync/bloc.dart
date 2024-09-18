@@ -12,7 +12,6 @@ import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 
 part 'event.dart';
-part 'models.dart';
 part 'state.dart';
 
 final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState> {
@@ -25,19 +24,85 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState> {
   static final _remoteDatabaseApi = Injector.instance.remoteDatabaseApi;
   static final _localStorageApi = Injector.instance.localStorageApi;
 
-  // TODO: Error handling
   Future<void> _onDataInitializeEvent(
     DataSyncInitializeEvent event,
     Emitter<DataSyncState> emit,
   ) async {
     final hasUpdated = _hasAppBeenUpdatedToday(emit);
-    await _initSync(emit);
-    if (!hasUpdated) {
-      final operationResults = await _loadLatestUpdatedAts(emit);
-      final items = await _loadRemoteData(emit, operationResults);
-      await _storeDataLocally(emit, items);
-      await _localStorageApi.updateLastAppUpdate(DateTime.now());
+
+    try {
+      await _initSync(emit);
+    } on Exception {
+      emit(const DataSyncInitOnFailure());
+      return;
     }
+
+    if (!hasUpdated) {
+      final DateTime? assetsLatestUpDatedAt;
+      final DateTime? baseItemsLatestUpdatedAt;
+      final DateTime? fullItemsLatestUpdatedAt;
+      final DateTime? patchNotesLatestUpdatedAt;
+      final DateTime? baseItemTranslationsLatestUpdatedAt;
+      final DateTime? fullItemTranslationsLatestUpdatedAt;
+      final DateTime? patchNoteTranslationsLatestUpdatedAt;
+
+      try {
+        [
+          assetsLatestUpDatedAt,
+          baseItemsLatestUpdatedAt,
+          fullItemsLatestUpdatedAt,
+          patchNotesLatestUpdatedAt,
+          baseItemTranslationsLatestUpdatedAt,
+          fullItemTranslationsLatestUpdatedAt,
+          patchNoteTranslationsLatestUpdatedAt
+        ] = await _loadLatestUpdatedAts(emit);
+      } on Exception {
+        emit(const DataSyncLocalDatabaseOnFailure());
+        return;
+      }
+
+      try {
+        final [
+          assetNames,
+          baseItems,
+          fullItems,
+          patchNotes,
+          baseItemTranslations,
+          fullItemTranslations,
+          patchNoteTranslations,
+        ] = await _loadRemoteData(
+          emit: emit,
+          latestFileUpdatedAt: assetsLatestUpDatedAt,
+          latestBaseItemUpdatedAt: baseItemsLatestUpdatedAt,
+          latestFullItemUpdatedAt: fullItemsLatestUpdatedAt,
+          latestPatchNoteUpdatedAt: patchNotesLatestUpdatedAt,
+          latestBaseItemTranslationUpdatedAt:
+              baseItemTranslationsLatestUpdatedAt,
+          latestFullItemTranslationUpdatedAt:
+              fullItemTranslationsLatestUpdatedAt,
+          latestPatchNoteTranslationUpdatedAt:
+              patchNoteTranslationsLatestUpdatedAt,
+        );
+
+        await _saveDataLocally(
+          emit: emit,
+          assetNames: assetNames as List<String>,
+          baseItems: baseItems as List<BaseItemEntity>,
+          fullItems: fullItems as List<FullItemEntity>,
+          patchNotes: patchNotes as List<PatchNoteEntity>,
+          baseItemTranslations:
+              baseItemTranslations as List<BaseItemTranslationEntity>,
+          fullItemTranslations:
+              fullItemTranslations as List<FullItemTranslationEntity>,
+          patchNoteTranslations:
+              patchNoteTranslations as List<PatchNoteTranslationEntity>,
+        );
+        await _localStorageApi.updateLastAppUpdate(DateTime.now());
+      } on Exception {
+        emit(const DataSyncLoadAndSaveOnFailure());
+      }
+    }
+
     await _waitForProgressBarAnimation(emit, hasUpdated: hasUpdated);
     emit(const DataSyncLoadOnSuccess());
   }
@@ -74,108 +139,106 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState> {
     }
   }
 
-  Future<List<_SyncOperationResult>> _loadLatestUpdatedAts(
+  Future<List<DateTime?>> _loadLatestUpdatedAts(
     Emitter<DataSyncState> emit,
-  ) {
+  ) async {
     emit(const DataSyncLoadLatestUpdatedAtInProgress());
+
+    int step = 1;
+    final latestFileUpdatedAt = _fileStorageApi.loadLatestFileUpdatedAt();
+    emit(DataSyncLoadLatestUpdatedAtInProgress(step++));
+
     final operations = [
-      _SyncOperation(
-        loadLatestUpdatedAt: _fileStorageApi.loadLatestFileUpdatedAt(),
-        loadData: _remoteDatabaseApi.loadAssetNames,
-        storeData: (val) => _downloadAssets(val as List<String>),
-      ),
-      _SyncOperation(
-        loadLatestUpdatedAt: _localDatabaseApi.loadLatestBaseItemUpdatedAt(),
-        loadData: _remoteDatabaseApi.loadBaseItems,
-        storeData: (val) =>
-            _localDatabaseApi.storeBaseItems(val as List<BaseItemEntity>),
-      ),
-      _SyncOperation(
-        loadLatestUpdatedAt: _localDatabaseApi.loadLatestFullItemUpdatedAt(),
-        loadData: _remoteDatabaseApi.loadFullItems,
-        storeData: (val) =>
-            _localDatabaseApi.storeFullItems(val as List<FullItemEntity>),
-      ),
-      _SyncOperation(
-        loadLatestUpdatedAt: _localDatabaseApi.loadLatestPatchNoteUpdatedAt(),
-        loadData: _remoteDatabaseApi.loadPatchNotes,
-        storeData: (val) =>
-            _localDatabaseApi.storePatchNotes(val as List<PatchNoteEntity>),
-      ),
-      _SyncOperation(
-        loadLatestUpdatedAt:
-            _localDatabaseApi.loadLatestBaseItemTranslationUpdatedAt(),
-        loadData: _remoteDatabaseApi.loadBaseItemTranslations,
-        storeData: (val) => _localDatabaseApi
-            .storeBaseItemTranslations(val as List<BaseItemTranslationEntity>),
-      ),
-      _SyncOperation(
-        loadLatestUpdatedAt:
-            _localDatabaseApi.loadLatestFullItemTranslationUpdatedAt(),
-        loadData: _remoteDatabaseApi.loadFullItemTranslations,
-        storeData: (val) => _localDatabaseApi
-            .storeFullItemTranslations(val as List<FullItemTranslationEntity>),
-      ),
-      _SyncOperation(
-        loadLatestUpdatedAt:
-            _localDatabaseApi.loadLatestPatchNoteTranslationUpdatedAt(),
-        loadData: _remoteDatabaseApi.loadPatchNoteTranslations,
-        storeData: (val) => _localDatabaseApi.storePatchNoteTranslations(
-          val as List<PatchNoteTranslationEntity>,
-        ),
-      ),
+      _localDatabaseApi.loadLatestBaseItemUpdatedAt,
+      _localDatabaseApi.loadLatestFullItemUpdatedAt,
+      _localDatabaseApi.loadLatestPatchNoteUpdatedAt,
+      _localDatabaseApi.loadLatestBaseItemTranslationUpdatedAt,
+      _localDatabaseApi.loadLatestFullItemTranslationUpdatedAt,
+      _localDatabaseApi.loadLatestPatchNoteTranslationUpdatedAt,
+    ];
+
+    final futures = operations.map((loadLatestUpdatedAt) async {
+      final lastUpdate = await loadLatestUpdatedAt();
+      emit(DataSyncLoadLatestUpdatedAtInProgress(step++));
+      return lastUpdate;
+    });
+    final latestUpdatedAts = await Future.wait(
+      futures,
+      eagerError: true,
+    );
+
+    return [latestFileUpdatedAt, ...latestUpdatedAts];
+  }
+
+  Future<List<Object>> _loadRemoteData({
+    required Emitter<DataSyncState> emit,
+    required DateTime? latestFileUpdatedAt,
+    required DateTime? latestBaseItemUpdatedAt,
+    required DateTime? latestFullItemUpdatedAt,
+    required DateTime? latestPatchNoteUpdatedAt,
+    required DateTime? latestBaseItemTranslationUpdatedAt,
+    required DateTime? latestFullItemTranslationUpdatedAt,
+    required DateTime? latestPatchNoteTranslationUpdatedAt,
+  }) {
+    emit(const DataSyncLoadRemoteDataInProgress());
+    final operations = [
+      () => _remoteDatabaseApi.loadAssetNames(latestFileUpdatedAt),
+      () => _remoteDatabaseApi.loadBaseItems(latestBaseItemUpdatedAt),
+      () => _remoteDatabaseApi.loadFullItems(latestFullItemUpdatedAt),
+      () => _remoteDatabaseApi.loadPatchNotes(latestPatchNoteUpdatedAt),
+      () => _remoteDatabaseApi
+          .loadBaseItemTranslations(latestBaseItemTranslationUpdatedAt),
+      () => _remoteDatabaseApi
+          .loadFullItemTranslations(latestFullItemTranslationUpdatedAt),
+      () => _remoteDatabaseApi
+          .loadPatchNoteTranslations(latestPatchNoteTranslationUpdatedAt),
     ];
 
     int step = 1;
-    final stream = Stream.fromIterable(operations).asyncMap(
-      (operation) async {
-        final lastUpdate = await operation.loadLatestUpdatedAt;
-        emit(DataSyncLoadLatestUpdatedAtInProgress(step++));
-        return _SyncOperationResult(
-          loadData: operation.loadData,
-          storeData: operation.storeData,
-          latestUpdatedAt: lastUpdate,
-        );
-      },
+    final futures = operations.map((loadData) async {
+      final data = await loadData();
+      emit(DataSyncLoadRemoteDataInProgress(step++));
+      return data;
+    });
+
+    return Future.wait(
+      futures,
+      eagerError: true,
     );
-
-    return stream.toList();
-  }
-
-  Future<List<_SyncItem>> _loadRemoteData(
-    Emitter<DataSyncState> emit,
-    List<_SyncOperationResult> operationResults,
-  ) {
-    emit(const DataSyncLoadRemoteDataInProgress());
-
-    int step = 1;
-    final stream = Stream.fromIterable(operationResults).asyncMap(
-      (operation) async {
-        final result = await operation.loadData(operation.latestUpdatedAt);
-        emit(DataSyncLoadRemoteDataInProgress(step++));
-        return _SyncItem(
-          result: result,
-          storeData: operation.storeData,
-        );
-      },
-    );
-    return stream.toList();
   }
 
   // ignore: avoid-redundant-async, false positive
-  Future<void> _storeDataLocally(
-    Emitter<DataSyncState> emit,
-    List<_SyncItem> items,
-  ) async {
-    emit(const DataSyncStoreDataLocallyInProgress());
+  Future<void> _saveDataLocally({
+    required Emitter<DataSyncState> emit,
+    required List<String> assetNames,
+    required List<BaseItemEntity> baseItems,
+    required List<FullItemEntity> fullItems,
+    required List<PatchNoteEntity> patchNotes,
+    required List<BaseItemTranslationEntity> baseItemTranslations,
+    required List<FullItemTranslationEntity> fullItemTranslations,
+    required List<PatchNoteTranslationEntity> patchNoteTranslations,
+  }) async {
+    emit(const DataSyncSaveDataLocallyInProgress());
+    final operations = [
+      () => _downloadAssets(assetNames),
+      () => _localDatabaseApi.saveBaseItems(baseItems),
+      () => _localDatabaseApi.saveFullItems(fullItems),
+      () => _localDatabaseApi.savePatchNotes(patchNotes),
+      () => _localDatabaseApi.saveBaseItemTranslations(baseItemTranslations),
+      () => _localDatabaseApi.saveFullItemTranslations(fullItemTranslations),
+      () => _localDatabaseApi.savePatchNoteTranslations(patchNoteTranslations),
+    ];
 
-    final stream = Stream.fromIterable(items).asyncMap(
-      (item) => item.storeData(item.result),
-    );
     int step = 1;
-    await for (final _ in stream) {
-      emit(DataSyncStoreDataLocallyInProgress(step++));
-    }
+    final futures = operations.map((saveData) async {
+      await saveData();
+      emit(DataSyncSaveDataLocallyInProgress(step++));
+    });
+
+    await Future.wait(
+      futures,
+      eagerError: true,
+    );
   }
 
   Future<void> _downloadAssets(List<String> assetNames) async {

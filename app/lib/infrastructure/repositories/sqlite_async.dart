@@ -194,8 +194,8 @@ final class SqliteAsyncRepository with LoggerMixin implements LocalDatabaseApi {
   }
 
   @override
-  Future<void> storeBaseItems(List<BaseItemEntity> items) async {
-    const methodName = 'SqliteAsyncRepository.storeBaseItems';
+  Future<void> saveBaseItems(List<BaseItemEntity> items) async {
+    const methodName = 'SqliteAsyncRepository.saveBaseItems';
     final parameters = {'items': items.map((item) => item.id).join(',')};
 
     try {
@@ -247,7 +247,7 @@ DO UPDATE SET
       );
       logInfo(
         methodName,
-        'Stored ${items.length} base items.',
+        'Saved ${items.length} base items.',
         stackTrace: StackTrace.current,
         parameters: parameters,
       );
@@ -262,8 +262,8 @@ DO UPDATE SET
   }
 
   @override
-  Future<void> storeFullItems(List<FullItemEntity> items) async {
-    const methodName = 'SqliteAsyncRepository.storeFullItems';
+  Future<void> saveFullItems(List<FullItemEntity> items) async {
+    const methodName = 'SqliteAsyncRepository.saveFullItems';
     final parameters = {'items': items.map((item) => item.id).join(',')};
 
     try {
@@ -324,7 +324,7 @@ DO UPDATE SET
       );
       logInfo(
         methodName,
-        'Stored ${items.length} full items.',
+        'Saved ${items.length} full items.',
         stackTrace: StackTrace.current,
         parameters: parameters,
       );
@@ -339,8 +339,8 @@ DO UPDATE SET
   }
 
   @override
-  Future<void> storePatchNotes(List<PatchNoteEntity> patchNotes) async {
-    const methodName = 'SqliteAsyncRepository.storePatchNotes';
+  Future<void> savePatchNotes(List<PatchNoteEntity> patchNotes) async {
+    const methodName = 'SqliteAsyncRepository.savePatchNotes';
     final parameters = {
       'patchNotes': patchNotes.map((patchNote) => patchNote.id).join(','),
     };
@@ -370,7 +370,7 @@ DO UPDATE SET
       );
       logInfo(
         methodName,
-        'Stored ${patchNotes.length} patch notes.',
+        'Saved ${patchNotes.length} patch notes.',
         stackTrace: StackTrace.current,
         parameters: parameters,
       );
@@ -385,10 +385,10 @@ DO UPDATE SET
   }
 
   @override
-  Future<void> storeBaseItemTranslations(
+  Future<void> saveBaseItemTranslations(
     List<BaseItemTranslationEntity> translations,
   ) async {
-    const methodName = 'SqliteAsyncRepository.storeBaseItemTranslations';
+    const methodName = 'SqliteAsyncRepository.saveBaseItemTranslations';
     final parameters = {
       'translations':
           translations.map((translation) => translation.id).join(','),
@@ -432,7 +432,7 @@ DO UPDATE SET
       );
       logInfo(
         methodName,
-        'Stored ${translations.length} base item translations.',
+        'Saved ${translations.length} base item translations.',
         stackTrace: StackTrace.current,
         parameters: parameters,
       );
@@ -447,10 +447,10 @@ DO UPDATE SET
   }
 
   @override
-  Future<void> storeFullItemTranslations(
+  Future<void> saveFullItemTranslations(
     List<FullItemTranslationEntity> translations,
   ) async {
-    const methodName = 'SqliteAsyncRepository.storeFullItemTranslations';
+    const methodName = 'SqliteAsyncRepository.saveFullItemTranslations';
     final parameters = {
       'translations':
           translations.map((translation) => translation.id).join(','),
@@ -494,7 +494,7 @@ DO UPDATE SET
       );
       logInfo(
         methodName,
-        'Stored ${translations.length} full item translations.',
+        'Saved ${translations.length} full item translations.',
         stackTrace: StackTrace.current,
         parameters: parameters,
       );
@@ -509,10 +509,10 @@ DO UPDATE SET
   }
 
   @override
-  Future<void> storePatchNoteTranslations(
+  Future<void> savePatchNoteTranslations(
     List<PatchNoteTranslationEntity> translations,
   ) async {
-    const methodName = 'SqliteAsyncRepository.storePatchNoteTranslations';
+    const methodName = 'SqliteAsyncRepository.savePatchNoteTranslations';
     final parameters = {
       'translations':
           translations.map((translation) => translation.id).join(','),
@@ -550,7 +550,7 @@ DO UPDATE SET
       );
       logInfo(
         methodName,
-        'Stored ${translations.length} patch note translations.',
+        'Saved ${translations.length} patch note translations.',
         stackTrace: StackTrace.current,
         parameters: parameters,
       );

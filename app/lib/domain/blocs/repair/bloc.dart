@@ -36,7 +36,7 @@ final class RepairBloc extends Bloc<RepairEvent, RepairState> {
         fullItemTranslations,
         patchNoteTranslations,
       ] = await _loadRemoteData(emit);
-      await _storeDataLocally(
+      await _saveDataLocally(
         emit: emit,
         assetNames: assetNames as List<String>,
         baseItems: baseItems as List<BaseItemEntity>,
@@ -82,7 +82,7 @@ final class RepairBloc extends Bloc<RepairEvent, RepairState> {
     );
   }
 
-  Future<void> _storeDataLocally({
+  Future<void> _saveDataLocally({
     required Emitter<RepairState> emit,
     required List<String> assetNames,
     required List<BaseItemEntity> baseItems,
@@ -92,21 +92,21 @@ final class RepairBloc extends Bloc<RepairEvent, RepairState> {
     required List<FullItemTranslationEntity> fullItemTranslations,
     required List<PatchNoteTranslationEntity> patchNoteTranslations,
   }) async {
-    emit(const RepairStoreDataLocallyInProgress());
+    emit(const RepairSaveDataLocallyInProgress());
     final operations = [
       () => _downloadAssets(assetNames),
-      () => _localDatabaseApi.storeBaseItems(baseItems),
-      () => _localDatabaseApi.storeFullItems(fullItems),
-      () => _localDatabaseApi.storePatchNotes(patchNotes),
-      () => _localDatabaseApi.storeBaseItemTranslations(baseItemTranslations),
-      () => _localDatabaseApi.storeFullItemTranslations(fullItemTranslations),
-      () => _localDatabaseApi.storePatchNoteTranslations(patchNoteTranslations),
+      () => _localDatabaseApi.saveBaseItems(baseItems),
+      () => _localDatabaseApi.saveFullItems(fullItems),
+      () => _localDatabaseApi.savePatchNotes(patchNotes),
+      () => _localDatabaseApi.saveBaseItemTranslations(baseItemTranslations),
+      () => _localDatabaseApi.saveFullItemTranslations(fullItemTranslations),
+      () => _localDatabaseApi.savePatchNoteTranslations(patchNoteTranslations),
     ];
 
     int step = 1;
-    final futures = operations.map((storeData) async {
-      await storeData();
-      emit(RepairStoreDataLocallyInProgress(step++));
+    final futures = operations.map((saveData) async {
+      await saveData();
+      emit(RepairSaveDataLocallyInProgress(step++));
     });
 
     await Future.wait(

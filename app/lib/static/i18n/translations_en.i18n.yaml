@@ -6,12 +6,15 @@ general:
     network: 'Network error'
 pages:
   init:
-    checkUpdates: 'Checking for updates\u{00A0}…'
-    init: 'Starting update\u{00A0}…'
-    checkLatestUpdate: 'Checking for latest updates\u{00A0}…'
-    loadRemoteData: 'Loading assets and data\u{00A0}…'
-    storeDataLocally: 'Store assets and data locally\u{00A0}…'
-    finish: 'Update successfully completed\u{00A0}…'
+    checkUpdates: 'Checking for new updates\u{00A0}…'
+    init: 'Initializing update\u{00A0}…'
+    checkLatestUpdate: 'Verifying latest version\u{00A0}…'
+    load: 'Downloading assets and data\u{00A0}…'
+    save: 'Saving assets and data locally\u{00A0}…'
+    finish: 'Finalizing setup\u{00A0}…'
+    restart: 'Restart app'
+    errors:
+      database: 'An error occurred while accessing the database. Please restart the app. If the error persists, contact support.'
   ranked:
     title: 'Ranked'
     header: 'Ready to prove your mastery of TFT?\nStart the game now!'

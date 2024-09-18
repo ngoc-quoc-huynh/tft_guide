@@ -8,6 +8,7 @@ import 'package:tft_guide/domain/interfaces/file.dart';
 import 'package:tft_guide/domain/interfaces/local_database.dart';
 import 'package:tft_guide/domain/interfaces/local_storage.dart';
 import 'package:tft_guide/domain/interfaces/logger.dart';
+import 'package:tft_guide/domain/interfaces/native.dart';
 import 'package:tft_guide/domain/interfaces/rank.dart';
 import 'package:tft_guide/domain/interfaces/remote_database.dart';
 import 'package:tft_guide/domain/interfaces/theme.dart';
@@ -17,6 +18,7 @@ import 'package:tft_guide/infrastructure/repositories/feedback.dart';
 import 'package:tft_guide/infrastructure/repositories/hydrated_storage.dart';
 import 'package:tft_guide/infrastructure/repositories/local_file_storage.dart';
 import 'package:tft_guide/infrastructure/repositories/material_theme.dart';
+import 'package:tft_guide/infrastructure/repositories/native.dart';
 import 'package:tft_guide/infrastructure/repositories/rank.dart';
 import 'package:tft_guide/infrastructure/repositories/shared_preferences.dart';
 import 'package:tft_guide/infrastructure/repositories/sqlite_async.dart';
@@ -47,7 +49,8 @@ final class Injector {
       )
       ..registerLazySingleton<LocalStorageApi>(SharedPreferencesRepository.new)
       ..registerLazySingleton<RankApi>(LocalRankRepository.new)
-      ..registerLazySingleton<LoggerApi>(AppLogger.new);
+      ..registerLazySingleton<LoggerApi>(AppLogger.new)
+      ..registerLazySingleton<NativeApi>(NativeRepository.new);
     await instance.allReady();
     HydratedBloc.storage = const SharedPrefsHydratedStorage();
   }

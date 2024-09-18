@@ -25,21 +25,21 @@ abstract interface class LocalDatabaseApi {
 
   Future<DateTime?> loadLatestPatchNoteTranslationUpdatedAt();
 
-  Future<void> storeBaseItems(List<BaseItemEntity> items);
+  Future<void> saveBaseItems(List<BaseItemEntity> items);
 
-  Future<void> storeFullItems(List<FullItemEntity> items);
+  Future<void> saveFullItems(List<FullItemEntity> items);
 
-  Future<void> storePatchNotes(List<PatchNoteEntity> patchNotes);
+  Future<void> savePatchNotes(List<PatchNoteEntity> patchNotes);
 
-  Future<void> storeBaseItemTranslations(
+  Future<void> saveBaseItemTranslations(
     List<BaseItemTranslationEntity> translations,
   );
 
-  Future<void> storeFullItemTranslations(
+  Future<void> saveFullItemTranslations(
     List<FullItemTranslationEntity> translations,
   );
 
-  Future<void> storePatchNoteTranslations(
+  Future<void> savePatchNoteTranslations(
     List<PatchNoteTranslationEntity> translations,
   );
 
