@@ -3,6 +3,7 @@ part of '../../bloc.dart';
 final class CheckFullItemsBloc extends CheckDatabaseBloc {
   CheckFullItemsBloc()
       : super(
+          className: 'CheckFullItemsBloc',
           loadLocalDataCount:
               CheckDatabaseBloc.localDatabaseApi.loadFullItemsCount,
           loadRemoteDataCount:

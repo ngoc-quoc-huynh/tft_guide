@@ -5,13 +5,14 @@ import 'package:tft_guide/domain/models/database/item.dart';
 import 'package:tft_guide/domain/models/database/item_translation.dart';
 import 'package:tft_guide/domain/models/database/patch_note.dart';
 import 'package:tft_guide/domain/models/database/patch_note_translation.dart';
+import 'package:tft_guide/domain/utils/mixins/bloc.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 
 part 'event.dart';
 part 'state.dart';
 
-final class RepairBloc extends Bloc<RepairEvent, RepairState> {
+final class RepairBloc extends Bloc<RepairEvent, RepairState> with BlocMixin {
   RepairBloc() : super(const RepairInitial()) {
     on<RepairStartEvent>(_onRepairStartEvent);
   }
@@ -23,39 +24,38 @@ final class RepairBloc extends Bloc<RepairEvent, RepairState> {
   Future<void> _onRepairStartEvent(
     RepairStartEvent event,
     Emitter<RepairState> emit,
-  ) async {
-    emit(const RepairInitial());
+  ) async =>
+      executeSafely(
+        methodName: 'RepairBloc._onRepairStartEvent',
+        function: () async {
+          final [
+            assetNames,
+            baseItems,
+            fullItems,
+            patchNotes,
+            baseItemTranslations,
+            fullItemTranslations,
+            patchNoteTranslations,
+          ] = await _loadRemoteData(emit);
+          await _saveDataLocally(
+            emit: emit,
+            assetNames: assetNames as List<String>,
+            baseItems: baseItems as List<BaseItemEntity>,
+            fullItems: fullItems as List<FullItemEntity>,
+            patchNotes: patchNotes as List<PatchNoteEntity>,
+            baseItemTranslations:
+                baseItemTranslations as List<BaseItemTranslationEntity>,
+            fullItemTranslations:
+                fullItemTranslations as List<FullItemTranslationEntity>,
+            patchNoteTranslations:
+                patchNoteTranslations as List<PatchNoteTranslationEntity>,
+          );
+          await _waitForProgressBarAnimation(emit);
 
-    try {
-      final [
-        assetNames,
-        baseItems,
-        fullItems,
-        patchNotes,
-        baseItemTranslations,
-        fullItemTranslations,
-        patchNoteTranslations,
-      ] = await _loadRemoteData(emit);
-      await _saveDataLocally(
-        emit: emit,
-        assetNames: assetNames as List<String>,
-        baseItems: baseItems as List<BaseItemEntity>,
-        fullItems: fullItems as List<FullItemEntity>,
-        patchNotes: patchNotes as List<PatchNoteEntity>,
-        baseItemTranslations:
-            baseItemTranslations as List<BaseItemTranslationEntity>,
-        fullItemTranslations:
-            fullItemTranslations as List<FullItemTranslationEntity>,
-        patchNoteTranslations:
-            patchNoteTranslations as List<PatchNoteTranslationEntity>,
+          emit(const RepairLoadOnSuccess());
+        },
+        onError: () => emit(RepairLoadOnFailure(state.progress)),
       );
-      await _waitForProgressBarAnimation(emit);
-
-      emit(const RepairLoadOnSuccess());
-    } on Exception {
-      emit(RepairLoadOnFailure(state.progress));
-    }
-  }
 
   Future<List<Object>> _loadRemoteData(Emitter<RepairState> emit) {
     emit(const RepairLoadRemoteDataInProgress());
