@@ -28,3 +28,7 @@ final class ItemDetailLoadOnSuccess<Item extends ItemDetail>
         themeData,
       ];
 }
+
+final class ItemDetailLoadOnFailure extends ItemDetailState {
+  const ItemDetailLoadOnFailure();
+}

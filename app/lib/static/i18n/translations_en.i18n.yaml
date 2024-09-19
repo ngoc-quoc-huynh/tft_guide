@@ -97,6 +97,9 @@ pages:
     mana: 'Mana'
     item1: 'Item 1'
     item2: 'Item 2'
+    errors:
+      baseItem(String id): 'The base item with id "$id" could not be loaded.\nGo to Settings and run an App Check or a Repair if needed.'
+      fullItem(String id): 'The full item with id "$id" could not be loaded.\nGo to Settings and run an App Check or a Repair if needed.'
   settings:
     title: 'Settings'
     design:

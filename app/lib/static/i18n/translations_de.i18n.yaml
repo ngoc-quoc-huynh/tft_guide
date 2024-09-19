@@ -97,6 +97,9 @@ pages:
     mana: 'Mana'
     item1: 'Gegenstand 1'
     item2: 'Gegenstand 2'
+    errors:
+      baseItem(String id): 'Der Grundgegenstand mit id "$id" konnte nicht geladen werden.\nGehe zu den Einstellungen und führe eine App-Prüfung und ggf. eine Reperatur durch.'
+      fullItem(String id): 'Der Vollgegenstand mit id "$id" konnte nicht geladen werden.\nGehe zu den Einstellungen und führe eine App-Prüfung und ggf. eine Reperatur durch.'
   settings:
     title: 'Einstellungen'
     design:

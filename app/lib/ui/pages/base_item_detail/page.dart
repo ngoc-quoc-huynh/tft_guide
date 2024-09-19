@@ -6,6 +6,7 @@ import 'package:tft_guide/domain/models/item_detail.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/ui/widgets/item_detail/card.dart';
+import 'package:tft_guide/ui/widgets/item_detail/error.dart';
 import 'package:tft_guide/ui/widgets/item_detail/image.dart';
 import 'package:tft_guide/ui/widgets/item_detail/loading_indicator.dart';
 import 'package:tft_guide/ui/widgets/item_detail/sliver_wrapper.dart';
@@ -46,6 +47,8 @@ class BaseItemDetailPage extends StatelessWidget {
               item: item,
               themeData: themeData,
             ),
+          ItemDetailLoadOnFailure() =>
+            ItemDetailErrorPage<BaseItemDetail>(id: id),
           ItemDetailLoadOnSuccess<ItemDetail>() => throw StateError(
               'This state will never be emitted within BaseItemDetailBloc.',
             ),

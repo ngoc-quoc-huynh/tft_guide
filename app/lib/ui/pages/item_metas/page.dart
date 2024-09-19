@@ -6,6 +6,7 @@ import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/pages/item_metas/list_view.dart';
 import 'package:tft_guide/ui/pages/item_metas/loading_indicator.dart';
+import 'package:tft_guide/ui/widgets/error_text.dart';
 import 'package:tft_guide/ui/widgets/language/listener.dart';
 
 class ItemMetasPage extends StatelessWidget {
@@ -57,9 +58,8 @@ class _Error extends StatelessWidget {
         horizontal: Sizes.horizontalPadding,
       ),
       child: Center(
-        child: Text(
-          Injector.instance.translations.pages.itemMetas.errors.empty,
-          style: Theme.of(context).textTheme.titleLarge,
+        child: ErrorText(
+          text: Injector.instance.translations.pages.itemMetas.errors.empty,
         ),
       ),
     );
