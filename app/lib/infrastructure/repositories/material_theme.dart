@@ -22,35 +22,45 @@ final class MaterialThemeRepository with LoggerMixin implements ThemeApi {
       'textTheme': textTheme.toString(),
     };
 
-    final file = _fileStorageApi.loadFile(fileName);
-    if (!file.existsSync()) {
-      logWarning(
+    try {
+      final file = _fileStorageApi.loadFile(fileName);
+      if (!file.existsSync()) {
+        logWarning(
+          methodName,
+          'Could not retrieve file to compute the theme.',
+          parameters: parameters,
+          stackTrace: StackTrace.current,
+        );
+        return null;
+      }
+
+      final colorScheme = await ColorScheme.fromImageProvider(
+        provider: FileImage(file),
+        brightness: brightness,
+      );
+      final harmonizedColorScheme = colorScheme.harmonized();
+      logInfo(
         methodName,
-        'Could not retrieve file to compute the theme.',
+        'Computed theme from image.',
         parameters: parameters,
         stackTrace: StackTrace.current,
       );
+
+      return ThemeData.from(
+        colorScheme: harmonizedColorScheme,
+        textTheme: textTheme.apply(
+          bodyColor: harmonizedColorScheme.onSurface,
+          displayColor: harmonizedColorScheme.onSurface,
+        ),
+      );
+    } on Exception catch (e, stackTrace) {
+      logWarning(
+        methodName,
+        'Could not compute theme: $e',
+        stackTrace: stackTrace,
+        parameters: parameters,
+      );
       return null;
     }
-
-    final colorScheme = await ColorScheme.fromImageProvider(
-      provider: FileImage(file),
-      brightness: brightness,
-    );
-    final harmonizedColorScheme = colorScheme.harmonized();
-    logInfo(
-      methodName,
-      'Computed theme from image.',
-      parameters: parameters,
-      stackTrace: StackTrace.current,
-    );
-
-    return ThemeData.from(
-      colorScheme: harmonizedColorScheme,
-      textTheme: textTheme.apply(
-        bodyColor: harmonizedColorScheme.onSurface,
-        displayColor: harmonizedColorScheme.onSurface,
-      ),
-    );
   }
 }
