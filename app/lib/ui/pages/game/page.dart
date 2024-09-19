@@ -13,7 +13,7 @@ import 'package:tft_guide/ui/pages/game/quit/button.dart';
 import 'package:tft_guide/ui/widgets/custom_app_bar.dart';
 import 'package:tft_guide/ui/widgets/error_text.dart';
 import 'package:tft_guide/ui/widgets/loading_indicator.dart';
-import 'package:tft_guide/ui/widgets/spatula_background.dart';
+import 'package:tft_guide/ui/widgets/scaffold.dart';
 
 class GamePage extends StatelessWidget {
   const GamePage({super.key});
@@ -36,7 +36,7 @@ class GamePage extends StatelessWidget {
       ],
       child: BlocBuilder<QuestionsBloc, QuestionsState>(
         builder: (context, state) => switch (state) {
-          QuestionsLoadInProgress() => const Scaffold(
+          QuestionsLoadInProgress() => const CustomScaffold(
               body: LoadingIndicator(),
             ),
           QuestionsLoadOnFailure() => const _Error(),
@@ -54,18 +54,16 @@ class _Success extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return CustomScaffold(
       appBar: AppBar(
         leading: const QuitButton(),
         title: GameProgressBar(
           totalQuestion: questions.length,
         ),
       ),
-      body: SpatulaBackground(
-        child: BlocProvider<CorrectAnswersCubit>(
-          create: (_) => CorrectAnswersCubit(),
-          child: GameBody(questions: questions),
-        ),
+      body: BlocProvider<CorrectAnswersCubit>(
+        create: (_) => CorrectAnswersCubit(),
+        child: GameBody(questions: questions),
       ),
     );
   }
@@ -76,7 +74,7 @@ class _Error extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return CustomScaffold(
       appBar: CustomAppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(

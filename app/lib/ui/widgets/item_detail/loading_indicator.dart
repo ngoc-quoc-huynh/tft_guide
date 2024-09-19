@@ -6,6 +6,7 @@ import 'package:tft_guide/ui/widgets/item_detail/image.dart';
 import 'package:tft_guide/ui/widgets/item_detail/stats/stats.dart';
 import 'package:tft_guide/ui/widgets/item_detail/text.dart';
 import 'package:tft_guide/ui/widgets/item_detail/title.dart';
+import 'package:tft_guide/ui/widgets/scaffold.dart';
 
 class ItemDetailLoadingIndicator extends StatelessWidget {
   const ItemDetailLoadingIndicator({
@@ -18,7 +19,7 @@ class ItemDetailLoadingIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Skeletonizer(
-      child: Scaffold(
+      child: CustomScaffold(
         appBar: AppBar(
           leading: const Skeleton.keep(
             child: BackButton(),
