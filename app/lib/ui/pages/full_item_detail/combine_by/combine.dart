@@ -32,7 +32,7 @@ final class _Combine extends FullItemDetailCombineBy {
   }
 
   static TranslationsPagesItemDetailEn get _translations =>
-      Injector.instance.translations.pages.item_detail;
+      Injector.instance.translations.pages.itemDetail;
 }
 
 class _Image extends StatelessWidget {

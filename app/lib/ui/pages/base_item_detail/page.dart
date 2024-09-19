@@ -147,5 +147,5 @@ class _Body extends StatelessWidget {
   }
 
   static TranslationsPagesItemDetailEn get _translations =>
-      Injector.instance.translations.pages.item_detail;
+      Injector.instance.translations.pages.itemDetail;
 }

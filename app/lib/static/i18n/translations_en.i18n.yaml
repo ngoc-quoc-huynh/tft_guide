@@ -39,7 +39,7 @@ pages:
     lp(int number): '$number LP'
   game:
     errors:
-      questions: "Oops! We couldn't create questions due to missing items.\nPlease run an App Check in Settings, and use Repair if needed."
+      questions: "Oops! We couldn't create questions due to missing items.\nPlease go to Settings and run an App Check or a Repair if needed."
     option(int index): 'Option $index'
     proceed: 'Continue'
     check: 'Check'
@@ -78,9 +78,11 @@ pages:
         - 'Ich weiß nicht, ob ich das schaffen kann.'
         - 'Mist, das war schwer.'
         - 'Fokus Anna!'
-  item_metas:
+  itemMetas:
     title: 'Items'
-  item_detail:
+    errors:
+      empty: 'You see no items here?\nGo to Settings and run an App Check or a Repair if needed.'
+  itemDetail:
     description: 'Description'
     hint: 'Hint'
     combine: 'Combined by'
@@ -131,7 +133,6 @@ pages:
         name: 'Patch notes'
         checkPatchNotes(int localCount, int remoteCount): '$localCount/$remoteCount patch notes'
         checkTranslations(int localCount, int remoteCount): '$localCount/$remoteCount translations'
-
     repair:
       name: 'Repair'
       description: 'We will download all essential data, such as assets, base- and full items, and patch notes again.'
@@ -146,6 +147,8 @@ pages:
       name: 'External libraries and licenses'
   patchNotes:
     title: 'Patch Notes'
+    errors:
+      empty: 'You see no patch notes here?\nGo to Settings and run an App Check or a Repair if needed.'
   license:
     copyright: '© 2024 Ngoc Quoc Huynh. All rights reserved. Licensed under the BSD 3-Clause License. Redistribution and use in source and binary forms, with or without modification, are permitted under the license terms.'
     license: 'Copyright 2024 Ngoc Quoc Huynh

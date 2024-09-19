@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/blocs/item_metas/bloc.dart';
 import 'package:tft_guide/domain/models/database/language_code.dart';
+import 'package:tft_guide/injector.dart';
+import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/pages/item_metas/list_view.dart';
 import 'package:tft_guide/ui/pages/item_metas/loading_indicator.dart';
 import 'package:tft_guide/ui/widgets/language/listener.dart';
@@ -29,6 +31,9 @@ class _Body extends StatelessWidget {
       child: BlocBuilder<ItemMetasBloc, ItemMetasState>(
         builder: (context, state) => switch (state) {
           ItemMetasLoadInProgress() => const ItemLoadingIndicator(),
+          ItemMetasLoadOnFailure() => const _Error(),
+          ItemMetasLoadOnSuccess(:final items) when items.isEmpty =>
+            const _Error(),
           ItemMetasLoadOnSuccess(:final items) =>
             ItemMetasListView(items: items),
         },
@@ -40,4 +45,23 @@ class _Body extends StatelessWidget {
       context
           .read<ItemMetasBloc>()
           .add(ItemMetasUpdateLanguageEvent(languageCode));
+}
+
+class _Error extends StatelessWidget {
+  const _Error();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: Sizes.horizontalPadding,
+      ),
+      child: Center(
+        child: Text(
+          Injector.instance.translations.pages.itemMetas.errors.empty,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+      ),
+    );
+  }
 }
