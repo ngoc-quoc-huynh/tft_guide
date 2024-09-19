@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/models/database/language_code.dart';
 import 'package:tft_guide/domain/models/item_detail.dart';
+import 'package:tft_guide/domain/utils/mixins/bloc.dart';
 import 'package:tft_guide/injector.dart';
 
 part 'base_item/bloc.dart';
@@ -14,7 +15,7 @@ part 'full_item/state.dart';
 part 'state.dart';
 
 sealed class ItemDetailBloc<Item extends ItemDetail>
-    extends Bloc<ItemDetailEvent, ItemDetailState> {
+    extends Bloc<ItemDetailEvent, ItemDetailState> with BlocMixin {
   ItemDetailBloc(this._loadItemDetail)
       : super(const ItemDetailLoadInProgress()) {
     on<ItemDetailInitializeEvent>(
@@ -40,23 +41,32 @@ sealed class ItemDetailBloc<Item extends ItemDetail>
     ItemDetailInitializeEvent event,
     Emitter<ItemDetailState> emit,
   ) async {
-    final (item, themeData) = await (
-      _loadItemDetail(
-        event.id,
-        Injector.instance.languageCode,
-      ),
-      _themeApi.computeThemeFromFileImage(
-        fileName: event.id,
-        brightness: event.brightness,
-        textTheme: event.textTheme,
-      ),
-    ).wait;
+    await executeSafely(
+      methodName: 'ItemDetailBloc._onItemDetailInitializeEvent',
+      function: () async {
+        final [item, themeData] = await Future.wait(
+          [
+            _loadItemDetail(
+              event.id,
+              Injector.instance.languageCode,
+            ),
+            _themeApi.computeThemeFromFileImage(
+              fileName: event.id,
+              brightness: event.brightness,
+              textTheme: event.textTheme,
+            ),
+          ],
+          eagerError: true,
+        );
 
-    emit(
-      ItemDetailLoadOnSuccess<Item>(
-        item: item,
-        themeData: themeData,
-      ),
+        emit(
+          ItemDetailLoadOnSuccess<Item>(
+            item: item! as Item,
+            themeData: themeData as ThemeData?,
+          ),
+        );
+      },
+      onError: () => emit(const ItemDetailLoadOnFailure()),
     );
   }
 
@@ -88,18 +98,24 @@ sealed class ItemDetailBloc<Item extends ItemDetail>
   ) async {
     if (state
         case ItemDetailLoadOnSuccess<Item>(:final item, :final themeData)) {
-      emit(const ItemDetailLoadInProgress());
+      await executeSafely(
+        methodName: 'ItemDetailBloc._onItemDetailUpdateLocaleEvent',
+        function: () async {
+          emit(const ItemDetailLoadInProgress());
 
-      final newItem = await _loadItemDetail(
-        item.id,
-        event.languageCode,
-      );
+          final newItem = await _loadItemDetail(
+            item.id,
+            event.languageCode,
+          );
 
-      emit(
-        ItemDetailLoadOnSuccess<Item>(
-          item: newItem,
-          themeData: themeData,
-        ),
+          emit(
+            ItemDetailLoadOnSuccess<Item>(
+              item: newItem,
+              themeData: themeData,
+            ),
+          );
+        },
+        onError: () => emit(const ItemDetailLoadOnFailure()),
       );
     }
   }

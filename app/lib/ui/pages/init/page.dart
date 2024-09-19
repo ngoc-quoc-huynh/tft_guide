@@ -6,6 +6,7 @@ import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/pages/init/restart_button.dart';
 import 'package:tft_guide/ui/widgets/custom_app_bar.dart';
+import 'package:tft_guide/ui/widgets/error_text.dart';
 import 'package:tft_guide/ui/widgets/icon.dart';
 import 'package:tft_guide/ui/widgets/progress_bar.dart';
 import 'package:tft_guide/ui/widgets/spatula_background.dart';
@@ -28,9 +29,8 @@ class InitPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 if (_isDatabaseError(state)) const _WarningIcon(),
-                Text(
-                  _message(state),
-                  style: Theme.of(context).textTheme.titleLarge,
+                ErrorText(
+                  text: _message(state),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 20),
