@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/blocs/patch_notes_unread_counter/bloc.dart';
+import 'package:tft_guide/domain/blocs/value/cubit.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/ui/router/routes.dart';
 import 'package:tft_guide/ui/widgets/badge.dart';
+import 'package:tft_guide/ui/widgets/bloc/selector.dart';
 import 'package:tft_guide/ui/widgets/custom_app_bar.dart';
 import 'package:tft_guide/ui/widgets/language/builder.dart';
 import 'package:tft_guide/ui/widgets/scaffold.dart';
@@ -22,53 +24,68 @@ class ScaffoldWithNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<PatchNotesUnreadCounterBloc>(
-      create: (_) => PatchNotesUnreadCounterBloc()
-        ..add(const PatchNotesUnreadCounterInitializeEvent()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<PatchNotesUnreadCounterBloc>(
+          create: (_) => PatchNotesUnreadCounterBloc()
+            ..add(const PatchNotesUnreadCounterInitializeEvent()),
+        ),
+        BlocProvider<NavigationBarValueCubit>(
+          create: (_) => NavigationBarValueCubit(NavigationBarState.ranked),
+        ),
+      ],
       child: LanguageBuilder(
-        builder: (context) => CustomScaffold(
-          appBar: CustomAppBar(
-            actions: [
-              IconButton(
-                onPressed: () => unawaited(
-                  context.pushNamed(Routes.settingsPage()),
-                ),
-                icon: const Icon(Icons.settings),
-              ),
-            ],
-          ),
-          bottomNavigationBar: NavigationBar(
-            selectedIndex: navigationShell.currentIndex,
-            onDestinationSelected: (index) =>
-                _onDestinationSelected(context, index),
-            destinations: [
-              NavigationDestination(
-                icon: const Icon(Icons.emoji_events),
-                label: _translations.ranked.title,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.format_list_bulleted),
-                label: _translations.itemMetas.title,
-              ),
-              NavigationDestination(
-                icon: BlocBuilder<PatchNotesUnreadCounterBloc,
-                    PatchNotesUnreadCounterState>(
-                  builder: (context, state) => BadgeCounter(
-                    count: switch (state) {
-                      PatchNotesUnreadCounterLoadInProgress() => 0,
-                      PatchNotesUnreadCounterLoadOnSuccess(
-                        :final unreadCount
-                      ) =>
-                        unreadCount,
-                    },
-                    child: const Icon(Icons.newspaper),
+        builder: (context) => BlocSelectorWithChild<NavigationBarValueCubit,
+            NavigationBarState, bool>(
+          selector: (state) =>
+              state == NavigationBarState.itemMetas ||
+              state == NavigationBarState.patchNotes,
+          builder: (context, isScrollable, child) => CustomScaffold(
+            appBar: CustomAppBar(
+              forceMaterialTransparency: !isScrollable,
+              actions: [
+                IconButton(
+                  onPressed: () => unawaited(
+                    context.pushNamed(Routes.settingsPage()),
                   ),
+                  icon: const Icon(Icons.settings),
                 ),
-                label: _translations.patchNotes.title,
-              ),
-            ],
+              ],
+            ),
+            bottomNavigationBar: NavigationBar(
+              selectedIndex: navigationShell.currentIndex,
+              onDestinationSelected: (index) =>
+                  _onDestinationSelected(context, index),
+              destinations: [
+                NavigationDestination(
+                  icon: const Icon(Icons.emoji_events),
+                  label: _translations.ranked.title,
+                ),
+                NavigationDestination(
+                  icon: const Icon(Icons.format_list_bulleted),
+                  label: _translations.itemMetas.title,
+                ),
+                NavigationDestination(
+                  icon: BlocBuilder<PatchNotesUnreadCounterBloc,
+                      PatchNotesUnreadCounterState>(
+                    builder: (context, state) => BadgeCounter(
+                      count: switch (state) {
+                        PatchNotesUnreadCounterLoadInProgress() => 0,
+                        PatchNotesUnreadCounterLoadOnSuccess(
+                          :final unreadCount
+                        ) =>
+                          unreadCount,
+                      },
+                      child: const Icon(Icons.newspaper),
+                    ),
+                  ),
+                  label: _translations.patchNotes.title,
+                ),
+              ],
+            ),
+            body: child!,
           ),
-          body: navigationShell,
+          child: navigationShell,
         ),
       ),
     );
@@ -84,6 +101,9 @@ class ScaffoldWithNavBar extends StatelessWidget {
       index,
       initialLocation: index == navigationShell.currentIndex,
     );
+    context
+        .read<NavigationBarValueCubit>()
+        .update(NavigationBarState.values[index]);
   }
 
   static TranslationsPagesEn get _translations =>

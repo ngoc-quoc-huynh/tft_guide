@@ -5,11 +5,11 @@ import 'package:tft_guide/static/resources/icons.dart';
 class CustomAppBar extends AppBar {
   CustomAppBar({
     super.actions,
+    super.forceMaterialTransparency,
     super.key,
   }) : super(
           centerTitle: true,
           title: const _Title(),
-          forceMaterialTransparency: true,
         );
 }
 
