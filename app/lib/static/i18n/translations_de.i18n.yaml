@@ -38,6 +38,8 @@ pages:
       four: 'IV'
     lp(int number): '$number LP'
   game:
+    errors:
+      questions: "Hoppla! Wir konnten keine Fragen erstellen, da Gegenstände fehlen.\nBitte führe eine App Prüfung in den Einstellungen durch und verwende bei Bedarf die Reparaturfunktion."
     option(int index): 'Auswahl $index'
     proceed: 'Weiter'
     check: 'Überprüfen'

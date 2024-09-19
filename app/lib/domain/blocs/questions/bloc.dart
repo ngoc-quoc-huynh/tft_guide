@@ -30,26 +30,38 @@ final class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
     QuestionsInitializeEvent event,
     Emitter<QuestionsState> emit,
   ) async {
-    final (baseItemOptions, fullItemOptions) = await _loadRandomQuestionItems();
-    final (baseItemQuestions, fullItemQuestions) = await (
-      _buildQuestionsForBaseItem(baseItemOptions),
-      _buildQuestionsForFullItem(fullItemOptions),
-    ).wait;
-    final questions = [...baseItemQuestions, ...fullItemQuestions]..shuffle();
-    emit(QuestionsLoadOnSuccess(questions));
+    try {
+      final [baseItemOptions, fullItemOptions] =
+          await _loadRandomQuestionItems();
+      final (baseItemQuestions, fullItemQuestions) = await (
+        _buildQuestionsForBaseItem(
+          baseItemOptions as List<QuestionBaseItemOption>,
+        ),
+        _buildQuestionsForFullItem(
+          fullItemOptions as List<QuestionFullItemOption>,
+        ),
+      ).wait;
+      final questions = [...baseItemQuestions, ...fullItemQuestions]..shuffle();
+      emit(QuestionsLoadOnSuccess(questions));
+    } on Exception {
+      emit(const QuestionsLoadOnFailure());
+    }
   }
 
-  Future<(List<QuestionBaseItemOption>, List<QuestionFullItemOption>)>
-      _loadRandomQuestionItems() => (
-            _localDatabaseApi.loadRandomQuestionBaseItemOptions(
-              totalBaseItemQuestions,
-              _languageCode,
-            ),
-            _localDatabaseApi.loadRandomQuestionFullItemOptions(
-              totalFullItemQuestions,
-              _languageCode,
-            ),
-          ).wait;
+  Future<List<List<QuestionItemOption>>> _loadRandomQuestionItems() =>
+      Future.wait(
+        [
+          _localDatabaseApi.loadRandomQuestionBaseItemOptions(
+            totalBaseItemQuestions,
+            _languageCode,
+          ),
+          _localDatabaseApi.loadRandomQuestionFullItemOptions(
+            totalFullItemQuestions,
+            _languageCode,
+          ),
+        ],
+        eagerError: true,
+      );
 
   Future<List<Question>> _buildQuestionsForBaseItem(
     List<QuestionBaseItemOption> itemOptions,
@@ -94,30 +106,30 @@ final class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
   Future<List<List<QuestionBaseItemOption>>> _loadOtherRandomBaseItemOptions(
     List<QuestionBaseItemOption> itemOptions,
   ) =>
-      itemOptions
-          .map(
-            (option) =>
-                _localDatabaseApi.loadOtherRandomQuestionBaseItemOptions(
-              option.id,
-              2,
-              _languageCode,
-            ),
-          )
-          .wait;
+      Future.wait(
+        itemOptions.map(
+          (option) => _localDatabaseApi.loadOtherRandomQuestionBaseItemOptions(
+            option.id,
+            2,
+            _languageCode,
+          ),
+        ),
+        eagerError: true,
+      );
 
   Future<List<List<QuestionFullItemOption>>> _loadOtherRandomFUllItemOptions(
     List<QuestionFullItemOption> itemOptions,
   ) =>
-      itemOptions
-          .map(
-            (option) =>
-                _localDatabaseApi.loadOtherRandomQuestionFullItemOptions(
-              option.id,
-              2,
-              _languageCode,
-            ),
-          )
-          .wait;
+      Future.wait(
+        itemOptions.map(
+          (option) => _localDatabaseApi.loadOtherRandomQuestionFullItemOptions(
+            option.id,
+            2,
+            _languageCode,
+          ),
+        ),
+        eagerError: true,
+      );
 
   static const _baseItemQuestionKinds = [
     TitleTextQuestion.new,

@@ -38,6 +38,8 @@ pages:
       four: 'IV'
     lp(int number): '$number LP'
   game:
+    errors:
+      questions: "Oops! We couldn't create questions due to missing items.\nPlease run an App Check in Settings, and use Repair if needed."
     option(int index): 'Option $index'
     proceed: 'Continue'
     check: 'Check'
