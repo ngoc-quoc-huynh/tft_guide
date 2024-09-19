@@ -5,6 +5,7 @@ import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/widgets/custom_app_bar.dart';
 import 'package:tft_guide/ui/widgets/error_text.dart';
+import 'package:tft_guide/ui/widgets/scaffold.dart';
 
 class ItemDetailErrorPage<T extends ItemDetail> extends StatelessWidget {
   const ItemDetailErrorPage({
@@ -16,7 +17,7 @@ class ItemDetailErrorPage<T extends ItemDetail> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return CustomScaffold(
       appBar: CustomAppBar(),
       body: Padding(
         padding:

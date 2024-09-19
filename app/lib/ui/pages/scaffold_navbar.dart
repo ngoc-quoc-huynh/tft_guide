@@ -10,6 +10,7 @@ import 'package:tft_guide/ui/router/routes.dart';
 import 'package:tft_guide/ui/widgets/badge.dart';
 import 'package:tft_guide/ui/widgets/custom_app_bar.dart';
 import 'package:tft_guide/ui/widgets/language/builder.dart';
+import 'package:tft_guide/ui/widgets/scaffold.dart';
 
 class ScaffoldWithNavBar extends StatelessWidget {
   const ScaffoldWithNavBar({
@@ -25,7 +26,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
       create: (_) => PatchNotesUnreadCounterBloc()
         ..add(const PatchNotesUnreadCounterInitializeEvent()),
       child: LanguageBuilder(
-        builder: (context) => Scaffold(
+        builder: (context) => CustomScaffold(
           appBar: CustomAppBar(
             actions: [
               IconButton(

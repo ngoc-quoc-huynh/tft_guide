@@ -9,39 +9,37 @@ import 'package:tft_guide/ui/widgets/custom_app_bar.dart';
 import 'package:tft_guide/ui/widgets/error_text.dart';
 import 'package:tft_guide/ui/widgets/icon.dart';
 import 'package:tft_guide/ui/widgets/progress_bar.dart';
-import 'package:tft_guide/ui/widgets/spatula_background.dart';
+import 'package:tft_guide/ui/widgets/scaffold.dart';
 
 class InitPage extends StatelessWidget {
   const InitPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return CustomScaffold(
       appBar: CustomAppBar(),
-      body: SpatulaBackground(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: Sizes.verticalPadding,
-            horizontal: Sizes.horizontalPadding,
-          ),
-          child: BlocBuilder<DataSyncBloc, DataSyncState>(
-            builder: (context, state) => Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (_isDatabaseError(state)) const _WarningIcon(),
-                ErrorText(
-                  text: _message(state),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 20),
-                switch (_isDatabaseError(state)) {
-                  true => const InitRestartButton(),
-                  false => ProgressBar(
-                      value: state.progress,
-                    ),
-                },
-              ],
-            ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: Sizes.verticalPadding,
+          horizontal: Sizes.horizontalPadding,
+        ),
+        child: BlocBuilder<DataSyncBloc, DataSyncState>(
+          builder: (context, state) => Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (_isDatabaseError(state)) const _WarningIcon(),
+              ErrorText(
+                text: _message(state),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20),
+              switch (_isDatabaseError(state)) {
+                true => const InitRestartButton(),
+                false => ProgressBar(
+                    value: state.progress,
+                  ),
+              },
+            ],
           ),
         ),
       ),
