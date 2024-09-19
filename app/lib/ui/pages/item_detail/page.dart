@@ -19,20 +19,24 @@ import 'package:tft_guide/ui/widgets/spatula_background.dart';
 import 'package:tft_guide/ui/widgets/theme_provider.dart';
 import 'package:tft_guide/ui/widgets/widget_observer.dart';
 
-// TODO: Extract more common widgets
-class BaseItemDetailPage extends StatelessWidget {
-  const BaseItemDetailPage({
+abstract class ItemDetailPage<Bloc extends ItemDetailBloc,
+    Item extends ItemDetail> extends StatelessWidget {
+  const ItemDetailPage({
     required this.id,
+    required this.createBloc,
+    this.trailing,
     super.key,
   });
 
   final String id;
+  final Bloc Function(BuildContext) createBloc;
+  final Widget Function(Item)? trailing;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return BlocProvider<BaseItemDetailBloc>(
-      create: (_) => BaseItemDetailBloc()
+    return BlocProvider<Bloc>(
+      create: (context) => createBloc(context)
         ..add(
           ItemDetailInitializeEvent(
             id: id,
@@ -40,17 +44,18 @@ class BaseItemDetailPage extends StatelessWidget {
             textTheme: theme.textTheme,
           ),
         ),
-      child: BlocBuilder<BaseItemDetailBloc, ItemDetailState>(
+      child: BlocBuilder<Bloc, ItemDetailState>(
         builder: (context, state) => switch (state) {
           ItemDetailLoadInProgress() => const ItemDetailLoadingIndicator(),
-          BaseItemDetailLoadOnSuccess(:final item, :final themeData) => _Body(
+          ItemDetailLoadOnSuccess<Item>(:final item, :final themeData) =>
+            _Body<Item>(
               item: item,
               themeData: themeData,
+              trailing: trailing,
             ),
-          ItemDetailLoadOnFailure() =>
-            ItemDetailErrorPage<BaseItemDetail>(id: id),
+          ItemDetailLoadOnFailure() => ItemDetailErrorPage<Item>(id: id),
           ItemDetailLoadOnSuccess<ItemDetail>() => throw StateError(
-              'This state will never be emitted within BaseItemDetailBloc.',
+              'This state will never be emitted within this page.',
             ),
         },
       ),
@@ -58,14 +63,16 @@ class BaseItemDetailPage extends StatelessWidget {
   }
 }
 
-class _Body extends StatelessWidget {
+class _Body<Item extends ItemDetail> extends StatelessWidget {
   const _Body({
     required this.item,
     required this.themeData,
+    required this.trailing,
   });
 
-  final BaseItemDetail item;
+  final Item item;
   final ThemeData? themeData;
+  final Widget Function(Item)? trailing;
 
   @override
   Widget build(BuildContext context) {
@@ -125,6 +132,10 @@ class _Body extends StatelessWidget {
                       ),
                     ),
                   ),
+                  if (trailing case final Widget Function(Item) trailing) ...[
+                    const SliverSizedBox(height: 10),
+                    trailing.call(item),
+                  ],
                   const SliverSizedBox(height: 20),
                 ],
               ),
