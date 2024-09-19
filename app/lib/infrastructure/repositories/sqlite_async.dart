@@ -779,7 +779,7 @@ ORDER BY t.name ASC;
     };
 
     try {
-      final result = await _db.getAll(
+      final result = await _db.getExactAmountOrThrow(
         '''
 SELECT b.id, t.name, t.description
 FROM base_item AS b
@@ -789,8 +789,14 @@ LEFT JOIN base_item_translation AS t
 ORDER BY RANDOM()
 LIMIT ?;
 ''',
+        amount,
         [languageCode.name, amount],
       );
+
+      if (result.length != amount) {
+        throw const NotEnoughElementsException();
+      }
+
       final options = result
           .map((json) => QuestionBaseItemOption.fromJson(json).toDomain())
           .toList();
@@ -826,7 +832,7 @@ LIMIT ?;
     };
 
     try {
-      final result = await _db.getAll(
+      final result = await _db.getExactAmountOrThrow(
         '''
 SELECT f.id, t.name, t.description, f.is_special, f.item_id_1, f.item_id_2
 FROM full_item AS f
@@ -837,6 +843,7 @@ WHERE f.is_active IS TRUE
 ORDER BY RANDOM()
 LIMIT ?;
 ''',
+        amount,
         [languageCode.name, amount],
       );
       final options = result
@@ -877,7 +884,7 @@ LIMIT ?;
     };
 
     try {
-      final result = await _db.getAll(
+      final result = await _db.getExactAmountOrThrow(
         '''
 WITH random_item AS (
     SELECT id
@@ -894,6 +901,7 @@ LEFT JOIN base_item_translation AS t
        AND t.language_code = ?
 WHERE b.id IN (SELECT id FROM random_item);
 ''',
+        amount,
         [id, amount, languageCode.name],
       );
       final options = result
@@ -934,7 +942,7 @@ WHERE b.id IN (SELECT id FROM random_item);
     };
 
     try {
-      final result = await _db.getAll(
+      final result = await _db.getExactAmountOrThrow(
         '''
 WITH is_special AS (
     SELECT is_special
@@ -982,6 +990,7 @@ WHERE f.id != ?
 ORDER BY RANDOM()
 LIMIT ?;
 ''',
+        amount,
         [id, id, languageCode.name, id, amount],
       );
       final options = result
@@ -1222,6 +1231,7 @@ LIMIT ?;
   }) {
     final throwException = switch (exception) {
       ElementNotFoundException() => exception,
+      NotEnoughElementsException() => exception,
       _ => const UnknownException(),
     };
 
@@ -1359,6 +1369,19 @@ CREATE INDEX idx_full_item_item_id_2 ON full_item(item_id_2);
 }
 
 extension on SqliteDatabase {
+  Future<ResultSet> getExactAmountOrThrow(
+    String sql,
+    int amount, [
+    List<Object?> parameters = const [],
+  ]) async {
+    final result = await getAll(sql, parameters);
+    if (result.length != amount) {
+      throw const NotEnoughElementsException();
+    }
+
+    return result;
+  }
+
   Future<Row> getOrThrow(
     String sql, [
     List<Object?> parameters = const [],
