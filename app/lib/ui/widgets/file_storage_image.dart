@@ -24,9 +24,7 @@ class FileStorageImage extends StatelessWidget {
       width: width,
       fit: BoxFit.contain,
       gaplessPlayback: gaplessPlayback,
-      errorBuilder: (_, __, ___) =>
-          // TODO: Log error
-          ErrorImage(
+      errorBuilder: (_, __, ___) => ErrorImage(
         width: width,
         height: height,
       ),
