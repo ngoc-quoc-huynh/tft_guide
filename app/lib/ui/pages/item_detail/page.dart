@@ -5,6 +5,7 @@ import 'package:tft_guide/domain/models/database/language_code.dart';
 import 'package:tft_guide/domain/models/item_detail.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
+import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/widgets/item_detail/card.dart';
 import 'package:tft_guide/ui/widgets/item_detail/error.dart';
 import 'package:tft_guide/ui/widgets/item_detail/image.dart';
@@ -90,7 +91,7 @@ class _Body<Item extends ItemDetail> extends StatelessWidget {
             ),
             body: CustomScrollView(
               slivers: [
-                const SliverSizedBox(height: 20),
+                const SliverSizedBox(height: Sizes.verticalPadding),
                 SliverWrapperItemDetail(
                   child: ImageDetailImage.image(
                     id: item.id,
@@ -135,7 +136,7 @@ class _Body<Item extends ItemDetail> extends StatelessWidget {
                   const SliverSizedBox(height: 10),
                   trailing.call(item),
                 ],
-                const SliverSizedBox(height: 20),
+                const SliverSizedBox(height: Sizes.verticalPadding),
               ],
             ),
           ),

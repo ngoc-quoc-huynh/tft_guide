@@ -36,7 +36,7 @@ class SettingsPage extends StatelessWidget {
           ),
           child: Column(
             children: [
-              const SizedBox(height: 20),
+              const SizedBox(height: Sizes.verticalPadding),
               Expanded(
                 child: Column(
                   children: [

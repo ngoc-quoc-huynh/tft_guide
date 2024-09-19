@@ -11,8 +11,8 @@ class ItemLoadingIndicator extends StatelessWidget {
     return Skeletonizer(
       child: ListView(
         padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 10,
+          horizontal: Sizes.horizontalPadding,
+          vertical: Sizes.verticalPadding / 2,
         ),
         prototypeItem: const ItemMetasPrototypeItem(),
         children: List.filled(

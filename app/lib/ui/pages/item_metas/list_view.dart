@@ -18,8 +18,8 @@ class ItemMetasListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 10,
+        horizontal: Sizes.horizontalPadding,
+        vertical: Sizes.verticalPadding / 2,
       ),
       itemBuilder: (context, index) => _Item(
         items[index],
