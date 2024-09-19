@@ -11,19 +11,16 @@ class PatchNotesLoadingIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return const SingleChildScrollView(
       child: Skeletonizer(
-        child: Align(
-          alignment: Alignment.topLeft,
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: Sizes.horizontalPadding,
-              vertical: Sizes.verticalPadding,
-            ),
-            child: Column(
-              children: [
-                _Card(),
-                _Card(),
-              ],
-            ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: Sizes.horizontalPadding,
+            vertical: Sizes.verticalPadding,
+          ),
+          child: Column(
+            children: [
+              _Card(),
+              _Card(),
+            ],
           ),
         ),
       ),
