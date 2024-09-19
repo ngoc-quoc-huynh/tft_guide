@@ -6,12 +6,14 @@ import 'package:tft_guide/domain/models/database/language_code.dart';
 import 'package:tft_guide/domain/models/question/item_option.dart';
 import 'package:tft_guide/domain/models/question/question.dart';
 import 'package:tft_guide/domain/utils/extensions/list.dart';
+import 'package:tft_guide/domain/utils/mixins/bloc.dart';
 import 'package:tft_guide/injector.dart';
 
 part 'event.dart';
 part 'state.dart';
 
-final class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
+final class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState>
+    with BlocMixin {
   QuestionsBloc({
     required this.totalBaseItemQuestions,
     required this.totalFullItemQuestions,
@@ -29,24 +31,26 @@ final class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
   Future<void> _onQuestionsInitializeEvent(
     QuestionsInitializeEvent event,
     Emitter<QuestionsState> emit,
-  ) async {
-    try {
-      final [baseItemOptions, fullItemOptions] =
-          await _loadRandomQuestionItems();
-      final (baseItemQuestions, fullItemQuestions) = await (
-        _buildQuestionsForBaseItem(
-          baseItemOptions as List<QuestionBaseItemOption>,
-        ),
-        _buildQuestionsForFullItem(
-          fullItemOptions as List<QuestionFullItemOption>,
-        ),
-      ).wait;
-      final questions = [...baseItemQuestions, ...fullItemQuestions]..shuffle();
-      emit(QuestionsLoadOnSuccess(questions));
-    } on Exception {
-      emit(const QuestionsLoadOnFailure());
-    }
-  }
+  ) =>
+      executeSafely(
+        methodName: 'QuestionsBloc._onQuestionsInitializeEvent',
+        function: () async {
+          final [baseItemOptions, fullItemOptions] =
+              await _loadRandomQuestionItems();
+          final (baseItemQuestions, fullItemQuestions) = await (
+            _buildQuestionsForBaseItem(
+              baseItemOptions as List<QuestionBaseItemOption>,
+            ),
+            _buildQuestionsForFullItem(
+              fullItemOptions as List<QuestionFullItemOption>,
+            ),
+          ).wait;
+          final questions = [...baseItemQuestions, ...fullItemQuestions]
+            ..shuffle();
+          emit(QuestionsLoadOnSuccess(questions));
+        },
+        onError: () => emit(const QuestionsLoadOnFailure()),
+      );
 
   Future<List<List<QuestionItemOption>>> _loadRandomQuestionItems() =>
       Future.wait(
