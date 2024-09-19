@@ -1054,6 +1054,10 @@ LIMIT ?;
           pageSize,
         ],
       );
+      if (currentPage != 0 && patchNotesResult.isEmpty) {
+        throw const NotEnoughElementsException();
+      }
+
       final paginatedPatchNotes = PaginatedPatchNotes.fromJson(
         pageSize: pageSize,
         count: count,
