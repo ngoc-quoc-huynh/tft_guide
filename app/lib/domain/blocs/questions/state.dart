@@ -20,3 +20,7 @@ final class QuestionsLoadOnSuccess extends QuestionsState {
   @override
   List<Object?> get props => [questions];
 }
+
+final class QuestionsLoadOnFailure extends QuestionsState {
+  const QuestionsLoadOnFailure();
+}

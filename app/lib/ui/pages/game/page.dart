@@ -3,10 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/blocs/correct_answers/cubit.dart';
 import 'package:tft_guide/domain/blocs/game_progress/bloc.dart';
 import 'package:tft_guide/domain/blocs/questions/bloc.dart';
+import 'package:tft_guide/domain/models/question/question.dart';
+import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/config.dart';
+import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/pages/game/body.dart';
 import 'package:tft_guide/ui/pages/game/progress_bar.dart';
 import 'package:tft_guide/ui/pages/game/quit/button.dart';
+import 'package:tft_guide/ui/widgets/custom_app_bar.dart';
 import 'package:tft_guide/ui/widgets/loading_indicator.dart';
 import 'package:tft_guide/ui/widgets/spatula_background.dart';
 
@@ -34,22 +38,55 @@ class GamePage extends StatelessWidget {
           QuestionsLoadInProgress() => const Scaffold(
               body: LoadingIndicator(),
             ),
-          QuestionsLoadOnSuccess(:final questions) => Scaffold(
-              appBar: AppBar(
-                leading: const QuitButton(),
-                title: GameProgressBar(
-                  totalQuestion: questions.length,
-                ),
-                forceMaterialTransparency: true,
-              ),
-              body: SpatulaBackground(
-                child: BlocProvider<CorrectAnswersCubit>(
-                  create: (_) => CorrectAnswersCubit(),
-                  child: GameBody(questions: questions),
-                ),
-              ),
-            ),
+          QuestionsLoadOnFailure() => const _Error(),
+          QuestionsLoadOnSuccess(:final questions) => _Success(questions),
         },
+      ),
+    );
+  }
+}
+
+class _Success extends StatelessWidget {
+  const _Success(this.questions);
+
+  final List<Question> questions;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: const QuitButton(),
+        title: GameProgressBar(
+          totalQuestion: questions.length,
+        ),
+      ),
+      body: SpatulaBackground(
+        child: BlocProvider<CorrectAnswersCubit>(
+          create: (_) => CorrectAnswersCubit(),
+          child: GameBody(questions: questions),
+        ),
+      ),
+    );
+  }
+}
+
+class _Error extends StatelessWidget {
+  const _Error();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: CustomAppBar(),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: Sizes.horizontalPadding,
+        ),
+        child: Center(
+          child: Text(
+            Injector.instance.translations.pages.game.errors.questions,
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ),
       ),
     );
   }
