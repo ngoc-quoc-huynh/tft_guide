@@ -31,6 +31,14 @@ sealed class PatchNotesLoadOnSuccess extends PatchNotesState {
       ];
 }
 
+final class PatchNotesPaginationInProgress extends PatchNotesLoadOnSuccess {
+  const PatchNotesPaginationInProgress({
+    required super.currentPage,
+    required super.patchNotes,
+    required super.isLastPage,
+  });
+}
+
 final class PatchNotesChangeLocaleOnSuccess extends PatchNotesLoadOnSuccess {
   const PatchNotesChangeLocaleOnSuccess({
     required super.currentPage,
@@ -45,4 +53,16 @@ final class PatchNotesPaginationOnSuccess extends PatchNotesLoadOnSuccess {
     required super.patchNotes,
     required super.isLastPage,
   });
+}
+
+final class PatchNotesPaginationOnFailure extends PatchNotesLoadOnSuccess {
+  const PatchNotesPaginationOnFailure({
+    required super.currentPage,
+    required super.patchNotes,
+    required super.isLastPage,
+  });
+}
+
+final class PatchNotesLoadOnFailure extends PatchNotesState {
+  const PatchNotesLoadOnFailure();
 }

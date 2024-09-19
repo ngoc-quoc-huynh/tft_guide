@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/blocs/patch_notes/bloc.dart';
 import 'package:tft_guide/domain/models/database/language_code.dart';
+import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/config.dart';
+import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/pages/patch_notes/body.dart';
 import 'package:tft_guide/ui/pages/patch_notes/loading_indicator.dart';
+import 'package:tft_guide/ui/widgets/error_text.dart';
 import 'package:tft_guide/ui/widgets/language/listener.dart';
 
 class PatchNotesPage extends StatelessWidget {
@@ -29,7 +32,12 @@ class PatchNotesPage extends StatelessWidget {
                 PatchNotesBody(
                   patchNotes: patchNotes,
                   isLastPage: isLastPage,
-                )
+                  hasError: state is PatchNotesPaginationOnFailure,
+                ),
+              PatchNotesLoadOnSuccess(:final patchNotes)
+                  when patchNotes.isEmpty =>
+                const _Error(),
+              PatchNotesLoadOnFailure() => const _Error(),
             },
           ),
         ),
@@ -41,4 +49,22 @@ class PatchNotesPage extends StatelessWidget {
       context
           .read<PatchNotesBloc>()
           .add(PatchNotesChangeLanguageEvent(languageCode));
+}
+
+class _Error extends StatelessWidget {
+  const _Error();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: Sizes.horizontalPadding,
+      ),
+      child: Center(
+        child: ErrorText(
+          text: Injector.instance.translations.pages.patchNotes.errors.empty,
+        ),
+      ),
+    );
+  }
 }

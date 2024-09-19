@@ -150,8 +150,10 @@ pages:
       name: 'Externe Bibliotheken und Lizensen'
   patchNotes:
     title: 'Patch-Notizen'
+    retry: 'Wiederholen'
     errors:
       empty: 'Du siehst hier keine Patch-Notizen?\nDann gehe zu den Einstellungen und führe eine App-Prüfung und ggf. eine Reperatur durch.'
+      loadMore: 'Es konnten keine weiteren Patch-Notizen geladen werden.'
   license:
     copyright: '© 2024 Ngoc Quoc Huynh. Alle Rechte vorbehalten. Lizensiert unter der BSD 3-Klausel-Lizenz. Die Weitergabe und Verwendung in Quell- und Binärform, mit oder ohne Änderungen, ist unter den Lizenzbedingungen gestattet.'
     license: 'Copyright 2024 Ngoc Quoc Huynh
