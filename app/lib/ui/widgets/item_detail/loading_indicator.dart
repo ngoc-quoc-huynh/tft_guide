@@ -32,7 +32,7 @@ class ItemDetailLoadingIndicator extends StatelessWidget {
           ),
           child: Column(
             children: [
-              const SizedBox(height: 20),
+              const SizedBox(height: Sizes.verticalPadding),
               const ImageDetailImage.loading(),
               const SizedBox(height: 20),
               const ItemDetailCard(
@@ -53,7 +53,7 @@ class ItemDetailLoadingIndicator extends StatelessWidget {
                 const SizedBox(height: 10),
                 additionalWidget,
               ],
-              const SizedBox(height: 20),
+              const SizedBox(height: Sizes.verticalPadding),
             ],
           ),
         ),
