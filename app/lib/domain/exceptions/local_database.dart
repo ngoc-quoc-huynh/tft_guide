@@ -7,3 +7,7 @@ sealed class LocalDatabaseException extends CustomException {
 final class ElementNotFoundException extends LocalDatabaseException {
   const ElementNotFoundException();
 }
+
+final class NotEnoughElementsException extends LocalDatabaseException {
+  const NotEnoughElementsException();
+}
