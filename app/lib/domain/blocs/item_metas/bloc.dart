@@ -27,12 +27,19 @@ final class ItemMetasBloc extends Bloc<ItemMetasEvent, ItemMetasState> {
     ItemMetasInitializeEvent event,
     Emitter<ItemMetasState> emit,
   ) async {
-    final languageCode = Injector.instance.languageCode;
-    final (baseItems, fullItems) = await (
-      _localDatabaseApi.loadBaseItemMetas(languageCode),
-      _localDatabaseApi.loadFullItemMetas(languageCode),
-    ).wait;
-    emit(ItemMetasLoadOnSuccess([...baseItems, ...fullItems]));
+    try {
+      final languageCode = Injector.instance.languageCode;
+      final [baseItems, fullItems] = await Future.wait(
+        [
+          _localDatabaseApi.loadBaseItemMetas(languageCode),
+          _localDatabaseApi.loadFullItemMetas(languageCode),
+        ],
+        eagerError: true,
+      );
+      emit(ItemMetasLoadOnSuccess([...baseItems, ...fullItems]));
+    } on Exception {
+      emit(const ItemMetasLoadOnFailure());
+    }
   }
 
   Future<void> _onItemMetasUpdateLanguageEvent(

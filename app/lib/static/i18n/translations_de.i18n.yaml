@@ -39,7 +39,7 @@ pages:
     lp(int number): '$number LP'
   game:
     errors:
-      questions: "Hoppla! Wir konnten keine Fragen erstellen, da Gegenstände fehlen.\nBitte führe eine App Prüfung in den Einstellungen durch und verwende bei Bedarf die Reparaturfunktion."
+      questions: "Hoppla! Wir konnten keine Fragen erstellen, da Gegenstände fehlen.\nGehe zu den Einstellungen und führe eine App-Prüfung und ggf. eine Reparatur durch."
     option(int index): 'Auswahl $index'
     proceed: 'Weiter'
     check: 'Überprüfen'
@@ -78,9 +78,11 @@ pages:
         - 'Ich weiß nicht, ob ich das schaffen kann.'
         - 'Mist, das war schwer.'
         - 'Fokus Anna!'
-  item_metas:
+  itemMetas:
     title: 'Gegenstände'
-  item_detail:
+    errors:
+      empty: 'Du siehst hier keine Gegenstände?\nDann gehe zu den Einstellungen und führe eine App-Prüfung und ggf. eine Reperatur durch.'
+  itemDetail:
     description: 'Beschreibung'
     hint: 'Hinweis'
     combine: 'Kombiniert durch'
@@ -112,7 +114,7 @@ pages:
       system: 'Gerätesprache'
       feedback: 'Sprache wurde erfolgreich aktualisiert.'
     check:
-      name: 'App Prüfung'
+      name: 'App-Prüfung'
       description: 'Wir prüfen, ob alle wichtigen Daten wie Assets, Grund- und Vollgegenstände sowie Patch-Notizen fehlerfrei heruntergeladen wurden.'
       start: 'Starte Prüfung'
       retry: 'Prüfung wiederholen'
@@ -145,6 +147,8 @@ pages:
       name: 'Externe Bibliotheken und Lizensen'
   patchNotes:
     title: 'Patch-Notizen'
+    errors:
+      empty: 'Du siehst hier keine Patch-Notizen?\nDann gehe zu den Einstellungen und führe eine App-Prüfung und ggf. eine Reperatur durch.'
   license:
     copyright: '© 2024 Ngoc Quoc Huynh. Alle Rechte vorbehalten. Lizensiert unter der BSD 3-Klausel-Lizenz. Die Weitergabe und Verwendung in Quell- und Binärform, mit oder ohne Änderungen, ist unter den Lizenzbedingungen gestattet.'
     license: 'Copyright 2024 Ngoc Quoc Huynh

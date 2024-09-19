@@ -17,3 +17,7 @@ final class ItemMetasLoadOnSuccess extends ItemMetasState {
 
   final List<ItemMeta> items;
 }
+
+final class ItemMetasLoadOnFailure extends ItemMetasState {
+  const ItemMetasLoadOnFailure();
+}

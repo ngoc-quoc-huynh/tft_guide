@@ -47,7 +47,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
               ),
               NavigationDestination(
                 icon: const Icon(Icons.format_list_bulleted),
-                label: _translations.item_metas.title,
+                label: _translations.itemMetas.title,
               ),
               NavigationDestination(
                 icon: BlocBuilder<PatchNotesUnreadCounterBloc,
