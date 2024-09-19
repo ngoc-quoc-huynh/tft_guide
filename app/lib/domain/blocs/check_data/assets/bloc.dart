@@ -1,12 +1,16 @@
 part of '../bloc.dart';
 
 final class CheckAssetsBloc extends CheckDataBloc {
-  CheckAssetsBloc() : super(_computeSuccessState);
+  CheckAssetsBloc()
+      : super(
+          'CheckAssetsBloc',
+          _compute,
+        );
 
   static final _fileStorageApi = Injector.instance.fileStorageApi;
   static final _remoteDatabaseApi = Injector.instance.remoteDatabaseApi;
 
-  static Future<CheckDataLoadOnSuccess> _computeSuccessState() async {
+  static Future<CheckDataLoadOnSuccess> _compute() async {
     final localCount = _fileStorageApi.loadAssetsCount();
     final remoteCount = await _remoteDatabaseApi.loadAssetsCount();
 

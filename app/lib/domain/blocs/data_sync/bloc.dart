@@ -8,13 +8,15 @@ import 'package:tft_guide/domain/models/database/item_translation.dart';
 import 'package:tft_guide/domain/models/database/patch_note.dart';
 import 'package:tft_guide/domain/models/database/patch_note_translation.dart';
 import 'package:tft_guide/domain/utils/extensions/date_time.dart';
+import 'package:tft_guide/domain/utils/mixins/bloc.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 
 part 'event.dart';
 part 'state.dart';
 
-final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState> {
+final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState>
+    with BlocMixin {
   DataSyncBloc() : super(const DataSyncCheckInProgress()) {
     on<DataSyncInitializeEvent>(_onDataInitializeEvent);
   }
@@ -28,79 +30,88 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState> {
     DataSyncInitializeEvent event,
     Emitter<DataSyncState> emit,
   ) async {
-    final hasUpdated = _hasAppBeenUpdatedToday(emit);
+    const methodName = 'DataSyncBloc._onDataInitializeEvent';
 
-    try {
-      await _initSync(emit);
-    } on Exception {
-      emit(const DataSyncInitOnFailure());
+    final initSuccessfully = await executeSafely(
+      methodName: methodName,
+      function: () => _initSync(emit),
+      onError: () => emit(const DataSyncInitOnFailure()),
+    );
+    if (!initSuccessfully) {
       return;
     }
 
+    final hasUpdated = _hasAppBeenUpdatedToday(emit);
     if (!hasUpdated) {
-      final DateTime? assetsLatestUpDatedAt;
-      final DateTime? baseItemsLatestUpdatedAt;
-      final DateTime? fullItemsLatestUpdatedAt;
-      final DateTime? patchNotesLatestUpdatedAt;
-      final DateTime? baseItemTranslationsLatestUpdatedAt;
-      final DateTime? fullItemTranslationsLatestUpdatedAt;
-      final DateTime? patchNoteTranslationsLatestUpdatedAt;
+      DateTime? assetsLatestUpDatedAt;
+      DateTime? baseItemsLatestUpdatedAt;
+      DateTime? fullItemsLatestUpdatedAt;
+      DateTime? patchNotesLatestUpdatedAt;
+      DateTime? baseItemTranslationsLatestUpdatedAt;
+      DateTime? fullItemTranslationsLatestUpdatedAt;
+      DateTime? patchNoteTranslationsLatestUpdatedAt;
 
-      try {
-        [
-          assetsLatestUpDatedAt,
-          baseItemsLatestUpdatedAt,
-          fullItemsLatestUpdatedAt,
-          patchNotesLatestUpdatedAt,
-          baseItemTranslationsLatestUpdatedAt,
-          fullItemTranslationsLatestUpdatedAt,
-          patchNoteTranslationsLatestUpdatedAt
-        ] = await _loadLatestUpdatedAts(emit);
-      } on Exception {
-        emit(const DataSyncLocalDatabaseOnFailure());
+      final updateLatestAtsSuccessfully = await executeSafely(
+        methodName: methodName,
+        function: () async {
+          [
+            assetsLatestUpDatedAt,
+            baseItemsLatestUpdatedAt,
+            fullItemsLatestUpdatedAt,
+            patchNotesLatestUpdatedAt,
+            baseItemTranslationsLatestUpdatedAt,
+            fullItemTranslationsLatestUpdatedAt,
+            patchNoteTranslationsLatestUpdatedAt
+          ] = await _loadLatestUpdatedAts(emit);
+        },
+        onError: () => emit(const DataSyncLocalDatabaseOnFailure()),
+      );
+      if (!updateLatestAtsSuccessfully) {
         return;
       }
 
-      try {
-        final [
-          assetNames,
-          baseItems,
-          fullItems,
-          patchNotes,
-          baseItemTranslations,
-          fullItemTranslations,
-          patchNoteTranslations,
-        ] = await _loadRemoteData(
-          emit: emit,
-          latestFileUpdatedAt: assetsLatestUpDatedAt,
-          latestBaseItemUpdatedAt: baseItemsLatestUpdatedAt,
-          latestFullItemUpdatedAt: fullItemsLatestUpdatedAt,
-          latestPatchNoteUpdatedAt: patchNotesLatestUpdatedAt,
-          latestBaseItemTranslationUpdatedAt:
-              baseItemTranslationsLatestUpdatedAt,
-          latestFullItemTranslationUpdatedAt:
-              fullItemTranslationsLatestUpdatedAt,
-          latestPatchNoteTranslationUpdatedAt:
-              patchNoteTranslationsLatestUpdatedAt,
-        );
+      await executeSafely(
+        methodName: methodName,
+        function: () async {
+          final [
+            assetNames,
+            baseItems,
+            fullItems,
+            patchNotes,
+            baseItemTranslations,
+            fullItemTranslations,
+            patchNoteTranslations,
+          ] = await _loadRemoteData(
+            emit: emit,
+            latestFileUpdatedAt: assetsLatestUpDatedAt,
+            latestBaseItemUpdatedAt: baseItemsLatestUpdatedAt,
+            latestFullItemUpdatedAt: fullItemsLatestUpdatedAt,
+            latestPatchNoteUpdatedAt: patchNotesLatestUpdatedAt,
+            latestBaseItemTranslationUpdatedAt:
+                baseItemTranslationsLatestUpdatedAt,
+            latestFullItemTranslationUpdatedAt:
+                fullItemTranslationsLatestUpdatedAt,
+            latestPatchNoteTranslationUpdatedAt:
+                patchNoteTranslationsLatestUpdatedAt,
+          );
 
-        await _saveDataLocally(
-          emit: emit,
-          assetNames: assetNames as List<String>,
-          baseItems: baseItems as List<BaseItemEntity>,
-          fullItems: fullItems as List<FullItemEntity>,
-          patchNotes: patchNotes as List<PatchNoteEntity>,
-          baseItemTranslations:
-              baseItemTranslations as List<BaseItemTranslationEntity>,
-          fullItemTranslations:
-              fullItemTranslations as List<FullItemTranslationEntity>,
-          patchNoteTranslations:
-              patchNoteTranslations as List<PatchNoteTranslationEntity>,
-        );
-        await _localStorageApi.updateLastAppUpdate(DateTime.now());
-      } on Exception {
-        emit(const DataSyncLoadAndSaveOnFailure());
-      }
+          await _saveDataLocally(
+            emit: emit,
+            assetNames: assetNames as List<String>,
+            baseItems: baseItems as List<BaseItemEntity>,
+            fullItems: fullItems as List<FullItemEntity>,
+            patchNotes: patchNotes as List<PatchNoteEntity>,
+            baseItemTranslations:
+                baseItemTranslations as List<BaseItemTranslationEntity>,
+            fullItemTranslations:
+                fullItemTranslations as List<FullItemTranslationEntity>,
+            patchNoteTranslations:
+                patchNoteTranslations as List<PatchNoteTranslationEntity>,
+          );
+          await _localStorageApi.updateLastAppUpdate(DateTime.now());
+        },
+        onError: () => emit(const DataSyncLoadAndSaveOnFailure()),
+      );
     }
 
     await _waitForProgressBarAnimation(emit, hasUpdated: hasUpdated);

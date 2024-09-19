@@ -2,12 +2,14 @@ part of '../bloc.dart';
 
 sealed class CheckDatabaseBloc extends CheckDataBloc {
   CheckDatabaseBloc({
+    required String className,
     required this.loadLocalDataCount,
     required this.loadRemoteDataCount,
     required this.loadLocalTranslationCount,
     required this.loadRemoteTranslationCount,
   }) : super(
-          () => _computeSuccessState(
+          className,
+          () => _compute(
             loadLocalDataCount: loadLocalDataCount,
             loadRemoteDataCount: loadRemoteDataCount,
             loadLocalTranslationCount: loadLocalTranslationCount,
@@ -15,7 +17,7 @@ sealed class CheckDatabaseBloc extends CheckDataBloc {
           ),
         );
 
-  static Future<CheckDataLoadOnSuccess> _computeSuccessState({
+  static Future<CheckDataLoadOnSuccess> _compute({
     required Future<int> Function() loadLocalDataCount,
     required Future<int> Function() loadRemoteDataCount,
     required Future<int> Function() loadLocalTranslationCount,
