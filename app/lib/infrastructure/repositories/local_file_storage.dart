@@ -73,6 +73,10 @@ final class LocalFileStorageRepository
 
   @override
   int loadAssetsCount() {
+    if (!_assetsDir.existsSync()) {
+      return 0;
+    }
+
     final count = _assetsDir.listSync().whereType<File>().length;
     logInfo(
       'LocalFileStorageRepository.loadAssetsCount',
