@@ -1323,7 +1323,7 @@ CREATE TABLE IF NOT EXISTS $_tableNameFullItem (
 ''';
   static const _createTablePatchNote = '''
 CREATE TABLE IF NOT EXISTS $_tableNamePatchNote (
-    id VARCHAR(50) PRIMARY KEY,
+    id VARCHAR(100) PRIMARY KEY,
     created_at TIMESTAMPTZ NOT NULL,
     updated_at TIMESTAMPTZ NOT NULL
 );
@@ -1356,9 +1356,9 @@ CREATE TABLE IF NOT EXISTS $_tableNameFullItemTranslation (
 ''';
   static const _createTablePatchNoteTranslation = '''
 CREATE TABLE IF NOT EXISTS $_tableNamePatchNoteTranslation (
-    id VARCHAR(50) PRIMARY KEY,
+    id VARCHAR(100) PRIMARY KEY,
     language_code CHAR(2) NOT NULL,
-    patch_note_id VARCHAR(50),
+    patch_note_id VARCHAR(100),
     text TEXT NOT NULL,
     created_at TIMESTAMPTZ NOT NULL,
     updated_at TIMESTAMPTZ NOT NULL,
