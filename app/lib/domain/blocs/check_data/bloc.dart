@@ -32,7 +32,10 @@ sealed class CheckDataBloc extends Bloc<CheckDataEvent, CheckDataState>
   ) async =>
       executeSafely(
         methodName: '$_className.onCheckDataStartEvent',
-        function: () async => emit(await _computeSuccessState()),
+        function: () async {
+          emit(const CheckDataLoadInProgress());
+          emit(await _computeSuccessState());
+        },
         onError: () => emit(const CheckDataLoadOnFailure()),
       );
 }
