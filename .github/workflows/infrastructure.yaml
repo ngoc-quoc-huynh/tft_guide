@@ -2,8 +2,6 @@ name: infrastructure
 
 on:
   push:
-    branches:
-      - main
     paths:
       - 'infrastructure/**'
       - '.github/workflows/infrastructure.yaml'
@@ -40,4 +38,4 @@ jobs:
 
       - name: Deploy Database
         run: supabase db push --include-seed
-        if: github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
