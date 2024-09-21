@@ -64,6 +64,9 @@ To set up and run the supabase server locally for development, follow these step
    supabase stop
    ```
 
+For detailed guidance on local development with supabase, visit the official
+documentation: [Local Development](https://supabase.com/docs/guides/cli/local-development).
+
 ### Database Migrations
 
 To manage changes to your database schema, you can use supabase migrations. Follow these steps to create, apply, and
