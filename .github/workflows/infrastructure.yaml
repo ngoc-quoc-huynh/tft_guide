@@ -19,9 +19,8 @@ defaults:
     working-directory: ./infrastructure
 
 jobs:
-  check:
+  build:
     runs-on: ubuntu-latest
-    if: github.event_name != 'workflow_dispatch'
 
     steps:
       - uses: actions/checkout@v4
@@ -39,23 +38,6 @@ jobs:
       - name: Run Tests
         run: supabase db test
 
-  deploy:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch'
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: supabase/setup-cli@v1
-        with:
-          version: latest
-
-      - name: Setup Supabase
-        run: |
-          supabase login --token $SUPABASE_ACCESS_TOKEN
-          supabase link --project-ref $PROJECT_ID
-          supabase db start
-
-      - name: Run Tests
-        run: supabase db test
       - name: Deploy Database
         run: supabase db push --include-seed
+        if: github.event_name == 'workflow_dispatch'
