@@ -10,6 +10,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -66,7 +67,10 @@ jobs:
       - name: Build APK
         if: github.event_name == 'workflow_dispatch'
         working-directory: ./app
-        run: flutter build apk --release
+        env:
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+        run: flutter build apk --release --dart-define=anon_key=$SUPABASE_ANON_KEY --dart-define=url=SUPABASE_URL
       - name: Upload APK
         uses: actions/upload-artifact@v4
         if: github.event_name == 'workflow_dispatch'
