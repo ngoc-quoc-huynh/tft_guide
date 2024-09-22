@@ -45,6 +45,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
               forceMaterialTransparency: !isScrollable,
               actions: [
                 IconButton(
+                  tooltip: _translations.settings.title,
                   onPressed: () => unawaited(
                     context.pushNamed(Routes.settingsPage()),
                   ),
