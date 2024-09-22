@@ -47,17 +47,31 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.debug
+
+            minifyEnabled = true
+            shrinkResources = true
+            proguardFiles getDefaultProguardFile(
+                    'proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
+
+
         }
         debug {
             signingConfig signingConfigs.debug
         }
 
         applicationVariants.all { variant ->
-            variant.outputs.all {
+            variant.outputs.all { output ->
                 def versionName = variant.versionName
                 def variantName = variant.name
+                def baseName = "tft_guide_${variantName}_v${versionName}"
+                def abiFilter = output.getFilters().find { it.filterType == "ABI" }
 
-                outputFileName = "tft_guide_${variantName}_v${versionName}.apk"
+                if (abiFilter != null) {
+                    outputFileName = "${baseName}_${abiFilter.identifier}.apk"
+                } else {
+                    outputFileName = "${baseName}.apk"
+                }
             }
         }
     }
