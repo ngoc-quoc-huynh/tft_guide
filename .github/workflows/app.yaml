@@ -72,4 +72,4 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         with:
           name: TFT Guide APK
-          path: build/app/outputs/flutter-apk/app-release.apk
+          path: app/build/app/outputs/flutter-apk/app-release.apk
