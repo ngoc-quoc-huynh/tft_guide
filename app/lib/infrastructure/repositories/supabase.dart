@@ -488,9 +488,8 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
       StorageException(:final statusCode, :final message)
           when statusCode == '404' && message == 'Bucket not found' =>
         (exception, const BucketNotFoundException()),
-      Error() => throw exception,
       Exception() => (exception, const UnknownException()),
-      _ => throw ArgumentError('$exception is not an error or exception'),
+      _ => throw ArgumentError('$exception is not an exception'),
     };
     logException(
       methodName,
