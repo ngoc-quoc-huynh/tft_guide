@@ -1,7 +1,6 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:tft_guide/domain/models/theme_colors.dart';
-import 'package:tft_guide/static/resources/colors.dart';
 
 final class CustomTheme {
   const CustomTheme._();
@@ -15,7 +14,7 @@ final class CustomTheme {
   static ColorScheme _colorScheme(Brightness brightness) =>
       ColorScheme.fromSeed(
         brightness: brightness,
-        seedColor: CustomColors.purple,
+        seedColor: const Color(0xFF673AB7),
       ).harmonized();
 
   static ThemeData _themeData(Brightness brightness, TextTheme textTheme) {
