@@ -27,7 +27,3 @@ final class TableNotFoundException extends RemoteDatabaseException {
 final class FunctionNotFoundException extends RemoteDatabaseException {
   const FunctionNotFoundException();
 }
-
-final class ExceedUsageLimitException extends RemoteDatabaseException {
-  const ExceedUsageLimitException();
-}
