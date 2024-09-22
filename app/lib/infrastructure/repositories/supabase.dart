@@ -465,8 +465,12 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
   }) {
     final (loggerException, throwException) = switch (exception) {
       ArgumentError(message: final String message)
-          when message.contains('No host specified in URI') =>
+          when message.startsWith('No host specified in URI /rest/v1/') =>
         (const InvalidUrlException(), const InvalidUrlException()),
+      ArgumentError(message: final String message)
+          when message.startsWith(
+              'No host specified in URI %3Csupabase-url%3E/rest/v1/') =>
+        (const ExceedUsageLimitException(), const ExceedUsageLimitException()),
       ClientException() => (exception, const NoConnectionException()),
       SocketException() => (exception, const NoConnectionException()),
       PostgrestException(:final code) when code == '42P01' => (
