@@ -8,10 +8,8 @@ import 'package:tft_guide/domain/utils/mixins/bloc.dart';
 import 'package:tft_guide/injector.dart';
 
 part 'base_item/bloc.dart';
-part 'base_item/state.dart';
 part 'event.dart';
 part 'full_item/bloc.dart';
-part 'full_item/state.dart';
 part 'state.dart';
 
 sealed class ItemDetailBloc<Item extends ItemDetail>
