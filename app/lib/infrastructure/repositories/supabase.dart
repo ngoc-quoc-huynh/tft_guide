@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:tft_guide/domain/exceptions/base.dart';
@@ -16,6 +16,7 @@ import 'package:tft_guide/infrastructure/dtos/supabase/item_translation.dart';
 import 'package:tft_guide/infrastructure/dtos/supabase/patch_note.dart';
 import 'package:tft_guide/infrastructure/dtos/supabase/patch_note_translation.dart';
 
+@immutable
 final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
   const SupabaseRepository();
 

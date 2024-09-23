@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:tft_guide/domain/interfaces/local_storage.dart';
 import 'package:tft_guide/domain/utils/extensions/date_time.dart';
 import 'package:tft_guide/domain/utils/mixins/logger.dart';
 import 'package:tft_guide/injector.dart';
 
+@immutable
 final class SharedPreferencesRepository
     with LoggerMixin
     implements LocalStorageApi {

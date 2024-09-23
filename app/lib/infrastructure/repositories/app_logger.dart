@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 import 'package:tft_guide/domain/interfaces/logger.dart';
 
+@immutable
 final class AppLogger implements LoggerApi {
-  AppLogger();
+  const AppLogger();
 
   static final _logger = Logger();
   static const _encoder = JsonEncoder.withIndent('  ');

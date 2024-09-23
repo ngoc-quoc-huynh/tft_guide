@@ -1,9 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:tft_guide/domain/interfaces/rank.dart';
 import 'package:tft_guide/domain/models/rank/division.dart';
 import 'package:tft_guide/domain/models/rank/rank.dart';
 import 'package:tft_guide/domain/models/rank/tier.dart';
 import 'package:tft_guide/static/resources/assets.dart';
 
+@immutable
 final class LocalRankRepository implements RankApi {
   const LocalRankRepository();
 
