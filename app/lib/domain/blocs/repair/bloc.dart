@@ -1,3 +1,4 @@
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +15,10 @@ part 'state.dart';
 
 final class RepairBloc extends Bloc<RepairEvent, RepairState> with BlocMixin {
   RepairBloc() : super(const RepairInitial()) {
-    on<RepairStartEvent>(_onRepairStartEvent);
+    on<RepairStartEvent>(
+      _onRepairStartEvent,
+      transformer: droppable(),
+    );
   }
 
   static final _fileStorageApi = Injector.instance.fileStorageApi;
@@ -24,7 +28,7 @@ final class RepairBloc extends Bloc<RepairEvent, RepairState> with BlocMixin {
   Future<void> _onRepairStartEvent(
     RepairStartEvent event,
     Emitter<RepairState> emit,
-  ) async =>
+  ) =>
       executeSafely(
         methodName: 'RepairBloc._onRepairStartEvent',
         function: () async {

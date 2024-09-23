@@ -33,42 +33,42 @@ sealed class ItemDetailBloc<Item extends ItemDetail>
   }
 
   final Future<Item> Function(String, LanguageCode) _loadItemDetail;
+
+  static final _themeApi = Injector.instance.themeApi;
   @protected
   static final localDatabaseApi = Injector.instance.localDatabaseApi;
-  static final _themeApi = Injector.instance.themeApi;
 
   Future<void> _onItemDetailInitializeEvent(
     ItemDetailInitializeEvent event,
     Emitter<ItemDetailState> emit,
-  ) async {
-    await executeSafely(
-      methodName: 'ItemDetailBloc._onItemDetailInitializeEvent',
-      function: () async {
-        final [item, themeData] = await Future.wait(
-          [
-            _loadItemDetail(
-              event.id,
-              Injector.instance.languageCode,
-            ),
-            _themeApi.computeThemeFromFileImage(
-              fileName: event.id,
-              brightness: event.brightness,
-              textTheme: event.textTheme,
-            ),
-          ],
-          eagerError: true,
-        );
+  ) async =>
+      executeSafely(
+        methodName: 'ItemDetailBloc._onItemDetailInitializeEvent',
+        function: () async {
+          final [item, themeData] = await Future.wait(
+            [
+              _loadItemDetail(
+                event.id,
+                Injector.instance.languageCode,
+              ),
+              _themeApi.computeThemeFromFileImage(
+                fileName: event.id,
+                brightness: event.brightness,
+                textTheme: event.textTheme,
+              ),
+            ],
+            eagerError: true,
+          );
 
-        emit(
-          ItemDetailLoadOnSuccess<Item>(
-            item: item! as Item,
-            themeData: themeData as ThemeData?,
-          ),
-        );
-      },
-      onError: () => emit(const ItemDetailLoadOnFailure()),
-    );
-  }
+          emit(
+            ItemDetailLoadOnSuccess<Item>(
+              item: item! as Item,
+              themeData: themeData as ThemeData?,
+            ),
+          );
+        },
+        onError: () => emit(const ItemDetailLoadOnFailure()),
+      );
 
   Future<void> _onItemDetailUpdateThemeDataEvent(
     ItemDetailUpdateThemeDataEvent event,

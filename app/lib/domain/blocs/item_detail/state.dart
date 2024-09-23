@@ -1,6 +1,5 @@
 part of 'bloc.dart';
 
-@immutable
 sealed class ItemDetailState extends Equatable {
   const ItemDetailState();
 

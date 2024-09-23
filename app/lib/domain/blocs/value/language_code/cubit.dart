@@ -1,23 +1,21 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/domain/models/database/language_code.dart';
-import 'package:tft_guide/injector.dart';
-import 'package:tft_guide/static/i18n/translations.g.dart';
+part of '../cubit.dart';
 
-final class LanguageCodeCubit extends Cubit<LanguageCode> {
-  LanguageCodeCubit(super.initialState) {
+final class LanguageCodeValueCubit extends ValueCubit<LanguageCode> {
+  LanguageCodeValueCubit(super.initialState) {
     Injector.instance.registerLazySingleton<Translations>(
       () => _computeTranslations(state),
     );
   }
 
-  void update(LanguageCode languageCode) {
+  @override
+  void update(LanguageCode newState) {
     Injector.instance
       // ignore: discarded_futures, since this is not a future and we cannot use unawaited.
       ..unregister<Translations>()
       ..registerLazySingleton<Translations>(
-        () => _computeTranslations(languageCode),
+        () => _computeTranslations(newState),
       );
-    emit(languageCode);
+    return super.update(newState);
   }
 
   Translations _computeTranslations(LanguageCode language) =>

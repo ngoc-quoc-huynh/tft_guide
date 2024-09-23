@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/blocs/check_selected_item/cubit.dart';
-import 'package:tft_guide/domain/blocs/selected_item/cubit.dart';
+import 'package:tft_guide/domain/blocs/value/cubit.dart';
 import 'package:tft_guide/domain/models/question/item_option.dart';
 import 'package:tft_guide/ui/pages/game/selection_item/chip.dart';
 import 'package:tft_guide/ui/widgets/bloc/builder.dart';
@@ -159,7 +159,7 @@ class _Content extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilderWithChild<CheckSelectedItemOptionCubit, bool?>(
       builder: (context, isSelectedCorrect, child) => BlocSelectorWithChild<
-          SelectedItemOptionCubit, QuestionItemOption?, bool>(
+          SelectedItemOptionValueCubit, QuestionItemOption?, bool>(
         selector: (selectedOption) => selectedOption == option,
         builder: (context, isSelected, child) => SelectionChip(
           index: index,
@@ -178,7 +178,7 @@ class _Content extends StatelessWidget {
   }
 
   void _onPressed(BuildContext context) =>
-      context.read<SelectedItemOptionCubit>().select(option);
+      context.read<SelectedItemOptionValueCubit>().select(option);
 
   SelectionItemState _determineSelectionItemState({
     required bool isCorrectOption,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/domain/blocs/language_code/cubit.dart';
+import 'package:tft_guide/domain/blocs/value/cubit.dart';
 import 'package:tft_guide/domain/models/database/language_code.dart';
 
 class LanguageListener extends StatelessWidget {
@@ -15,7 +15,7 @@ class LanguageListener extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LanguageCodeCubit, LanguageCode>(
+    return BlocListener<LanguageCodeValueCubit, LanguageCode>(
       listener: (context, languageCode) => onLanguageChanged.call(languageCode),
       child: child,
     );

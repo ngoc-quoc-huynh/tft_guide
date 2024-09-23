@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/domain/blocs/translation_locale/cubit.dart';
+import 'package:tft_guide/domain/blocs/hydrated_value/cubit.dart';
 import 'package:tft_guide/domain/blocs/value/cubit.dart';
 import 'package:tft_guide/domain/models/translation_locale.dart';
 import 'package:tft_guide/injector.dart';
@@ -18,7 +18,7 @@ class SettingsLanguageDialog extends StatelessWidget {
       builder: (context) => const SettingsLanguageDialog._(),
     );
     if (context.mounted && translationLocale != null) {
-      context.read<TranslationLocaleCubit>().change(translationLocale);
+      context.read<HydratedTranslationLocaleCubit>().update(translationLocale);
     }
   }
 
@@ -26,7 +26,7 @@ class SettingsLanguageDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<TranslationLocaleValueCubit>(
       create: (_) => TranslationLocaleValueCubit(
-        context.read<TranslationLocaleCubit>().state,
+        context.read<HydratedTranslationLocaleCubit>().state,
       ),
       child: RadioDialog<TranslationLocale>(
         title: _translations.title,

@@ -1,3 +1,4 @@
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
@@ -18,14 +19,16 @@ final class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState>
     required this.totalBaseItemQuestions,
     required this.totalFullItemQuestions,
   }) : super(const QuestionsLoadInProgress()) {
-    on<QuestionsInitializeEvent>(_onQuestionsInitializeEvent);
+    on<QuestionsInitializeEvent>(
+      _onQuestionsInitializeEvent,
+      transformer: droppable(),
+    );
   }
 
   final int totalBaseItemQuestions;
   final int totalFullItemQuestions;
 
   static final _localDatabaseApi = Injector.instance.localDatabaseApi;
-
   static LanguageCode get _languageCode => Injector.instance.languageCode;
 
   Future<void> _onQuestionsInitializeEvent(
@@ -72,6 +75,7 @@ final class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState>
   ) async {
     final questionKind = _baseItemQuestionKinds.random();
     final other = await _loadOtherRandomBaseItemOptions(itemOptions);
+
     return itemOptions
         .mapIndexed(
           (index, correctOption) => Function.apply(
@@ -90,6 +94,7 @@ final class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState>
     List<QuestionFullItemOption> itemOptions,
   ) async {
     final other = await _loadOtherRandomFUllItemOptions(itemOptions);
+
     return itemOptions
         .mapIndexed(
           (index, correctOption) => Function.apply(

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tft_guide/domain/blocs/theme_mode/cubit.dart';
+import 'package:tft_guide/domain/blocs/hydrated_value/cubit.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
@@ -43,7 +43,7 @@ class SettingsPage extends StatelessWidget {
                     SettingsCard(
                       child: Column(
                         children: [
-                          BlocListener<ThemeModeCubit, ThemeMode>(
+                          BlocListener<HydratedThemeModeCubit, ThemeMode>(
                             listener: (context, _) =>
                                 CustomSnackBar.showSuccess(
                               context,

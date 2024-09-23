@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/domain/blocs/correct_answers/cubit.dart';
 import 'package:tft_guide/domain/blocs/game_progress/bloc.dart';
 import 'package:tft_guide/domain/blocs/questions/bloc.dart';
+import 'package:tft_guide/domain/blocs/value/cubit.dart';
 import 'package:tft_guide/domain/models/question/question.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/config.dart';
@@ -61,8 +61,8 @@ class _Success extends StatelessWidget {
           totalQuestion: questions.length,
         ),
       ),
-      body: BlocProvider<CorrectAnswersCubit>(
-        create: (_) => CorrectAnswersCubit(),
+      body: BlocProvider<IntValueCubit>(
+        create: (_) => IntValueCubit(0),
         child: GameBody(questions: questions),
       ),
     );

@@ -17,6 +17,16 @@ sealed class CheckDatabaseBloc extends CheckDataBloc {
           ),
         );
 
+  final Future<int> Function() loadLocalDataCount;
+  final Future<int> Function() loadRemoteDataCount;
+  final Future<int> Function() loadLocalTranslationCount;
+  final Future<int> Function() loadRemoteTranslationCount;
+
+  @protected
+  static final localDatabaseApi = Injector.instance.localDatabaseApi;
+  @protected
+  static final remoteDatabaseApi = Injector.instance.remoteDatabaseApi;
+
   static Future<CheckDataLoadOnSuccess> _compute({
     required Future<int> Function() loadLocalDataCount,
     required Future<int> Function() loadRemoteDataCount,
@@ -39,30 +49,19 @@ sealed class CheckDatabaseBloc extends CheckDataBloc {
     );
     final isValid = localDataCount == remoteDataCount &&
         localTranslationCount == remoteTranslationCount;
-    if (isValid) {
-      return CheckDatabaseLoadOnValid(
-        localDataCount: localDataCount,
-        remoteDataCount: remoteDataCount,
-        localTranslationCount: localTranslationCount,
-        remoteTranslationCount: remoteTranslationCount,
-      );
-    } else {
-      return CheckDatabaseLoadOnInvalid(
-        localDataCount: localDataCount,
-        remoteDataCount: remoteDataCount,
-        localTranslationCount: localTranslationCount,
-        remoteTranslationCount: remoteTranslationCount,
-      );
-    }
+    return switch (isValid) {
+      false => CheckDatabaseLoadOnInvalid(
+          localDataCount: localDataCount,
+          remoteDataCount: remoteDataCount,
+          localTranslationCount: localTranslationCount,
+          remoteTranslationCount: remoteTranslationCount,
+        ),
+      true => CheckDatabaseLoadOnValid(
+          localDataCount: localDataCount,
+          remoteDataCount: remoteDataCount,
+          localTranslationCount: localTranslationCount,
+          remoteTranslationCount: remoteTranslationCount,
+        ),
+    };
   }
-
-  final Future<int> Function() loadLocalDataCount;
-  final Future<int> Function() loadRemoteDataCount;
-  final Future<int> Function() loadLocalTranslationCount;
-  final Future<int> Function() loadRemoteTranslationCount;
-
-  @protected
-  static final localDatabaseApi = Injector.instance.localDatabaseApi;
-  @protected
-  static final remoteDatabaseApi = Injector.instance.remoteDatabaseApi;
 }

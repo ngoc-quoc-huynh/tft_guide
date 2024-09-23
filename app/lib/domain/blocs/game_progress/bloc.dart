@@ -1,3 +1,4 @@
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +9,10 @@ part 'state.dart';
 final class GameProgressBloc
     extends Bloc<GameProgressEvent, GameProgressState> {
   GameProgressBloc(this._maxLevels) : super(const GameProgressInProgress(0)) {
-    on<GameProgressNextEvent>(_onGameProgressNextEvent);
+    on<GameProgressNextEvent>(
+      _onGameProgressNextEvent,
+      transformer: droppable(),
+    );
   }
 
   final int _maxLevels;

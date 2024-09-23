@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/blocs/check_selected_item/cubit.dart';
-import 'package:tft_guide/domain/blocs/correct_answers/cubit.dart';
 import 'package:tft_guide/domain/blocs/elo/cubit.dart';
-import 'package:tft_guide/domain/blocs/elo_gain/cubit.dart';
 import 'package:tft_guide/domain/blocs/game_progress/bloc.dart';
-import 'package:tft_guide/domain/blocs/selected_item/cubit.dart';
+import 'package:tft_guide/domain/blocs/value/cubit.dart';
 import 'package:tft_guide/domain/models/question/item_option.dart';
 import 'package:tft_guide/domain/models/question/question.dart';
 import 'package:tft_guide/injector.dart';
@@ -62,8 +60,8 @@ class _GameBodyState extends State<GameBody> {
                     correctOption,
                   ),
                 ),
-                BlocProvider<SelectedItemOptionCubit>(
-                  create: (_) => SelectedItemOptionCubit(),
+                BlocProvider<SelectedItemOptionValueCubit>(
+                  create: (_) => SelectedItemOptionValueCubit(),
                 ),
               ],
               child: Column(
@@ -133,13 +131,13 @@ class _GameBodyState extends State<GameBody> {
           ),
         );
       case GameProgressFinished():
-        final correctAnswers = context.read<CorrectAnswersCubit>().state;
+        final correctAnswers = context.read<IntValueCubit>().state;
         final eloGain = switch (correctAnswers) {
           0 => null,
           _ => correctAnswers,
         };
         context
-          ..read<EloGainCubit>().gain(eloGain)
+          ..read<NullableIntValueCubit>().update(eloGain)
           ..read<EloCubit>().increase(eloGain ?? 0)
           ..goNamed(Routes.rankedPage());
     }
