@@ -39,8 +39,8 @@ void main() {
     blocTest<PatchNotesUnreadCounterBloc, PatchNotesUnreadCounterState>(
       'emits PatchNotesUnreadCounterLoadOnSuccess.',
       setUp: () {
-        when(localDatabaseApi.loadPatchNotesCount).thenAnswer((_) async => 0);
-        when(() => localStorageApi.readPatchNotesCount).thenReturn(1);
+        when(localDatabaseApi.loadPatchNotesCount).thenAnswer((_) async => 1);
+        when(() => localStorageApi.readPatchNotesCount).thenReturn(0);
       },
       build: PatchNotesUnreadCounterBloc.new,
       act: (bloc) => bloc.add(const PatchNotesUnreadCounterInitializeEvent()),
@@ -100,6 +100,7 @@ void main() {
         () => localStorageApi.updateReadPatchNotesCount(1),
       ).called(1),
     );
+
     blocTest<PatchNotesUnreadCounterBloc, PatchNotesUnreadCounterState>(
       'emits nothing when an error occurs.',
       setUp: () =>
