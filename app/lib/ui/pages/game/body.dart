@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tft_guide/domain/blocs/check_selected_item/cubit.dart';
+import 'package:tft_guide/domain/blocs/check_selected_option/cubit.dart';
 import 'package:tft_guide/domain/blocs/elo/cubit.dart';
 import 'package:tft_guide/domain/blocs/game_progress/bloc.dart';
 import 'package:tft_guide/domain/blocs/value/cubit.dart';
