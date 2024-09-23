@@ -466,7 +466,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     final (loggerException, throwException) = switch (exception) {
       ArgumentError(message: final String message)
           when message.startsWith(
-            RegExp(r'^No host specified in URI .+\/rest\/v1\/'),
+            RegExp(r'^No host specified in URI .*\/rest\/v1\/'),
           ) =>
         (const InvalidUrlException(), const InvalidUrlException()),
       ClientException() => (exception, const NoConnectionException()),
