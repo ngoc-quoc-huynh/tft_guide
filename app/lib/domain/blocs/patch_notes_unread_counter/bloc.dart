@@ -70,7 +70,9 @@ final class PatchNotesUnreadCounterBloc
           await _localStorageApi.updateReadPatchNotesCount(totalCount);
           emit(resultState);
         },
-        onError: () => emit(resultState),
+        onError: () {
+          return;
+        },
       );
     }
   }
