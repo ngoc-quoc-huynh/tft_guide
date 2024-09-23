@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tft_guide/injector.dart';
-import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/widgets/alert_dialog/action.dart';
 import 'package:tft_guide/ui/widgets/alert_dialog/dialog.dart';

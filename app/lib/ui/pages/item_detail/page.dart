@@ -4,7 +4,6 @@ import 'package:tft_guide/domain/blocs/item_detail/bloc.dart';
 import 'package:tft_guide/domain/models/database/language_code.dart';
 import 'package:tft_guide/domain/models/item_detail.dart';
 import 'package:tft_guide/injector.dart';
-import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/widgets/item_detail/card.dart';
 import 'package:tft_guide/ui/widgets/item_detail/error.dart';

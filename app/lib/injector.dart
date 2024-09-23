@@ -26,6 +26,7 @@ import 'package:tft_guide/infrastructure/repositories/supabase.dart';
 import 'package:tft_guide/infrastructure/repositories/widgets_binding.dart';
 
 export 'package:tft_guide/domain/utils/extensions/get_it.dart';
+export 'package:tft_guide/static/i18n/translations.g.dart';
 
 final class Injector {
   const Injector._();

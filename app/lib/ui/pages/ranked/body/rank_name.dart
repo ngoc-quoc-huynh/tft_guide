@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tft_guide/domain/models/rank/division.dart';
 import 'package:tft_guide/domain/models/rank/tier.dart';
 import 'package:tft_guide/injector.dart';
-import 'package:tft_guide/static/i18n/translations.g.dart';
 
 class RankedRankName extends StatelessWidget {
   const RankedRankName({

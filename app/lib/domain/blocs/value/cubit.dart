@@ -4,7 +4,6 @@ import 'package:tft_guide/domain/models/database/language_code.dart';
 import 'package:tft_guide/domain/models/question/item_option.dart';
 import 'package:tft_guide/domain/models/translation_locale.dart';
 import 'package:tft_guide/injector.dart';
-import 'package:tft_guide/static/i18n/translations.g.dart';
 
 part 'types.dart';
 part 'state.dart';

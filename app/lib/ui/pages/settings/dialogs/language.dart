@@ -4,7 +4,6 @@ import 'package:tft_guide/domain/blocs/hydrated_value/cubit.dart';
 import 'package:tft_guide/domain/blocs/value/cubit.dart';
 import 'package:tft_guide/domain/models/translation_locale.dart';
 import 'package:tft_guide/injector.dart';
-import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/ui/widgets/radio_dialog/dialog.dart';
 import 'package:tft_guide/ui/widgets/radio_dialog/option.dart';
 
