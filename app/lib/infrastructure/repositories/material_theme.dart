@@ -4,6 +4,7 @@ import 'package:tft_guide/domain/interfaces/theme.dart';
 import 'package:tft_guide/domain/utils/mixins/logger.dart';
 import 'package:tft_guide/injector.dart';
 
+@immutable
 final class MaterialThemeRepository with LoggerMixin implements ThemeApi {
   const MaterialThemeRepository();
 
@@ -31,6 +32,7 @@ final class MaterialThemeRepository with LoggerMixin implements ThemeApi {
           parameters: parameters,
           stackTrace: StackTrace.current,
         );
+
         return null;
       }
 
@@ -60,6 +62,7 @@ final class MaterialThemeRepository with LoggerMixin implements ThemeApi {
         stackTrace: stackTrace,
         parameters: parameters,
       );
+
       return null;
     }
   }

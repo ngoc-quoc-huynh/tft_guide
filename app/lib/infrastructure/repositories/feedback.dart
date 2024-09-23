@@ -1,9 +1,10 @@
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:tft_guide/domain/interfaces/feedback.dart';
 import 'package:tft_guide/domain/utils/mixins/logger.dart';
 import 'package:tft_guide/injector.dart';
-import 'package:tft_guide/static/i18n/translations.g.dart';
 
+@immutable
 final class FeedbackRepository with LoggerMixin implements FeedbackApi {
   const FeedbackRepository();
 
@@ -23,10 +24,10 @@ final class FeedbackRepository with LoggerMixin implements FeedbackApi {
     return feedback;
   }
 
-  TranslationsPagesGameFeedbackEn get _translations =>
+  static TranslationsPagesGameFeedbackEn get _translations =>
       Injector.instance.translations.pages.game.feedback;
 
-  List<String> get _correctTranslations => _translations.correct;
+  static List<String> get _correctTranslations => _translations.correct;
 
-  List<String> get _wrongFeedback => _translations.wrong;
+  static List<String> get _wrongFeedback => _translations.wrong;
 }

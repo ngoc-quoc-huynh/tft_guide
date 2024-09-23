@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:tft_guide/injector.dart';
 
-class SharedPrefsHydratedStorage implements Storage {
+@immutable
+final class SharedPrefsHydratedStorage implements Storage {
   const SharedPrefsHydratedStorage();
 
   static final _sharedPrefs = Injector.instance.sharedPrefs;

@@ -1,12 +1,13 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:tft_guide/domain/interfaces/file.dart';
 import 'package:tft_guide/domain/utils/mixins/logger.dart';
 import 'package:tft_guide/injector.dart';
 
+@immutable
 final class LocalFileStorageRepository
     with LoggerMixin
     implements FileStorageApi {
@@ -83,6 +84,7 @@ final class LocalFileStorageRepository
       'Loaded assets count: $count.',
       stackTrace: StackTrace.current,
     );
+
     return count;
   }
 }

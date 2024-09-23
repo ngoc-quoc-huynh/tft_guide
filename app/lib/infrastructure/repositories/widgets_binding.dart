@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:tft_guide/domain/interfaces/widgets_binding.dart';
 import 'package:tft_guide/domain/utils/mixins/logger.dart';
 
+@immutable
 final class WidgetsBindingRepository
     with LoggerMixin
     implements WidgetsBindingApi {

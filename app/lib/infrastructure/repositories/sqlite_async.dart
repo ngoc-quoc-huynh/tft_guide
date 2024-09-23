@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:sqlite_async/sqlite3.dart';
 import 'package:sqlite_async/sqlite_async.dart';
@@ -20,6 +21,7 @@ import 'package:tft_guide/infrastructure/dtos/sqlite_async/patch_note.dart';
 import 'package:tft_guide/infrastructure/dtos/sqlite_async/question_item_option.dart';
 import 'package:tft_guide/injector.dart';
 
+@immutable
 final class SqliteAsyncRepository with LoggerMixin implements LocalDatabaseApi {
   SqliteAsyncRepository();
 
