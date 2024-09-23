@@ -1,3 +1,4 @@
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:tft_guide/domain/interfaces/file.dart';
 import 'package:tft_guide/domain/interfaces/local_database.dart';
@@ -17,3 +18,5 @@ final class MockLocalStorageApi extends Mock implements LocalStorageApi {}
 final class MockRankApi extends Mock implements RankApi {}
 
 final class MockThemeApi extends Mock implements ThemeApi {}
+
+final class MockStorage extends Mock implements Storage {}
