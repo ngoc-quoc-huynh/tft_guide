@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tft_guide/domain/blocs/data_sync/bloc.dart';
-import 'package:tft_guide/domain/blocs/theme_mode/cubit.dart';
-import 'package:tft_guide/domain/blocs/translation_locale/cubit.dart';
+import 'package:tft_guide/domain/blocs/hydrated_value/cubit.dart';
 import 'package:tft_guide/domain/models/translation_locale.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
@@ -26,20 +25,20 @@ class TftApp extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return MultiBlocProvider(
       providers: [
-        BlocProvider<TranslationLocaleCubit>(
-          create: (_) => TranslationLocaleCubit(),
+        BlocProvider<HydratedTranslationLocaleCubit>(
+          create: (_) => HydratedTranslationLocaleCubit(),
         ),
-        BlocProvider<ThemeModeCubit>(
-          create: (_) => ThemeModeCubit(),
+        BlocProvider<HydratedThemeModeCubit>(
+          create: (_) => HydratedThemeModeCubit(),
         ),
         BlocProvider<DataSyncBloc>(
           create: (_) => DataSyncBloc()..add(const DataSyncInitializeEvent()),
         ),
       ],
-      child: BlocBuilder<TranslationLocaleCubit, TranslationLocale>(
+      child: BlocBuilder<HydratedTranslationLocaleCubit, TranslationLocale>(
         builder: (context, locale) => LanguageProvider(
           locale: locale,
-          child: BlocBuilder<ThemeModeCubit, ThemeMode>(
+          child: BlocBuilder<HydratedThemeModeCubit, ThemeMode>(
             builder: (context, themeMode) => MaterialApp.router(
               title: Injector.instance.translations.appName,
               theme: CustomTheme.lightTheme(textTheme),

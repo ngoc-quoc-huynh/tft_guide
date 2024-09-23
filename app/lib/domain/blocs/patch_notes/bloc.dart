@@ -30,7 +30,6 @@ final class PatchNotesBloc extends Bloc<PatchNotesEvent, PatchNotesState>
 
   final int _pageSize;
   static final _localDatabaseApi = Injector.instance.localDatabaseApi;
-
   static LanguageCode get _languageCode => Injector.instance.languageCode;
 
   Future<void> _onPatchNotesInitializeEvent(

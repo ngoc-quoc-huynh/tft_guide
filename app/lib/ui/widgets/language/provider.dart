@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/domain/blocs/language_code/cubit.dart';
-import 'package:tft_guide/domain/blocs/translation_locale/cubit.dart';
+import 'package:tft_guide/domain/blocs/hydrated_value/cubit.dart';
+import 'package:tft_guide/domain/blocs/value/cubit.dart';
 import 'package:tft_guide/domain/models/database/language_code.dart';
 import 'package:tft_guide/domain/models/translation_locale.dart';
 import 'package:tft_guide/injector.dart';
@@ -20,15 +20,16 @@ class LanguageProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<LanguageCodeCubit>(
-      create: (_) => LanguageCodeCubit(
+    return BlocProvider<LanguageCodeValueCubit>(
+      create: (_) => LanguageCodeValueCubit(
         _computeLanguageCode(locale),
       ),
       child: LanguageBuilder(
         builder: (context) => WidgetObserver(
           onLanguageChanged: (languageCode) =>
-              context.read<LanguageCodeCubit>().update(languageCode),
-          child: BlocListener<TranslationLocaleCubit, TranslationLocale>(
+              context.read<LanguageCodeValueCubit>().update(languageCode),
+          child:
+              BlocListener<HydratedTranslationLocaleCubit, TranslationLocale>(
             listener: _onTranslationLocaleChanged,
             child: child,
           ),
@@ -50,7 +51,7 @@ class LanguageProvider extends StatelessWidget {
     BuildContext context,
     TranslationLocale locale,
   ) =>
-      context.read<LanguageCodeCubit>().update(
+      context.read<LanguageCodeValueCubit>().update(
             _computeLanguageCode(locale),
           );
 }

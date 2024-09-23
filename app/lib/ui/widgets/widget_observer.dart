@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/domain/blocs/theme_mode/cubit.dart';
-import 'package:tft_guide/domain/blocs/translation_locale/cubit.dart';
+import 'package:tft_guide/domain/blocs/hydrated_value/cubit.dart';
 import 'package:tft_guide/domain/models/database/language_code.dart';
 import 'package:tft_guide/domain/models/translation_locale.dart';
 import 'package:tft_guide/injector.dart';
@@ -35,7 +34,7 @@ class _WidgetObserverState extends State<WidgetObserver>
   @override
   void didChangePlatformBrightness() {
     super.didChangePlatformBrightness();
-    if (context.read<ThemeModeCubit>().state == ThemeMode.system) {
+    if (context.read<HydratedThemeModeCubit>().state == ThemeMode.system) {
       widget.onBrightnessChanged?.call(
         _widgetsBindingApi.brightness,
       );
@@ -45,7 +44,7 @@ class _WidgetObserverState extends State<WidgetObserver>
   @override
   void didChangeLocales(List<Locale>? locales) {
     super.didChangeLocales(locales);
-    if (context.read<TranslationLocaleCubit>().state ==
+    if (context.read<HydratedTranslationLocaleCubit>().state ==
         TranslationLocale.system) {
       widget.onLanguageChanged?.call(
         LanguageCode.byLanguageCode(

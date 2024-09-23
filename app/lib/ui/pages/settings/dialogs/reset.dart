@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/blocs/elo/cubit.dart';
-import 'package:tft_guide/domain/blocs/elo_gain/cubit.dart';
+import 'package:tft_guide/domain/blocs/value/cubit.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
@@ -21,7 +21,7 @@ class SettingsResetDialog extends StatelessWidget {
     if (context.mounted && (shouldReset ?? false)) {
       context
         ..read<EloCubit>().reset()
-        ..read<EloGainCubit>().gain(null);
+        ..read<NullableIntValueCubit>().update(null);
 
       CustomSnackBar.showSuccess(context, _translations.feedback);
     }

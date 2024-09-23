@@ -1,3 +1,4 @@
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,8 +15,12 @@ final class PatchNotesUnreadCounterBloc
       : super(const PatchNotesUnreadCounterLoadInProgress()) {
     on<PatchNotesUnreadCounterInitializeEvent>(
       _onPatchNotesUnreadCounterInitializeEvent,
+      transformer: droppable(),
     );
-    on<PatchNotesUnreadCounterReadEvent>(_onPatchNotesUnreadCounterReadEvent);
+    on<PatchNotesUnreadCounterReadEvent>(
+      _onPatchNotesUnreadCounterReadEvent,
+      transformer: droppable(),
+    );
   }
 
   static final _localDatabaseApi = Injector.instance.localDatabaseApi;

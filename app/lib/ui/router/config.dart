@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/blocs/data_sync/bloc.dart';
 import 'package:tft_guide/domain/blocs/elo/cubit.dart';
-import 'package:tft_guide/domain/blocs/elo_gain/cubit.dart';
+import 'package:tft_guide/domain/blocs/value/cubit.dart';
 import 'package:tft_guide/ui/pages/game/page.dart';
 import 'package:tft_guide/ui/pages/init/page.dart';
 import 'package:tft_guide/ui/pages/item_detail/base_item/page.dart';
@@ -38,8 +38,8 @@ final class GoRouterConfig {
                   BlocProvider<EloCubit>(
                     create: (_) => EloCubit(),
                   ),
-                  BlocProvider<EloGainCubit>(
-                    create: (_) => EloGainCubit(),
+                  BlocProvider<NullableIntValueCubit>(
+                    create: (_) => NullableIntValueCubit(null),
                   ),
                 ],
                 child: child,

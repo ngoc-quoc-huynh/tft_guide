@@ -2,7 +2,7 @@ import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/domain/blocs/elo_gain/cubit.dart';
+import 'package:tft_guide/domain/blocs/value/cubit.dart';
 import 'package:tft_guide/domain/utils/extensions/theme.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/config.dart';
@@ -37,7 +37,7 @@ class _CurrentLp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EloGainCubit, int?>(
+    return BlocBuilder<NullableIntValueCubit, int?>(
       builder: (context, eloGain) => AnimatedFlipCounter(
         value: lp,
         suffix: Injector.instance.translations.pages.ranked.lpSuffix,
@@ -60,7 +60,7 @@ class _LpGain extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EloGainCubit, int?>(
+    return BlocBuilder<NullableIntValueCubit, int?>(
       builder: (BuildContext context, int? lpGain) => switch (lpGain) {
         null => const SizedBox.shrink(),
         int() => Padding(

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +21,10 @@ sealed class CheckDataBloc extends Bloc<CheckDataEvent, CheckDataState>
     with BlocMixin {
   CheckDataBloc(this._className, this._computeSuccessState)
       : super(const CheckDataInitial()) {
-    on<CheckDataStartEvent>(onCheckDataStartEvent);
+    on<CheckDataStartEvent>(
+      onCheckDataStartEvent,
+      transformer: droppable(),
+    );
   }
 
   final String _className;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/domain/blocs/theme_mode/cubit.dart';
+import 'package:tft_guide/domain/blocs/hydrated_value/cubit.dart';
 import 'package:tft_guide/domain/blocs/value/cubit.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/i18n/translations.g.dart';
@@ -17,7 +17,7 @@ class SettingsDesignDialog extends StatelessWidget {
       builder: (context) => const SettingsDesignDialog._(),
     );
     if (context.mounted && themeMode != null) {
-      context.read<ThemeModeCubit>().change(themeMode);
+      context.read<HydratedThemeModeCubit>().update(themeMode);
     }
   }
 
@@ -25,7 +25,7 @@ class SettingsDesignDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<ThemeModeValueCubit>(
       create: (_) => ThemeModeValueCubit(
-        context.read<ThemeModeCubit>().state,
+        context.read<HydratedThemeModeCubit>().state,
       ),
       child: RadioDialog<ThemeMode>(
         title: _translations.title,
