@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:tft_guide/domain/blocs/check_selected_item/cubit.dart';
+import 'package:tft_guide/domain/blocs/check_selected_option/cubit.dart';
 import 'package:tft_guide/domain/models/question/item_option.dart';
 import 'package:tft_guide/domain/models/question/question.dart';
 import 'package:tft_guide/ui/pages/game/selection_item/selection_item.dart';
