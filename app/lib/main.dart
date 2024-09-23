@@ -5,7 +5,6 @@ import 'package:tft_guide/domain/blocs/data_sync/bloc.dart';
 import 'package:tft_guide/domain/blocs/hydrated_value/cubit.dart';
 import 'package:tft_guide/domain/models/translation_locale.dart';
 import 'package:tft_guide/injector.dart';
-import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/theme.dart';
 import 'package:tft_guide/ui/router/config.dart';
 import 'package:tft_guide/ui/widgets/custom_skeletonizer_config.dart';

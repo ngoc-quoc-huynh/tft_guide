@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tft_guide/injector.dart';
-import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/assets.dart';
 
 class CustomLicensePage extends StatelessWidget {

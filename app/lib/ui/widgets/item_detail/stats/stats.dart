@@ -4,7 +4,6 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:tft_guide/domain/models/item_detail.dart';
 import 'package:tft_guide/injector.dart';
-import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/static/resources/icons.dart';
 
 part 'grid_view.dart';

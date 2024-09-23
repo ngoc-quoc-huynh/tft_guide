@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/blocs/patch_notes_unread_counter/bloc.dart';
 import 'package:tft_guide/domain/blocs/value/cubit.dart';
 import 'package:tft_guide/injector.dart';
-import 'package:tft_guide/static/i18n/translations.g.dart';
 import 'package:tft_guide/ui/router/routes.dart';
 import 'package:tft_guide/ui/widgets/badge.dart';
 import 'package:tft_guide/ui/widgets/bloc/selector.dart';
