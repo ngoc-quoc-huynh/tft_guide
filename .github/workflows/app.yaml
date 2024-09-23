@@ -63,6 +63,11 @@ jobs:
       - name: Run code metrics
         working-directory: ./app
         run: dart run dart_code_linter:metrics analyze . --set-exit-on-violation-level=warning
+      - name: Run tests
+        run: |
+          flutter test --coverage --test-randomize-ordering-seed=random
+          dart run test_cov_console --exclude=static
+        working-directory: ./app
 
       - name: Build APK
         if: github.event_name == 'workflow_dispatch'
