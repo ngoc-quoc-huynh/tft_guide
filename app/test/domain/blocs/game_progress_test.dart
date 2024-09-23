@@ -4,7 +4,7 @@ import 'package:tft_guide/domain/blocs/game_progress/bloc.dart';
 
 void main() {
   test(
-    'initial state is GameProgressInProgress',
+    'initial state is GameProgressInProgress.',
     () => expect(GameProgressBloc(2).state, const GameProgressInProgress(0)),
   );
 

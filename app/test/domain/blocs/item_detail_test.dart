@@ -42,7 +42,7 @@ void main() {
     );
 
     test(
-      'initial state is BaseItemDetailLoadInProgress',
+      'initial state is BaseItemDetailLoadInProgress.',
       () => expect(
         BaseItemDetailBloc().state,
         const ItemDetailLoadInProgress(),
@@ -296,7 +296,7 @@ void main() {
     );
 
     test(
-      'initial state is BaseItemDetailLoadInProgress',
+      'initial state is BaseItemDetailLoadInProgress.',
       () =>
           expect(FullItemDetailBloc().state, const ItemDetailLoadInProgress()),
     );
