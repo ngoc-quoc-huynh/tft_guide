@@ -10,6 +10,7 @@ import 'package:tft_guide/domain/models/database/item_translation.dart';
 import 'package:tft_guide/domain/models/database/patch_note.dart';
 import 'package:tft_guide/domain/models/database/patch_note_translation.dart';
 import 'package:tft_guide/domain/utils/extensions/date_time.dart';
+import 'package:tft_guide/domain/utils/extensions/future.dart';
 import 'package:tft_guide/domain/utils/mixins/bloc.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
@@ -138,21 +139,23 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState>
 
   bool _hasAppBeenUpdatedToday(Emitter<DataSyncState> emit) {
     emit(const DataSyncCheckInProgress());
-    return _localStorageApi.lastAppUpdate?.isToday ?? false;
+    final hasUpdatedToday = _localStorageApi.lastAppUpdate?.isToday ?? false;
+    emit(const DataSyncCheckInProgress(1));
+
+    return hasUpdatedToday;
   }
 
   // ignore: avoid-redundant-async, false positive
   Future<void> _initSync(Emitter<DataSyncState> emit) async {
-    emit(const DataSyncInitInProgress());
-    final initStream = Stream.fromFutures([
-      _localDatabaseApi.initialize(),
-      _remoteDatabaseApi.initialize(),
-    ]);
+    final tasks = [
+      _localDatabaseApi.initialize,
+      _remoteDatabaseApi.initialize,
+    ];
 
-    int step = 0;
-    await for (final _ in initStream) {
-      emit(DataSyncInitInProgress(step++));
-    }
+    await FutureExtension.runParallel(
+      tasks,
+      onProgress: (progress) => emit(DataSyncInitInProgress(progress + 1)),
+    );
   }
 
   Future<List<DateTime?>> _loadLatestUpdatedAts(
@@ -160,9 +163,8 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState>
   ) async {
     emit(const DataSyncLoadLatestUpdatedAtInProgress());
 
-    int step = 0;
     final latestFileUpdatedAt = _fileStorageApi.loadLatestFileUpdatedAt();
-    emit(DataSyncLoadLatestUpdatedAtInProgress(step++));
+    emit(const DataSyncLoadLatestUpdatedAtInProgress(1));
 
     final operations = [
       _localDatabaseApi.loadLatestBaseItemUpdatedAt,
@@ -172,15 +174,10 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState>
       _localDatabaseApi.loadLatestFullItemTranslationUpdatedAt,
       _localDatabaseApi.loadLatestPatchNoteTranslationUpdatedAt,
     ];
-
-    final futures = operations.map((loadLatestUpdatedAt) async {
-      final lastUpdate = await loadLatestUpdatedAt();
-      emit(DataSyncLoadLatestUpdatedAtInProgress(step++));
-      return lastUpdate;
-    });
-    final latestUpdatedAts = await Future.wait(
-      futures,
-      eagerError: true,
+    final latestUpdatedAts = await FutureExtension.runParallel(
+      operations,
+      onProgress: (progress) =>
+          emit(DataSyncLoadLatestUpdatedAtInProgress(progress + 2)),
     );
 
     return [latestFileUpdatedAt, ...latestUpdatedAts];
@@ -197,7 +194,7 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState>
     required DateTime? latestPatchNoteTranslationUpdatedAt,
   }) {
     emit(const DataSyncLoadRemoteDataInProgress());
-    final operations = [
+    final tasks = [
       () => _remoteDatabaseApi.loadAssetNames(latestFileUpdatedAt),
       () => _remoteDatabaseApi.loadBaseItems(latestBaseItemUpdatedAt),
       () => _remoteDatabaseApi.loadFullItems(latestFullItemUpdatedAt),
@@ -210,16 +207,10 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState>
           .loadPatchNoteTranslations(latestPatchNoteTranslationUpdatedAt),
     ];
 
-    int step = 0;
-    final futures = operations.map((loadData) async {
-      final data = await loadData();
-      emit(DataSyncLoadRemoteDataInProgress(step++));
-      return data;
-    });
-
-    return Future.wait(
-      futures,
-      eagerError: true,
+    return FutureExtension.runParallel(
+      tasks,
+      onProgress: (progress) =>
+          emit(DataSyncLoadRemoteDataInProgress(progress + 1)),
     );
   }
 
@@ -235,7 +226,7 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState>
     required List<PatchNoteTranslationEntity> patchNoteTranslations,
   }) async {
     emit(const DataSyncSaveDataLocallyInProgress());
-    final operations = [
+    final tasks = [
       () => _downloadAssets(assetNames),
       () => _localDatabaseApi.saveBaseItems(baseItems),
       () => _localDatabaseApi.saveFullItems(fullItems),
@@ -244,16 +235,10 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState>
       () => _localDatabaseApi.saveFullItemTranslations(fullItemTranslations),
       () => _localDatabaseApi.savePatchNoteTranslations(patchNoteTranslations),
     ];
-
-    int step = 0;
-    final futures = operations.map((saveData) async {
-      await saveData();
-      emit(DataSyncSaveDataLocallyInProgress(step++));
-    });
-
-    await Future.wait(
-      futures,
-      eagerError: true,
+    await FutureExtension.runParallel(
+      tasks,
+      onProgress: (progress) =>
+          emit(DataSyncSaveDataLocallyInProgress(progress + 1)),
     );
   }
 

@@ -15,8 +15,6 @@ import '../../mocks.dart';
 import '../../utils.dart';
 
 // ignore_for_file: discarded_futures, mocked methods should be futures.
-// ignore_for_file: missing-test-assertion, it is not possible to use blocTest
-// with Clock.
 
 void main() {
   final fileStorageApi = MockFileStorageApi();
@@ -67,9 +65,10 @@ void main() {
           build: DataSyncBloc.new,
           act: (bloc) => bloc.add(const DataSyncInitializeEvent()),
           expect: () => const [
-            DataSyncInitInProgress(),
             DataSyncInitInProgress(1),
+            DataSyncInitInProgress(2),
             DataSyncCheckInProgress(),
+            DataSyncCheckInProgress(1),
             DataSyncLoadLatestUpdatedAtInProgress(),
             DataSyncLoadLatestUpdatedAtInProgress(1),
             DataSyncLoadLatestUpdatedAtInProgress(2),
@@ -77,6 +76,7 @@ void main() {
             DataSyncLoadLatestUpdatedAtInProgress(4),
             DataSyncLoadLatestUpdatedAtInProgress(5),
             DataSyncLoadLatestUpdatedAtInProgress(6),
+            DataSyncLoadLatestUpdatedAtInProgress(7),
             DataSyncLoadRemoteDataInProgress(),
             DataSyncLoadRemoteDataInProgress(1),
             DataSyncLoadRemoteDataInProgress(2),
@@ -84,6 +84,7 @@ void main() {
             DataSyncLoadRemoteDataInProgress(4),
             DataSyncLoadRemoteDataInProgress(5),
             DataSyncLoadRemoteDataInProgress(6),
+            DataSyncLoadRemoteDataInProgress(7),
             DataSyncSaveDataLocallyInProgress(),
             DataSyncSaveDataLocallyInProgress(1),
             DataSyncSaveDataLocallyInProgress(2),
@@ -91,6 +92,7 @@ void main() {
             DataSyncSaveDataLocallyInProgress(4),
             DataSyncSaveDataLocallyInProgress(5),
             DataSyncSaveDataLocallyInProgress(6),
+            DataSyncSaveDataLocallyInProgress(7),
             DataSyncAnimationInProgress(),
             DataSyncLoadOnSuccess(),
           ],
@@ -142,9 +144,10 @@ void main() {
           build: DataSyncBloc.new,
           act: (bloc) => bloc.add(const DataSyncInitializeEvent()),
           expect: () => const [
-            DataSyncInitInProgress(),
             DataSyncInitInProgress(1),
+            DataSyncInitInProgress(2),
             DataSyncCheckInProgress(),
+            DataSyncCheckInProgress(1),
             DataSyncAnimationInProgress(),
             DataSyncLoadOnSuccess(),
           ],
@@ -174,20 +177,18 @@ void main() {
       },
       build: DataSyncBloc.new,
       act: (bloc) => bloc.add(const DataSyncInitializeEvent()),
-      expect: () => const [
-        DataSyncInitInProgress(),
-        DataSyncInitOnFailure(),
-      ],
+      expect: () => const [DataSyncInitOnFailure()],
       verify: (_) {
         verifyInOrder([
           localDatabaseApi.initialize,
+          remoteDatabaseApi.initialize,
           localDatabaseApi.close,
           remoteDatabaseApi.close,
         ]);
-        verifyZeroInteractions(fileStorageApi);
+        verifyNoMoreInteractions(fileStorageApi);
         verifyNoMoreInteractions(localDatabaseApi);
         verifyNoMoreInteractions(remoteDatabaseApi);
-        verifyZeroInteractions(localStorageApi);
+        verifyNoMoreInteractions(localStorageApi);
       },
     );
 
@@ -210,59 +211,12 @@ void main() {
           build: DataSyncBloc.new,
           act: (bloc) => bloc.add(const DataSyncInitializeEvent()),
           expect: () => const [
-            DataSyncInitInProgress(),
             DataSyncInitInProgress(1),
+            DataSyncInitInProgress(2),
             DataSyncCheckInProgress(),
+            DataSyncCheckInProgress(1),
             DataSyncLoadLatestUpdatedAtInProgress(),
-            DataSyncLocalDatabaseOnFailure(),
-          ],
-          verify: (_) {
-            verifyInOrder([
-              localDatabaseApi.initialize,
-              remoteDatabaseApi.initialize,
-              () => localStorageApi.lastAppUpdate,
-              fileStorageApi.loadLatestFileUpdatedAt,
-              localDatabaseApi.loadLatestBaseItemUpdatedAt,
-              localDatabaseApi.loadLatestFullItemUpdatedAt,
-              localDatabaseApi.loadLatestPatchNoteUpdatedAt,
-              localDatabaseApi.loadLatestBaseItemTranslationUpdatedAt,
-              localDatabaseApi.loadLatestFullItemTranslationUpdatedAt,
-              localDatabaseApi.loadLatestPatchNoteTranslationUpdatedAt,
-              localDatabaseApi.close,
-              remoteDatabaseApi.close,
-            ]);
-            verifyNoMoreInteractions(fileStorageApi);
-            verifyNoMoreInteractions(localDatabaseApi);
-            verifyNoMoreInteractions(remoteDatabaseApi);
-            verifyNoMoreInteractions(localStorageApi);
-          },
-        ),
-      ),
-    );
-
-    test(
-      'emits DataSyncLocalDatabaseOnFailure when loading latest updated at '
-      'fails.',
-      () => withClock(
-        Clock.fixed(date),
-        () => testBloc<DataSyncBloc, DataSyncState>(
-          setUp: () {
-            _mockInitialize(localDatabaseApi, remoteDatabaseApi);
-            _mockLastAppUpdate(localStorageApi);
-            _mockLatestUpdatedAt(
-              fileStorageApi,
-              localDatabaseApi,
-              shouldThrow: true,
-            );
-            _mockClose(localDatabaseApi, remoteDatabaseApi);
-          },
-          build: DataSyncBloc.new,
-          act: (bloc) => bloc.add(const DataSyncInitializeEvent()),
-          expect: () => const [
-            DataSyncInitInProgress(),
-            DataSyncInitInProgress(1),
-            DataSyncCheckInProgress(),
-            DataSyncLoadLatestUpdatedAtInProgress(),
+            DataSyncLoadLatestUpdatedAtInProgress(1),
             DataSyncLocalDatabaseOnFailure(),
           ],
           verify: (_) {
@@ -304,9 +258,10 @@ void main() {
           build: DataSyncBloc.new,
           act: (bloc) => bloc.add(const DataSyncInitializeEvent()),
           expect: () => const [
-            DataSyncInitInProgress(),
             DataSyncInitInProgress(1),
+            DataSyncInitInProgress(2),
             DataSyncCheckInProgress(),
+            DataSyncCheckInProgress(1),
             DataSyncLoadLatestUpdatedAtInProgress(),
             DataSyncLoadLatestUpdatedAtInProgress(1),
             DataSyncLoadLatestUpdatedAtInProgress(2),
@@ -314,6 +269,7 @@ void main() {
             DataSyncLoadLatestUpdatedAtInProgress(4),
             DataSyncLoadLatestUpdatedAtInProgress(5),
             DataSyncLoadLatestUpdatedAtInProgress(6),
+            DataSyncLoadLatestUpdatedAtInProgress(7),
             DataSyncLoadRemoteDataInProgress(),
             DataSyncLoadAndSaveOnFailure(),
             DataSyncAnimationInProgress(),
@@ -364,9 +320,10 @@ void main() {
           build: DataSyncBloc.new,
           act: (bloc) => bloc.add(const DataSyncInitializeEvent()),
           expect: () => const [
-            DataSyncInitInProgress(),
             DataSyncInitInProgress(1),
+            DataSyncInitInProgress(2),
             DataSyncCheckInProgress(),
+            DataSyncCheckInProgress(1),
             DataSyncLoadLatestUpdatedAtInProgress(),
             DataSyncLoadLatestUpdatedAtInProgress(1),
             DataSyncLoadLatestUpdatedAtInProgress(2),
@@ -374,6 +331,7 @@ void main() {
             DataSyncLoadLatestUpdatedAtInProgress(4),
             DataSyncLoadLatestUpdatedAtInProgress(5),
             DataSyncLoadLatestUpdatedAtInProgress(6),
+            DataSyncLoadLatestUpdatedAtInProgress(7),
             DataSyncLoadRemoteDataInProgress(),
             DataSyncLoadRemoteDataInProgress(1),
             DataSyncLoadRemoteDataInProgress(2),
@@ -381,6 +339,7 @@ void main() {
             DataSyncLoadRemoteDataInProgress(4),
             DataSyncLoadRemoteDataInProgress(5),
             DataSyncLoadRemoteDataInProgress(6),
+            DataSyncLoadRemoteDataInProgress(7),
             DataSyncSaveDataLocallyInProgress(),
             DataSyncLoadAndSaveOnFailure(),
             DataSyncAnimationInProgress(),
