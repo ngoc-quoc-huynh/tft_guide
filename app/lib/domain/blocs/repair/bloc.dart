@@ -6,6 +6,7 @@ import 'package:tft_guide/domain/models/database/item.dart';
 import 'package:tft_guide/domain/models/database/item_translation.dart';
 import 'package:tft_guide/domain/models/database/patch_note.dart';
 import 'package:tft_guide/domain/models/database/patch_note_translation.dart';
+import 'package:tft_guide/domain/utils/extensions/future.dart';
 import 'package:tft_guide/domain/utils/mixins/bloc.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
@@ -63,7 +64,7 @@ final class RepairBloc extends Bloc<RepairEvent, RepairState> with BlocMixin {
 
   Future<List<Object>> _loadRemoteData(Emitter<RepairState> emit) {
     emit(const RepairLoadRemoteDataInProgress());
-    final operations = [
+    final tasks = [
       () => _remoteDatabaseApi.loadAssetNames(null),
       () => _remoteDatabaseApi.loadBaseItems(null),
       () => _remoteDatabaseApi.loadFullItems(null),
@@ -73,16 +74,10 @@ final class RepairBloc extends Bloc<RepairEvent, RepairState> with BlocMixin {
       () => _remoteDatabaseApi.loadPatchNoteTranslations(null),
     ];
 
-    int step = 0;
-    final futures = operations.map((loadData) async {
-      final data = await loadData();
-      emit(RepairLoadRemoteDataInProgress(step++));
-      return data;
-    });
-
-    return Future.wait(
-      futures,
-      eagerError: true,
+    return FutureExtension.runParallel(
+      tasks,
+      onProgress: (progress) =>
+          emit(RepairLoadRemoteDataInProgress(progress + 1)),
     );
   }
 
@@ -97,7 +92,7 @@ final class RepairBloc extends Bloc<RepairEvent, RepairState> with BlocMixin {
     required List<PatchNoteTranslationEntity> patchNoteTranslations,
   }) async {
     emit(const RepairSaveDataLocallyInProgress());
-    final operations = [
+    final tasks = [
       () => _downloadAssets(assetNames),
       () => _localDatabaseApi.saveBaseItems(baseItems),
       () => _localDatabaseApi.saveFullItems(fullItems),
@@ -107,15 +102,10 @@ final class RepairBloc extends Bloc<RepairEvent, RepairState> with BlocMixin {
       () => _localDatabaseApi.savePatchNoteTranslations(patchNoteTranslations),
     ];
 
-    int step = 0;
-    final futures = operations.map((saveData) async {
-      await saveData();
-      emit(RepairSaveDataLocallyInProgress(step++));
-    });
-
-    await Future.wait(
-      futures,
-      eagerError: true,
+    await FutureExtension.runParallel(
+      tasks,
+      onProgress: (progress) =>
+          emit(RepairSaveDataLocallyInProgress(progress + 1)),
     );
   }
 
