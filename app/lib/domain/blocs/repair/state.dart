@@ -24,7 +24,7 @@ sealed class RepairLoadInProgress extends RepairState {
           'Percentage offset must be within 0-100.',
         ),
         assert(
-          currentStep >= 0 && currentStep < maxSteps,
+          currentStep >= 0 && currentStep <= maxSteps,
           'Current step must be within 0-$maxSteps.',
         ),
         super(
