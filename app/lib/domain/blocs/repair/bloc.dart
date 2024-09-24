@@ -73,7 +73,7 @@ final class RepairBloc extends Bloc<RepairEvent, RepairState> with BlocMixin {
       () => _remoteDatabaseApi.loadPatchNoteTranslations(null),
     ];
 
-    int step = 1;
+    int step = 0;
     final futures = operations.map((loadData) async {
       final data = await loadData();
       emit(RepairLoadRemoteDataInProgress(step++));
@@ -107,7 +107,7 @@ final class RepairBloc extends Bloc<RepairEvent, RepairState> with BlocMixin {
       () => _localDatabaseApi.savePatchNoteTranslations(patchNoteTranslations),
     ];
 
-    int step = 1;
+    int step = 0;
     final futures = operations.map((saveData) async {
       await saveData();
       emit(RepairSaveDataLocallyInProgress(step++));
