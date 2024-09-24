@@ -20,7 +20,7 @@ sealed class DataSyncLoadInProgress extends DataSyncState {
           'Percentage offset must be within 0-100.',
         ),
         assert(
-          currentStep >= 0 && currentStep < maxSteps,
+          currentStep >= 0 && currentStep <= maxSteps,
           'Current step must be within 0-$maxSteps.',
         ),
         super(
@@ -45,9 +45,9 @@ final class DataSyncInitInProgress extends DataSyncLoadInProgress {
 }
 
 final class DataSyncCheckInProgress extends DataSyncLoadInProgress {
-  const DataSyncCheckInProgress()
+  const DataSyncCheckInProgress([int currentStep = 0])
       : super(
-          currentStep: 0,
+          currentStep: currentStep,
           maxSteps: 1,
           percentageOffset: 20,
         );
