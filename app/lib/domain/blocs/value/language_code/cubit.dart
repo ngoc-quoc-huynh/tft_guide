@@ -15,6 +15,7 @@ final class LanguageCodeValueCubit extends ValueCubit<LanguageCode> {
       ..registerLazySingleton<Translations>(
         () => _computeTranslations(newState),
       );
+
     return super.update(newState);
   }
 
