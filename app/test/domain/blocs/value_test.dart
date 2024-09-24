@@ -2,11 +2,43 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tft_guide/domain/blocs/value/cubit.dart';
+import 'package:tft_guide/domain/models/database/language_code.dart';
 import 'package:tft_guide/domain/models/question/item_option.dart';
 import 'package:tft_guide/domain/models/translation_locale.dart';
+import 'package:tft_guide/injector.dart';
 
 void main() {
   group('ValueCubit', () {
+    group(
+      'LanguageCodeValueCubit',
+      () {
+        tearDown(
+          () async => Injector.instance.unregister<Translations>(),
+        );
+
+        test(
+          'initial state is LanguageCode.en.',
+          () {
+            expect(
+              LanguageCodeValueCubit(LanguageCode.en).state,
+              LanguageCode.en,
+            );
+            expect(
+              Injector.instance.isRegistered<TranslationsEn>(),
+              isTrue,
+            );
+          },
+        );
+
+        blocTest<LanguageCodeValueCubit, LanguageCode>(
+          'emits new state.',
+          build: () => LanguageCodeValueCubit(LanguageCode.en),
+          act: (cubit) => cubit.update(LanguageCode.de),
+          expect: () => [LanguageCode.de],
+        );
+      },
+    );
+
     group('NavigationBarValueCubit', () {
       test(
         'initial state is NavigationBarState.ranked.',
