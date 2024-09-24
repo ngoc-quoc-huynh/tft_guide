@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:clock/clock.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +19,7 @@ part 'state.dart';
 
 final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState>
     with BlocMixin {
-  DataSyncBloc() : super(const DataSyncCheckInProgress()) {
+  DataSyncBloc() : super(const DataSyncInitInProgress()) {
     on<DataSyncInitializeEvent>(
       _onDataInitializeEvent,
       transformer: droppable(),
@@ -112,7 +113,7 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState>
             patchNoteTranslations:
                 patchNoteTranslations as List<PatchNoteTranslationEntity>,
           );
-          await _localStorageApi.updateLastAppUpdate(DateTime.now());
+          await _localStorageApi.updateLastAppUpdate(clock.now());
         },
         onError: () => emit(const DataSyncLoadAndSaveOnFailure()),
       );
@@ -136,7 +137,7 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState>
   }
 
   bool _hasAppBeenUpdatedToday(Emitter<DataSyncState> emit) {
-    emit(const DataSyncCheckInProgress(1));
+    emit(const DataSyncCheckInProgress());
     return _localStorageApi.lastAppUpdate?.isToday ?? false;
   }
 
@@ -148,7 +149,7 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState>
       _remoteDatabaseApi.initialize(),
     ]);
 
-    int step = 1;
+    int step = 0;
     await for (final _ in initStream) {
       emit(DataSyncInitInProgress(step++));
     }
@@ -159,7 +160,7 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState>
   ) async {
     emit(const DataSyncLoadLatestUpdatedAtInProgress());
 
-    int step = 1;
+    int step = 0;
     final latestFileUpdatedAt = _fileStorageApi.loadLatestFileUpdatedAt();
     emit(DataSyncLoadLatestUpdatedAtInProgress(step++));
 
@@ -209,7 +210,7 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState>
           .loadPatchNoteTranslations(latestPatchNoteTranslationUpdatedAt),
     ];
 
-    int step = 1;
+    int step = 0;
     final futures = operations.map((loadData) async {
       final data = await loadData();
       emit(DataSyncLoadRemoteDataInProgress(step++));
@@ -244,7 +245,7 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState>
       () => _localDatabaseApi.savePatchNoteTranslations(patchNoteTranslations),
     ];
 
-    int step = 1;
+    int step = 0;
     final futures = operations.map((saveData) async {
       await saveData();
       emit(DataSyncSaveDataLocallyInProgress(step++));
