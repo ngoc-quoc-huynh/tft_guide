@@ -39,6 +39,22 @@ void main() {
         expect: () => [ThemeMode.dark],
       );
     });
+
+    group('fromJson', () {
+      test('returns correctly.', () {
+        final result = HydratedThemeModeCubit().fromJson(
+          {'theme_mode': 'system'},
+        );
+        expect(result, ThemeMode.system);
+      });
+    });
+
+    group('toJson', () {
+      test('returns correctly.', () {
+        final result = HydratedThemeModeCubit().toJson(ThemeMode.system);
+        expect(result, {'theme_mode': 'system'});
+      });
+    });
   });
 
   group('HydratedTranslationLocaleCubit', () {
@@ -57,6 +73,24 @@ void main() {
         act: (cubit) => cubit.update(TranslationLocale.english),
         expect: () => [TranslationLocale.english],
       );
+    });
+
+    group('fromJson', () {
+      test('returns correctly.', () {
+        final result = HydratedTranslationLocaleCubit().fromJson(
+          {'language': 'system'},
+        );
+        expect(result, TranslationLocale.system);
+      });
+    });
+
+    group('toJson', () {
+      test('returns correctly.', () {
+        final result = HydratedTranslationLocaleCubit().toJson(
+          TranslationLocale.system,
+        );
+        expect(result, {'language': 'system'});
+      });
     });
   });
 }
