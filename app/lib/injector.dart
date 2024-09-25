@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:get_it/get_it.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -51,7 +53,8 @@ final class Injector {
       ..registerLazySingleton<LocalStorageApi>(SharedPreferencesRepository.new)
       ..registerLazySingleton<RankApi>(LocalRankRepository.new)
       ..registerLazySingleton<LoggerApi>(AppLogger.new)
-      ..registerLazySingleton<NativeApi>(NativeRepository.new);
+      ..registerLazySingleton<NativeApi>(NativeRepository.new)
+      ..registerLazySingleton<Random>(Random.new);
     await instance.allReady();
     HydratedBloc.storage = const SharedPrefsHydratedStorage();
   }

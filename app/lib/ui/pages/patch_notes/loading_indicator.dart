@@ -1,7 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 
 class PatchNotesLoadingIndicator extends StatelessWidget {
@@ -55,5 +54,5 @@ class _Card extends StatelessWidget {
     );
   }
 
-  int _getRandomNumberOfLines() => Random().nextInt(8) + 3;
+  int _getRandomNumberOfLines() => Injector.instance.random.nextInt(8) + 3;
 }

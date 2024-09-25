@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:get_it/get_it.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -37,6 +38,8 @@ extension GetItExtension on GetIt {
   PackageInfo get packageInfo => get<PackageInfo>();
 
   RankApi get rankApi => get<RankApi>();
+
+  Random get random => get<Random>();
 
   RemoteDatabaseApi get remoteDatabaseApi => get<RemoteDatabaseApi>();
 
