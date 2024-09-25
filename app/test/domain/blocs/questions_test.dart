@@ -17,20 +17,17 @@ import '../../mocks.dart';
 
 void main() {
   final localDatabaseApi = MockLocalDatabaseApi();
-  final random = MockRandom();
 
   setUpAll(
     () => Injector.instance
       ..registerSingleton<LocalDatabaseApi>(localDatabaseApi)
-      ..registerSingleton<Translations>(TranslationsEn.build())
-      ..registerSingleton<Random>(random),
+      ..registerSingleton<Translations>(TranslationsEn.build()),
   );
 
   tearDownAll(
     () async => Injector.instance
       ..unregister<LocalDatabaseApi>()
-      ..unregister<Translations>()
-      ..unregister<Random>(),
+      ..unregister<Translations>(),
   );
 
   test(
@@ -100,6 +97,7 @@ void main() {
     blocTest<QuestionsBloc, QuestionsState>(
       'emits QuestionsLoadOnSuccess',
       setUp: () {
+        Injector.instance.registerSingleton<Random>(MockRandom(0));
         when(
           () => localDatabaseApi.loadRandomQuestionBaseItemOptions(
             1,
@@ -133,6 +131,7 @@ void main() {
           ),
         ).thenAnswer((_) async => otherFullItemOptions);
       },
+      tearDown: () => Injector.instance.unregister<Random>(),
       build: () => QuestionsBloc(
         totalBaseItemQuestions: 1,
         totalFullItemQuestions: 1,
@@ -178,6 +177,7 @@ void main() {
     blocTest<QuestionsBloc, QuestionsState>(
       'emits QuestionsLoadOnSuccess when correct full item is special',
       setUp: () {
+        Injector.instance.registerSingleton<Random>(MockRandom(1));
         when(
           () => localDatabaseApi.loadRandomQuestionBaseItemOptions(
             0,
@@ -200,6 +200,7 @@ void main() {
           ),
         ).thenAnswer((_) async => otherFullItemOptions);
       },
+      tearDown: () => Injector.instance.unregister<Random>(),
       build: () => QuestionsBloc(
         totalBaseItemQuestions: 0,
         totalFullItemQuestions: 1,

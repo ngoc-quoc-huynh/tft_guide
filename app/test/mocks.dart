@@ -17,8 +17,9 @@ final class MockRemoteDatabaseApi extends Mock implements RemoteDatabaseApi {}
 
 final class MockLocalStorageApi extends Mock implements LocalStorageApi {}
 
-class MockRandom implements Random {
-  MockRandom() : _random = Random(0);
+final class MockRandom implements Random {
+  MockRandom(int seed) : _random = Random(seed);
+
   final Random _random;
 
   @override
