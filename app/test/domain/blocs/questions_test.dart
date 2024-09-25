@@ -97,7 +97,7 @@ void main() {
     blocTest<QuestionsBloc, QuestionsState>(
       'emits QuestionsLoadOnSuccess',
       setUp: () {
-        Injector.instance.registerSingleton<Random>(MockRandom(0));
+        Injector.instance.registerSingleton<Random>(MockRandom());
         when(
           () => localDatabaseApi.loadRandomQuestionBaseItemOptions(
             1,

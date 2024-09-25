@@ -38,7 +38,7 @@ final class MockRankApi extends Mock implements RankApi {}
 final class MockRemoteDatabaseApi extends Mock implements RemoteDatabaseApi {}
 
 final class MockRandom implements Random {
-  MockRandom(int seed) : _random = Random(seed);
+  MockRandom([int seed = 0]) : _random = Random(seed);
 
   final Random _random;
 
