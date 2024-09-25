@@ -1,4 +1,3 @@
-import 'package:tft_guide/domain/exceptions/base.dart';
 import 'package:tft_guide/injector.dart';
 
 mixin LoggerMixin {
@@ -40,22 +39,6 @@ mixin LoggerMixin {
         stackTrace: stackTrace,
         parameters: parameters,
       );
-
-  void logOtherException(
-    String methodName, {
-    required Exception exception,
-    required StackTrace stackTrace,
-    Map<String, String?>? parameters,
-  }) {
-    if (exception is! CustomException) {
-      logException(
-        methodName,
-        exception: exception,
-        stackTrace: stackTrace,
-        parameters: parameters,
-      );
-    }
-  }
 
   static final _loggerAPI = Injector.instance.loggerApi;
 }

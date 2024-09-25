@@ -13,7 +13,7 @@ check-files:
 	dart run dart_code_linter:metrics check-unused-files lib
 
 style:
-	dart format lib
+	dart format .
 	flutter analyze
 	dart run dart_code_linter:metrics analyze . --set-exit-on-violation-level=warning
 
