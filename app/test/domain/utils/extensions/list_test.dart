@@ -4,13 +4,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:tft_guide/domain/utils/extensions/list.dart';
 import 'package:tft_guide/injector.dart';
 
-import '../../../mocks.dart';
-
 void main() {
   group('random', () {
     test('returns correctly.', () {
-      Injector.instance.registerSingleton<Random>(MockRandom());
-      addTearDown(() async => Injector.instance.unregister<Random>());
+      Injector.instance.registerSingleton<Random>(Random(0));
+      addTearDown(Injector.instance.unregister<Random>);
 
       expect(
         [1, 2, 3].random,
@@ -21,8 +19,8 @@ void main() {
 
   group('sampleWithoutElement', () {
     test('returns correctly.', () {
-      Injector.instance.registerSingleton<Random>(MockRandom(1));
-      addTearDown(() async => Injector.instance.unregister<Random>());
+      Injector.instance.registerSingleton<Random>(Random(1));
+      addTearDown(Injector.instance.unregister<Random>);
 
       expect(
         [1, 2, 3].sampleWithoutElement(1),
@@ -31,8 +29,8 @@ void main() {
     });
 
     test('returns correctly ignoring 1.', () {
-      Injector.instance.registerSingleton<Random>(MockRandom(2));
-      addTearDown(() async => Injector.instance.unregister<Random>());
+      Injector.instance.registerSingleton<Random>(Random(2));
+      addTearDown(Injector.instance.unregister<Random>);
 
       expect(
         [1, 2, 3].sampleWithoutElement(

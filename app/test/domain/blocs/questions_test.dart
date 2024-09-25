@@ -95,9 +95,9 @@ void main() {
     ];
 
     blocTest<QuestionsBloc, QuestionsState>(
-      'emits QuestionsLoadOnSuccess',
+      'emits QuestionsLoadOnSuccess.',
       setUp: () {
-        Injector.instance.registerSingleton<Random>(MockRandom());
+        Injector.instance.registerSingleton<Random>(Random(0));
         when(
           () => localDatabaseApi.loadRandomQuestionBaseItemOptions(
             1,
@@ -175,9 +175,9 @@ void main() {
     );
 
     blocTest<QuestionsBloc, QuestionsState>(
-      'emits QuestionsLoadOnSuccess when correct full item is special',
+      'emits QuestionsLoadOnSuccess when correct full item is special.',
       setUp: () {
-        Injector.instance.registerSingleton<Random>(MockRandom(1));
+        Injector.instance.registerSingleton<Random>(Random(1));
         when(
           () => localDatabaseApi.loadRandomQuestionBaseItemOptions(
             0,
@@ -208,7 +208,7 @@ void main() {
       expect: () => [
         const QuestionsLoadOnSuccess(
           [
-            DescriptionTextQuestion(
+            DescriptionImageQuestion(
               correctOption: correctFullItemOptionSpecial,
               otherOptions: otherFullItemOptions,
             ),

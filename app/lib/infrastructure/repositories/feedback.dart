@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:tft_guide/domain/interfaces/feedback.dart';
@@ -8,7 +10,7 @@ import 'package:tft_guide/injector.dart';
 final class FeedbackRepository with LoggerMixin implements FeedbackApi {
   const FeedbackRepository();
 
-  static final _random = Injector.instance.random;
+  static Random get _random => Injector.instance.random;
 
   @override
   String getFeedback({required bool isCorrect}) {

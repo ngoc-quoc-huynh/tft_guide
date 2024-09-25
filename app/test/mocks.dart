@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:mocktail/mocktail.dart';
@@ -36,21 +35,6 @@ final class MockPackageInfo extends Mock implements PackageInfo {}
 final class MockRankApi extends Mock implements RankApi {}
 
 final class MockRemoteDatabaseApi extends Mock implements RemoteDatabaseApi {}
-
-final class MockRandom implements Random {
-  MockRandom([int seed = 0]) : _random = Random(seed);
-
-  final Random _random;
-
-  @override
-  bool nextBool() => _random.nextBool();
-
-  @override
-  double nextDouble() => _random.nextDouble();
-
-  @override
-  int nextInt(int max) => _random.nextInt(max);
-}
 
 final class MockSharedPreferencesWithCache extends Mock
     implements SharedPreferencesWithCache {}
