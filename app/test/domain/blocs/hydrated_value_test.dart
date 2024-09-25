@@ -22,6 +22,8 @@ void main() {
     },
   );
 
+  tearDownAll(() => HydratedBloc.storage = null);
+
   group('HydratedThemeModeCubit', () {
     test(
       'initial state is ThemeMode.system.',
