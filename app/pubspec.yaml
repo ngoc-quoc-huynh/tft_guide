@@ -76,7 +76,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   bloc_test: ^9.1.5
-  golden_toolkit: ^0.15.0
   mocktail: ^1.0.4
 
   # Test coverage
