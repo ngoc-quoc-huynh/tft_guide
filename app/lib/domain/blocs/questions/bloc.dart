@@ -49,7 +49,7 @@ final class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState>
             ),
           ).wait;
           final questions = [...baseItemQuestions, ...fullItemQuestions]
-            ..shuffle();
+            ..shuffle(Injector.instance.random);
           emit(QuestionsLoadOnSuccess(questions));
         },
         onError: () => emit(const QuestionsLoadOnFailure()),
