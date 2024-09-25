@@ -9,4 +9,3 @@ dart_code_linter:
         include-assertions:
           - expectList
           - testBloc
-
