@@ -8,11 +8,13 @@ import 'package:tft_guide/injector.dart';
 final class FeedbackRepository with LoggerMixin implements FeedbackApi {
   const FeedbackRepository();
 
+  static final _random = Injector.instance.random;
+
   @override
   String getFeedback({required bool isCorrect}) {
     final feedback = switch (isCorrect) {
-      false => _wrongFeedback.sample(1),
-      true => _correctTranslations.sample(1),
+      false => _wrongFeedback.sample(1, _random),
+      true => _correctTranslations.sample(1, _random),
     }
         .first;
     logInfo(
