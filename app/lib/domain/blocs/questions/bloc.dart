@@ -73,7 +73,7 @@ final class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState>
   Future<List<Question>> _buildQuestionsForBaseItem(
     List<QuestionBaseItemOption> itemOptions,
   ) async {
-    final questionKind = _baseItemQuestionKinds.random();
+    final questionKind = _baseItemQuestionKinds.random;
     final other = await _loadOtherRandomBaseItemOptions(itemOptions);
 
     return itemOptions
@@ -99,8 +99,8 @@ final class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState>
         .mapIndexed(
           (index, correctOption) => Function.apply(
             switch (correctOption.isSpecial) {
-              false => _fullItemQuestionKinds.random(),
-              true => _baseItemQuestionKinds.random(),
+              false => _fullItemQuestionKinds.random,
+              true => _baseItemQuestionKinds.random,
             },
             null,
             {
