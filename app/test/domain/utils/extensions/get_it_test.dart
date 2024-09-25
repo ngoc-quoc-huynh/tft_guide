@@ -22,7 +22,7 @@ import '../../../mocks.dart';
 void main() {
   test('returns Directory.', () {
     Injector.instance.registerSingleton<Directory>(MockDirectory());
-    addTearDown(() async => Injector.instance.unregister<Directory>());
+    addTearDown(Injector.instance.unregister<Directory>);
 
     expect(
       Injector.instance.appDir,
@@ -32,7 +32,7 @@ void main() {
 
   test('returns FeedbackApi.', () {
     Injector.instance.registerSingleton<FeedbackApi>(MockFeedbackApi());
-    addTearDown(() async => Injector.instance.unregister<FeedbackApi>());
+    addTearDown(Injector.instance.unregister<FeedbackApi>);
 
     expect(
       Injector.instance.feedbackApi,
@@ -42,7 +42,7 @@ void main() {
 
   test('returns FileStorageApi.', () {
     Injector.instance.registerSingleton<FileStorageApi>(MockFileStorageApi());
-    addTearDown(() async => Injector.instance.unregister<FileStorageApi>());
+    addTearDown(Injector.instance.unregister<FileStorageApi>);
 
     expect(
       Injector.instance.fileStorageApi,
@@ -52,7 +52,7 @@ void main() {
 
   test('returns LanguageCode.', () {
     Injector.instance.registerSingleton<Translations>(TranslationsEn.build());
-    addTearDown(() async => Injector.instance.unregister<Translations>());
+    addTearDown(Injector.instance.unregister<Translations>);
 
     expect(
       Injector.instance.languageCode,
@@ -63,7 +63,7 @@ void main() {
   test('returns LocalDatabaseApi.', () {
     Injector.instance
         .registerSingleton<LocalDatabaseApi>(MockLocalDatabaseApi());
-    addTearDown(() async => Injector.instance.unregister<LocalDatabaseApi>());
+    addTearDown(Injector.instance.unregister<LocalDatabaseApi>);
 
     expect(
       Injector.instance.localDatabaseApi,
@@ -73,7 +73,7 @@ void main() {
 
   test('returns LocalStorageApi.', () {
     Injector.instance.registerSingleton<LocalStorageApi>(MockLocalStorageApi());
-    addTearDown(() async => Injector.instance.unregister<LocalStorageApi>());
+    addTearDown(Injector.instance.unregister<LocalStorageApi>);
 
     expect(
       Injector.instance.localStorageApi,
@@ -83,7 +83,7 @@ void main() {
 
   test('returns LoggerApi.', () {
     Injector.instance.registerSingleton<LoggerApi>(MockLoggerApi());
-    addTearDown(() async => Injector.instance.unregister<LoggerApi>());
+    addTearDown(Injector.instance.unregister<LoggerApi>);
 
     expect(
       Injector.instance.loggerApi,
@@ -93,7 +93,7 @@ void main() {
 
   test('returns NativeApi.', () {
     Injector.instance.registerSingleton<NativeApi>(MockNativeApi());
-    addTearDown(() async => Injector.instance.unregister<NativeApi>());
+    addTearDown(Injector.instance.unregister<NativeApi>);
 
     expect(
       Injector.instance.nativeApi,
@@ -103,7 +103,7 @@ void main() {
 
   test('returns PackageInfo.', () {
     Injector.instance.registerSingleton<PackageInfo>(MockPackageInfo());
-    addTearDown(() async => Injector.instance.unregister<PackageInfo>());
+    addTearDown(Injector.instance.unregister<PackageInfo>);
 
     expect(
       Injector.instance.packageInfo,
@@ -113,7 +113,7 @@ void main() {
 
   test('returns RankApi.', () {
     Injector.instance.registerSingleton<RankApi>(MockRankApi());
-    addTearDown(() async => Injector.instance.unregister<RankApi>());
+    addTearDown(Injector.instance.unregister<RankApi>);
 
     expect(
       Injector.instance.rankApi,
@@ -122,8 +122,8 @@ void main() {
   });
 
   test('returns Random.', () {
-    Injector.instance.registerSingleton<Random>(MockRandom());
-    addTearDown(() async => Injector.instance.unregister<Random>());
+    Injector.instance.registerSingleton<Random>(Random(0));
+    addTearDown(Injector.instance.unregister<Random>);
 
     expect(
       Injector.instance.random,
@@ -134,7 +134,7 @@ void main() {
   test('returns RemoteDatabaseApi.', () {
     Injector.instance
         .registerSingleton<RemoteDatabaseApi>(MockRemoteDatabaseApi());
-    addTearDown(() async => Injector.instance.unregister<RemoteDatabaseApi>());
+    addTearDown(Injector.instance.unregister<RemoteDatabaseApi>);
 
     expect(
       Injector.instance.remoteDatabaseApi,
@@ -146,6 +146,7 @@ void main() {
     Injector.instance.registerSingleton<SharedPreferencesWithCache>(
       MockSharedPreferencesWithCache(),
     );
+    addTearDown(Injector.instance.unregister<SharedPreferencesWithCache>);
 
     expect(
       Injector.instance.sharedPrefs,
@@ -155,6 +156,7 @@ void main() {
 
   test('returns ThemeApi.', () {
     Injector.instance.registerSingleton<ThemeApi>(MockThemeApi());
+    addTearDown(Injector.instance.unregister<ThemeApi>);
 
     expect(
       Injector.instance.themeApi,
@@ -164,7 +166,7 @@ void main() {
 
   test('returns Translations.', () {
     Injector.instance.registerSingleton<Translations>(TranslationsEn.build());
-
+    addTearDown(Injector.instance.unregister<Translations>);
     expect(
       Injector.instance.translations,
       isA<Translations>(),
@@ -174,6 +176,7 @@ void main() {
   test('returns WidgetsBindingApi.', () {
     Injector.instance
         .registerSingleton<WidgetsBindingApi>(MockWidgetsBindingApi());
+    addTearDown(Injector.instance.unregister<WidgetsBindingApi>);
 
     expect(
       Injector.instance.widgetsBindingApi,

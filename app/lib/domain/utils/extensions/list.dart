@@ -1,8 +1,10 @@
+import 'dart:math';
+
 import 'package:collection/collection.dart';
 import 'package:tft_guide/injector.dart';
 
 extension ListExtension<T> on List<T> {
-  static final _random = Injector.instance.random;
+  static Random get _random => Injector.instance.random;
 
   T get random => this[_random.nextInt(length)];
 
