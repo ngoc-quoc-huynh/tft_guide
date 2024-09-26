@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:tft_guide/domain/models/database/item_translation.dart'
-    as domain;
+import 'package:tft_guide/domain/models/database/item_translation.dart';
 import 'package:tft_guide/infrastructure/dtos/supabase/language_code.dart';
 
 sealed class ItemTranslation extends Equatable {
@@ -23,8 +22,7 @@ sealed class ItemTranslation extends Equatable {
   final String hint;
   final DateTime createdAt;
   final DateTime updatedAt;
-
-  domain.ItemTranslationEntity toDomain();
+  ItemTranslationEntity toDomain();
 
   @override
   List<Object?> get props => [
@@ -65,8 +63,7 @@ final class BaseItemTranslation extends ItemTranslation {
       );
 
   @override
-  domain.BaseItemTranslationEntity toDomain() =>
-      domain.BaseItemTranslationEntity(
+  BaseItemTranslationEntity toDomain() => BaseItemTranslationEntity(
         id: id,
         itemId: itemId,
         languageCode: languageCode.toDomain(),
@@ -104,8 +101,7 @@ final class FullItemTranslation extends ItemTranslation {
       );
 
   @override
-  domain.FullItemTranslationEntity toDomain() =>
-      domain.FullItemTranslationEntity(
+  FullItemTranslationEntity toDomain() => FullItemTranslationEntity(
         id: id,
         itemId: itemId,
         languageCode: languageCode.toDomain(),
