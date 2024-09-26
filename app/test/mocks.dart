@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,6 +25,8 @@ final class MockFileStorageApi extends Mock implements FileStorageApi {}
 final class MockLocalDatabaseApi extends Mock implements LocalDatabaseApi {}
 
 final class MockLocalStorageApi extends Mock implements LocalStorageApi {}
+
+final class MockLogger extends Mock implements Logger {}
 
 final class MockLoggerApi extends Mock implements LoggerApi {}
 

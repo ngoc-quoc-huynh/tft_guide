@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:logger/logger.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tft_guide/domain/interfaces/feedback.dart';
@@ -78,6 +79,16 @@ void main() {
     expect(
       Injector.instance.localStorageApi,
       isA<LocalStorageApi>(),
+    );
+  });
+
+  test('returns Logger.', () {
+    Injector.instance.registerSingleton<Logger>(MockLogger());
+    addTearDown(Injector.instance.unregister<Logger>);
+
+    expect(
+      Injector.instance.logger,
+      isA<Logger>(),
     );
   });
 

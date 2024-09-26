@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:get_it/get_it.dart';
+import 'package:logger/logger.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tft_guide/domain/interfaces/feedback.dart';
@@ -30,6 +31,8 @@ extension GetItExtension on GetIt {
   LocalDatabaseApi get localDatabaseApi => get<LocalDatabaseApi>();
 
   LocalStorageApi get localStorageApi => get<LocalStorageApi>();
+
+  Logger get logger => get<Logger>();
 
   LoggerApi get loggerApi => get<LoggerApi>();
 

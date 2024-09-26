@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:get_it/get_it.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:logger/logger.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -52,6 +53,7 @@ final class Injector {
       )
       ..registerLazySingleton<LocalStorageApi>(SharedPreferencesRepository.new)
       ..registerLazySingleton<RankApi>(LocalRankRepository.new)
+      ..registerLazySingleton(Logger.new)
       ..registerLazySingleton<LoggerApi>(AppLogger.new)
       ..registerLazySingleton<NativeApi>(NativeRepository.new)
       ..registerLazySingleton<Random>(Random.new);
