@@ -4,18 +4,21 @@ import 'package:tft_guide/domain/models/database/patch_note_translation.dart';
 import 'package:tft_guide/infrastructure/dtos/supabase/patch_note_translation.dart';
 
 void main() {
+  final dateTime = DateTime.utc(2024);
+  final dateTimeString = dateTime.toIso8601String();
+
   group('fromJson', () {
     test(
       'returns correctly.',
       () => expect(
         PatchNoteTranslation.fromJson(
-          const {
+          {
             'id': 'id',
             'patch_note_id': 'patchNoteId',
             'language_code': 'en',
             'text': 'text',
-            'created_at': '2024-01-01',
-            'updated_at': '2024-01-01',
+            'created_at': dateTimeString,
+            'updated_at': dateTimeString,
           },
         ),
         PatchNoteTranslation(
@@ -23,8 +26,8 @@ void main() {
           patchNoteId: 'patchNoteId',
           languageCode: LanguageCode.en,
           text: 'text',
-          createdAt: DateTime(2024),
-          updatedAt: DateTime(2024),
+          createdAt: dateTime,
+          updatedAt: dateTime,
         ),
       ),
     );
@@ -34,12 +37,12 @@ void main() {
       () {
         expect(
           () => PatchNoteTranslation.fromJson(
-            const {
+            {
               'patch_note_id': 'patchNoteId',
               'language_code': 'en',
               'text': 'text',
-              'created_at': '2024-01-01',
-              'updated_at': '2024-01-01',
+              'created_at': dateTimeString,
+              'updated_at': dateTimeString,
             },
           ),
           throwsA(
@@ -52,12 +55,12 @@ void main() {
         );
         expect(
           () => PatchNoteTranslation.fromJson(
-            const {
+            {
               'id': 'id',
               'language_code': 'en',
               'text': 'text',
-              'created_at': '2024-01-01',
-              'updated_at': '2024-01-01',
+              'created_at': dateTimeString,
+              'updated_at': dateTimeString,
             },
           ),
           throwsA(
@@ -70,12 +73,12 @@ void main() {
         );
         expect(
           () => PatchNoteTranslation.fromJson(
-            const {
+            {
               'id': 'id',
               'patch_note_id': 'patchNoteId',
               'text': 'text',
-              'created_at': '2024-01-01',
-              'updated_at': '2024-01-01',
+              'created_at': dateTimeString,
+              'updated_at': dateTimeString,
             },
           ),
           throwsA(
@@ -88,12 +91,12 @@ void main() {
         );
         expect(
           () => PatchNoteTranslation.fromJson(
-            const {
+            {
               'id': 'id',
               'patch_note_id': 'patchNoteId',
               'language_code': 'en',
-              'created_at': '2024-01-01',
-              'updated_at': '2024-01-01',
+              'created_at': dateTimeString,
+              'updated_at': dateTimeString,
             },
           ),
           throwsA(
@@ -107,12 +110,12 @@ void main() {
 
         expect(
           () => PatchNoteTranslation.fromJson(
-            const {
+            {
               'id': 'id',
               'patch_note_id': 'patchNoteId',
               'language_code': 'en',
               'text': 'text',
-              'updated_at': '2024-01-01',
+              'updated_at': dateTimeString,
             },
           ),
           throwsA(
@@ -125,12 +128,12 @@ void main() {
         );
         expect(
           () => PatchNoteTranslation.fromJson(
-            const {
+            {
               'id': 'id',
               'patch_note_id': 'patchNoteId',
               'language_code': 'en',
               'text': 'text',
-              'created_at': '2024-01-01',
+              'created_at': dateTimeString,
             },
           ),
           throwsA(
@@ -149,13 +152,13 @@ void main() {
       () {
         expect(
           () => PatchNoteTranslation.fromJson(
-            const {
+            {
               'id': 1,
               'patch_note_id': 'patchNoteId',
               'language_code': 'en',
               'text': 'text',
-              'created_at': '2024-01-01',
-              'updated_at': '2024-01-01',
+              'created_at': dateTimeString,
+              'updated_at': dateTimeString,
             },
           ),
           throwsA(
@@ -169,13 +172,13 @@ void main() {
 
         expect(
           () => PatchNoteTranslation.fromJson(
-            const {
+            {
               'id': 'id',
               'patch_note_id': 1,
               'language_code': 'en',
               'text': 'text',
-              'created_at': '2024-01-01',
-              'updated_at': '2024-01-01',
+              'created_at': dateTimeString,
+              'updated_at': dateTimeString,
             },
           ),
           throwsA(
@@ -188,13 +191,13 @@ void main() {
         );
         expect(
           () => PatchNoteTranslation.fromJson(
-            const {
+            {
               'id': 'id',
               'patch_note_id': 'patchNoteId',
               'language_code': 1,
               'text': 'text',
-              'created_at': '2024-01-01',
-              'updated_at': '2024-01-01',
+              'created_at': dateTimeString,
+              'updated_at': dateTimeString,
             },
           ),
           throwsA(
@@ -207,13 +210,13 @@ void main() {
         );
         expect(
           () => PatchNoteTranslation.fromJson(
-            const {
+            {
               'id': 'id',
               'patch_note_id': 'patchNoteId',
               'language_code': 'en',
               'text': 1,
-              'created_at': '2024-01-01',
-              'updated_at': '2024-01-01',
+              'created_at': dateTimeString,
+              'updated_at': dateTimeString,
             },
           ),
           throwsA(
@@ -226,13 +229,13 @@ void main() {
         );
         expect(
           () => PatchNoteTranslation.fromJson(
-            const {
+            {
               'id': 'id',
               'patch_note_id': 'patchNoteId',
               'language_code': 'en',
               'text': 'text',
               'created_at': 1,
-              'updated_at': '2024-01-01',
+              'updated_at': dateTimeString,
             },
           ),
           throwsA(
@@ -245,12 +248,12 @@ void main() {
         );
         expect(
           () => PatchNoteTranslation.fromJson(
-            const {
+            {
               'id': 'id',
               'patch_note_id': 'patchNoteId',
               'language_code': 'en',
               'text': 'text',
-              'created_at': '2024-01-01',
+              'created_at': dateTimeString,
               'updated_at': 1,
             },
           ),
@@ -268,13 +271,13 @@ void main() {
     test('throws FormatException if date is invalid.', () {
       expect(
         () => PatchNoteTranslation.fromJson(
-          const {
+          {
             'id': 'id',
             'patch_note_id': 'patchNoteId',
             'language_code': 'en',
             'text': 'text',
             'created_at': 'createdAt',
-            'updated_at': '2024-01-01',
+            'updated_at': dateTimeString,
           },
         ),
         throwsA(
@@ -287,12 +290,12 @@ void main() {
       );
       expect(
         () => PatchNoteTranslation.fromJson(
-          const {
+          {
             'id': 'id',
             'patch_note_id': 'patchNoteId',
             'language_code': 'en',
             'text': 'text',
-            'created_at': '2024-01-01',
+            'created_at': dateTimeString,
             'updated_at': 'updatedAt',
           },
         ),
@@ -316,16 +319,16 @@ void main() {
           patchNoteId: 'patchNoteId',
           languageCode: LanguageCode.en,
           text: 'text',
-          createdAt: DateTime(2024),
-          updatedAt: DateTime(2024),
+          createdAt: dateTime,
+          updatedAt: dateTime,
         ).toDomain(),
         PatchNoteTranslationEntity(
           id: 'id',
           patchNoteId: 'patchNoteId',
           languageCode: LanguageCode.en,
           text: 'text',
-          createdAt: DateTime(2024),
-          updatedAt: DateTime(2024),
+          createdAt: dateTime,
+          updatedAt: dateTime,
         ),
       ),
     );

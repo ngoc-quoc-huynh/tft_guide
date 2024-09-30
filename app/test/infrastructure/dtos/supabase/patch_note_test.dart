@@ -3,21 +3,24 @@ import 'package:tft_guide/domain/models/database/patch_note.dart';
 import 'package:tft_guide/infrastructure/dtos/supabase/patch_note.dart';
 
 void main() {
+  final dateTime = DateTime.utc(2024);
+  final dateTimeString = dateTime.toIso8601String();
+
   group('fromJson', () {
     test(
       'returns correctly.',
       () => expect(
         PatchNote.fromJson(
-          const {
+          {
             'id': 'id',
-            'created_at': '2024-01-01',
-            'updated_at': '2024-01-01',
+            'created_at': dateTimeString,
+            'updated_at': dateTimeString,
           },
         ),
         PatchNote(
           id: 'id',
-          createdAt: DateTime(2024),
-          updatedAt: DateTime(2024),
+          createdAt: dateTime,
+          updatedAt: dateTime,
         ),
       ),
     );
@@ -27,9 +30,9 @@ void main() {
       () {
         expect(
           () => PatchNote.fromJson(
-            const {
-              'created_at': '2024-01-01',
-              'updated_at': '2024-01-01',
+            {
+              'created_at': dateTimeString,
+              'updated_at': dateTimeString,
             },
           ),
           throwsA(
@@ -42,9 +45,9 @@ void main() {
         );
         expect(
           () => PatchNote.fromJson(
-            const {
+            {
               'id': 'id',
-              'updated_at': '2024-01-01',
+              'updated_at': dateTimeString,
             },
           ),
           throwsA(
@@ -57,9 +60,9 @@ void main() {
         );
         expect(
           () => PatchNote.fromJson(
-            const {
+            {
               'id': 'id',
-              'created_at': '2024-01-01',
+              'created_at': dateTimeString,
             },
           ),
           throwsA(
@@ -78,10 +81,10 @@ void main() {
       () {
         expect(
           () => PatchNote.fromJson(
-            const {
+            {
               'id': 1,
-              'created_at': '2024-01-01',
-              'updated_at': '2024-01-01',
+              'created_at': dateTimeString,
+              'updated_at': dateTimeString,
             },
           ),
           throwsA(
@@ -94,10 +97,10 @@ void main() {
         );
         expect(
           () => PatchNote.fromJson(
-            const {
+            {
               'id': 'id',
               'created_at': 1,
-              'updated_at': '2024-01-01',
+              'updated_at': dateTimeString,
             },
           ),
           throwsA(
@@ -110,9 +113,9 @@ void main() {
         );
         expect(
           () => PatchNote.fromJson(
-            const {
+            {
               'id': 'id',
-              'created_at': '2024-01-01',
+              'created_at': dateTimeString,
               'updated_at': 1,
             },
           ),
@@ -130,10 +133,10 @@ void main() {
     test('throws FormatException if date is wrong format.', () {
       expect(
         () => PatchNote.fromJson(
-          const {
+          {
             'id': 'id',
             'created_at': 'createdAt',
-            'updated_at': '2024-01-01',
+            'updated_at': dateTimeString,
           },
         ),
         throwsA(
@@ -146,9 +149,9 @@ void main() {
       );
       expect(
         () => PatchNote.fromJson(
-          const {
+          {
             'id': 'id',
-            'created_at': '2024-01-01',
+            'created_at': dateTimeString,
             'updated_at': 'updatedAt',
           },
         ),
@@ -169,13 +172,13 @@ void main() {
       () => expect(
         PatchNote(
           id: 'id',
-          createdAt: DateTime(2024),
-          updatedAt: DateTime(2024),
+          createdAt: dateTime,
+          updatedAt: dateTime,
         ).toDomain(),
         PatchNoteEntity(
           id: 'id',
-          createdAt: DateTime(2024),
-          updatedAt: DateTime(2024),
+          createdAt: dateTime,
+          updatedAt: dateTime,
         ),
       ),
     );

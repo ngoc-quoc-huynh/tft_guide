@@ -3,29 +3,32 @@ import 'package:tft_guide/domain/models/database/item.dart';
 import 'package:tft_guide/infrastructure/dtos/supabase/item.dart';
 
 void main() {
+  final dateTime = DateTime.utc(2024);
+  final dateTimeString = dateTime.toIso8601String();
+
   group('BaseItem', () {
     group('fromJson', () {
       test('returns correctly.', () {
         expect(
           BaseItem.fromJson(
-            const {
+            {
               'id': 'id',
-              'created_at': '2024-01-01',
-              'updated_at': '2024-01-01',
+              'created_at': dateTimeString,
+              'updated_at': dateTimeString,
             },
           ),
           BaseItem(
             id: 'id',
-            createdAt: DateTime(2024),
-            updatedAt: DateTime(2024),
+            createdAt: dateTime,
+            updatedAt: dateTime,
           ),
         );
         expect(
           BaseItem.fromJson(
-            const {
+            {
               'id': 'id',
-              'created_at': '2024-01-01',
-              'updated_at': '2024-01-01',
+              'created_at': dateTimeString,
+              'updated_at': dateTimeString,
               'ability_power': 1,
               'armor': 2,
               'attack_damage': 3,
@@ -38,8 +41,8 @@ void main() {
           ),
           BaseItem(
             id: 'id',
-            createdAt: DateTime(2024),
-            updatedAt: DateTime(2024),
+            createdAt: dateTime,
+            updatedAt: dateTime,
             abilityPower: 1,
             armor: 2,
             attackDamage: 3,
@@ -57,9 +60,9 @@ void main() {
         () {
           expect(
             () => BaseItem.fromJson(
-              const {
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+              {
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -72,9 +75,9 @@ void main() {
           );
           expect(
             () => BaseItem.fromJson(
-              const {
+              {
                 'id': 'id',
-                'updated_at': '2024-01-01',
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -87,9 +90,9 @@ void main() {
           );
           expect(
             () => BaseItem.fromJson(
-              const {
+              {
                 'id': 'id',
-                'created_at': '2024-01-01',
+                'created_at': dateTimeString,
               },
             ),
             throwsA(
@@ -108,10 +111,10 @@ void main() {
         () {
           expect(
             () => BaseItem.fromJson(
-              const {
+              {
                 'id': 1,
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -124,10 +127,10 @@ void main() {
           );
           expect(
             () => BaseItem.fromJson(
-              const {
+              {
                 'id': 'id',
                 'created_at': 2,
-                'updated_at': '2024-01-01',
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -140,9 +143,9 @@ void main() {
           );
           expect(
             () => BaseItem.fromJson(
-              const {
+              {
                 'id': 'id',
-                'created_at': '2024-01-01',
+                'created_at': dateTimeString,
                 'updated_at': 1,
               },
             ),
@@ -162,10 +165,10 @@ void main() {
         () {
           expect(
             () => BaseItem.fromJson(
-              const {
+              {
                 'id': 'id',
                 'created_at': 'createdAt',
-                'updated_at': '2024-01-01',
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -178,9 +181,9 @@ void main() {
           );
           expect(
             () => BaseItem.fromJson(
-              const {
+              {
                 'id': 'id',
-                'created_at': '2024-01-01',
+                'created_at': dateTimeString,
                 'updated_at': 'updatedAt',
               },
             ),
@@ -202,13 +205,13 @@ void main() {
         () => expect(
           BaseItem(
             id: 'id',
-            createdAt: DateTime(2024),
-            updatedAt: DateTime(2024),
+            createdAt: dateTime,
+            updatedAt: dateTime,
           ).toDomain(),
           BaseItemEntity(
             id: 'id',
-            createdAt: DateTime(2024),
-            updatedAt: DateTime(2024),
+            createdAt: dateTime,
+            updatedAt: dateTime,
           ),
         ),
       );
@@ -220,10 +223,10 @@ void main() {
       test('returns correctly.', () {
         expect(
           FullItem.fromJson(
-            const {
+            {
               'id': 'id',
-              'created_at': '2024-01-01',
-              'updated_at': '2024-01-01',
+              'created_at': dateTimeString,
+              'updated_at': dateTimeString,
               'is_active': true,
               'is_special': false,
               'item_id_1': 'itemId1',
@@ -232,8 +235,8 @@ void main() {
           ),
           FullItem(
             id: 'id',
-            createdAt: DateTime(2024),
-            updatedAt: DateTime(2024),
+            createdAt: dateTime,
+            updatedAt: dateTime,
             isActive: true,
             isSpecial: false,
             itemId1: 'itemId1',
@@ -242,10 +245,10 @@ void main() {
         );
         expect(
           FullItem.fromJson(
-            const {
+            {
               'id': 'id',
-              'created_at': '2024-01-01',
-              'updated_at': '2024-01-01',
+              'created_at': dateTimeString,
+              'updated_at': dateTimeString,
               'is_active': true,
               'is_special': false,
               'item_id_1': 'itemId1',
@@ -262,8 +265,8 @@ void main() {
           ),
           FullItem(
             id: 'id',
-            createdAt: DateTime(2024),
-            updatedAt: DateTime(2024),
+            createdAt: dateTime,
+            updatedAt: dateTime,
             isActive: true,
             isSpecial: false,
             itemId1: 'itemId1',
@@ -285,9 +288,9 @@ void main() {
         () {
           expect(
             () => FullItem.fromJson(
-              const {
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+              {
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
                 'is_active': true,
                 'is_special': false,
                 'item_id_1': 'itemId1',
@@ -304,9 +307,9 @@ void main() {
           );
           expect(
             () => FullItem.fromJson(
-              const {
+              {
                 'id': 'id',
-                'updated_at': '2024-01-01',
+                'updated_at': dateTimeString,
                 'is_active': true,
                 'is_special': false,
                 'item_id_1': 'itemId1',
@@ -323,9 +326,9 @@ void main() {
           );
           expect(
             () => FullItem.fromJson(
-              const {
+              {
                 'id': 'id',
-                'created_at': '2024-01-01',
+                'created_at': dateTimeString,
                 'is_active': true,
                 'is_special': false,
                 'item_id_1': 'itemId1',
@@ -342,10 +345,10 @@ void main() {
           );
           expect(
             () => FullItem.fromJson(
-              const {
+              {
                 'id': 'id',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
                 'is_special': false,
                 'item_id_1': 'itemId1',
                 'item_id_2': 'itemId2',
@@ -361,10 +364,10 @@ void main() {
           );
           expect(
             () => FullItem.fromJson(
-              const {
+              {
                 'id': 'id',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
                 'is_active': true,
                 'item_id_1': 'itemId1',
                 'item_id_2': 'itemId2',
@@ -380,10 +383,10 @@ void main() {
           );
           expect(
             () => FullItem.fromJson(
-              const {
+              {
                 'id': 'id',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
                 'is_active': true,
                 'is_special': false,
                 'item_id_2': 'itemId2',
@@ -399,10 +402,10 @@ void main() {
           );
           expect(
             () => FullItem.fromJson(
-              const {
+              {
                 'id': 'id',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
                 'is_active': true,
                 'is_special': false,
                 'item_id_1': 'itemId1',
@@ -424,10 +427,10 @@ void main() {
         () {
           expect(
             () => FullItem.fromJson(
-              const {
+              {
                 'id': 1,
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
                 'is_active': true,
                 'is_special': false,
                 'item_id_1': 'itemId1',
@@ -444,10 +447,10 @@ void main() {
           );
           expect(
             () => FullItem.fromJson(
-              const {
+              {
                 'id': 'id',
                 'created_at': 2,
-                'updated_at': '2024-01-01',
+                'updated_at': dateTimeString,
                 'is_active': true,
                 'is_special': false,
                 'item_id_1': 'itemId1',
@@ -464,9 +467,9 @@ void main() {
           );
           expect(
             () => FullItem.fromJson(
-              const {
+              {
                 'id': 'id',
-                'created_at': '2024-01-01',
+                'created_at': dateTimeString,
                 'updated_at': 1,
                 'is_active': true,
                 'is_special': false,
@@ -484,9 +487,9 @@ void main() {
           );
           expect(
             () => FullItem.fromJson(
-              const {
+              {
                 'id': 'id',
-                'created_at': '2024-01-01',
+                'created_at': dateTimeString,
                 'updated_at': 'updatedAt',
                 'is_active': 1,
                 'is_special': false,
@@ -504,9 +507,9 @@ void main() {
           );
           expect(
             () => FullItem.fromJson(
-              const {
+              {
                 'id': 'id',
-                'created_at': '2024-01-01',
+                'created_at': dateTimeString,
                 'updated_at': 'updatedAt',
                 'is_active': true,
                 'is_special': 1,
@@ -524,9 +527,9 @@ void main() {
           );
           expect(
             () => FullItem.fromJson(
-              const {
+              {
                 'id': 'id',
-                'created_at': '2024-01-01',
+                'created_at': dateTimeString,
                 'updated_at': 'updatedAt',
                 'is_active': true,
                 'is_special': false,
@@ -544,9 +547,9 @@ void main() {
           );
           expect(
             () => FullItem.fromJson(
-              const {
+              {
                 'id': 'id',
-                'created_at': '2024-01-01',
+                'created_at': dateTimeString,
                 'updated_at': 'updatedAt',
                 'is_active': true,
                 'is_special': false,
@@ -570,10 +573,10 @@ void main() {
         () {
           expect(
             () => FullItem.fromJson(
-              const {
+              {
                 'id': 'id',
                 'created_at': 'createdAt',
-                'updated_at': '2024-01-01',
+                'updated_at': dateTimeString,
                 'is_active': true,
                 'is_special': false,
                 'item_id_1': 'itemId1',
@@ -590,9 +593,9 @@ void main() {
           );
           expect(
             () => FullItem.fromJson(
-              const {
+              {
                 'id': 'id',
-                'created_at': '2024-01-01',
+                'created_at': dateTimeString,
                 'updated_at': 'updatedAt',
                 'is_active': true,
                 'is_special': false,
@@ -618,8 +621,8 @@ void main() {
         () => expect(
           FullItem(
             id: 'id',
-            createdAt: DateTime(2024),
-            updatedAt: DateTime(2024),
+            createdAt: dateTime,
+            updatedAt: dateTime,
             isActive: true,
             isSpecial: false,
             itemId1: 'itemId1',
@@ -627,8 +630,8 @@ void main() {
           ).toDomain(),
           FullItemEntity(
             id: 'id',
-            createdAt: DateTime(2024),
-            updatedAt: DateTime(2024),
+            createdAt: dateTime,
+            updatedAt: dateTime,
             isActive: true,
             isSpecial: false,
             itemId1: 'itemId1',
