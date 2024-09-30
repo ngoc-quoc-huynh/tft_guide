@@ -11,6 +11,7 @@ final class SharedPrefsHydratedStorage implements Storage {
   static final _sharedPrefs = Injector.instance.sharedPrefs;
 
   @override
+  // ignore: avoid-dynamic, since it is the method signature.
   dynamic read(String key) {
     final value = _sharedPrefs.getString(key);
     return switch (value) {
@@ -20,7 +21,8 @@ final class SharedPrefsHydratedStorage implements Storage {
   }
 
   @override
-  Future<void> write(String key, dynamic value) async => _sharedPrefs.setString(
+  // ignore: avoid-dynamic, since it is the method signature.
+  Future<void> write(String key, dynamic value) => _sharedPrefs.setString(
         key,
         jsonEncode(value),
       );

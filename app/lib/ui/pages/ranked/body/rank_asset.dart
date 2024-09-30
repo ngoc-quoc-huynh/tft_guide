@@ -7,6 +7,7 @@ class RankedRankAsset extends StatelessWidget {
     super.key,
   });
 
+  // ignore: avoid-dynamic, false-positive. Remove when https://github.com/bancolombia/dart-code-linter/issues/142 is resolved.
   final Asset asset;
 
   @override
