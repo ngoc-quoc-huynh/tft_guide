@@ -9,6 +9,7 @@ import '../../mocks.dart';
 
 void main() {
   final sharedPrefs = MockSharedPreferencesWithCache();
+  final repository = SharedPreferencesRepository();
 
   setUpAll(
     () => Injector.instance
@@ -28,7 +29,7 @@ void main() {
     test('returns null if no value is set.', () {
       when(() => sharedPrefs.getString('last_app_update')).thenReturn(null);
 
-      expect(SharedPreferencesRepository().lastAppUpdate, isNull);
+      expect(repository.lastAppUpdate, isNull);
       verify(() => sharedPrefs.getString('last_app_update')).called(1);
     });
 
@@ -36,7 +37,7 @@ void main() {
       when(() => sharedPrefs.getString('last_app_update'))
           .thenReturn('2024-01-01');
 
-      expect(SharedPreferencesRepository().lastAppUpdate, DateTime(2024));
+      expect(repository.lastAppUpdate, DateTime(2024));
       verify(() => sharedPrefs.getString('last_app_update')).called(1);
     });
   });
@@ -51,7 +52,7 @@ void main() {
       ).thenAnswer((_) => Future.value());
 
       await expectLater(
-        SharedPreferencesRepository().updateLastAppUpdate(DateTime(2024)),
+        repository.updateLastAppUpdate(DateTime(2024)),
         completes,
       );
       verify(
@@ -67,14 +68,14 @@ void main() {
     test('returns 0 if no value is set.', () {
       when(() => sharedPrefs.getInt('read_patch_notes_count')).thenReturn(null);
 
-      expect(SharedPreferencesRepository().readPatchNotesCount, 0);
+      expect(repository.readPatchNotesCount, 0);
       verify(() => sharedPrefs.getInt('read_patch_notes_count')).called(1);
     });
 
     test('returns the read patch notes count if a value is set.', () {
       when(() => sharedPrefs.getInt('read_patch_notes_count')).thenReturn(1);
 
-      expect(SharedPreferencesRepository().readPatchNotesCount, 1);
+      expect(repository.readPatchNotesCount, 1);
       verify(() => sharedPrefs.getInt('read_patch_notes_count')).called(1);
     });
   });
@@ -85,7 +86,7 @@ void main() {
           .thenAnswer((_) => Future.value());
 
       await expectLater(
-        SharedPreferencesRepository().updateReadPatchNotesCount(1),
+        repository.updateReadPatchNotesCount(1),
         completes,
       );
       verify(() => sharedPrefs.setInt('read_patch_notes_count', 1)).called(1);
