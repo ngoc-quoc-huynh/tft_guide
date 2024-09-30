@@ -48,6 +48,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     final parameters = {'lastUpdated': lastUpdatedInUtc?.toIso8601String()};
 
     try {
+      // ignore: avoid-dynamic, we cannot determine the type due to dart constraints.
       final assets = await _client.rpc<List<dynamic>>(
         'load_asset_names',
         params: {'last_updated': lastUpdated?.toIso8601String()},

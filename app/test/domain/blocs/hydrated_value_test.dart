@@ -16,6 +16,7 @@ void main() {
   setUpAll(
     () {
       when(
+        // ignore: avoid-dynamic, since it is the method signature.
         () => storage.write(any(), any<dynamic>()),
       ).thenAnswer((_) => Future.value());
       HydratedBloc.storage = storage;

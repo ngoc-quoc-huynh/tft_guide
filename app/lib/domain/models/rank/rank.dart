@@ -12,6 +12,7 @@ final class Rank extends Equatable {
 
   final Tier tier;
   final Division division;
+  // ignore: avoid-dynamic, false-positive. Remove when https://github.com/bancolombia/dart-code-linter/issues/142 is resolved.
   final Asset asset;
 
   @override
