@@ -5,8 +5,8 @@ import 'package:tft_guide/domain/interfaces/logger.dart';
 import 'package:tft_guide/injector.dart';
 
 @immutable
-final class AppLogger implements LoggerApi {
-  const AppLogger();
+final class LoggerRepository implements LoggerApi {
+  const LoggerRepository();
 
   static final _logger = Injector.instance.logger;
   static const _encoder = JsonEncoder.withIndent('  ');

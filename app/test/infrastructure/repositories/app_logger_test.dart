@@ -11,6 +11,7 @@ import '../../mocks.dart';
 
 void main() {
   final logger = MockLogger();
+  const repository = LoggerRepository();
 
   setUpAll(
     () => Injector.instance.registerSingleton<Logger>(logger),
@@ -22,7 +23,7 @@ void main() {
 
   group('logException', () {
     test('returns correctly without parameters.', () {
-      const AppLogger().logException(
+      repository.logException(
         'methodName',
         exception: const UnknownException(),
         stackTrace: StackTrace.empty,
@@ -40,7 +41,7 @@ methodName
     });
 
     test('returns correctly with parameters.', () {
-      const AppLogger().logException(
+      repository.logException(
         'methodName',
         exception: const UnknownException(),
         stackTrace: StackTrace.empty,
@@ -65,7 +66,7 @@ methodName
 
   group('logInfo', () {
     test('returns correctly without parameters.', () {
-      const AppLogger().logInfo(
+      repository.logInfo(
         'methodName',
         'message',
         stackTrace: StackTrace.empty,
@@ -83,7 +84,7 @@ methodName
     });
 
     test('returns correctly with parameters.', () {
-      const AppLogger().logInfo(
+      repository.logInfo(
         'methodName',
         'message',
         stackTrace: StackTrace.empty,
@@ -108,7 +109,7 @@ methodName
 
   group('logWarning', () {
     test('returns correctly without parameters.', () {
-      const AppLogger().logWarning(
+      repository.logWarning(
         'methodName',
         'message',
         stackTrace: StackTrace.empty,
@@ -126,7 +127,7 @@ methodName
     });
 
     test('returns correctly with parameters.', () {
-      const AppLogger().logWarning(
+      repository.logWarning(
         'methodName',
         'message',
         stackTrace: StackTrace.empty,

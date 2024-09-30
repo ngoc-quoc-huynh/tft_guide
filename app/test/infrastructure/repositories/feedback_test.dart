@@ -8,6 +8,8 @@ import 'package:tft_guide/injector.dart';
 import '../../mocks.dart';
 
 void main() {
+  const repository = FeedbackRepository();
+
   setUpAll(
     () => Injector.instance
       ..registerSingleton<Translations>(TranslationsEn.build())
@@ -26,7 +28,7 @@ void main() {
       addTearDown(Injector.instance.unregister<Random>);
 
       expect(
-        const FeedbackRepository().getFeedback(isCorrect: false),
+        repository.getFeedback(isCorrect: false),
         'You might want to consider rerolling your brain.',
       );
     });
@@ -36,7 +38,7 @@ void main() {
       addTearDown(Injector.instance.unregister<Random>);
 
       expect(
-        const FeedbackRepository().getFeedback(isCorrect: true),
+        repository.getFeedback(isCorrect: true),
         'Brain buff activated!',
       );
     });

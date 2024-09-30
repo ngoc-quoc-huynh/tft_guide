@@ -54,7 +54,7 @@ final class Injector {
       ..registerLazySingleton<LocalStorageApi>(SharedPreferencesRepository.new)
       ..registerLazySingleton<RankApi>(LocalRankRepository.new)
       ..registerLazySingleton(Logger.new)
-      ..registerLazySingleton<LoggerApi>(AppLogger.new)
+      ..registerLazySingleton<LoggerApi>(LoggerRepository.new)
       ..registerLazySingleton<NativeApi>(NativeRepository.new)
       ..registerLazySingleton<Random>(Random.new);
     await instance.allReady();
