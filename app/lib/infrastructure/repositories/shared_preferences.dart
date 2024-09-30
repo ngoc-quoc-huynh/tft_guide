@@ -26,7 +26,6 @@ final class SharedPreferencesRepository
 
   @override
   Future<void> updateLastAppUpdate(DateTime date) async {
-    debugPrint('date: ${date.toUtc().toIso8601String()}');
     await _sharedPrefs.setString(
       _lastAppUpdateKey,
       date.toUtc().toIso8601String(),

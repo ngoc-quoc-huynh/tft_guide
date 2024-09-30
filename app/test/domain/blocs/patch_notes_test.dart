@@ -14,6 +14,7 @@ import '../../mocks.dart';
 
 void main() {
   final localDatabaseApi = MockLocalDatabaseApi();
+  final createdAt = DateTime.utc(2024);
 
   setUpAll(
     () => Injector.instance
@@ -81,7 +82,7 @@ void main() {
           patchNotes: [
             PatchNote(
               text: 'text',
-              createdAt: DateTime(2024),
+              createdAt: createdAt,
             ),
           ],
           totalPages: 2,
@@ -95,7 +96,7 @@ void main() {
           patchNotes: [
             PatchNote(
               text: 'text',
-              createdAt: DateTime(2024),
+              createdAt: createdAt,
             ),
           ],
           isLastPage: false,
@@ -146,7 +147,7 @@ void main() {
           patchNotes: [
             PatchNote(
               text: 'text',
-              createdAt: DateTime(2023),
+              createdAt: DateTime.utc(2023),
             ),
           ],
           totalPages: 2,
@@ -158,7 +159,7 @@ void main() {
         patchNotes: [
           PatchNote(
             text: 'text',
-            createdAt: DateTime(2024),
+            createdAt: createdAt,
           ),
         ],
         isLastPage: false,
@@ -170,7 +171,7 @@ void main() {
           patchNotes: [
             PatchNote(
               text: 'text',
-              createdAt: DateTime(2024),
+              createdAt: createdAt,
             ),
           ],
           isLastPage: false,
@@ -180,11 +181,11 @@ void main() {
           patchNotes: [
             PatchNote(
               text: 'text',
-              createdAt: DateTime(2024),
+              createdAt: createdAt,
             ),
             PatchNote(
               text: 'text',
-              createdAt: DateTime(2023),
+              createdAt: DateTime.utc(2023),
             ),
           ],
           isLastPage: true,
@@ -207,7 +208,7 @@ void main() {
         patchNotes: [
           PatchNote(
             text: 'text',
-            createdAt: DateTime(2024),
+            createdAt: createdAt,
           ),
         ],
         isLastPage: true,
@@ -238,7 +239,7 @@ void main() {
         patchNotes: [
           PatchNote(
             text: 'text',
-            createdAt: DateTime(2024),
+            createdAt: createdAt,
           ),
         ],
         isLastPage: false,
@@ -250,7 +251,7 @@ void main() {
           patchNotes: [
             PatchNote(
               text: 'text',
-              createdAt: DateTime(2024),
+              createdAt: createdAt,
             ),
           ],
           isLastPage: false,
@@ -260,7 +261,7 @@ void main() {
           patchNotes: [
             PatchNote(
               text: 'text',
-              createdAt: DateTime(2024),
+              createdAt: createdAt,
             ),
           ],
           isLastPage: false,

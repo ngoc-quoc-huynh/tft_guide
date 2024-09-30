@@ -10,6 +10,8 @@ import '../../mocks.dart';
 void main() {
   final sharedPrefs = MockSharedPreferencesWithCache();
   final repository = SharedPreferencesRepository();
+  final dateTime = DateTime.utc(2024);
+  final dateTimeString = dateTime.toIso8601String();
 
   setUpAll(
     () => Injector.instance
@@ -35,9 +37,9 @@ void main() {
 
     test('returns the last app update if a value is set.', () {
       when(() => sharedPrefs.getString('last_app_update'))
-          .thenReturn('2024-01-01');
+          .thenReturn(dateTimeString);
 
-      expect(repository.lastAppUpdate, DateTime(2024));
+      expect(repository.lastAppUpdate, dateTime);
       verify(() => sharedPrefs.getString('last_app_update')).called(1);
     });
   });
@@ -47,18 +49,18 @@ void main() {
       when(
         () => sharedPrefs.setString(
           'last_app_update',
-          any(),
+          dateTimeString,
         ),
       ).thenAnswer((_) => Future.value());
 
       await expectLater(
-        repository.updateLastAppUpdate(DateTime(2024)),
+        repository.updateLastAppUpdate(dateTime),
         completes,
       );
       verify(
         () => sharedPrefs.setString(
           'last_app_update',
-          any(),
+          dateTimeString,
         ),
       ).called(1);
     });

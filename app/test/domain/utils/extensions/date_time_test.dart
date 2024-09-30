@@ -15,8 +15,8 @@ void main() {
     test(
       'returns DateTime if string is not null.',
       () => expect(
-        DateTimeExtension.tryParseOrNull('2024-01-01T00:00:00.000'),
-        DateTime(2024),
+        DateTimeExtension.tryParseOrNull('2024-01-01T00:00:00.000Z'),
+        DateTime.utc(2024),
       ),
     );
   });
@@ -25,9 +25,9 @@ void main() {
     test(
       'returns true if DateTime is today.',
       () => withClock(
-        Clock.fixed(DateTime(2024)),
+        Clock.fixed(DateTime.utc(2024)),
         () => expect(
-          DateTime(2024).isToday,
+          DateTime.utc(2024).isToday,
           true,
         ),
       ),
@@ -36,9 +36,9 @@ void main() {
     test(
       'returns false if DateTime is not today.',
       () => withClock(
-        Clock.fixed(DateTime(2024)),
+        Clock.fixed(DateTime.utc(2024)),
         () => expect(
-          DateTime(2023).isToday,
+          DateTime.utc(2023).isToday,
           false,
         ),
       ),
@@ -47,9 +47,9 @@ void main() {
     test(
       'returns false if month is different.',
       () => withClock(
-        Clock.fixed(DateTime(2024)),
+        Clock.fixed(DateTime.utc(2024)),
         () => expect(
-          DateTime(2024, 2).isToday,
+          DateTime.utc(2024, 2).isToday,
           false,
         ),
       ),
@@ -58,9 +58,9 @@ void main() {
     test(
       'returns false if day is different.',
       () => withClock(
-        Clock.fixed(DateTime(2024)),
+        Clock.fixed(DateTime.utc(2024)),
         () => expect(
-          DateTime(2024, 1, 2).isToday,
+          DateTime.utc(2024, 1, 2).isToday,
           false,
         ),
       ),
@@ -71,7 +71,7 @@ void main() {
     test(
       'returns correctly.',
       () => expect(
-        DateTime(2024).format(),
+        DateTime.utc(2024).format(),
         '01.01.24',
       ),
     );

@@ -5,21 +5,24 @@ import 'package:tft_guide/infrastructure/dtos/supabase/item_translation.dart';
 import 'package:tft_guide/infrastructure/dtos/supabase/language_code.dart';
 
 void main() {
+  final dateTime = DateTime.utc(2024);
+  final dateTimeString = dateTime.toIso8601String();
+
   group('BaseItemTranslation', () {
     group('fromJson', () {
       test(
         'returns correctly.',
         () => expect(
           BaseItemTranslation.fromJson(
-            const {
+            {
               'id': 'id',
               'item_id': 'itemId',
               'language_code': 'en',
               'name': 'name',
               'description': 'description',
               'hint': 'hint',
-              'created_at': '2024-01-01',
-              'updated_at': '2024-01-01',
+              'created_at': dateTimeString,
+              'updated_at': dateTimeString,
             },
           ),
           BaseItemTranslation(
@@ -29,8 +32,8 @@ void main() {
             name: 'name',
             description: 'description',
             hint: 'hint',
-            createdAt: DateTime(2024),
-            updatedAt: DateTime(2024),
+            createdAt: dateTime,
+            updatedAt: dateTime,
           ),
         ),
       );
@@ -40,14 +43,14 @@ void main() {
         () {
           expect(
             () => BaseItemTranslation.fromJson(
-              const {
+              {
                 'item_id': 'itemId',
                 'language_code': 'en',
                 'name': 'name',
                 'description': 'description',
                 'hint': 'hint',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -60,14 +63,14 @@ void main() {
           );
           expect(
             () => BaseItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'language_code': 'en',
                 'name': 'name',
                 'description': 'description',
                 'hint': 'hint',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -80,14 +83,14 @@ void main() {
           );
           expect(
             () => BaseItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'name': 'name',
                 'description': 'description',
                 'hint': 'hint',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -100,14 +103,14 @@ void main() {
           );
           expect(
             () => BaseItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 'en',
                 'description': 'description',
                 'hint': 'hint',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -120,14 +123,14 @@ void main() {
           );
           expect(
             () => BaseItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 'en',
                 'name': 'name',
                 'hint': 'hint',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -140,14 +143,14 @@ void main() {
           );
           expect(
             () => BaseItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 'en',
                 'name': 'name',
                 'description': 'description',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -160,14 +163,14 @@ void main() {
           );
           expect(
             () => BaseItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 'en',
                 'name': 'name',
                 'description': 'description',
                 'hint': 'hint',
-                'updated_at': '2024-01-01',
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -180,14 +183,14 @@ void main() {
           );
           expect(
             () => BaseItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 'en',
                 'name': 'name',
                 'description': 'description',
                 'hint': 'hint',
-                'created_at': '2024-01-01',
+                'created_at': dateTimeString,
               },
             ),
             throwsA(
@@ -206,15 +209,15 @@ void main() {
         () {
           expect(
             () => BaseItemTranslation.fromJson(
-              const {
+              {
                 'id': 1,
                 'item_id': 'itemId',
                 'language_code': 'en',
                 'name': 'name',
                 'description': 'description',
                 'hint': 'hint',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -227,15 +230,15 @@ void main() {
           );
           expect(
             () => BaseItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 1,
                 'language_code': 'en',
                 'name': 'name',
                 'description': 'description',
                 'hint': 'hint',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -248,15 +251,15 @@ void main() {
           );
           expect(
             () => BaseItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 1,
                 'name': 'name',
                 'description': 'description',
                 'hint': 'hint',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -269,15 +272,15 @@ void main() {
           );
           expect(
             () => BaseItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 'en',
                 'name': 1,
                 'description': 'description',
                 'hint': 'hint',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -290,15 +293,15 @@ void main() {
           );
           expect(
             () => BaseItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 'en',
                 'name': 'name',
                 'description': 1,
                 'hint': 'hint',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -311,15 +314,15 @@ void main() {
           );
           expect(
             () => BaseItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 'en',
                 'name': 'name',
                 'description': 'description',
                 'hint': 1,
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -332,7 +335,7 @@ void main() {
           );
           expect(
             () => BaseItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 'en',
@@ -340,7 +343,7 @@ void main() {
                 'description': 'description',
                 'hint': 'hint',
                 'created_at': 1,
-                'updated_at': '2024-01-01',
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -353,14 +356,14 @@ void main() {
           );
           expect(
             () => BaseItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 'en',
                 'name': 'name',
                 'description': 'description',
                 'hint': 'hint',
-                'created_at': '2024-01-01',
+                'created_at': dateTimeString,
                 'updated_at': 1,
               },
             ),
@@ -380,7 +383,7 @@ void main() {
         () {
           expect(
             () => BaseItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 'en',
@@ -388,7 +391,7 @@ void main() {
                 'description': 'description',
                 'hint': 'hint',
                 'created_at': 'createdAt',
-                'updated_at': '2024-01-01',
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -401,14 +404,14 @@ void main() {
           );
           expect(
             () => BaseItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 'en',
                 'name': 'name',
                 'description': 'description',
                 'hint': 'hint',
-                'created_at': '2024-01-01',
+                'created_at': dateTimeString,
                 'updated_at': 'updatedAt',
               },
             ),
@@ -435,8 +438,8 @@ void main() {
             name: 'name',
             description: 'description',
             hint: 'hint',
-            createdAt: DateTime(2024),
-            updatedAt: DateTime(2024),
+            createdAt: dateTime,
+            updatedAt: dateTime,
           ).toDomain(),
           BaseItemTranslationEntity(
             id: 'id',
@@ -445,8 +448,8 @@ void main() {
             name: 'name',
             description: 'description',
             hint: 'hint',
-            createdAt: DateTime(2024),
-            updatedAt: DateTime(2024),
+            createdAt: dateTime,
+            updatedAt: dateTime,
           ),
         ),
       );
@@ -459,15 +462,15 @@ void main() {
         'returns correctly.',
         () => expect(
           FullItemTranslation.fromJson(
-            const {
+            {
               'id': 'id',
               'item_id': 'itemId',
               'language_code': 'en',
               'name': 'name',
               'description': 'description',
               'hint': 'hint',
-              'created_at': '2024-01-01',
-              'updated_at': '2024-01-01',
+              'created_at': dateTimeString,
+              'updated_at': dateTimeString,
             },
           ),
           FullItemTranslation(
@@ -477,8 +480,8 @@ void main() {
             name: 'name',
             description: 'description',
             hint: 'hint',
-            createdAt: DateTime(2024),
-            updatedAt: DateTime(2024),
+            createdAt: dateTime,
+            updatedAt: dateTime,
           ),
         ),
       );
@@ -488,14 +491,14 @@ void main() {
         () {
           expect(
             () => FullItemTranslation.fromJson(
-              const {
+              {
                 'item_id': 'itemId',
                 'language_code': 'en',
                 'name': 'name',
                 'description': 'description',
                 'hint': 'hint',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -508,14 +511,14 @@ void main() {
           );
           expect(
             () => FullItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'language_code': 'en',
                 'name': 'name',
                 'description': 'description',
                 'hint': 'hint',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -528,14 +531,14 @@ void main() {
           );
           expect(
             () => FullItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'name': 'name',
                 'description': 'description',
                 'hint': 'hint',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -548,14 +551,14 @@ void main() {
           );
           expect(
             () => FullItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 'en',
                 'description': 'description',
                 'hint': 'hint',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -568,14 +571,14 @@ void main() {
           );
           expect(
             () => FullItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 'en',
                 'name': 'name',
                 'hint': 'hint',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -588,14 +591,14 @@ void main() {
           );
           expect(
             () => FullItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 'en',
                 'name': 'name',
                 'description': 'description',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -608,14 +611,14 @@ void main() {
           );
           expect(
             () => FullItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 'en',
                 'name': 'name',
                 'description': 'description',
                 'hint': 'hint',
-                'updated_at': '2024-01-01',
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -628,14 +631,14 @@ void main() {
           );
           expect(
             () => FullItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 'en',
                 'name': 'name',
                 'description': 'description',
                 'hint': 'hint',
-                'created_at': '2024-01-01',
+                'created_at': dateTimeString,
               },
             ),
             throwsA(
@@ -654,15 +657,15 @@ void main() {
         () {
           expect(
             () => FullItemTranslation.fromJson(
-              const {
+              {
                 'id': 1,
                 'item_id': 'itemId',
                 'language_code': 'en',
                 'name': 'name',
                 'description': 'description',
                 'hint': 'hint',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -675,15 +678,15 @@ void main() {
           );
           expect(
             () => FullItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 1,
                 'language_code': 'en',
                 'name': 'name',
                 'description': 'description',
                 'hint': 'hint',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -696,15 +699,15 @@ void main() {
           );
           expect(
             () => FullItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 1,
                 'name': 'name',
                 'description': 'description',
                 'hint': 'hint',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -717,15 +720,15 @@ void main() {
           );
           expect(
             () => FullItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 'en',
                 'name': 1,
                 'description': 'description',
                 'hint': 'hint',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -738,15 +741,15 @@ void main() {
           );
           expect(
             () => FullItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 'en',
                 'name': 'name',
                 'description': 1,
                 'hint': 'hint',
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -759,15 +762,15 @@ void main() {
           );
           expect(
             () => FullItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 'en',
                 'name': 'name',
                 'description': 'description',
                 'hint': 1,
-                'created_at': '2024-01-01',
-                'updated_at': '2024-01-01',
+                'created_at': dateTimeString,
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -780,7 +783,7 @@ void main() {
           );
           expect(
             () => FullItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 'en',
@@ -788,7 +791,7 @@ void main() {
                 'description': 'description',
                 'hint': 'hint',
                 'created_at': 1,
-                'updated_at': '2024-01-01',
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -801,14 +804,14 @@ void main() {
           );
           expect(
             () => FullItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 'en',
                 'name': 'name',
                 'description': 'description',
                 'hint': 'hint',
-                'created_at': '2024-01-01',
+                'created_at': dateTimeString,
                 'updated_at': 1,
               },
             ),
@@ -828,7 +831,7 @@ void main() {
         () {
           expect(
             () => FullItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 'en',
@@ -836,7 +839,7 @@ void main() {
                 'description': 'description',
                 'hint': 'hint',
                 'created_at': 'createdAt',
-                'updated_at': '2024-01-01',
+                'updated_at': dateTimeString,
               },
             ),
             throwsA(
@@ -849,14 +852,14 @@ void main() {
           );
           expect(
             () => FullItemTranslation.fromJson(
-              const {
+              {
                 'id': 'id',
                 'item_id': 'itemId',
                 'language_code': 'en',
                 'name': 'name',
                 'description': 'description',
                 'hint': 'hint',
-                'created_at': '2024-01-01',
+                'created_at': dateTimeString,
                 'updated_at': 'updatedAt',
               },
             ),
@@ -883,8 +886,8 @@ void main() {
             name: 'name',
             description: 'description',
             hint: 'hint',
-            createdAt: DateTime(2024),
-            updatedAt: DateTime(2024),
+            createdAt: dateTime,
+            updatedAt: dateTime,
           ).toDomain(),
           FullItemTranslationEntity(
             id: 'id',
@@ -893,8 +896,8 @@ void main() {
             name: 'name',
             description: 'description',
             hint: 'hint',
-            createdAt: DateTime(2024),
-            updatedAt: DateTime(2024),
+            createdAt: dateTime,
+            updatedAt: dateTime,
           ),
         ),
       );
