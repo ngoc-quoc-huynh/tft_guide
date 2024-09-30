@@ -18,17 +18,22 @@ import 'package:tft_guide/infrastructure/dtos/supabase/patch_note_translation.da
 
 @immutable
 final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
-  const SupabaseRepository();
+  SupabaseRepository([this._testClient]);
 
-  SupabaseClient get _client => Supabase.instance.client;
+  final SupabaseClient? _testClient;
+
+  SupabaseClient get _client => _testClient ?? Supabase.instance.client;
 
   @override
   Future<void> initialize() async {
-    await Supabase.initialize(
-      url: const String.fromEnvironment('url'),
-      anonKey: const String.fromEnvironment('anon_key'),
-      debug: false,
-    );
+    if (_testClient == null) {
+      await Supabase.initialize(
+        url: const String.fromEnvironment('url'),
+        anonKey: const String.fromEnvironment('anon_key'),
+        debug: false,
+      );
+    }
+
     logInfo(
       'SupabaseRepository.initialize',
       'Initialized supabase.',
@@ -450,7 +455,10 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
 
   @override
   Future<void> close() async {
-    await _client.dispose();
+    if (_testClient == null) {
+      await _client.dispose();
+    }
+
     logInfo(
       'SupabaseRepository.close',
       'Closed repository.',
