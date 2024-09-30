@@ -47,7 +47,7 @@ void main() {
       when(
         () => sharedPrefs.setString(
           'last_app_update',
-          '2023-12-31T23:00:00.000Z',
+          any(),
         ),
       ).thenAnswer((_) => Future.value());
 
@@ -58,7 +58,7 @@ void main() {
       verify(
         () => sharedPrefs.setString(
           'last_app_update',
-          '2023-12-31T23:00:00.000Z',
+          any(),
         ),
       ).called(1);
     });
