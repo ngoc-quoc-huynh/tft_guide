@@ -8,6 +8,7 @@ import '../../mocks.dart';
 
 void main() {
   final sharedPrefs = MockSharedPreferencesWithCache();
+  const repository = SharedPrefsHydratedStorage();
 
   setUpAll(
     () => Injector.instance.registerSingleton<SharedPreferencesWithCache>(
@@ -21,7 +22,7 @@ void main() {
     test('returns null if key does not exist.', () {
       when(() => sharedPrefs.getString('key')).thenReturn(null);
 
-      expect(const SharedPrefsHydratedStorage().read('key'), null);
+      expect(repository.read('key'), null);
       verify(() => sharedPrefs.getString('key')).called(1);
     });
 
@@ -29,7 +30,7 @@ void main() {
       when(() => sharedPrefs.getString('key')).thenReturn('{"id":"id"}');
 
       expect(
-        const SharedPrefsHydratedStorage().read('key'),
+        repository.read('key'),
         {'id': 'id'},
       );
       verify(() => sharedPrefs.getString('key')).called(1);
@@ -42,7 +43,7 @@ void main() {
           .thenAnswer((_) => Future.value());
 
       await expectLater(
-        const SharedPrefsHydratedStorage().write('key', {'id': 'id'}),
+        repository.write('key', {'id': 'id'}),
         completes,
       );
       verify(() => sharedPrefs.setString('key', '{"id":"id"}')).called(1);
@@ -54,7 +55,7 @@ void main() {
       when(() => sharedPrefs.remove('key')).thenAnswer((_) => Future.value());
 
       await expectLater(
-        const SharedPrefsHydratedStorage().delete('key'),
+        repository.delete('key'),
         completes,
       );
       verify(() => sharedPrefs.remove('key')).called(1);
@@ -66,7 +67,7 @@ void main() {
       when(sharedPrefs.clear).thenAnswer((_) => Future.value());
 
       await expectLater(
-        const SharedPrefsHydratedStorage().clear(),
+        repository.clear(),
         completes,
       );
       verify(sharedPrefs.clear).called(1);
@@ -78,7 +79,7 @@ void main() {
       'returns correctly.',
       () async {
         await expectLater(
-          const SharedPrefsHydratedStorage().close(),
+          repository.close(),
           completes,
         );
       },
