@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:file/file.dart' hide Directory;
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -24,6 +25,8 @@ extension GetItExtension on GetIt {
   FeedbackApi get feedbackApi => get<FeedbackApi>();
 
   FileStorageApi get fileStorageApi => get<FileStorageApi>();
+
+  FileSystem get fileSystem => get<FileSystem>();
 
   LanguageCode get languageCode =>
       LanguageCode.values.byName(translations.$meta.locale.languageCode);

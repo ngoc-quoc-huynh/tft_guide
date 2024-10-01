@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:file/file.dart' hide Directory;
+import 'package:file/memory.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logger/logger.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -48,6 +50,16 @@ void main() {
     expect(
       Injector.instance.fileStorageApi,
       isA<FileStorageApi>(),
+    );
+  });
+
+  test('returns FileSystem.', () {
+    Injector.instance.registerSingleton<FileSystem>(MemoryFileSystem());
+    addTearDown(Injector.instance.unregister<FileSystem>);
+
+    expect(
+      Injector.instance.fileSystem,
+      isA<FileSystem>(),
     );
   });
 

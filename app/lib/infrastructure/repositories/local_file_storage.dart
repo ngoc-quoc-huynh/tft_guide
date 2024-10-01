@@ -14,7 +14,8 @@ final class LocalFileStorageRepository
   const LocalFileStorageRepository();
 
   static final _appDir = Injector.instance.appDir;
-  static final _assetsDir = Directory(join(_appDir.path, 'assets'));
+  static final _fileSystem = Injector.instance.fileSystem;
+  static final _assetsDir = _fileSystem.directory(join(_appDir.path, 'assets'));
   static const _mimeType = 'webp';
 
   @override
@@ -44,9 +45,11 @@ final class LocalFileStorageRepository
 
   @override
   Future<void> save(String id, Uint8List bytes) async {
-    final file = await File(
-      join(_assetsDir.path, id),
-    ).create(recursive: true);
+    final file = await _fileSystem
+        .file(
+          join(_assetsDir.path, id),
+        )
+        .create(recursive: true);
     await file.writeAsBytes(bytes);
     logInfo(
       'LocalFileStorageRepository.save',
@@ -61,7 +64,7 @@ final class LocalFileStorageRepository
 
   @override
   File loadFile(String id) {
-    final file = File(join(_assetsDir.path, '$id.$_mimeType'));
+    final file = _fileSystem.file(join(_assetsDir.path, '$id.$_mimeType'));
     logInfo(
       'LocalFileStorageRepository.loadFile',
       'Loaded file: ${file.path}.',
