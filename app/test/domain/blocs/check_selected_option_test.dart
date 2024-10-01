@@ -12,7 +12,7 @@ void main() {
 
   test(
     'initial state is null.',
-    () => expect(CheckSelectedItemOptionCubit(correctOption).state, null),
+    () => expect(CheckSelectedItemOptionCubit(correctOption).state, isNull),
   );
 
   group('check', () {

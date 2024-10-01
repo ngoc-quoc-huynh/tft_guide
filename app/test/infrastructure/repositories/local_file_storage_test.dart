@@ -31,7 +31,7 @@ void main() {
   group('loadLatestFileUpdatedAt', () {
     test('returns null if asset directory does not exist.', () {
       final result = repository.loadLatestFileUpdatedAt();
-      expect(result, null);
+      expect(result, isNull);
     });
 
     test('returns null if no asset files exist.', () {
@@ -39,7 +39,7 @@ void main() {
         ..createSync(recursive: true);
       addTearDown(() => dir.deleteSync(recursive: true));
       final result = repository.loadLatestFileUpdatedAt();
-      expect(result, null);
+      expect(result, isNull);
     });
 
     test('returns correctly if only a single file exists.', () async {

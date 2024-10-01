@@ -145,7 +145,7 @@ void main() {
     group('NullableIntValueCubit', () {
       test(
         'initial state is null.',
-        () => expect(NullableIntValueCubit(null).state, null),
+        () => expect(NullableIntValueCubit(null).state, isNull),
       );
 
       group('increase', () {
@@ -187,7 +187,7 @@ void main() {
         'initial state is null.',
         () => expect(
           SelectedItemOptionValueCubit().state,
-          null,
+          isNull,
         ),
       );
 
