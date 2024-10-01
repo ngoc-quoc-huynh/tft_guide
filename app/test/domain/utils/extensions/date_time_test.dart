@@ -8,7 +8,7 @@ void main() {
       'returns null if string is null.',
       () => expect(
         DateTimeExtension.tryParseOrNull(null),
-        null,
+        isNull,
       ),
     );
 

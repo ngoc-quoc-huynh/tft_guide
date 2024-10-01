@@ -22,7 +22,7 @@ void main() {
     test('returns null if key does not exist.', () {
       when(() => sharedPrefs.getString('key')).thenReturn(null);
 
-      expect(repository.read('key'), null);
+      expect(repository.read('key'), isNull);
       verify(() => sharedPrefs.getString('key')).called(1);
     });
 
