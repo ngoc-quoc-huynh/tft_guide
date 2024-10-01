@@ -1,5 +1,8 @@
+import 'dart:io';
 import 'dart:math';
 
+import 'package:file/file.dart' hide Directory;
+import 'package:file/local.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:logger/logger.dart';
@@ -40,7 +43,7 @@ final class Injector {
     instance
       ..registerLazySingleton<FeedbackApi>(FeedbackRepository.new)
       ..registerLazySingleton<RemoteDatabaseApi>(SupabaseRepository.new)
-      ..registerSingletonAsync(getApplicationDocumentsDirectory)
+      ..registerSingletonAsync<Directory>(getApplicationDocumentsDirectory)
       ..registerLazySingleton<LocalDatabaseApi>(SqliteAsyncRepository.new)
       ..registerLazySingleton<FileStorageApi>(LocalFileStorageRepository.new)
       ..registerLazySingleton<ThemeApi>(MaterialThemeRepository.new)
@@ -56,7 +59,8 @@ final class Injector {
       ..registerLazySingleton(Logger.new)
       ..registerLazySingleton<LoggerApi>(LoggerRepository.new)
       ..registerLazySingleton<NativeApi>(NativeRepository.new)
-      ..registerLazySingleton<Random>(Random.new);
+      ..registerLazySingleton<Random>(Random.new)
+      ..registerLazySingleton<FileSystem>(LocalFileSystem.new);
     await instance.allReady();
     HydratedBloc.storage = const SharedPrefsHydratedStorage();
   }

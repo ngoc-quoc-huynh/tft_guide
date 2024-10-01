@@ -50,6 +50,7 @@ dependencies:
   clock: ^1.1.1
   collection: ^1.18.0
   equatable: ^2.0.5
+  file: ^7.0.0
   path: ^1.9.0
   path_provider: ^2.1.1
   package_info_plus: ^8.0.2
