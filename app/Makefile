@@ -1,4 +1,4 @@
-.PHONY: i18n check-i18n check-code style test update-goldens launcher-icon splash-screen check-code check-files
+.PHONY: i18n check-i18n check-code style test update-goldens launcher-icon splash-screen check-code check-files apk
 
 i18n:
 	dart run slang
@@ -26,3 +26,11 @@ update-goldens:
 
 splash-screen:
 	dart run flutter_native_splash:create --path=splash_screen.yaml
+
+apk:
+	flutter build apk \
+		--release \
+		--split-per-abi \
+		--obfuscate \
+		--split-debug-info=./build/app/outputs/symbols \
+		--dart-define-from-file=.env.json
