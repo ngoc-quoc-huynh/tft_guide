@@ -25,6 +25,7 @@ final class MaterialThemeRepository with LoggerMixin implements ThemeApi {
 
     try {
       final file = _fileStorageApi.loadFile(fileName);
+      debugPrint('EXIST: ${file.existsSync()}');
       if (!file.existsSync()) {
         logWarning(
           methodName,
@@ -56,6 +57,8 @@ final class MaterialThemeRepository with LoggerMixin implements ThemeApi {
         ),
       );
     } on Exception catch (e, stackTrace) {
+      debugPrint('ERROR: $e');
+
       logWarning(
         methodName,
         'Could not compute theme: $e',
