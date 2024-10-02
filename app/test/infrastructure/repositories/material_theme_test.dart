@@ -1,18 +1,16 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:tft_guide/domain/exceptions/base.dart';
 import 'package:tft_guide/domain/interfaces/file.dart';
 import 'package:tft_guide/domain/interfaces/logger.dart';
 import 'package:tft_guide/infrastructure/repositories/material_theme.dart';
 import 'package:tft_guide/injector.dart';
 
 import '../../mocks.dart';
+import '../../utils.dart';
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
-
   final fileStorageApi = MockFileStorageApi();
   const repository = MaterialThemeRepository();
 
@@ -29,28 +27,31 @@ void main() {
   );
 
   group('computeThemeFromFileImage', () {
+    TestWidgetsFlutterBinding.ensureInitialized();
+
     test('returns null if file does not exist.', () async {
-      when(() => fileStorageApi.loadFile('test.jpg')).thenAnswer(
-        (_) => File('test.jpg'),
+      when(() => fileStorageApi.loadFile('test.webp')).thenAnswer(
+        (_) => const TestFile('test.webp').toFile(),
       );
+
       final theme = await repository.computeThemeFromFileImage(
-        fileName: 'test.jpg',
+        fileName: 'test.webp',
         brightness: Brightness.light,
         textTheme: const TextTheme(),
       );
       expect(theme, isNull);
     });
 
-    test('returns theme if file exists.', () async {
-      when(() => fileStorageApi.loadFile('test.webp')).thenAnswer(
-        (_) => File('test.webp'),
-      );
+    test('returns null if an error occurs.', () async {
+      when(() => fileStorageApi.loadFile('test.webp'))
+          .thenThrow(const UnknownException());
+
       final theme = await repository.computeThemeFromFileImage(
         fileName: 'test.webp',
         brightness: Brightness.light,
         textTheme: const TextTheme(),
       );
-      expect(theme, isNotNull);
+      expect(theme, isNull);
     });
   });
 }
