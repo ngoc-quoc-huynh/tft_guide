@@ -995,7 +995,7 @@ packages:
     source: sdk
     version: "0.0.99"
   slang:
-    dependency: "direct dev"
+    dependency: transitive
     description:
       name: slang
       sha256: a2f704508bf9f209b71c881347bd27de45309651e9bd63570e4dd6ed2a77fbd2
