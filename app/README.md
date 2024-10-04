@@ -1,45 +1,61 @@
-# tft_guide
+# App
 
-Source code for the TFT Guide Flutter app.
+## Overview
 
-## Prerequisites
+This repository contains the source code for the TFT Guide flutter app.
+The app uses [supabase](https://supabase.com/) to load and sync remote data with a
+local [SQLite](https://pub.dev/packages/sqlite_async) database. This allows for seamless data access, even in offline
+scenarios, ensuring the user experience remains smooth and uninterrupted.
 
-### Flutter setup
+## Getting Started
 
-- Install the [Flutter SDK](https://docs.flutter.dev/get-started/install)
-- Update your `PATH` variable to the location of the SDK
-- Make sure flutter is on the stable channel: `flutter channel stable`
-- Check whether your system is properly set up: `flutter doctor`
+### asdf
 
-### Android setup
+We are using [asdf](https://asdf-vm.com/) to manage the dependencies. Make sure you have it installed and then run the
+following command to install the required versions:
 
-- Install the [Android SDK](https://developer.android.com/studio)
-- Set environment variable `ANDROID_HOME` to the location of the SDK
-
-### iOS setup
-
-- Be a Mac OS user
-- Install XCode
-    - You'll need to be logged in with an Apple Developer account to download XCode
-- Start XCode once and follow the instructions
-
-## Code generation
-
-A few parts of the app rely on automatic code generation. Full code generation can be executed at
-once using [`build_runner`](#build_runner).
-
-### build_runner
-
-Most code generation plugins use the standard Dart build framework and can be invoked using:
-
-```sh
-make generate
+```bash
+asdf install
 ```
 
-To continuously rebuild whenever relevant files change (recommended), use:
+If you don't have asdf installed or prefer not to use it, you can install [Flutter](https://docs.flutter.dev/) directly
+by following the official
+[Flutter installation guide](https://docs.flutter.dev/get-started/install). Make sure to use the version specified in
+the [.tool-versions ](../.tool-versions) file to avoid compatibility
+issues.
 
-```sh
-make watch
+### Local Development
+
+The project uses environment variables for configuration. Follow the steps below to set up the local environment:
+
+1. Create an `env.json` file in the project root directory. Use the `env.example.json` file as a template:
+
+   ```bash
+   cp .env.example.json .env.json
+   ```
+
+2. Populate the `env.json` file with the required values.
+
+   Open `env.json` and fill in the `url` and `anonKey` fields using the information from your supabase project:
+
+- url: Available in your Supabase project settings under **Project Settings > API**.
+- anonKey: Available in the same **API** section.
+
+3. Run the app:
+   Use the following command to start the application with the environment variables loaded from `env.json`:
+
+   ```bash
+   flutter run --dart-define-from-file=.env.json
+   ```
+
+### Code generation for translations
+
+We are using [slang](https://pub.dev/packages/slang) to manage the translations.
+
+Run the following command to generate the translations:
+
+```bash
+make i18n
 ```
 
 ## Code style
@@ -65,6 +81,8 @@ To execute the tests, run the following command in your terminal:
 make test
 ```
 
+This will run the test in random order.
+
 ### Golden tests
 
 We utilize Golden Tests for our UI testing process. These tests are specifically designed to verify
@@ -81,32 +99,3 @@ make update-goldens
 
 This will update all golden files, so be careful when running this command to ensure that all
 changes to the UI are intentional.
-
-## Git hooks
-
-We use [lefthook](https://github.com/evilmartians/lefthook) to run all coding convention checks as
-git pre-commit/pre-push hook.
-
-### Installation
-
-To install lefthook run the following command:
-
-```sh
-brew install lefthook
-```
-
-### Usage
-
-To initialize lefthook run the following command:
-
-```sh
-lefthook install
-```
-
-This will set up git pre-commit/pre-push hooks containing checks as configured
-in [`lefthook.yaml`](lefthook.yaml).
-
-## TFT Items
-
-The items are taken from [`metatft`](https://www.metatft.com/items)
-and [`tftactics`](https://tftactics.gg/item-builder).
