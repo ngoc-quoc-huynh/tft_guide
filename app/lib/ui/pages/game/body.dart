@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/blocs/check_selected_option/cubit.dart';
-import 'package:tft_guide/domain/blocs/elo/cubit.dart';
 import 'package:tft_guide/domain/blocs/game_progress/bloc.dart';
+import 'package:tft_guide/domain/blocs/hydrated_value/cubit.dart';
 import 'package:tft_guide/domain/blocs/value/cubit.dart';
 import 'package:tft_guide/domain/models/question/item_option.dart';
 import 'package:tft_guide/domain/models/question/question.dart';
@@ -137,7 +137,7 @@ class _GameBodyState extends State<GameBody> {
         };
         context
           ..read<NullableIntValueCubit>().update(eloGain)
-          ..read<EloCubit>().increase(eloGain ?? 0)
+          ..read<HydratedEloCubit>().increase(eloGain ?? 0)
           ..goNamed(Routes.rankedPage());
     }
   }

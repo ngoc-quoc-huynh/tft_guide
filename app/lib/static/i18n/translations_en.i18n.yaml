@@ -160,6 +160,17 @@ pages:
       feedback: 'Progress has been successfully reset.'
     license:
       name: 'External libraries and licenses'
+    admin:
+      inProgress(int steps): 'You are now $steps steps away from being an admin.'
+      enabled: 'You are now an admin!'
+      alreadyEnabled: 'No need, you are already an admin.'
+    updateElo:
+      name: 'Update elo'
+      description: 'Enter the new elo value to override the current one.'
+      hint: 'Enter new elo'
+      button: 'Update'
+      validator: 'Please enter an elo value.'
+      feedback: 'Elo has been updated successfully.'
   patchNotes:
     title: 'Patch Notes'
     retry: 'Retry'

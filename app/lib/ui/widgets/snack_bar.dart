@@ -20,6 +20,16 @@ final class CustomSnackBar extends SnackBar {
         color: Theme.of(context).customColors.success,
       );
 
+  static void showInfo(
+    BuildContext context,
+    String text,
+  ) =>
+      _show(
+        context: context,
+        text: text,
+        color: Theme.of(context).colorScheme.primary,
+      );
+
   static void _show({
     required BuildContext context,
     required Color color,

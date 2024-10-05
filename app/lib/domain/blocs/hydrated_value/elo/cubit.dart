@@ -1,7 +1,7 @@
-import 'package:hydrated_bloc/hydrated_bloc.dart';
+part of '../cubit.dart';
 
-final class EloCubit extends HydratedCubit<int> {
-  EloCubit() : super(0);
+final class HydratedEloCubit extends HydratedValueCubit<int> {
+  HydratedEloCubit() : super(0);
 
   void increase(int n) => emit(state + n);
 
