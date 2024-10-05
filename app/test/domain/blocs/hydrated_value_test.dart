@@ -25,6 +25,59 @@ void main() {
 
   tearDownAll(() => HydratedBloc.storage = null);
 
+  group('HydratedEloCubit', () {
+    test(
+      'initial state is ThemeMode.system.',
+      () => expect(
+        HydratedEloCubit().state,
+        0,
+      ),
+    );
+
+    group('update', () {
+      blocTest<HydratedEloCubit, int>(
+        'emits new state.',
+        build: HydratedEloCubit.new,
+        act: (cubit) => cubit.update(10),
+        expect: () => [10],
+      );
+    });
+
+    group('increase', () {
+      blocTest<HydratedEloCubit, int>(
+        'emits increased state.',
+        build: HydratedEloCubit.new,
+        act: (cubit) => cubit.increase(1),
+        expect: () => [1],
+      );
+    });
+
+    group('reset', () {
+      blocTest<HydratedEloCubit, int>(
+        'emits 0.',
+        build: HydratedEloCubit.new,
+        act: (cubit) => cubit.reset(),
+        expect: () => [0],
+      );
+    });
+
+    group('fromJson', () {
+      test('returns correctly.', () {
+        final result = HydratedEloCubit().fromJson(
+          {'elo': 0},
+        );
+        expect(result, 0);
+      });
+    });
+
+    group('toJson', () {
+      test('returns correctly.', () {
+        final result = HydratedThemeModeCubit().toJson(ThemeMode.system);
+        expect(result, {'theme_mode': 'system'});
+      });
+    });
+  });
+
   group('HydratedThemeModeCubit', () {
     test(
       'initial state is ThemeMode.system.',

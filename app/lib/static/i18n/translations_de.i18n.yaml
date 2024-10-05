@@ -160,6 +160,17 @@ pages:
       feedback: 'Fortschritt wurde erfolgreich zurückgesetzt.'
     license:
       name: 'Externe Bibliotheken und Lizensen'
+    admin:
+      inProgress(int steps): 'Nur noch $steps Schritte und du bist Admin.'
+      enabled: 'Du bist jetzt Admin.'
+      alreadyEnabled: 'Okay, du bist bereits Admin.'
+    updateElo:
+      name: 'Elo updaten'
+      description: 'Gib den neuen Elo-Wert ein, um den aktuellen zu überschreiben.'
+      hint: 'Neue Elo eintragen'
+      button: 'Updaten'
+      validator: 'Bitte gib einen Elo-Wert ein.'
+      feedback: 'Elo wurde erfolgreich auf aktualisiert.'
   patchNotes:
     title: 'Patch-Notizen'
     retry: 'Wiederholen'

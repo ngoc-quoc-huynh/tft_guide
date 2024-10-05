@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/domain/blocs/elo/cubit.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tft_guide/domain/blocs/hydrated_value/cubit.dart';
 import 'package:tft_guide/domain/blocs/value/cubit.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
@@ -19,7 +20,7 @@ class SettingsResetDialog extends StatelessWidget {
     );
     if (context.mounted && (shouldReset ?? false)) {
       context
-        ..read<EloCubit>().reset()
+        ..read<HydratedEloCubit>().reset()
         ..read<NullableIntValueCubit>().update(null);
 
       CustomSnackBar.showSuccess(context, _translations.feedback);
@@ -36,10 +37,10 @@ class SettingsResetDialog extends StatelessWidget {
         child: Text(_translations.content),
       ),
       actions: [
-        const AlertDialogAction<void>.cancel(),
+        const AlertDialogAction.cancel(),
         AlertDialogAction.custom(
           text: _translations.name,
-          result: () => true,
+          onPressed: () => context.pop(true),
         ),
       ],
     );

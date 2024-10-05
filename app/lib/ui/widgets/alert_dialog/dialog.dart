@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/widgets/alert_dialog/action.dart';
 
-class CustomAlertDialog<T> extends StatelessWidget {
+class CustomAlertDialog extends StatelessWidget {
   const CustomAlertDialog({
     required this.title,
     required this.content,
@@ -12,7 +12,7 @@ class CustomAlertDialog<T> extends StatelessWidget {
 
   final String title;
   final Widget content;
-  final List<AlertDialogAction<T>> actions;
+  final List<AlertDialogAction> actions;
 
   @override
   Widget build(BuildContext context) {

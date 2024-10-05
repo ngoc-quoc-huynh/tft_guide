@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tft_guide/domain/blocs/elo/cubit.dart';
+import 'package:tft_guide/domain/blocs/hydrated_value/cubit.dart';
 import 'package:tft_guide/domain/blocs/rank/bloc.dart';
 import 'package:tft_guide/domain/models/rank/rank.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
@@ -16,8 +16,9 @@ class RankedBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => RankCubit()..compute(context.read<EloCubit>().state),
-      child: BlocListener<EloCubit, int>(
+      create: (_) =>
+          RankCubit()..compute(context.read<HydratedEloCubit>().state),
+      child: BlocListener<HydratedEloCubit, int>(
         listener: _onEloChanged,
         child: BlocBuilder<RankCubit, RankState>(
           builder: (context, state) => switch (state) {

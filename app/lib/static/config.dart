@@ -6,4 +6,6 @@ final class Config {
   static const totalQuestions = totalBaseItemQuestions + totalFullItemQuestions;
 
   static const patchNotesPageSize = 8;
+
+  static const amountOfClicksToEnableAdmin = 7;
 }

@@ -5,7 +5,7 @@ import 'package:tft_guide/ui/widgets/alert_dialog/action.dart';
 import 'package:tft_guide/ui/widgets/alert_dialog/dialog.dart';
 import 'package:tft_guide/ui/widgets/radio_dialog/option.dart';
 
-class RadioDialog<T> extends StatelessWidget {
+class RadioDialog<T extends Object> extends StatelessWidget {
   const RadioDialog({
     required this.title,
     required this.options,
@@ -24,7 +24,7 @@ class RadioDialog<T> extends StatelessWidget {
         children: options,
       ),
       actions: [
-        const AlertDialogAction<bool>.cancel(),
+        const AlertDialogAction.cancel(),
         AlertDialogAction.confirm(
           result: () => context.read<ValueCubit<T>>().state,
         ),

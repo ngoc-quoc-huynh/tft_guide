@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tft_guide/domain/blocs/admin/cubit.dart';
 import 'package:tft_guide/domain/blocs/hydrated_value/cubit.dart';
 import 'package:tft_guide/injector.dart';
+import 'package:tft_guide/static/config.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/pages/settings/app_version.dart';
 import 'package:tft_guide/ui/pages/settings/card.dart';
@@ -13,6 +15,7 @@ import 'package:tft_guide/ui/pages/settings/dialogs/design.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/language.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/repair/dialog.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/reset.dart';
+import 'package:tft_guide/ui/pages/settings/dialogs/update_elo.dart';
 import 'package:tft_guide/ui/pages/settings/divider.dart';
 import 'package:tft_guide/ui/pages/settings/item.dart';
 import 'package:tft_guide/ui/router/routes.dart';
@@ -26,108 +29,158 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      appBar: CustomAppBar(),
-      body: SafeArea(
-        child: Padding(
+    return BlocProvider<AdminCubit>(
+      create: (_) => AdminCubit(Config.amountOfClicksToEnableAdmin),
+      child: CustomScaffold(
+        appBar: CustomAppBar(),
+        bottomNavigationBar: const SettingsAppVersion(),
+        body: ListView(
           padding: const EdgeInsets.symmetric(
             horizontal: Sizes.horizontalPadding,
           ),
-          child: Column(
-            children: [
-              const SizedBox(height: Sizes.verticalPadding),
-              Expanded(
-                child: Column(
-                  children: [
-                    SettingsCard(
-                      child: Column(
-                        children: [
-                          BlocListener<HydratedThemeModeCubit, ThemeMode>(
-                            listener: (context, _) =>
-                                CustomSnackBar.showSuccess(
-                              context,
-                              Injector.instance.translations.pages.settings
-                                  .design.feedback,
-                            ),
-                            child: SettingsItem(
-                              icon: Icons.brightness_6_rounded,
-                              title: _translations.design.name,
-                              onTap: () => unawaited(
-                                SettingsDesignDialog.show(context),
-                              ),
-                            ),
-                          ),
-                          const SettingsDivider(),
-                          LanguageListener(
-                            onLanguageChanged: (_) =>
-                                CustomSnackBar.showSuccess(
-                              context,
-                              Injector.instance.translations.pages.settings
-                                  .language.feedback,
-                            ),
-                            child: SettingsItem(
-                              icon: Icons.flag_outlined,
-                              title: _translations.language.name,
-                              onTap: () => unawaited(
-                                SettingsLanguageDialog.show(context),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    SettingsCard(
-                      child: Column(
-                        children: [
-                          SettingsItem(
-                            icon: Icons.checklist,
-                            title: _translations.check.name,
-                            onTap: () =>
-                                unawaited(SettingsCheckDialog.show(context)),
-                          ),
-                          const SettingsDivider(),
-                          SettingsItem(
-                            icon: Icons.build,
-                            title: _translations.repair.name,
-                            onTap: () =>
-                                unawaited(SettingsRepairDialog.show(context)),
-                          ),
-                          const SettingsDivider(),
-                          SettingsItem(
-                            icon: Icons.restart_alt,
-                            title: _translations.reset.name,
-                            onTap: () {
-                              unawaited(SettingsResetDialog.show(context));
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    SettingsCard(
-                      child: SettingsItem(
-                        icon: Icons.library_books,
-                        title: _translations.license.name,
-                        onTap: () => unawaited(
-                          context.pushNamed(
-                            Routes.licensePage(),
+          children: [
+            const SizedBox(height: Sizes.verticalPadding),
+            Column(
+              children: [
+                SettingsCard(
+                  child: Column(
+                    children: [
+                      BlocListener<HydratedThemeModeCubit, ThemeMode>(
+                        listener: (context, _) => CustomSnackBar.showSuccess(
+                          context,
+                          Injector.instance.translations.pages.settings.design
+                              .feedback,
+                        ),
+                        child: SettingsItem(
+                          icon: Icons.brightness_6_rounded,
+                          title: _translations.design.name,
+                          onTap: () => unawaited(
+                            SettingsDesignDialog.show(context),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                      const SettingsDivider(),
+                      LanguageListener(
+                        onLanguageChanged: (_) => CustomSnackBar.showSuccess(
+                          context,
+                          Injector.instance.translations.pages.settings.language
+                              .feedback,
+                        ),
+                        child: SettingsItem(
+                          icon: Icons.flag_outlined,
+                          title: _translations.language.name,
+                          onTap: () => unawaited(
+                            SettingsLanguageDialog.show(context),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              const SettingsAppVersion(),
-            ],
-          ),
+                const SizedBox(height: 10),
+                SettingsCard(
+                  child: Column(
+                    children: [
+                      SettingsItem(
+                        icon: Icons.checklist,
+                        title: _translations.check.name,
+                        onTap: () =>
+                            unawaited(SettingsCheckDialog.show(context)),
+                      ),
+                      const SettingsDivider(),
+                      SettingsItem(
+                        icon: Icons.build,
+                        title: _translations.repair.name,
+                        onTap: () =>
+                            unawaited(SettingsRepairDialog.show(context)),
+                      ),
+                      BlocListener<AdminCubit, AdminState>(
+                        listener: _onAdminStateChanged,
+                        child: BlocSelector<AdminCubit, AdminState, bool>(
+                          selector: (state) => state is AdminEnabled,
+                          builder: (context, isAdminEnabled) =>
+                              switch (isAdminEnabled) {
+                            false => const SizedBox(),
+                            true => Column(
+                                children: [
+                                  const SettingsDivider(),
+                                  BlocListener<HydratedEloCubit, int>(
+                                    listener: (context, elo) =>
+                                        CustomSnackBar.showSuccess(
+                                      context,
+                                      _translations.updateElo.feedback,
+                                    ),
+                                    child: SettingsCard(
+                                      child: SettingsItem(
+                                        icon: Icons.edit,
+                                        title: _translations.updateElo.name,
+                                        onTap: () => unawaited(
+                                          SettingsUpdateEloDialog.show(
+                                            context,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                          },
+                        ),
+                      ),
+                      const SettingsDivider(),
+                      SettingsItem(
+                        icon: Icons.restart_alt,
+                        title: _translations.reset.name,
+                        onTap: () {
+                          unawaited(SettingsResetDialog.show(context));
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
+                SettingsCard(
+                  child: SettingsItem(
+                    icon: Icons.library_books,
+                    title: _translations.license.name,
+                    onTap: () => unawaited(
+                      context.pushNamed(
+                        Routes.licensePage(),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+          ],
         ),
       ),
     );
   }
 
+  void _onAdminStateChanged(BuildContext context, AdminState state) {
+    switch (state) {
+      case AdminLoadInProgress(:final amountOfClicks) when amountOfClicks >= 3:
+        CustomSnackBar.showInfo(
+          context,
+          _adminMessages.inProgress(
+            steps: Config.amountOfClicksToEnableAdmin - amountOfClicks,
+          ),
+        );
+      case AdminEnabled():
+        CustomSnackBar.showInfo(
+          context,
+          _adminMessages.enabled,
+        );
+      case AdminDisabled() || AdminLoadInProgress():
+        return;
+    }
+  }
+
   static TranslationsPagesSettingsEn get _translations =>
       Injector.instance.translations.pages.settings;
+
+  static TranslationsPagesSettingsAdminEn get _adminMessages =>
+      _translations.admin;
 }
