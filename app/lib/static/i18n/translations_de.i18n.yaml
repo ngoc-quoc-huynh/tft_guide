@@ -161,9 +161,14 @@ pages:
     license:
       name: 'Externe Bibliotheken und Lizensen'
     admin:
+      name: 'Admin freischalten'
+      description: 'Gib die Admin-PIN ein, um zusätzliche Funktionen freizuschalten.'
       inProgress(int steps): 'Nur noch $steps Schritte und du bist Admin.'
       enabled: 'Du bist jetzt Admin.'
       alreadyEnabled: 'Okay, du bist bereits Admin.'
+      validator:
+        empty: 'PIN-Eingabe erforderlich. Bitte gib deine PIN ein.'
+        wrong: 'Falsche PIN. Bitte versuche es erneut.'
     updateElo:
       name: 'Elo updaten'
       description: 'Gib den neuen Elo-Wert ein, um den aktuellen zu überschreiben.'

@@ -5,6 +5,7 @@ import 'package:logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tft_guide/domain/interfaces/admin.dart';
 import 'package:tft_guide/domain/interfaces/feedback.dart';
 import 'package:tft_guide/domain/interfaces/file.dart';
 import 'package:tft_guide/domain/interfaces/local_database.dart';
@@ -15,6 +16,8 @@ import 'package:tft_guide/domain/interfaces/rank.dart';
 import 'package:tft_guide/domain/interfaces/remote_database.dart';
 import 'package:tft_guide/domain/interfaces/theme.dart';
 import 'package:tft_guide/domain/interfaces/widgets_binding.dart';
+
+final class MockAdminApi extends Mock implements AdminApi {}
 
 final class MockDirectory extends Mock implements Directory {}
 

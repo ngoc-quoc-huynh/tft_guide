@@ -5,13 +5,13 @@ class CustomDialog extends StatelessWidget {
   const CustomDialog({
     required this.title,
     required this.content,
-    required this.action,
+    this.action,
     super.key,
   });
 
   final Widget title;
   final Widget content;
-  final Widget action;
+  final Widget? action;
 
   @override
   Widget build(BuildContext context) {
@@ -19,21 +19,19 @@ class CustomDialog extends StatelessWidget {
       shape: _shape,
       titlePadding: _titlePadding,
       title: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          title,
-          const Expanded(
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: CloseButton(),
-            ),
+          Expanded(
+            child: title,
           ),
+          const CloseButton(),
         ],
       ),
       contentPadding: _contentPadding,
       content: content,
       actionsPadding: _actionsPadding,
       actionsAlignment: MainAxisAlignment.center,
-      actions: [action],
+      actions: [if (action case final action?) action],
     );
   }
 
@@ -50,7 +48,7 @@ class CustomDialog extends StatelessWidget {
   static const _actionsPadding = EdgeInsets.only(
     left: Sizes.horizontalPadding,
     right: Sizes.horizontalPadding,
-    bottom: Sizes.verticalPadding / 2,
+    bottom: Sizes.verticalPadding,
   );
   static const _shape = RoundedRectangleBorder(
     borderRadius: BorderRadius.all(Radius.circular(20)),

@@ -36,7 +36,7 @@ final class CustomSnackBar extends SnackBar {
     required String text,
   }) =>
       ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
+        ..removeCurrentSnackBar()
         ..showSnackBar(
           CustomSnackBar(
             content: Text(text),

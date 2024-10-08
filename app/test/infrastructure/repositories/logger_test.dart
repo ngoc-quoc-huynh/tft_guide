@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:tft_guide/domain/exceptions/base.dart';
-import 'package:tft_guide/infrastructure/repositories/app_logger.dart';
+import 'package:tft_guide/infrastructure/repositories/logger.dart';
 import 'package:tft_guide/injector.dart';
 
 import '../../mocks.dart';

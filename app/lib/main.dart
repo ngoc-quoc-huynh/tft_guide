@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tft_guide/domain/blocs/data_sync/bloc.dart';
 import 'package:tft_guide/domain/blocs/hydrated_value/cubit.dart';
+import 'package:tft_guide/domain/blocs/value/cubit.dart';
 import 'package:tft_guide/domain/models/translation_locale.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/resources/theme.dart';
@@ -32,6 +33,9 @@ class TftApp extends StatelessWidget {
         ),
         BlocProvider<DataSyncBloc>(
           create: (_) => DataSyncBloc()..add(const DataSyncInitializeEvent()),
+        ),
+        BlocProvider<BoolValueCubit>(
+          create: (_) => BoolValueCubit(false),
         ),
       ],
       child: BlocBuilder<HydratedTranslationLocaleCubit, TranslationLocale>(

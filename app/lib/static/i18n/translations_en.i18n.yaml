@@ -161,9 +161,14 @@ pages:
     license:
       name: 'External libraries and licenses'
     admin:
+      name: 'Unlock admin'
+      description: 'Enter the admin PIN to unlock additional features.'
       inProgress(int steps): 'You are now $steps steps away from being an admin.'
       enabled: 'You are now an admin!'
       alreadyEnabled: 'No need, you are already an admin.'
+      validator:
+        empty: 'PIN entry required. Please enter your PIN.'
+        wrong: 'Incorrect PIN. Please try again.'
     updateElo:
       name: 'Update elo'
       description: 'Enter the new elo value to override the current one.'

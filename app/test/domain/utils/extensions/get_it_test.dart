@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:logger/logger.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tft_guide/domain/interfaces/admin.dart';
 import 'package:tft_guide/domain/interfaces/feedback.dart';
 import 'package:tft_guide/domain/interfaces/file.dart';
 import 'package:tft_guide/domain/interfaces/local_database.dart';
@@ -23,6 +24,16 @@ import 'package:tft_guide/injector.dart';
 import '../../../mocks.dart';
 
 void main() {
+  test('returns AdminApi.', () {
+    Injector.instance.registerSingleton<AdminApi>(MockAdminApi());
+    addTearDown(Injector.instance.unregister<AdminApi>);
+
+    expect(
+      Injector.instance.adminApi,
+      isA<AdminApi>(),
+    );
+  });
+
   test('returns Directory.', () {
     Injector.instance.registerSingleton<Directory>(MockDirectory());
     addTearDown(Injector.instance.unregister<Directory>);

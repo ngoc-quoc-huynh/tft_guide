@@ -9,6 +9,7 @@ import 'package:logger/logger.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tft_guide/domain/interfaces/admin.dart';
 import 'package:tft_guide/domain/interfaces/feedback.dart';
 import 'package:tft_guide/domain/interfaces/file.dart';
 import 'package:tft_guide/domain/interfaces/local_database.dart';
@@ -19,10 +20,11 @@ import 'package:tft_guide/domain/interfaces/rank.dart';
 import 'package:tft_guide/domain/interfaces/remote_database.dart';
 import 'package:tft_guide/domain/interfaces/theme.dart';
 import 'package:tft_guide/domain/interfaces/widgets_binding.dart';
-import 'package:tft_guide/infrastructure/repositories/app_logger.dart';
+import 'package:tft_guide/infrastructure/repositories/admin.dart';
 import 'package:tft_guide/infrastructure/repositories/feedback.dart';
 import 'package:tft_guide/infrastructure/repositories/hydrated_storage.dart';
 import 'package:tft_guide/infrastructure/repositories/local_file_storage.dart';
+import 'package:tft_guide/infrastructure/repositories/logger.dart';
 import 'package:tft_guide/infrastructure/repositories/material_theme.dart';
 import 'package:tft_guide/infrastructure/repositories/native.dart';
 import 'package:tft_guide/infrastructure/repositories/rank.dart';
@@ -30,6 +32,7 @@ import 'package:tft_guide/infrastructure/repositories/shared_preferences.dart';
 import 'package:tft_guide/infrastructure/repositories/sqlite_async.dart';
 import 'package:tft_guide/infrastructure/repositories/supabase.dart';
 import 'package:tft_guide/infrastructure/repositories/widgets_binding.dart';
+import 'package:tft_guide/static/config.dart';
 
 export 'package:tft_guide/domain/utils/extensions/get_it.dart';
 export 'package:tft_guide/static/i18n/translations.g.dart';
@@ -60,7 +63,10 @@ final class Injector {
       ..registerLazySingleton<LoggerApi>(LoggerRepository.new)
       ..registerLazySingleton<NativeApi>(NativeRepository.new)
       ..registerLazySingleton<Random>(Random.new)
-      ..registerLazySingleton<FileSystem>(LocalFileSystem.new);
+      ..registerLazySingleton<FileSystem>(LocalFileSystem.new)
+      ..registerLazySingleton<AdminApi>(
+        () => const AdminRepository(Config.adminPassword),
+      );
     await instance.allReady();
     HydratedBloc.storage = const SharedPrefsHydratedStorage();
   }
