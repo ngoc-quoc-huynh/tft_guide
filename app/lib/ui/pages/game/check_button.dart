@@ -8,6 +8,7 @@ import 'package:tft_guide/domain/models/question/item_option.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/pages/game/feedback.dart';
+import 'package:tft_guide/ui/widgets/bloc/selector.dart';
 
 class CheckButton extends StatelessWidget {
   const CheckButton({super.key});
@@ -23,18 +24,19 @@ class CheckButton extends StatelessWidget {
         widthFactor: 1,
         child: BlocListener<CheckSelectedItemOptionCubit, bool?>(
           listener: _onCheckSelectedItemStateChanged,
-          child: BlocSelector<SelectedItemOptionValueCubit, QuestionItemOption?,
-              bool>(
+          child: BlocSelectorWithChild<SelectedItemOptionValueCubit,
+              QuestionItemOption?, bool>(
             selector: (state) => state != null,
-            builder: (context, hasSelected) => FilledButton(
+            builder: (context, hasSelected, child) => FilledButton(
               onPressed: switch (hasSelected) {
                 true => () => context
                     .read<CheckSelectedItemOptionCubit>()
                     .check(context.read<SelectedItemOptionValueCubit>().state!),
                 false => null
               },
-              child: Text(Injector.instance.translations.pages.game.check),
+              child: child,
             ),
+            child: Text(Injector.instance.translations.pages.game.check),
           ),
         ),
       ),

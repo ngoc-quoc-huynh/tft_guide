@@ -87,8 +87,7 @@ class FeedbackBottomSheet extends StatelessWidget {
     };
   }
 
-  void _onContinue(BuildContext context) {
-    context.pop();
-    context.read<GameProgressBloc>().add(const GameProgressNextEvent());
-  }
+  void _onContinue(BuildContext context) => context
+    ..pop()
+    ..read<GameProgressBloc>().add(const GameProgressNextEvent());
 }
