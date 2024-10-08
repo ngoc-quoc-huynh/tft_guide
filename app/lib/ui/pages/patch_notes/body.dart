@@ -42,11 +42,7 @@ class _PatchNotesBodyState extends State<PatchNotesBody> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<PatchNotesBloc, PatchNotesState>(
-      listener: (context, state) {
-        if (state case PatchNotesChangeLocaleOnSuccess()) {
-          _controller.jumpTo(0);
-        }
-      },
+      listener: _onPatchNotesStateChanged,
       child: CustomScrollView(
         controller: _controller,
         slivers: [
@@ -69,6 +65,15 @@ class _PatchNotesBodyState extends State<PatchNotesBody> {
         ],
       ),
     );
+  }
+
+  void _onPatchNotesStateChanged(
+    _,
+    PatchNotesState state,
+  ) {
+    if (state case PatchNotesChangeLocaleOnSuccess()) {
+      _controller.jumpTo(0);
+    }
   }
 
   void _scrollControllerListener() {
