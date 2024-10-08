@@ -7,5 +7,6 @@ final class Config {
 
   static const patchNotesPageSize = 8;
 
-  static const amountOfClicksToEnableAdmin = 7;
+  static const adminPassword = '175613';
+  static const amountOfStepsToEnableAdmin = 7;
 }

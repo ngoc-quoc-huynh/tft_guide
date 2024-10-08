@@ -10,6 +10,46 @@ import 'package:tft_guide/injector.dart';
 void main() {
   group('ValueCubit', () {
     group(
+      'BoolValueCubit',
+      () {
+        test(
+          'initial state is false.',
+          () => expect(
+            BoolValueCubit(false).state,
+            false,
+          ),
+        );
+
+        blocTest<BoolValueCubit, bool>(
+          'emits new state.',
+          build: () => BoolValueCubit(false),
+          act: (cubit) => cubit.update(true),
+          expect: () => [true],
+        );
+      },
+    );
+
+    group(
+      'NavigationBarValueCubit',
+      () {
+        test(
+          'initial state is NavigationBarState.ranked.',
+          () => expect(
+            NavigationBarValueCubit(NavigationBarState.ranked).state,
+            NavigationBarState.ranked,
+          ),
+        );
+
+        blocTest<NavigationBarValueCubit, NavigationBarState>(
+          'emits new state.',
+          build: () => NavigationBarValueCubit(NavigationBarState.ranked),
+          act: (cubit) => cubit.update(NavigationBarState.itemMetas),
+          expect: () => [NavigationBarState.itemMetas],
+        );
+      },
+    );
+
+    group(
       'LanguageCodeValueCubit',
       () {
         tearDown(
