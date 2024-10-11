@@ -3,10 +3,11 @@ import 'package:tft_guide/domain/interfaces/rank.dart';
 import 'package:tft_guide/domain/models/rank/division.dart';
 import 'package:tft_guide/domain/models/rank/rank.dart';
 import 'package:tft_guide/domain/models/rank/tier.dart';
+import 'package:tft_guide/domain/utils/mixins/logger.dart';
 import 'package:tft_guide/static/resources/assets.dart';
 
 @immutable
-final class LocalRankRepository implements RankApi {
+final class LocalRankRepository with LoggerMixin implements RankApi {
   const LocalRankRepository();
 
   static const _promotionPoints = 100;
@@ -15,15 +16,25 @@ final class LocalRankRepository implements RankApi {
           _promotionPoints;
 
   @override
-  int computeLp(int elo) => switch (elo < _challengerOneElo) {
-        false => elo - _challengerOneElo,
-        true => elo % _promotionPoints,
-      };
+  int computeLp(int elo) {
+    final lp = switch (elo < _challengerOneElo) {
+      false => elo - _challengerOneElo,
+      true => elo % _promotionPoints,
+    };
+
+    logInfo(
+      'LocalRankRepository.computeLp',
+      'Computed LP: $lp',
+      parameters: {'elo': elo.toString()},
+      stackTrace: StackTrace.current,
+    );
+    return lp;
+  }
 
   @override
   Rank computeRank(int elo) {
     assert(elo >= 0, 'Elo must be a positive number.');
-    return switch (elo) {
+    final rank = switch (elo) {
       < 100 => iron4,
       < 200 => iron3,
       < 300 => iron2,
@@ -65,6 +76,14 @@ final class LocalRankRepository implements RankApi {
       < 3900 => challenger2,
       _ => challenger1,
     };
+
+    logInfo(
+      'LocalRankRepository.computeRank',
+      'Computed rank: $rank',
+      parameters: {'elo': elo.toString()},
+      stackTrace: StackTrace.current,
+    );
+    return rank;
   }
 
   @visibleForTesting

@@ -1,8 +1,18 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tft_guide/domain/interfaces/logger.dart';
 import 'package:tft_guide/infrastructure/repositories/rank.dart';
+import 'package:tft_guide/injector.dart';
+
+import '../../mocks.dart';
 
 void main() {
   const repository = LocalRankRepository();
+
+  setUpAll(
+    () => Injector.instance.registerSingleton<LoggerApi>(MockLoggerApi()),
+  );
+
+  tearDownAll(Injector.instance.unregister<LoggerApi>);
 
   group('computeLp', () {
     test('returns correctly if elo is less than challenger one elo', () {
