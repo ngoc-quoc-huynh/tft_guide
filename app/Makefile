@@ -30,7 +30,6 @@ splash-screen:
 apk:
 	flutter build apk \
 		--release \
-		--split-per-abi \
 		--obfuscate \
 		--split-debug-info=./build/app/outputs/symbols \
 		--dart-define-from-file=.env.json

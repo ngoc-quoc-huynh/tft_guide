@@ -114,7 +114,7 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState>
             patchNoteTranslations:
                 patchNoteTranslations as List<PatchNoteTranslationEntity>,
           );
-          await _localStorageApi.updateLastAppUpdate(clock.now());
+          await _localStorageApi.updateLastRemoteDataUpdate(clock.now());
         },
         onError: () => emit(const DataSyncLoadAndSaveOnFailure()),
       );
@@ -139,7 +139,8 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState>
 
   bool _hasAppBeenUpdatedToday(Emitter<DataSyncState> emit) {
     emit(const DataSyncCheckInProgress());
-    final hasUpdatedToday = _localStorageApi.lastAppUpdate?.isToday ?? false;
+    final hasUpdatedToday =
+        _localStorageApi.lastRemoteDataUpdate?.isToday ?? false;
     emit(const DataSyncCheckInProgress(1));
 
     return hasUpdatedToday;

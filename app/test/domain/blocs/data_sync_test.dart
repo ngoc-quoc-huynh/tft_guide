@@ -101,7 +101,7 @@ void main() {
             [
               localDatabaseApi.initialize,
               remoteDatabaseApi.initialize,
-              () => localStorageApi.lastAppUpdate,
+              () => localStorageApi.lastRemoteDataUpdate,
               fileStorageApi.loadLatestFileUpdatedAt,
               localDatabaseApi.loadLatestBaseItemUpdatedAt,
               localDatabaseApi.loadLatestFullItemUpdatedAt,
@@ -122,7 +122,7 @@ void main() {
               () => localDatabaseApi.saveBaseItemTranslations([]),
               () => localDatabaseApi.saveFullItemTranslations([]),
               () => localDatabaseApi.savePatchNoteTranslations([]),
-              () => localStorageApi.updateLastAppUpdate(date),
+              () => localStorageApi.updateLastRemoteDataUpdate(date),
               localDatabaseApi.close,
               remoteDatabaseApi.close,
             ],
@@ -156,7 +156,7 @@ void main() {
             [
               localDatabaseApi.initialize,
               remoteDatabaseApi.initialize,
-              () => localStorageApi.lastAppUpdate,
+              () => localStorageApi.lastRemoteDataUpdate,
               localDatabaseApi.close,
               remoteDatabaseApi.close,
             ],
@@ -223,7 +223,7 @@ void main() {
             verifyInOrder([
               localDatabaseApi.initialize,
               remoteDatabaseApi.initialize,
-              () => localStorageApi.lastAppUpdate,
+              () => localStorageApi.lastRemoteDataUpdate,
               fileStorageApi.loadLatestFileUpdatedAt,
               localDatabaseApi.loadLatestBaseItemUpdatedAt,
               localDatabaseApi.loadLatestFullItemUpdatedAt,
@@ -278,7 +278,7 @@ void main() {
             verifyInOrder([
               localDatabaseApi.initialize,
               remoteDatabaseApi.initialize,
-              () => localStorageApi.lastAppUpdate,
+              () => localStorageApi.lastRemoteDataUpdate,
               fileStorageApi.loadLatestFileUpdatedAt,
               localDatabaseApi.loadLatestBaseItemUpdatedAt,
               localDatabaseApi.loadLatestFullItemUpdatedAt,
@@ -348,7 +348,7 @@ void main() {
             verifyInOrder([
               localDatabaseApi.initialize,
               remoteDatabaseApi.initialize,
-              () => localStorageApi.lastAppUpdate,
+              () => localStorageApi.lastRemoteDataUpdate,
               fileStorageApi.loadLatestFileUpdatedAt,
               localDatabaseApi.loadLatestBaseItemUpdatedAt,
               localDatabaseApi.loadLatestFullItemUpdatedAt,
@@ -405,7 +405,7 @@ void _mockLastAppUpdate(
   DateTime? lastAppUpdate,
 ]) =>
     when(
-      () => localStorageApi.lastAppUpdate,
+      () => localStorageApi.lastRemoteDataUpdate,
     ).thenAnswer((_) => lastAppUpdate);
 
 void _mockLatestUpdatedAt(
@@ -510,7 +510,7 @@ void _mockUpdateLastAppUpdate(
   MockLocalStorageApi localStorageApi,
 ) {
   when(
-    () => localStorageApi.updateLastAppUpdate(DateTime(2024).toUtc()),
+    () => localStorageApi.updateLastRemoteDataUpdate(DateTime(2024).toUtc()),
   ).thenAnswer((_) => Future.value());
 }
 

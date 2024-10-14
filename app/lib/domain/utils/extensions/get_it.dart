@@ -7,6 +7,7 @@ import 'package:logger/logger.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tft_guide/domain/interfaces/admin.dart';
+import 'package:tft_guide/domain/interfaces/app.dart';
 import 'package:tft_guide/domain/interfaces/feedback.dart';
 import 'package:tft_guide/domain/interfaces/file.dart';
 import 'package:tft_guide/domain/interfaces/local_database.dart';
@@ -23,7 +24,9 @@ import 'package:tft_guide/static/i18n/translations.g.dart';
 extension GetItExtension on GetIt {
   AdminApi get adminApi => get<AdminApi>();
 
-  Directory get appDir => get<Directory>();
+  AppApi get appApi => get<AppApi>();
+
+  Directory get appDir => get<Directory>(instanceName: 'appDir');
 
   FeedbackApi get feedbackApi => get<FeedbackApi>();
 
@@ -56,6 +59,8 @@ extension GetItExtension on GetIt {
       get<SharedPreferencesWithCache>();
 
   ThemeApi get themeApi => get<ThemeApi>();
+
+  Directory get tmpDir => get<Directory>(instanceName: 'tmpDir');
 
   Translations get translations => get<Translations>();
 

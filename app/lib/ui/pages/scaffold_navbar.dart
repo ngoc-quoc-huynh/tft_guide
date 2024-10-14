@@ -3,11 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tft_guide/domain/blocs/app_update_info/cubit.dart';
 import 'package:tft_guide/domain/blocs/patch_notes_unread_counter/bloc.dart';
 import 'package:tft_guide/domain/blocs/value/cubit.dart';
+import 'package:tft_guide/domain/models/app_update_info.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/ui/router/routes.dart';
 import 'package:tft_guide/ui/widgets/badge.dart';
+import 'package:tft_guide/ui/widgets/bloc/builder.dart';
 import 'package:tft_guide/ui/widgets/bloc/selector.dart';
 import 'package:tft_guide/ui/widgets/custom_app_bar.dart';
 import 'package:tft_guide/ui/widgets/language/builder.dart';
@@ -48,7 +51,17 @@ class ScaffoldWithNavBar extends StatelessWidget {
                   onPressed: () => unawaited(
                     context.pushNamed(Routes.settingsPage()),
                   ),
-                  icon: const Icon(Icons.settings),
+                  icon:
+                      BlocBuilderWithChild<AppUpdateInfoCubit, AppUpdateInfo?>(
+                    builder: (context, state, child) => BadgeCounter(
+                      count: switch (state) {
+                        null => 0,
+                        AppUpdateInfo() => 1,
+                      },
+                      child: child,
+                    ),
+                    child: const Icon(Icons.settings),
+                  ),
                 ),
               ],
             ),

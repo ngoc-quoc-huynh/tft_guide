@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 class BadgeCounter extends StatelessWidget {
   const BadgeCounter({
     required this.count,
-    required this.child,
+    this.child,
     super.key,
   });
 
   final int count;
-  final Widget child;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {

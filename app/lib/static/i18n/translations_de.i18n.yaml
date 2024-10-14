@@ -114,6 +114,12 @@ pages:
       fullItem(String id): 'Der Vollgegenstand mit id "$id" konnte nicht geladen werden.\nGehe zu den Einstellungen und führe eine App-Prüfung und ggf. eine Reperatur durch.'
   settings:
     title: 'Einstellungen'
+    appUpdate:
+      name: 'App-Update'
+      descriptionNoUpdate: 'Deine App ist auf dem neuesten Stand.'
+      descriptionUpdate(String version): 'Eine neue Version ($version) ist verfügbar! Hier sind die neuesten Änderungen:'
+      update: 'Update'
+      retry: 'Update wiederholen'
     design:
       name: 'Design'
       title: 'Design auswählen'
