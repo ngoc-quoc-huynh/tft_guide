@@ -16,14 +16,17 @@ void main() {
 
   setUpAll(
     () => Injector.instance
-      ..registerSingleton<Directory>(fileSystem.directory('app'))
+      ..registerSingleton<Directory>(
+        fileSystem.directory('app'),
+        instanceName: 'appDir',
+      )
       ..registerSingleton<FileSystem>(fileSystem)
       ..registerSingleton<LoggerApi>(MockLoggerApi()),
   );
 
   tearDownAll(
     () async => Injector.instance
-      ..unregister<Directory>()
+      ..unregister<Directory>(instanceName: 'appDir')
       ..unregister<FileSystem>()
       ..unregister<LoggerApi>(),
   );

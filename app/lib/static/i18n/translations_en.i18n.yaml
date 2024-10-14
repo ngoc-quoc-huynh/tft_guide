@@ -114,6 +114,12 @@ pages:
       fullItem(String id): 'The full item with id "$id" could not be loaded.\nGo to Settings and run an App Check or a Repair if needed.'
   settings:
     title: 'Settings'
+    appUpdate:
+      name: 'App Update'
+      descriptionNoUpdate: 'Your app is up to date.'
+      descriptionUpdate(String version): 'A new version ($version) is available! Here are the new changes:'
+      update: 'Update'
+      retry: 'Retry update'
     design:
       name: 'Design'
       title: 'Choose design'

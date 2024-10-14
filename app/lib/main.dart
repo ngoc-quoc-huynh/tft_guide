@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:tft_guide/domain/blocs/app_update_info/cubit.dart';
 import 'package:tft_guide/domain/blocs/data_sync/bloc.dart';
 import 'package:tft_guide/domain/blocs/hydrated_value/cubit.dart';
 import 'package:tft_guide/domain/blocs/value/cubit.dart';
@@ -36,6 +37,10 @@ class TftApp extends StatelessWidget {
         ),
         BlocProvider<BoolValueCubit>(
           create: (_) => BoolValueCubit(false),
+        ),
+        BlocProvider<AppUpdateInfoCubit>(
+          create: (_) => AppUpdateInfoCubit()..initialize(),
+          lazy: false,
         ),
       ],
       child: BlocBuilder<HydratedTranslationLocaleCubit, TranslationLocale>(

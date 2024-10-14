@@ -32,8 +32,36 @@ final class SharedPreferencesRepository
     );
 
     logInfo(
-      'SharedPreferencesRepository.updateLastAppUpdate',
+      'SharedPreferencesRepository.updateLasAppUpdate',
       'Updated last app update.',
+      stackTrace: StackTrace.current,
+    );
+  }
+
+  @override
+  DateTime? get lastRemoteDataUpdate {
+    final lastUpdate = DateTimeExtension.tryParseOrNull(
+      _sharedPrefs.getString(_lastRemoteDataUpdateKey),
+    );
+    logInfo(
+      'SharedPreferencesRepository.lastRemoteDataUpdate',
+      'Retrieved last remote data update: ${lastUpdate?.toIso8601String()}.',
+      stackTrace: StackTrace.current,
+    );
+
+    return lastUpdate;
+  }
+
+  @override
+  Future<void> updateLastRemoteDataUpdate(DateTime date) async {
+    await _sharedPrefs.setString(
+      _lastRemoteDataUpdateKey,
+      date.toUtc().toIso8601String(),
+    );
+
+    logInfo(
+      'SharedPreferencesRepository.updateLastRemoteDataUpdate',
+      'Updated last remote data update.',
       stackTrace: StackTrace.current,
     );
   }
@@ -63,5 +91,6 @@ final class SharedPreferencesRepository
   }
 
   static const _lastAppUpdateKey = 'last_app_update';
+  static const _lastRemoteDataUpdateKey = 'last_remote_data_update';
   static const _readPatchNotesCountKey = 'read_patch_notes_count';
 }

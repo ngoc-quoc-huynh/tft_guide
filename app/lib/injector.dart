@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:dio/dio.dart';
 import 'package:file/file.dart' hide Directory;
 import 'package:file/local.dart';
 import 'package:get_it/get_it.dart';
@@ -10,6 +11,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tft_guide/domain/interfaces/admin.dart';
+import 'package:tft_guide/domain/interfaces/app.dart';
 import 'package:tft_guide/domain/interfaces/feedback.dart';
 import 'package:tft_guide/domain/interfaces/file.dart';
 import 'package:tft_guide/domain/interfaces/local_database.dart';
@@ -21,6 +23,7 @@ import 'package:tft_guide/domain/interfaces/remote_database.dart';
 import 'package:tft_guide/domain/interfaces/theme.dart';
 import 'package:tft_guide/domain/interfaces/widgets_binding.dart';
 import 'package:tft_guide/infrastructure/repositories/admin.dart';
+import 'package:tft_guide/infrastructure/repositories/app_github.dart';
 import 'package:tft_guide/infrastructure/repositories/feedback.dart';
 import 'package:tft_guide/infrastructure/repositories/hydrated_storage.dart';
 import 'package:tft_guide/infrastructure/repositories/local_file_storage.dart';
@@ -46,7 +49,14 @@ final class Injector {
     instance
       ..registerLazySingleton<FeedbackApi>(FeedbackRepository.new)
       ..registerLazySingleton<RemoteDatabaseApi>(SupabaseRepository.new)
-      ..registerSingletonAsync<Directory>(getApplicationDocumentsDirectory)
+      ..registerSingletonAsync<Directory>(
+        getApplicationDocumentsDirectory,
+        instanceName: 'appDir',
+      )
+      ..registerSingletonAsync<Directory>(
+        getTemporaryDirectory,
+        instanceName: 'tmpDir',
+      )
       ..registerLazySingleton<LocalDatabaseApi>(SqliteAsyncRepository.new)
       ..registerLazySingleton<FileStorageApi>(LocalFileStorageRepository.new)
       ..registerLazySingleton<ThemeApi>(MaterialThemeRepository.new)
@@ -66,6 +76,13 @@ final class Injector {
       ..registerLazySingleton<FileSystem>(LocalFileSystem.new)
       ..registerLazySingleton<AdminApi>(
         () => const AdminRepository(Config.adminPassword),
+      )
+      ..registerLazySingleton<AppApi>(
+        () => AppGithubRepository(
+          dio: Dio(),
+          owner: const String.fromEnvironment('github_owner'),
+          repo: const String.fromEnvironment('github_repo'),
+        ),
       );
     await instance.allReady();
     HydratedBloc.storage = const SharedPrefsHydratedStorage();

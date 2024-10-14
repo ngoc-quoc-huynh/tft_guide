@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/blocs/check_data/bloc.dart';
 import 'package:tft_guide/injector.dart';
-import 'package:tft_guide/ui/widgets/loading_indicator.dart';
 
 class SettingsCheckStartButton extends StatelessWidget {
   const SettingsCheckStartButton({super.key});
@@ -100,14 +99,6 @@ class _Content extends StatelessWidget {
         CheckDataLoadOnValid(),
       ) =>
         const Icon(Icons.check),
-      (CheckDataLoadInProgress(), _, _, _) ||
-      (_, CheckDataLoadInProgress(), _, _) ||
-      (_, _, CheckDataLoadInProgress(), _) ||
-      (_, _, _, CheckDataLoadInProgress()) =>
-        SizedBox.square(
-          dimension: IconTheme.of(context).size,
-          child: const LoadingIndicator(),
-        ),
       (CheckDataLoadOnInvalid(), _, _, _) ||
       (_, CheckDataLoadOnInvalid(), _, _) ||
       (_, _, CheckDataLoadOnInvalid(), _) ||
@@ -117,9 +108,7 @@ class _Content extends StatelessWidget {
       (_, _, CheckDataLoadOnFailure(), _) ||
       (_, _, _, CheckDataLoadOnFailure()) =>
         Text(_translations.retry),
-      (_, _, _, _) => Text(
-          _translations.start,
-        ),
+      (_, _, _, _) => Text(_translations.start),
     };
   }
 

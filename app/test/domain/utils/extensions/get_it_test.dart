@@ -34,9 +34,15 @@ void main() {
     );
   });
 
-  test('returns Directory.', () {
-    Injector.instance.registerSingleton<Directory>(MockDirectory());
-    addTearDown(Injector.instance.unregister<Directory>);
+  test('returns ApplicationDocumentsDirectory.', () {
+    Injector.instance.registerSingleton<Directory>(
+      MockDirectory(),
+      instanceName: 'appDir',
+    );
+    addTearDown(
+      () async =>
+          Injector.instance.unregister<Directory>(instanceName: 'appDir'),
+    );
 
     expect(
       Injector.instance.appDir,
@@ -195,6 +201,22 @@ void main() {
     expect(
       Injector.instance.themeApi,
       isA<ThemeApi>(),
+    );
+  });
+
+  test('returns TemporaryDirectory.', () {
+    Injector.instance.registerSingleton<Directory>(
+      MockDirectory(),
+      instanceName: 'tmpDir',
+    );
+    addTearDown(
+      () async =>
+          Injector.instance.unregister<Directory>(instanceName: 'tmpDir'),
+    );
+
+    expect(
+      Injector.instance.tmpDir,
+      isA<Directory>(),
     );
   });
 
