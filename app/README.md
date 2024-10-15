@@ -36,10 +36,12 @@ The project uses environment variables for configuration. Follow the steps below
 
 2. Populate the `env.json` file with the required values.
 
-   Open `env.json` and fill in the `url` and `anonKey` fields using the information from your supabase project:
+   Open `env.json` and fill in the `url`, `anonKey`, `github_owner`, and `github_repo` fields using the information from your GitHub and supabase project:
 
 - url: Available in your Supabase project settings under **Project Settings > API**.
-- anonKey: Available in the same **API** section.
+- anon_key: Available in the same **API** section.
+- github_owner: The owner of the GitHub repository.
+- github_repo: The name of the GitHub repository.
 
 3. Run the app:
    Use the following command to start the application with the environment variables loaded from `env.json`:
