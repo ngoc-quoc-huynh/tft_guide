@@ -1,5 +1,8 @@
 # Infrastructure
 
+[![Build Status](https://github.com/ngoc-quoc-huynh/tft_guide/actions/workflows/infrastructure.yaml/badge.svg)](https://github.com/ngoc-quoc-huynh/tft_guide/actions/workflows/infrastructure.yaml)
+[![license](https://img.shields.io/github/license/ngoc-quoc-huynh/tft_guide)](https://raw.githubusercontent.com/ngoc-quoc-huynh/tft_guide/refs/heads/main/LICENSE)
+
 This repository utilizes supabase as the backend database.
 The project involdes managing data for assets, base items, full items, patch notes and their corresponding translations.
 It is designed to enable seamless storage, retrieval, and translation of data across different languages.
