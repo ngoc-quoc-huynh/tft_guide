@@ -77,7 +77,7 @@ dev_dependencies:
   bloc_test: ^9.1.5
   http_mock_adapter: ^0.6.1
   mocktail: ^1.0.4
-  mock_supabase_http_client: ^0.0.2
+  mock_supabase_http_client: ^0.0.3
 
   # Test coverage
   test_cov_console: ^0.2.2
