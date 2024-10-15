@@ -88,7 +88,7 @@ class _SettingsAdminDialogState extends State<SettingsAdminDialog> {
         return _translations.validator.wrong;
       case String():
         context
-          ..read<BoolValueCubit>().update(true)
+          ..read<AdminCubit>().update(true)
           ..pop();
         CustomSnackBar.showSuccess(context, _translations.enabled);
         return null;

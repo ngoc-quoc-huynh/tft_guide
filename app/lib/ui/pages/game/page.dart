@@ -61,8 +61,8 @@ class _Success extends StatelessWidget {
           totalQuestion: questions.length,
         ),
       ),
-      body: BlocProvider<IntValueCubit>(
-        create: (_) => IntValueCubit(0),
+      body: BlocProvider<CorrectAnswersCubit>(
+        create: (_) => CorrectAnswersCubit(0),
         child: GameBody(questions: questions),
       ),
     );

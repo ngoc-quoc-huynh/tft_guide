@@ -111,7 +111,7 @@ class SettingsPage extends StatelessWidget {
                       onTap: () =>
                           unawaited(SettingsRepairDialog.show(context)),
                     ),
-                    BlocBuilder<BoolValueCubit, bool>(
+                    BlocBuilder<AdminCubit, bool>(
                       builder: (context, isAdmin) => switch (isAdmin) {
                         false => const SizedBox(),
                         true => Column(

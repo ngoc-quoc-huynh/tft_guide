@@ -21,7 +21,7 @@ class SettingsResetDialog extends StatelessWidget {
     if (context.mounted && (shouldReset ?? false)) {
       context
         ..read<HydratedEloCubit>().reset()
-        ..read<NullableIntValueCubit>().update(null);
+        ..read<EloGainCubit>().update(null);
 
       CustomSnackBar.showSuccess(context, _translations.feedback);
     }

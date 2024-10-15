@@ -35,8 +35,8 @@ class TftApp extends StatelessWidget {
         BlocProvider<DataSyncBloc>(
           create: (_) => DataSyncBloc()..add(const DataSyncInitializeEvent()),
         ),
-        BlocProvider<BoolValueCubit>(
-          create: (_) => BoolValueCubit(false),
+        BlocProvider<AdminCubit>(
+          create: (_) => AdminCubit(false),
         ),
         BlocProvider<AppUpdateInfoCubit>(
           create: (_) => AppUpdateInfoCubit()..initialize(),
