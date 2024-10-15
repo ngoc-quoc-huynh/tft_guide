@@ -22,7 +22,8 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
 
   final SupabaseClient? _testClient;
 
-  SupabaseClient get _client => _testClient ?? Supabase.instance.client;
+  @visibleForTesting
+  late final SupabaseClient client;
 
   @override
   Future<void> initialize() async {
@@ -32,6 +33,9 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
         anonKey: const String.fromEnvironment('anon_key'),
         debug: false,
       );
+      client = Supabase.instance.client;
+    } else {
+      client = _testClient;
     }
 
     logInfo(
@@ -49,7 +53,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
 
     try {
       // ignore: avoid-dynamic, we cannot determine the type due to dart constraints.
-      final assets = await _client.rpc<List<dynamic>>(
+      final assets = await client.rpc<List<dynamic>>(
         'load_asset_names',
         params: {'last_updated': lastUpdated?.toIso8601String()},
       );
@@ -78,7 +82,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     final parameters = {'name': name};
 
     try {
-      final bytes = await _client.storage.from('assets').download(name);
+      final bytes = await client.storage.from('assets').download(name);
       logInfo(
         methodName,
         'Loaded asset.',
@@ -105,7 +109,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
 
     try {
       final response =
-          await _client.from(_tableNameBaseItem).select().maybeApply(
+          await client.from(_tableNameBaseItem).select().maybeApply(
                 lastUpdatedInUtc,
                 (query, lastUpdated) => query.gt('updated_at', lastUpdated),
               );
@@ -137,7 +141,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
 
     try {
       final response =
-          await _client.from(_tableNameFullItem).select().maybeApply(
+          await client.from(_tableNameFullItem).select().maybeApply(
                 lastUpdatedInUtc,
                 (query, lastUpdated) => query.gt('updated_at', lastUpdated),
               );
@@ -169,7 +173,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
 
     try {
       final response =
-          await _client.from(_tableNamePatchNote).select().maybeApply(
+          await client.from(_tableNamePatchNote).select().maybeApply(
                 lastUpdatedInUtc,
                 (query, lastUpdated) => query.gt('updated_at', lastUpdated),
               );
@@ -203,7 +207,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
 
     try {
       final response =
-          await _client.from(_tableNameBaseItemTranslation).select().maybeApply(
+          await client.from(_tableNameBaseItemTranslation).select().maybeApply(
                 lastUpdatedInUtc,
                 (query, lastUpdated) => query.gt('updated_at', lastUpdated),
               );
@@ -238,7 +242,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
 
     try {
       final response =
-          await _client.from(_tableNameFullItemTranslation).select().maybeApply(
+          await client.from(_tableNameFullItemTranslation).select().maybeApply(
                 lastUpdated,
                 (query, lastUpdated) => query.gt('updated_at', lastUpdated),
               );
@@ -272,13 +276,11 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     final parameters = {'lastUpdated': lastUpdatedInUtc?.toIso8601String()};
 
     try {
-      final response = await _client
-          .from(_tableNamePatchNoteTranslation)
-          .select()
-          .maybeApply(
-            lastUpdated,
-            (query, lastUpdated) => query.gt('updated_at', lastUpdated),
-          );
+      final response =
+          await client.from(_tableNamePatchNoteTranslation).select().maybeApply(
+                lastUpdated,
+                (query, lastUpdated) => query.gt('updated_at', lastUpdated),
+              );
       final translations = response
           .map((json) => PatchNoteTranslation.fromJson(json).toDomain())
           .toList();
@@ -305,7 +307,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     const methodName = 'SupabaseRepository.loadAssetsCount';
 
     try {
-      final count = await _client.rpc<int>('load_assets_count');
+      final count = await client.rpc<int>('load_assets_count');
       logInfo(
         methodName,
         'Loaded assets count: $count.',
@@ -327,7 +329,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     const methodName = 'SupabaseRepository.loadBaseItemsCount';
 
     try {
-      final count = await _client.from(_tableNameBaseItem).count();
+      final count = await client.from(_tableNameBaseItem).count();
       logInfo(
         methodName,
         'Loaded base items count: $count.',
@@ -349,7 +351,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     const methodName = 'SupabaseRepository.loadFullItemsCount';
 
     try {
-      final count = await _client.from(_tableNameFullItem).count();
+      final count = await client.from(_tableNameFullItem).count();
       logInfo(
         methodName,
         'Loaded full items count: $count.',
@@ -371,7 +373,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     const methodName = 'SupabaseRepository.loadPatchNotesCount';
 
     try {
-      final count = await _client.from(_tableNamePatchNote).count();
+      final count = await client.from(_tableNamePatchNote).count();
       logInfo(
         methodName,
         'Loaded patch notes count: $count.',
@@ -393,7 +395,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     const methodName = 'SupabaseRepository.loadBaseItemTranslationsCount';
 
     try {
-      final count = await _client.from(_tableNameBaseItemTranslation).count();
+      final count = await client.from(_tableNameBaseItemTranslation).count();
       logInfo(
         methodName,
         'Loaded base item translations count: $count.',
@@ -415,7 +417,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     const methodName = 'SupabaseRepository.loadFullItemTranslationsCount';
 
     try {
-      final count = await _client.from(_tableNameFullItemTranslation).count();
+      final count = await client.from(_tableNameFullItemTranslation).count();
       logInfo(
         methodName,
         'Loaded full item translations count: $count.',
@@ -437,7 +439,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
     const methodName = 'SupabaseRepository.loadPatchNoteTranslationsCount';
 
     try {
-      final count = await _client.from(_tableNamePatchNoteTranslation).count();
+      final count = await client.from(_tableNamePatchNoteTranslation).count();
       logInfo(
         methodName,
         'Loaded patch note translations count: $count.',
@@ -457,7 +459,7 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
   @override
   Future<void> close() async {
     if (_testClient == null) {
-      await _client.dispose();
+      await client.dispose();
     }
 
     logInfo(

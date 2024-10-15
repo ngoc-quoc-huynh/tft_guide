@@ -24,7 +24,8 @@ void main() {
     'anoneKey',
     httpClient: httpClient,
   );
-  final repository = SupabaseRepository(client);
+
+  final repository = SupabaseRepository(client)..client = client;
   final dateTime = DateTime(2024).toUtc();
   final dateTimeString = dateTime.toIso8601String();
 
@@ -43,7 +44,10 @@ void main() {
   group('initialize', () {
     test(
       'returns correctly.',
-      () => expectLater(repository.initialize(), completes),
+      () {
+        final repository = SupabaseRepository(client);
+        expectLater(repository.initialize(), completes);
+      },
     );
   });
 
@@ -334,27 +338,129 @@ void main() {
   });
 
   group('loadBaseItemsCount', () {
-    // TODO: Add tests when count requests are supported.
+    test('returns 0.', () async {
+      final count = await repository.loadBaseItemsCount();
+      expect(count, 0);
+    });
+
+    test('returns correctly.', () async {
+      await client.from('base_item').insert([
+        {
+          'id': '1',
+          'created_at': dateTimeString,
+          'updated_at': dateTimeString,
+        },
+      ]);
+
+      final count = await repository.loadBaseItemsCount();
+      expect(count, 1);
+    });
   });
 
   group('loadFullItemsCount', () {
-    // TODO: Add tests when count requests are supported.
+    test('returns 0.', () async {
+      final count = await repository.loadFullItemsCount();
+      expect(count, 0);
+    });
+
+    test('returns correctly.', () async {
+      await client.from('full_item').insert([
+        {
+          'id': '1',
+          'created_at': dateTimeString,
+          'updated_at': dateTimeString,
+        },
+      ]);
+
+      final count = await repository.loadFullItemsCount();
+      expect(count, 1);
+    });
   });
 
   group('loadPatchNotesCount', () {
-    // TODO: Add tests when count requests are supported.
+    test('returns 0.', () async {
+      final count = await repository.loadPatchNotesCount();
+      expect(count, 0);
+    });
+
+    test('returns correctly.', () async {
+      await client.from('patch_note').insert([
+        {
+          'id': '1',
+          'created_at': dateTimeString,
+          'updated_at': dateTimeString,
+        },
+      ]);
+
+      final count = await repository.loadPatchNotesCount();
+      expect(count, 1);
+    });
   });
 
   group('loadBaseItemTranslationsCount', () {
-    // TODO: Add tests when count requests are supported.
+    test('returns 0.', () async {
+      final count = await repository.loadBaseItemTranslationsCount();
+      expect(count, 0);
+    });
+
+    test('returns correctly.', () async {
+      await client.from('base_item_translation').insert([
+        {
+          'id': '1',
+          'item_id': '1',
+          'created_at': dateTimeString,
+          'updated_at': dateTimeString,
+          'language_code': 'en',
+        },
+      ]);
+
+      final count = await repository.loadBaseItemTranslationsCount();
+      expect(count, 1);
+    });
   });
 
   group('loadFullItemTranslationsCount', () {
-    // TODO: Add tests when count requests are supported.
+    test('returns 0.', () async {
+      final count = await repository.loadFullItemTranslationsCount();
+      expect(count, 0);
+    });
+
+    test('returns correctly.', () async {
+      await client.from('full_item_translation').insert([
+        {
+          'id': '1',
+          'item_id': '1',
+          'created_at': dateTimeString,
+          'updated_at': dateTimeString,
+          'language_code': 'en',
+        },
+      ]);
+
+      final count = await repository.loadFullItemTranslationsCount();
+      expect(count, 1);
+    });
   });
 
   group('loadPatchNoteTranslationsCount', () {
-    // TODO: Add tests when count requests are supported.
+    test('returns 0.', () async {
+      final count = await repository.loadPatchNoteTranslationsCount();
+      expect(count, 0);
+    });
+
+    test('returns correctly.', () async {
+      await client.from('patch_note_translation').insert([
+        {
+          'id': '1',
+          'patch_note_id': '1',
+          'created_at': dateTimeString,
+          'updated_at': dateTimeString,
+          'language_code': 'en',
+        },
+      ]);
+
+      final count = await repository.loadPatchNoteTranslationsCount();
+      expect(count, 1);
+    });
   });
 
   group('close', () {
