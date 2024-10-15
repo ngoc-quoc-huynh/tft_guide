@@ -38,8 +38,8 @@ final class GoRouterConfig {
                   BlocProvider<HydratedEloCubit>(
                     create: (_) => HydratedEloCubit(),
                   ),
-                  BlocProvider<NullableIntValueCubit>(
-                    create: (_) => NullableIntValueCubit(null),
+                  BlocProvider<EloGainCubit>(
+                    create: (_) => EloGainCubit(null),
                   ),
                 ],
                 child: child,

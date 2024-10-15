@@ -46,7 +46,7 @@ class CheckButton extends StatelessWidget {
   void _onCheckSelectedItemStateChanged(BuildContext context, bool? isCorrect) {
     if (isCorrect != null) {
       if (isCorrect) {
-        context.read<IntValueCubit>().increase();
+        context.read<CorrectAnswersCubit>().increase();
       }
       unawaited(FeedbackBottomSheet.show(context, isCorrect: isCorrect));
     }

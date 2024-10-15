@@ -36,7 +36,7 @@ class SettingsAppVersion extends StatelessWidget {
   }
 
   void _onTap(BuildContext context) =>
-      switch (context.read<BoolValueCubit>().state) {
+      switch (context.read<AdminCubit>().state) {
         false => context.read<StepTimerCubit>().advance(),
         true => CustomSnackBar.showInfo(
             context,

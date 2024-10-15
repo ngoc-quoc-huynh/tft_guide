@@ -37,7 +37,7 @@ class _CurrentLp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NullableIntValueCubit, int?>(
+    return BlocBuilder<EloGainCubit, int?>(
       builder: (context, eloGain) => AnimatedFlipCounter(
         value: lp,
         suffix: Injector.instance.translations.pages.ranked.lpSuffix,
@@ -60,7 +60,7 @@ class _LpGain extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NullableIntValueCubit, int?>(
+    return BlocBuilder<EloGainCubit, int?>(
       builder: (BuildContext context, int? lpGain) => switch (lpGain) {
         null => const SizedBox.shrink(),
         int() => Padding(

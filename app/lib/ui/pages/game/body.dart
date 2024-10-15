@@ -130,13 +130,13 @@ class _GameBodyState extends State<GameBody> {
           ),
         );
       case GameProgressFinished():
-        final correctAnswers = context.read<IntValueCubit>().state;
+        final correctAnswers = context.read<CorrectAnswersCubit>().state;
         final eloGain = switch (correctAnswers) {
           0 => null,
           _ => correctAnswers,
         };
         context
-          ..read<NullableIntValueCubit>().update(eloGain)
+          ..read<EloGainCubit>().update(eloGain)
           ..read<HydratedEloCubit>().increase(eloGain ?? 0)
           ..goNamed(Routes.rankedPage());
     }
