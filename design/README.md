@@ -1,5 +1,7 @@
 # Design
 
+[![license](https://img.shields.io/github/license/ngoc-quoc-huynh/tft_guide)](https://raw.githubusercontent.com/ngoc-quoc-huynh/tft_guide/refs/heads/main/LICENSE)
+
 This repository contains all design-related resources for the project. It serves as the single source of truth for the visual identity and UI/UX specifications of the application.
 
 ## Contents

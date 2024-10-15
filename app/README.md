@@ -1,5 +1,9 @@
 # App
 
+[![Build Status](https://github.com/ngoc-quoc-huynh/tft_guide/actions/workflows/app.yaml/badge.svg)](https://github.com/ngoc-quoc-huynh/tft_guide/actions/workflows/app.yaml)
+[![style](https://img.shields.io/badge/style-cosee__lints-brightgreen)](https://pub.dev/packages/cosee_lints)
+[![license](https://img.shields.io/github/license/ngoc-quoc-huynh/tft_guide)](https://raw.githubusercontent.com/ngoc-quoc-huynh/tft_guide/refs/heads/main/LICENSE)
+
 ## Overview
 
 This repository contains the source code for the TFT Guide flutter app.
