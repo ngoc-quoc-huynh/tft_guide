@@ -82,6 +82,8 @@ jobs:
             --split-debug-info=./build/app/outputs/symbols \
             --dart-define=anon_key=$SUPABASE_ANON_KEY \
             --dart-define=url=$SUPABASE_URL
+            --dart-define=github_owner=${{ github.repository_owner }}
+            --dart-define=github_repo=${{ github.event.repository.name }}
       - name: Upload APK
         uses: actions/upload-artifact@v4
         if: github.event_name == 'workflow_dispatch'
