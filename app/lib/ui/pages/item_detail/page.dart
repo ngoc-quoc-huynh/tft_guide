@@ -92,9 +92,7 @@ class _Body<Item extends ItemDetail> extends StatelessWidget {
               slivers: [
                 const SliverSizedBox(height: Sizes.verticalPadding),
                 SliverWrapperItemDetail(
-                  child: ImageDetailImage.image(
-                    id: item.id,
-                  ),
+                  child: ImageDetailImage(id: item.id),
                 ),
                 const SliverSizedBox(height: 20),
                 SliverWrapperItemDetail(
