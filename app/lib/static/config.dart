@@ -9,4 +9,10 @@ final class Config {
 
   static const adminPassword = '175613';
   static const amountOfStepsToEnableAdmin = 7;
+
+  static const supabaseUrl = String.fromEnvironment('supabase_url');
+  static const supabaseAnonKey = String.fromEnvironment('supabase_anon_key');
+
+  static const githubOwner = String.fromEnvironment('github_owner');
+  static const githubRepo = String.fromEnvironment('github_repo');
 }

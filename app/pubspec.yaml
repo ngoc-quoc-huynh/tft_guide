@@ -55,6 +55,7 @@ dependencies:
   package_info_plus: ^8.0.2
   restart: ^1.0.0+1
   stream_transform: ^2.1.0
+  url_launcher: ^6.3.1
 
 dev_dependencies:
   # Code generation
