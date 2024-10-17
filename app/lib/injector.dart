@@ -80,8 +80,8 @@ final class Injector {
       ..registerLazySingleton<AppApi>(
         () => AppGithubRepository(
           dio: Dio(),
-          owner: const String.fromEnvironment('github_owner'),
-          repo: const String.fromEnvironment('github_repo'),
+          owner: Config.githubOwner,
+          repo: Config.githubRepo,
         ),
       );
     await instance.allReady();

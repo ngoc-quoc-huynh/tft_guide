@@ -14,6 +14,7 @@ import 'package:tft_guide/ui/pages/settings/card.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/app_update.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/check/dialog.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/design.dart';
+import 'package:tft_guide/ui/pages/settings/dialogs/feedback.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/language.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/repair/dialog.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/reset.dart';
@@ -148,6 +149,14 @@ class SettingsPage extends StatelessWidget {
                       },
                     ),
                   ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              SettingsCard(
+                child: SettingsItem(
+                  icon: Icons.feedback,
+                  title: _translations.feedback.name,
+                  onTap: () => unawaited(SettingsFeedbackDialog.show(context)),
                 ),
               ),
               const SizedBox(height: 10),

@@ -15,6 +15,7 @@ import 'package:tft_guide/infrastructure/dtos/supabase/item.dart';
 import 'package:tft_guide/infrastructure/dtos/supabase/item_translation.dart';
 import 'package:tft_guide/infrastructure/dtos/supabase/patch_note.dart';
 import 'package:tft_guide/infrastructure/dtos/supabase/patch_note_translation.dart';
+import 'package:tft_guide/static/config.dart';
 
 @immutable
 final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
@@ -29,8 +30,8 @@ final class SupabaseRepository with LoggerMixin implements RemoteDatabaseApi {
   Future<void> initialize() async {
     if (_testClient == null) {
       await Supabase.initialize(
-        url: const String.fromEnvironment('url'),
-        anonKey: const String.fromEnvironment('anon_key'),
+        url: Config.supabaseUrl,
+        anonKey: Config.supabaseAnonKey,
         debug: false,
       );
       client = Supabase.instance.client;

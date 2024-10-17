@@ -182,6 +182,10 @@ pages:
       button: 'Updaten'
       validator: 'Bitte gib einen Elo-Wert ein.'
       feedback: 'Elo wurde erfolgreich auf aktualisiert.'
+    feedback:
+      name: 'Feedback geben'
+      description: 'Hast du ein Problem oder eine Vorschlag? Lass es uns wissen, um die App zu verbessern! Du wirst auf unserer Feedbackseite weitergeleitet. \n\nHinweis: Ein GitHub-Account ist erforderlich, um Feedback zu geben.'
+      submit: 'Feedback erstellen'
   patchNotes:
     title: 'Patch-Notizen'
     retry: 'Wiederholen'
