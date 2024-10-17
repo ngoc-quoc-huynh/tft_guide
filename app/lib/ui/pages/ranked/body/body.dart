@@ -22,7 +22,10 @@ class RankedBody extends StatelessWidget {
         listener: _onEloChanged,
         child: BlocBuilder<RankCubit, RankState>(
           builder: (context, state) => switch (state) {
-            RankLoadInProgress() => const LoadingIndicator(),
+            RankLoadInProgress() => const SizedBox(
+                height: 350,
+                child: LoadingIndicator(),
+              ),
             RankLoadOnSuccess(:final rank, :final lp) => _Content(
                 rank: rank,
                 lp: lp,

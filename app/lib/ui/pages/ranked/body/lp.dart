@@ -1,11 +1,10 @@
 import 'package:animated_flip_counter/animated_flip_counter.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/blocs/value/cubit.dart';
 import 'package:tft_guide/domain/utils/extensions/theme.dart';
 import 'package:tft_guide/injector.dart';
-import 'package:tft_guide/static/config.dart';
+import 'package:tft_guide/ui/utils/mixins/animation.dart';
 
 class RankedLp extends StatelessWidget {
   const RankedLp({
@@ -30,7 +29,7 @@ class RankedLp extends StatelessWidget {
   }
 }
 
-class _CurrentLp extends StatelessWidget {
+class _CurrentLp extends StatelessWidget with AnimationMixin {
   const _CurrentLp(this.lp);
 
   final int lp;
@@ -43,16 +42,10 @@ class _CurrentLp extends StatelessWidget {
         suffix: Injector.instance.translations.pages.ranked.lpSuffix,
         textStyle: Theme.of(context).textTheme.headlineSmall,
         curve: Curves.easeInOutQuad,
-        duration: _computeAnimationDuration(eloGain),
+        duration: computeRankAnimationDuration(eloGain),
       ),
     );
   }
-
-  Duration _computeAnimationDuration(int? eloGain) => lerpDuration(
-        const Duration(milliseconds: 500),
-        const Duration(milliseconds: 1500),
-        (eloGain ?? 0) / Config.totalQuestions,
-      );
 }
 
 class _LpGain extends StatelessWidget {
