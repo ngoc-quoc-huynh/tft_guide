@@ -80,8 +80,8 @@ jobs:
             --release \
             --obfuscate \
             --split-debug-info=./build/app/outputs/symbols \
-            --dart-define=anon_key=$SUPABASE_ANON_KEY \
-            --dart-define=url=$SUPABASE_URL
+            --dart-define=supabase_anon_key=$SUPABASE_ANON_KEY \
+            --dart-define=supabase_url=$SUPABASE_URL
             --dart-define=github_owner=${{ github.repository_owner }}
             --dart-define=github_repo=${{ github.event.repository.name }}
       - name: Upload APK
