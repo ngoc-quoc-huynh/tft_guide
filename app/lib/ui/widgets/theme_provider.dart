@@ -3,19 +3,21 @@ import 'package:flutter/material.dart';
 class ThemeProvider extends StatelessWidget {
   const ThemeProvider({
     required this.data,
-    required this.child,
+    required this.builder,
     super.key,
   });
 
   final ThemeData? data;
-  final Widget child;
+  final WidgetBuilder builder;
 
   @override
   Widget build(BuildContext context) => switch (data) {
-        null => child,
+        null => builder.call(context),
         final ThemeData data => Theme(
             data: data,
-            child: child,
+            child: Builder(
+              builder: builder,
+            ),
           ),
       };
 }
