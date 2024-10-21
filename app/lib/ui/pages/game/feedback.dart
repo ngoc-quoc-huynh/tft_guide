@@ -35,41 +35,43 @@ class FeedbackBottomSheet extends StatelessWidget {
         onClosing: () {
           return;
         },
-        constraints: const BoxConstraints(maxWidth: Sizes.maxWidgetWith),
         builder: (context) => Padding(
           padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                children: [
-                  Icon(
-                    _icon,
-                    color: _getColor(context),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Text(
-                      Injector.instance.feedbackApi
-                          .getFeedback(isCorrect: isCorrect),
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineSmall
-                          ?.copyWith(color: _getColor(context)),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: Sizes.maxWidgetWith),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      _icon,
+                      color: _getColor(context),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              FractionallySizedBox(
-                widthFactor: 1,
-                child: FilledButton(
-                  onPressed: () => _onContinue(context),
-                  child:
-                      Text(Injector.instance.translations.pages.game.proceed),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        Injector.instance.feedbackApi
+                            .getFeedback(isCorrect: isCorrect),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall
+                            ?.copyWith(color: _getColor(context)),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
+                const SizedBox(height: 10),
+                FractionallySizedBox(
+                  widthFactor: 1,
+                  child: FilledButton(
+                    onPressed: () => _onContinue(context),
+                    child:
+                        Text(Injector.instance.translations.pages.game.proceed),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
