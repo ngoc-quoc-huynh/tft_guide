@@ -43,8 +43,10 @@ class ScaffoldWithNavBar extends StatelessWidget {
               state == NavigationBarState.itemMetas ||
               state == NavigationBarState.patchNotes,
           builder: (context, isScrollable, child) => CustomScaffold(
-            appBar: CustomAppBar(
+            appBar: CustomAppBar.tft(
               forceMaterialTransparency: !isScrollable,
+              systemNavigationBarColor:
+                  Theme.of(context).colorScheme.surfaceContainer,
               actions: [
                 IconButton(
                   tooltip: _translations.settings.title,

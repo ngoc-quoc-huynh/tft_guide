@@ -37,6 +37,7 @@ class GamePage extends StatelessWidget {
       child: BlocBuilder<QuestionsBloc, QuestionsState>(
         builder: (context, state) => switch (state) {
           QuestionsLoadInProgress() => const CustomScaffold(
+              appBar: CustomAppBar(),
               body: LoadingIndicator(),
             ),
           QuestionsLoadOnFailure() => const _Error(),
@@ -75,7 +76,7 @@ class _Error extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      appBar: CustomAppBar(),
+      appBar: const CustomAppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: Sizes.horizontalPadding,

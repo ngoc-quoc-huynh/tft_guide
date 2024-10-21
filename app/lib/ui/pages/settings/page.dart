@@ -34,7 +34,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar.tft(),
       bottomNavigationBar: const SettingsAppVersion(),
       body: ListView(
         padding: const EdgeInsets.symmetric(
