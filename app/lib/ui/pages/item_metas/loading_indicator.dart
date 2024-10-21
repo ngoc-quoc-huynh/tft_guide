@@ -29,11 +29,16 @@ class _Item extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Card.filled(
-      child: ListTile(
-        contentPadding: Sizes.cardPadding,
-        leading: Bone.square(size: 50),
-        title: Bone.text(words: 2),
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: Sizes.maxWidgetWith),
+        child: const Card.filled(
+          child: ListTile(
+            contentPadding: Sizes.cardPadding,
+            leading: Bone.square(size: 50),
+            title: Bone.text(words: 2),
+          ),
+        ),
       ),
     );
   }

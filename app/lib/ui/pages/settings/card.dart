@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tft_guide/static/resources/sizes.dart';
 
 class SettingsCard extends StatelessWidget {
   const SettingsCard({
@@ -10,10 +11,13 @@ class SettingsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FractionallySizedBox(
-      widthFactor: 1,
-      child: Card.filled(
-        child: child,
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: Sizes.maxWidgetWith),
+      child: FractionallySizedBox(
+        widthFactor: 1,
+        child: Card.filled(
+          child: child,
+        ),
       ),
     );
   }

@@ -20,23 +20,27 @@ class CheckButton extends StatelessWidget {
         top: Sizes.verticalPadding / 2,
         bottom: Sizes.verticalPadding,
       ),
-      child: FractionallySizedBox(
-        widthFactor: 1,
-        child: BlocListener<CheckSelectedItemOptionCubit, bool?>(
-          listener: _onCheckSelectedItemStateChanged,
-          child: BlocSelectorWithChild<SelectedItemOptionValueCubit,
-              QuestionItemOption?, bool>(
-            selector: (state) => state != null,
-            builder: (context, hasSelected, child) => FilledButton(
-              onPressed: switch (hasSelected) {
-                true => () => context
-                    .read<CheckSelectedItemOptionCubit>()
-                    .check(context.read<SelectedItemOptionValueCubit>().state!),
-                false => null
-              },
-              child: child,
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: Sizes.maxWidgetWith),
+        child: FractionallySizedBox(
+          widthFactor: 1,
+          child: BlocListener<CheckSelectedItemOptionCubit, bool?>(
+            listener: _onCheckSelectedItemStateChanged,
+            child: BlocSelectorWithChild<SelectedItemOptionValueCubit,
+                QuestionItemOption?, bool>(
+              selector: (state) => state != null,
+              builder: (context, hasSelected, child) => FilledButton(
+                onPressed: switch (hasSelected) {
+                  true => () =>
+                      context.read<CheckSelectedItemOptionCubit>().check(
+                            context.read<SelectedItemOptionValueCubit>().state!,
+                          ),
+                  false => null
+                },
+                child: child,
+              ),
+              child: Text(Injector.instance.translations.pages.game.check),
             ),
-            child: Text(Injector.instance.translations.pages.game.check),
           ),
         ),
       ),
