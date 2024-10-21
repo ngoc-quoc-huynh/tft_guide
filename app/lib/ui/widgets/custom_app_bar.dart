@@ -1,16 +1,68 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:tft_guide/domain/utils/extensions/brightness.dart';
 import 'package:tft_guide/static/resources/icons.dart';
 
-class CustomAppBar extends AppBar {
-  CustomAppBar({
-    super.actions,
-    super.forceMaterialTransparency,
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const CustomAppBar({
+    this.leading,
+    this.title,
+    this.actions,
+    this.centerTitle,
+    this.forceMaterialTransparency = false,
+    this.systemNavigationBarColor,
     super.key,
-  }) : super(
-          centerTitle: true,
-          title: const _Title(),
-        );
+  });
+
+  factory CustomAppBar.tft({
+    Widget? leading,
+    List<Widget>? actions,
+    bool forceMaterialTransparency = false,
+    Color? systemNavigationBarColor,
+    Key? key,
+  }) =>
+      CustomAppBar(
+        leading: leading,
+        title: const _Title(),
+        centerTitle: true,
+        actions: actions,
+        systemNavigationBarColor: systemNavigationBarColor,
+        forceMaterialTransparency: forceMaterialTransparency,
+        key: key,
+      );
+
+  final Widget? leading;
+  final Widget? title;
+  final List<Widget>? actions;
+  final bool? centerTitle;
+  final bool forceMaterialTransparency;
+  final Color? systemNavigationBarColor;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final brightness = theme.brightness;
+
+    return AppBar(
+      leading: leading,
+      title: title,
+      centerTitle: centerTitle,
+      actions: actions,
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarBrightness: brightness,
+        statusBarIconBrightness: brightness.inverted,
+        systemNavigationBarColor:
+            systemNavigationBarColor ?? theme.scaffoldBackgroundColor,
+        systemNavigationBarIconBrightness: brightness.inverted,
+      ),
+      forceMaterialTransparency: forceMaterialTransparency,
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
 class _Title extends StatelessWidget {

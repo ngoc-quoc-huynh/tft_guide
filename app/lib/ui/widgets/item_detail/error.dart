@@ -17,7 +17,7 @@ class ItemDetailErrorPage<T extends ItemDetail> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      appBar: CustomAppBar(),
+      appBar: const CustomAppBar(),
       body: Padding(
         padding:
             const EdgeInsets.symmetric(horizontal: Sizes.horizontalPadding),

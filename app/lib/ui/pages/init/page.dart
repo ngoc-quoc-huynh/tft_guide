@@ -16,7 +16,7 @@ class InitPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      appBar: CustomAppBar(),
+      appBar: const CustomAppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           vertical: Sizes.verticalPadding,

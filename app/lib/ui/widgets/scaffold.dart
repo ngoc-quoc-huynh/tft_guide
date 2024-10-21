@@ -9,7 +9,7 @@ class CustomScaffold extends StatelessWidget {
     super.key,
   });
 
-  final AppBar? appBar;
+  final PreferredSizeWidget? appBar;
   final Widget? bottomNavigationBar;
   final Widget body;
 
