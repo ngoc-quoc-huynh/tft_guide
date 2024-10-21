@@ -10,6 +10,8 @@ final class Sizes {
     horizontal: 15,
   );
 
+  static const maxWidgetWith = 350.0;
+
   static const progressBarAnimationShortDuration = Duration(milliseconds: 300);
   static const progressBarAnimationLongDuration = Duration(milliseconds: 650);
 }

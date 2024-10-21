@@ -4,6 +4,7 @@ import 'package:tft_guide/domain/blocs/check_selected_option/cubit.dart';
 import 'package:tft_guide/domain/models/question/item_option.dart';
 import 'package:tft_guide/domain/models/question/question.dart';
 import 'package:tft_guide/injector.dart';
+import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/pages/game/selection_item/selection_item.dart';
 import 'package:tft_guide/ui/widgets/bloc/selector.dart';
 
@@ -33,50 +34,53 @@ class _ItemSelectionState extends State<ItemSelection> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: _itemOptions.mapIndexed(
-        (index, option) {
-          final isCorrectOption = option == widget.question.correctOption;
-          return Padding(
-            padding: EdgeInsets.only(
-              bottom: index != 2 ? 20 : 0,
-            ),
-            child: BlocSelectorWithChild<CheckSelectedItemOptionCubit, bool?,
-                bool>(
-              selector: (state) => state != null,
-              builder: (context, hasChecked, child) => IgnorePointer(
-                ignoring: hasChecked,
-                child: child,
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: Sizes.maxWidgetWith),
+      child: Column(
+        children: _itemOptions.mapIndexed(
+          (index, option) {
+            final isCorrectOption = option == widget.question.correctOption;
+            return Padding(
+              padding: EdgeInsets.only(
+                bottom: index != 2 ? 20 : 0,
               ),
-              child: switch (widget.question) {
-                BaseItemsTextQuestion() ||
-                BaseItemsImageQuestion() =>
-                  SelectionItem.images(
-                    index: index,
-                    isCorrectOption: isCorrectOption,
-                    fullItemOption: option as QuestionFullItemOption,
-                  ),
-                FullItemTextQuestion() ||
-                TitleImageQuestion() ||
-                DescriptionImageQuestion() =>
-                  SelectionItem.text(
-                    isCorrectOption: isCorrectOption,
-                    index: index,
-                    option: option,
-                  ),
-                FullItemImageQuestion() ||
-                TitleTextQuestion() ||
-                DescriptionTextQuestion() =>
-                  SelectionItem.image(
-                    index: index,
-                    isCorrectOption: isCorrectOption,
-                    option: option,
-                  ),
-              },
-            ),
-          );
-        },
-      ).toList(),
+              child: BlocSelectorWithChild<CheckSelectedItemOptionCubit, bool?,
+                  bool>(
+                selector: (state) => state != null,
+                builder: (context, hasChecked, child) => IgnorePointer(
+                  ignoring: hasChecked,
+                  child: child,
+                ),
+                child: switch (widget.question) {
+                  BaseItemsTextQuestion() ||
+                  BaseItemsImageQuestion() =>
+                    SelectionItem.images(
+                      index: index,
+                      isCorrectOption: isCorrectOption,
+                      fullItemOption: option as QuestionFullItemOption,
+                    ),
+                  FullItemTextQuestion() ||
+                  TitleImageQuestion() ||
+                  DescriptionImageQuestion() =>
+                    SelectionItem.text(
+                      isCorrectOption: isCorrectOption,
+                      index: index,
+                      option: option,
+                    ),
+                  FullItemImageQuestion() ||
+                  TitleTextQuestion() ||
+                  DescriptionTextQuestion() =>
+                    SelectionItem.image(
+                      index: index,
+                      isCorrectOption: isCorrectOption,
+                      option: option,
+                    ),
+                },
+              ),
+            );
+          },
+        ).toList(),
+      ),
     );
   }
 }

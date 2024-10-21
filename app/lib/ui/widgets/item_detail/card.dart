@@ -13,17 +13,22 @@ class ItemDetailCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FractionallySizedBox(
-      widthFactor: 1,
-      child: Card.filled(
-        child: Padding(
-          padding: Sizes.cardPadding,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              title,
-              child,
-            ],
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: Sizes.maxWidgetWith),
+        child: FractionallySizedBox(
+          widthFactor: 1,
+          child: Card.filled(
+            child: Padding(
+              padding: Sizes.cardPadding,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  title,
+                  child,
+                ],
+              ),
+            ),
           ),
         ),
       ),

@@ -37,17 +37,24 @@ class _Item extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card.filled(
-      child: ListTile(
-        onTap: () => _onTap(context),
-        contentPadding: Sizes.cardPadding,
-        leading: FileStorageImage(
-          id: item.id,
-          width: 50,
-          height: 50,
-          gaplessPlayback: true,
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(
+          maxWidth: Sizes.maxWidgetWith,
         ),
-        title: Text(item.name),
+        child: Card.filled(
+          child: ListTile(
+            onTap: () => _onTap(context),
+            contentPadding: Sizes.cardPadding,
+            leading: FileStorageImage(
+              id: item.id,
+              width: 50,
+              height: 50,
+              gaplessPlayback: true,
+            ),
+            title: Text(item.name),
+          ),
+        ),
       ),
     );
   }

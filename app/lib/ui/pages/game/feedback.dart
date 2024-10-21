@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tft_guide/domain/blocs/game_progress/bloc.dart';
 import 'package:tft_guide/domain/utils/extensions/theme.dart';
 import 'package:tft_guide/injector.dart';
+import 'package:tft_guide/static/resources/sizes.dart';
 
 class FeedbackBottomSheet extends StatelessWidget {
   const FeedbackBottomSheet._(this.isCorrect);
@@ -34,6 +35,7 @@ class FeedbackBottomSheet extends StatelessWidget {
         onClosing: () {
           return;
         },
+        constraints: const BoxConstraints(maxWidth: Sizes.maxWidgetWith),
         builder: (context) => Padding(
           padding: const EdgeInsets.all(20),
           child: Column(

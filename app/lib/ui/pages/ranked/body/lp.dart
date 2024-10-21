@@ -16,15 +16,18 @@ class RankedLp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Spacer(),
-        _CurrentLp(lp),
-        const Expanded(
-          child: _LpGain(),
-        ),
-      ],
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 300),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Spacer(),
+          _CurrentLp(lp),
+          const Expanded(
+            child: _LpGain(),
+          ),
+        ],
+      ),
     );
   }
 }

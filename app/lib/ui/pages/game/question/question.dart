@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/pages/game/question/body.dart';
 import 'package:tft_guide/ui/pages/game/question/header.dart';
 
@@ -14,13 +15,16 @@ class GameQuestion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        header,
-        const SizedBox(height: 20),
-        body,
-      ],
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: Sizes.maxWidgetWith),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          header,
+          const SizedBox(height: 20),
+          body,
+        ],
+      ),
     );
   }
 }
