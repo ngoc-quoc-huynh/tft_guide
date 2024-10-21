@@ -1,6 +1,6 @@
 # Infrastructure
 
-[![Build Status](https://github.com/ngoc-quoc-huynh/tft_guide/actions/workflows/infrastructure.yaml/badge.svg)](https://github.com/ngoc-quoc-huynh/tft_guide/actions/workflows/infrastructure.yaml)
+[![Build Status](https://github.com/ngoc-quoc-huynh/tft_guide/actions/workflows/infrastructure.yaml/badge.svg?branch=main)](https://github.com/ngoc-quoc-huynh/tft_guide/actions/workflows/infrastructure.yaml?query=branch%3Amain)
 [![license](https://img.shields.io/github/license/ngoc-quoc-huynh/tft_guide)](https://raw.githubusercontent.com/ngoc-quoc-huynh/tft_guide/refs/heads/main/LICENSE)
 
 This repository utilizes supabase as the backend database.

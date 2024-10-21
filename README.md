@@ -2,8 +2,8 @@
   <img src="design/assets/app/splash_screen.png" alt="Teamfight Tactics" width="512" />
 </p>
 
-[![Build Status](https://github.com/ngoc-quoc-huynh/tft_guide/actions/workflows/app.yaml/badge.svg)](https://github.com/ngoc-quoc-huynh/tft_guide/actions/workflows/app.yaml)
-[![Build Status](https://github.com/ngoc-quoc-huynh/tft_guide/actions/workflows/infrastructure.yaml/badge.svg)](https://github.com/ngoc-quoc-huynh/tft_guide/actions/workflows/infrastructure.yaml)
+[![Build Status](https://github.com/ngoc-quoc-huynh/tft_guide/actions/workflows/app.yaml/badge.svg?branch=main)](https://github.com/ngoc-quoc-huynh/tft_guide/actions/workflows/app.yaml?query=branch%3Amain)
+[![Build Status](https://github.com/ngoc-quoc-huynh/tft_guide/actions/workflows/infrastructure.yaml/badge.svg?branch=main)](https://github.com/ngoc-quoc-huynh/tft_guide/actions/workflows/infrastructure.yaml?query=branch%3Amain)
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 [![license](https://img.shields.io/github/license/ngoc-quoc-huynh/tft_guide)](https://raw.githubusercontent.com/ngoc-quoc-huynh/tft_guide/refs/heads/main/LICENSE)
 
