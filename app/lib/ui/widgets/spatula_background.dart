@@ -3,11 +3,11 @@ import 'package:tft_guide/static/resources/icons.dart';
 
 class SpatulaBackground extends StatelessWidget {
   const SpatulaBackground({
-    required this.child,
+    this.child,
     super.key,
   });
 
-  final Widget child;
+  final Widget? child;
   static const _alignment = Alignment(-2.5, 0.8);
   static const _size = 300.0;
 
@@ -23,7 +23,7 @@ class SpatulaBackground extends StatelessWidget {
             color: Theme.of(context).colorScheme.surfaceContainer,
           ),
         ),
-        child,
+        if (child case final Widget child) child,
       ],
     );
   }
