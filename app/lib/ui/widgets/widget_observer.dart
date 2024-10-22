@@ -18,10 +18,11 @@ class WidgetObserver extends StatefulWidget {
   final ValueChanged<LanguageCode>? onLanguageChanged;
 
   @override
-  State<WidgetObserver> createState() => _WidgetObserverState();
+  State<WidgetObserver> createState() => WidgetObserverState();
 }
 
-class _WidgetObserverState extends State<WidgetObserver>
+@visibleForTesting
+class WidgetObserverState extends State<WidgetObserver>
     with WidgetsBindingObserver {
   static final _widgetsBindingApi = Injector.instance.widgetsBindingApi;
 
