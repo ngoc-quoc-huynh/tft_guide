@@ -22,7 +22,7 @@ test:
 	dart run test_cov_console --exclude=static
 
 update-goldens:
-	flutter test --update-goldens --tags=golden
+	flutter test test/ui/ --update-goldens --tags=golden
 
 splash-screen:
 	dart run flutter_native_splash:create --path=splash_screen.yaml

@@ -57,8 +57,10 @@ test/**/*.g.dart
 # Coverage
 /coverage/
 
-# Don't check in golden failure output
-test/**/failures/
+# Ignore non-CI golden files and failures
+test/**/goldens/**/
+test/**/failures/**/
+!test/**/goldens/ci/
 
 # Env variables
 .env.json
