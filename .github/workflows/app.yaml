@@ -70,6 +70,12 @@ jobs:
           flutter test --coverage --test-randomize-ordering-seed=random --dart-define=CI=true
           dart run test_cov_console --exclude=static
         working-directory: ./app
+      - name: Upload golden test failures
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: golden-test-failures
+          path: app/test/ui/**/failures
 
       - name: Build APK
         if: github.event_name == 'workflow_dispatch'
