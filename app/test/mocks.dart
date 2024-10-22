@@ -1,10 +1,13 @@
 import 'dart:io';
 
+import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tft_guide/domain/blocs/hydrated_value/cubit.dart';
 import 'package:tft_guide/domain/interfaces/admin.dart';
 import 'package:tft_guide/domain/interfaces/app.dart';
 import 'package:tft_guide/domain/interfaces/feedback.dart';
@@ -17,6 +20,7 @@ import 'package:tft_guide/domain/interfaces/rank.dart';
 import 'package:tft_guide/domain/interfaces/remote_database.dart';
 import 'package:tft_guide/domain/interfaces/theme.dart';
 import 'package:tft_guide/domain/interfaces/widgets_binding.dart';
+import 'package:tft_guide/domain/models/translation_locale.dart';
 
 final class MockAdminApi extends Mock implements AdminApi {}
 
@@ -53,3 +57,11 @@ final class MockThemeApi extends Mock implements ThemeApi {}
 final class MockStorage extends Mock implements Storage {}
 
 final class MockWidgetsBindingApi extends Mock implements WidgetsBindingApi {}
+
+final class MockHydratedThemeModeCubit
+    extends MockBloc<HydratedThemeModeCubit, ThemeMode>
+    with TestHydratedThemeModeCubitMixin {}
+
+final class MockHydratedTranslationLocaleCubit
+    extends MockBloc<HydratedTranslationLocaleCubit, TranslationLocale>
+    with TestHydratedTranslationLocaleCubitMixin {}

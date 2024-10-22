@@ -1,5 +1,9 @@
 part of '../cubit.dart';
 
+@visibleForTesting
+base mixin TestHydratedTranslationLocaleCubitMixin
+    implements HydratedTranslationLocaleCubit {}
+
 final class HydratedTranslationLocaleCubit
     extends HydratedValueCubit<TranslationLocale> {
   HydratedTranslationLocaleCubit() : super(TranslationLocale.system);
