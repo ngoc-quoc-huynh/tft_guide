@@ -59,7 +59,7 @@ test/**/*.g.dart
 
 # Ignore non-CI golden files and failures
 test/**/goldens/**/
-test/**/failures/**/
+test/**/failures/
 !test/**/goldens/ci/
 
 # Env variables

@@ -18,7 +18,7 @@ style:
 	dart run dart_code_linter:metrics analyze . --set-exit-on-violation-level=warning
 
 test:
-	flutter test --coverage --test-randomize-ordering-seed=random
+	flutter test --coverage --test-randomize-ordering-seed=random --dart-define=CI=true
 	dart run test_cov_console --exclude=static
 
 update-goldens:
