@@ -22,8 +22,8 @@ SELECT policy_cmd_is(
 -- Test 4: Verify that the expected number of rows exist in the table.
 SELECT results_eq(
   'SELECT COUNT(*)::integer FROM base_item',
-  $$VALUES (9)$$,
-  'The base_item table should have exactly 9 items.'
+  $$VALUES (10)$$,
+  'The base_item table should have exactly 10 items.'
 );
 
 SELECT * FROM finish();

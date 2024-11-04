@@ -11,6 +11,11 @@ ON CONFLICT (id)
 DO UPDATE SET
     armor = excluded.armor;
 
+INSERT INTO base_item (id)
+VALUES ('frying_pan')
+ON CONFLICT (id)
+DO NOTHING;
+
 INSERT INTO base_item (id, health)
 VALUES ('giants_belt', 150)
 ON CONFLICT (id)
@@ -72,6 +77,8 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, attack_damage, magic_
 VALUES ('bloodthirster', 'bf_sword', 'negatron_cloak', true, 20, 20, 20)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     attack_damage = excluded.attack_damage,
     magic_resist = excluded.magic_resist,
     ability_power = excluded.ability_power;
@@ -80,6 +87,8 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, mana, ability_power, 
 VALUES ('blue_buff', 'tear_of_the_goddess', 'tear_of_the_goddess', true, 20, 20, 20)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     mana = excluded.mana,
     ability_power = excluded.ability_power,
     attack_damage = excluded.attack_damage;
@@ -88,12 +97,16 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, armor)
 VALUES ('bramble_vest', 'chain_vest', 'chain_vest', true, 55)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     armor = excluded.armor;
 
 INSERT INTO full_item(id, item_id_1, item_id_2, is_active, ability_power, armor, health)
 VALUES ('crownguard', 'chain_vest', 'needlessly_large_rod', true, 20, 20, 100)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     ability_power = excluded.ability_power,
     armor = excluded.armor,
     health = excluded.health;
@@ -102,18 +115,24 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, attack_damage)
 VALUES ('deathblade', 'bf_sword', 'bf_sword', true, 66)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     attack_damage = excluded.attack_damage;
 
 INSERT INTO full_item(id, item_id_1, item_id_2, is_active, magic_resist)
 VALUES ('dragons_claw', 'negatron_cloak', 'negatron_cloak', true, 65)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     magic_resist = excluded.magic_resist;
 
 INSERT INTO full_item(id, item_id_1, item_id_2, is_active, attack_damage, armor)
 VALUES ('edge_of_night', 'bf_sword', 'chain_vest', true, 10, 20)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     attack_damage = excluded.attack_damage,
     armor = excluded.armor;
 
@@ -121,6 +140,8 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, health, magic_resist)
 VALUES ('evenshroud', 'giants_belt', 'negatron_cloak', true, 150, 20)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     health = excluded.health,
     magic_resist = excluded.magic_resist;
 
@@ -128,6 +149,8 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, magic_resist, armor, 
 VALUES ('gargoyle_stoneplate', 'chain_vest', 'negatron_cloak', true, 30, 30, 100)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     magic_resist = excluded.magic_resist,
     armor = excluded.armor,
     health = excluded.health;
@@ -136,6 +159,8 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, attack_damage, attack
 VALUES ('giant_slayer', 'bf_sword', 'recurve_bow', true, 30, 10, 20)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     attack_damage = excluded.attack_damage,
     attack_speed = excluded.attack_speed,
     ability_power = excluded.ability_power;
@@ -144,6 +169,8 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, health, crit, ability
 VALUES ('guardbreaker', 'giants_belt', 'sparring_gloves', true, 150, 20, 10, 20)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     health = excluded.health,
     crit = excluded.crit,
     ability_power = excluded.ability_power,
@@ -153,6 +180,8 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, ability_power, attack
 VALUES ('guinsoos_rageblade', 'needlessly_large_rod', 'recurve_bow', true, 10, 15)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     ability_power = excluded.ability_power,
     attack_speed = excluded.attack_speed;
 
@@ -160,6 +189,8 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, mana, crit)
 VALUES ('hand_of_justice', 'tear_of_the_goddess', 'sparring_gloves', true, 15, 20)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     mana = excluded.mana,
     crit = excluded.crit;
 
@@ -167,6 +198,8 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, attack_damage, abilit
 VALUES ('hextech_gunblade', 'bf_sword', 'needlessly_large_rod', true, 15, 15)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     attack_damage = excluded.attack_damage,
     ability_power = excluded.ability_power;
 
@@ -174,6 +207,8 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, attack_damage, crit)
 VALUES ('infinity_edge', 'bf_sword', 'sparring_gloves', true, 35, 35)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     attack_damage = excluded.attack_damage,
     crit = excluded.crit;
 
@@ -181,6 +216,8 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, ability_power, magic_
 VALUES ('ionic_spark', 'needlessly_large_rod', 'negatron_cloak', true, 15, 25, 150)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     ability_power = excluded.ability_power,
     magic_resist = excluded.magic_resist,
     health = excluded.health;
@@ -189,6 +226,8 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, ability_power, crit)
 VALUES ('jeweled_gauntlet', 'needlessly_large_rod', 'sparring_gloves', true, 35, 35)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     ability_power = excluded.ability_power,
     crit = excluded.crit;
 
@@ -196,6 +235,8 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, attack_damage, attack
 VALUES ('last_whisper', 'recurve_bow', 'sparring_gloves', true, 15, 25, 20)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     attack_damage = excluded.attack_damage,
     attack_speed = excluded.attack_speed,
     crit = excluded.crit;
@@ -204,6 +245,8 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, ability_power, health
 VALUES ('morellonomicon', 'giants_belt', 'needlessly_large_rod', true, 25, 150, 10)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     ability_power = excluded.ability_power,
     health = excluded.health,
     attack_speed = excluded.attack_speed;
@@ -212,6 +255,8 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, health, attack_speed,
 VALUES ('nashors_tooth', 'giants_belt', 'recurve_bow', true, 150, 10, 30)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     health = excluded.health,
     attack_speed = excluded.attack_speed,
     ability_power = excluded.ability_power;
@@ -220,6 +265,8 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, armor, mana)
 VALUES ('protectors_vow', 'chain_vest', 'tear_of_the_goddess', true, 20, 30)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     armor = excluded.armor,
     mana = excluded.mana;
 
@@ -227,6 +274,8 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, magic_resist, crit, a
 VALUES ('quicksilver', 'negatron_cloak', 'sparring_gloves', true, 20, 20, 30)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     magic_resist = excluded.magic_resist,
     crit = excluded.crit,
     attack_speed = excluded.attack_speed;
@@ -235,18 +284,24 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, ability_power)
 VALUES ('rabadons_deathcap', 'needlessly_large_rod', 'needlessly_large_rod', true, 50)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     ability_power = excluded.ability_power;
 
 INSERT INTO full_item(id, item_id_1, item_id_2, is_active, attack_speed)
 VALUES ('red_buff', 'recurve_bow', 'recurve_bow', true, 40)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     attack_speed = excluded.attack_speed;
 
 INSERT INTO full_item(id, item_id_1, item_id_2, is_active, health, mana)
 VALUES ('redemption', 'giants_belt', 'tear_of_the_goddess', true, 150, 15)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     health = excluded.health,
     mana = excluded.mana;
 
@@ -254,6 +309,8 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, magic_resist, attack_
 VALUES ('runaans_hurricane', 'negatron_cloak', 'recurve_bow', true, 20, 10, 25)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     magic_resist = excluded.magic_resist,
     attack_speed = excluded.attack_speed,
     attack_damage = excluded.attack_damage;
@@ -262,6 +319,8 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, attack_damage, mana, 
 VALUES ('spear_of_shojin', 'bf_sword', 'tear_of_the_goddess', true, 20, 15, 20)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     attack_damage = excluded.attack_damage,
     mana = excluded.mana,
     ability_power = excluded.ability_power;
@@ -270,6 +329,8 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, attack_speed, mana, a
 VALUES ('statikk_shiv', 'recurve_bow', 'tear_of_the_goddess', true, 20, 15, 15)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     attack_speed = excluded.attack_speed,
     mana = excluded.mana,
     ability_power = excluded.ability_power;
@@ -278,6 +339,8 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, armor, crit, health)
 VALUES ('steadfast_heart', 'chain_vest', 'sparring_gloves', true, 20, 20, 250)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     armor = excluded.armor,
     crit = excluded.crit,
     health = excluded.health;
@@ -286,6 +349,8 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, attack_damage, health
 VALUES ('steraks_gage', 'bf_sword', 'giants_belt', true, 15, 200)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     attack_damage = excluded.attack_damage,
     health = excluded.health;
 
@@ -293,11 +358,23 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, health, armor)
 VALUES ('sunfire_cape', 'chain_vest', 'giants_belt', true, 250, 20)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     health = excluded.health,
     armor = excluded.armor;
 
 INSERT INTO full_item(id, item_id_1, item_id_2, is_active, is_special)
+VALUES ('tacticians_cape', 'frying_pan', 'spatula', true, true)
+ON CONFLICT (id)
+DO NOTHING;
+
+INSERT INTO full_item(id, item_id_1, item_id_2, is_active, is_special)
 VALUES ('tacticians_crown', 'spatula', 'spatula', true, true)
+ON CONFLICT (id)
+DO NOTHING;
+
+INSERT INTO full_item(id, item_id_1, item_id_2, is_active, is_special)
+VALUES ('tacticians_shield', 'frying_pan', 'frying_pan', true, true)
 ON CONFLICT (id)
 DO NOTHING;
 
@@ -305,13 +382,17 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, crit, health)
 VALUES ('thiefs_gloves', 'sparring_gloves', 'sparring_gloves', true, 20, 150)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     crit = excluded.crit,
     health = excluded.health;
 
 INSERT INTO full_item(id, item_id_1, item_id_2, is_active, attack_speed, armor)
-VALUES ('titans_resolve', 'chain_vest', 'sparring_gloves', true, 10, 20)
+VALUES ('titans_resolve', 'chain_vest', 'recurve_bow', true, 10, 20)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     attack_speed = excluded.attack_speed,
     armor = excluded.armor;
 
@@ -319,6 +400,8 @@ INSERT INTO full_item(id, item_id_1, item_id_2, is_active, health)
 VALUES ('warmogs_armor', 'giants_belt', 'giants_belt', true, 600)
 ON CONFLICT (id)
 DO UPDATE SET
+    item_id_1 = excluded.item_id_1,
+    item_id_2 = excluded.item_id_2,
     health = excluded.health;
 
 -- Patch Notes
@@ -334,6 +417,8 @@ VALUES
     ('bf_sword_en', 'en', 'bf_sword', 'B.F. Sword', 'Grants 10% attack damage (AD).', 'Increases attack damage. Can also increase the damage of abilities, depending on the description of the ability.'),
     ('chain_vest_de', 'de', 'chain_vest', 'Kettenweste', 'Gewährt 20 Rüstung.', 'Verringert Angriffsschaden.'),
     ('chain_vest_en', 'en', 'chain_vest', 'Chain Vest', 'Grants 20 armor.', 'Reduces attack damage.'),
+    ('frying_pan_de', 'de', 'frying_pan', 'Bratpfanne', '… warum sollte es sonst hier sein?', 'Was gibt es da noch zu sagen? Es ist eine goldene BRATPFANNE!'),
+    ('frying_pan_en', 'en', 'frying_pan', 'Frying Pan', '… why else would it be here?', 'What else is there to say? It''s a golden FRYING PAN!.'),
     ('giants_belt_de', 'de', 'giants_belt', 'Gürtel des Riesens', 'Gewährt 150 Leben (HP).', 'Je mehr Leben dein Champion hat, desto länger bleibt dieser am Leben.'),
     ('giants_belt_en', 'en', 'giants_belt', 'Giant''s Belt', 'Grants 150 health points (HP).', 'The more health points your champion has, the longer they stay alive.'),
     ('needlessly_large_rod_de', 'de', 'needlessly_large_rod', 'Übergroßer Zauberstab', 'Gewährt 10 Fähigkeitenstärke (AP).', 'Erhöht den Schaden von Fähigkeiten entsprechend der Beschreibung der Fähigkeit.'),
@@ -344,8 +429,8 @@ VALUES
     ('recurve_bow_en', 'en', 'recurve_bow', 'Recurve Bow', 'Grants 10% attack speed.', 'The attack speed indicates how many attacks are performed per second.'),
     ('sparring_gloves_de', 'de', 'sparring_gloves', 'Kampfhandschuhe', 'Gewährt 20% Chance auf kritische Treffer.', 'Bei einem kritischen Treffer verursacht dein Champion zusätzlichen Schaden.'),
     ('sparring_gloves_en', 'en', 'sparring_gloves', 'Sparring Gloves', 'Grants 20% chance to critically strike.', 'On a critical strike, your champion deals additional damage.'),
-    ('spatula_de', 'de', 'spatula', 'Pfannenwender', 'Ein goldener Pfannenwender.', 'Was gibt es da noch zu sagen? Es ist ein goldener PFANNENWENDER!'),
-    ('spatula_en', 'en', 'spatula', 'Spatula', 'A golden spatula.', 'What else is there to say? It''s a golden SPATULA!'),
+    ('spatula_de', 'de', 'spatula', 'Pfannenwender', 'Es muss etwas tun …', 'Was gibt es da noch zu sagen? Es ist ein goldener PFANNENWENDER!'),
+    ('spatula_en', 'en', 'spatula', 'Spatula', 'It must do something …', 'What else is there to say? It''s a golden SPATULA!'),
     ('tear_of_the_goddess_de', 'de', 'tear_of_the_goddess', 'Träne der Göttin', 'Gewährt 15 Mana.', 'Wenn die Mana-Anzeige des Champions voll ist, wird seine Fähigkeit ausgeführt.'),
     ('tear_of_the_goddess_en', 'en', 'tear_of_the_goddess', 'Tear of the Goddess', 'Grants 15 mana.', 'When the champion''s mana bar is full, its ability is executed.')
 ON CONFLICT (id)
@@ -353,7 +438,6 @@ DO UPDATE SET
     name = EXCLUDED.name,
     description = EXCLUDED.description,
     hint = EXCLUDED.hint;
-
 
 -- Full Items Translation
 INSERT INTO full_item_translation(id, language_code, item_id, name, description, hint)
@@ -439,8 +523,12 @@ Back: Gain 20 AP and gain 10 mana every 3 seconds.', 'Depending on the situation
     ('steraks_gage_en', 'en', 'steraks_gage', 'Sterak''s Gage', 'Grants 25% max HP and 35% attack damage at 60% HP.', 'Put on champions that should withstand a lot and deal AD damage.'),
     ('sunfire_cape_de', 'de', 'sunfire_cape', 'Sonnenfeuer-Umhang', 'Alle 2 Sekunden füge einem Gegner innerhalb von 2 Feldern 1% Verbrennung zu und reduziere die Heilung um 33% für 10 Sekunden.', 'Effektiv gegen Gegner mit Heilung und wenn dein Champion viel aushalten soll.'),
     ('sunfire_cape_en', 'en', 'sunfire_cape', 'Sunfire Cape', 'Every 2 seconds, inflict 1% burn on an enemy within 2 hexes and reduce healing by 33% for 10 seconds.', 'Effective against enemies with healing and when your champion should withstand a lot.'),
+    ('tacticians_cape_de', 'de', 'tacticians_cape', 'Umhang des Taktikers', 'Dein Team erhält +1 max. Teamgröße. 10% Chance, nach 10 Sekunden Kampf 1 Gold zu erhalten.', 'Was willst du mehr? Du erhältst eine zusätzliche Einheit auf dem Spielfeld und Gold.'),
+    ('tacticians_cape_en', 'en', 'tacticians_cape', 'Tactician''s Cape', 'Your team gains +1 max team size. 10% chance to drop 1 gold after 10 seconds of combat.', 'What else do you want? You get one additional unit on the board and gold.'),
     ('tacticians_crown_de', 'de', 'tacticians_crown', 'Krone des Taktikers', 'Dein Team erhält +1 max. Teamgröße.', 'Was willst du mehr? Du erhältst eine zusätzliche Einheit auf dem Spielfeld.'),
     ('tacticians_crown_en', 'en', 'tacticians_crown', 'Tactician''s Crown', 'Your team gains +1 max team size.', 'What else do you want? You get one additional unit on the board.'),
+    ('tacticians_shield_de', 'de', 'tacticians_shield', 'Schild des Taktikers', 'Dein Team erhält +1 max. Teamgröße. 10% Chance, erhalte 1 Gold, wenn der Besitzer stirbt.', 'Was willst du mehr? Du erhältst eine zusätzliche Einheit auf dem Spielfeld und Gold.'),
+    ('tacticians_shield_en', 'en', 'tacticians_shield', 'Tactician''s Shield', 'Your team gains +1 max team size. 10% chance to drop 1 gold when the holder dies.', 'What else do you want? You get one additional unit on the board and gold.'),
     ('thiefs_gloves_de', 'de', 'thiefs_gloves', 'Handschuh des Diebes', 'Rüste dich jede Runde mit 2 zufälligen Gegenständen aus.', 'Glücksabhängiger Gegenstand, da man zwei zufällige Gegenstände erhält.'),
     ('thiefs_gloves_en', 'en', 'thiefs_gloves', 'Thief''s Gloves', 'Equip yourself with 2 random items each round.', 'Item dependent on luck, as you receive two random items.'),
     ('titans_resolve_de', 'de', 'titans_resolve', 'Entschlossenheit des Titanen', 'Erhält 2% AD und 2 AP, wenn du angreifst oder Schaden nimmst, bis zu 25 Mal stapelbar. Wenn der Stapel voll ist, gewährt es 25 Rüstung und MR.', 'Auf Champions legen, die normale Angriffe ausführen, aber auch mehr aushalten sollen.'),

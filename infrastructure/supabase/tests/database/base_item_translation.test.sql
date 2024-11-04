@@ -22,15 +22,15 @@ SELECT policy_cmd_is(
 -- Test 4: Verify that the table contains the expected number of rows for language_code 'de',
 SELECT results_eq(
   'SELECT COUNT(*)::integer FROM base_item_translation WHERE language_code = ''de''',
-  $$VALUES (9)$$,
-  'The base_item_translation table should have exactly 9 items for the language_code de.'
+  $$VALUES (10)$$,
+  'The base_item_translation table should have exactly 10 items for the language_code de.'
 );
 
 -- Test 5: Verify that the table contains the expected number of rows for language_code 'en'
 SELECT results_eq(
   'SELECT COUNT(*)::integer FROM base_item_translation WHERE language_code = ''en''',
-  $$VALUES (9)$$,
-  'The base_item_translation table should have exactly 9 items for the language_code en.'
+  $$VALUES (10)$$,
+  'The base_item_translation table should have exactly 10 items for the language_code en.'
 );
 
 SELECT * FROM finish();
