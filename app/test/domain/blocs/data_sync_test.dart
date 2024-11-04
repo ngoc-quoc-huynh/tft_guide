@@ -47,6 +47,112 @@ void main() {
     ),
   );
 
+  // ignore: missing-test-assertion, verify is sufficient.
+  test('closes correctly. ', () async {
+    when(localDatabaseApi.close).thenAnswer((_) => Future.value());
+    when(remoteDatabaseApi.close).thenAnswer((_) => Future.value());
+
+    await DataSyncBloc().close();
+    verifyInOrder([
+      localDatabaseApi.close,
+      remoteDatabaseApi.close,
+    ]);
+  });
+
+  group('throws AssertionError if current step is out of range.', () {
+    test('DataSyncInitInProgress throws.', () {
+      expect(
+        () => DataSyncInitInProgress(-1),
+        throwsA(
+          isA<AssertionError>().having(
+            (e) => e.message,
+            'message',
+            'Current step must be within 0-2.',
+          ),
+        ),
+      );
+      expect(
+        () => DataSyncInitInProgress(3),
+        throwsA(
+          isA<AssertionError>().having(
+            (e) => e.message,
+            'message',
+            'Current step must be within 0-2.',
+          ),
+        ),
+      );
+    });
+
+    test('DataSyncCheckInProgress throws.', () {
+      expect(
+        () => DataSyncCheckInProgress(-1),
+        throwsA(
+          isA<AssertionError>().having(
+            (e) => e.message,
+            'message',
+            'Current step must be within 0-1.',
+          ),
+        ),
+      );
+      expect(
+        () => DataSyncCheckInProgress(2),
+        throwsA(
+          isA<AssertionError>().having(
+            (e) => e.message,
+            'message',
+            'Current step must be within 0-1.',
+          ),
+        ),
+      );
+    });
+
+    test('DataSyncLoadLatestUpdatedAtInProgress throws.', () {
+      expect(
+        () => DataSyncLoadLatestUpdatedAtInProgress(-1),
+        throwsA(
+          isA<AssertionError>().having(
+            (e) => e.message,
+            'message',
+            'Current step must be within 0-7.',
+          ),
+        ),
+      );
+      expect(
+        () => DataSyncLoadLatestUpdatedAtInProgress(8),
+        throwsA(
+          isA<AssertionError>().having(
+            (e) => e.message,
+            'message',
+            'Current step must be within 0-7.',
+          ),
+        ),
+      );
+    });
+
+    test('DataSyncLoadRemoteDataInProgress throws.', () {
+      expect(
+        () => DataSyncLoadRemoteDataInProgress(-1),
+        throwsA(
+          isA<AssertionError>().having(
+            (e) => e.message,
+            'message',
+            'Current step must be within 0-7.',
+          ),
+        ),
+      );
+      expect(
+        () => DataSyncLoadRemoteDataInProgress(8),
+        throwsA(
+          isA<AssertionError>().having(
+            (e) => e.message,
+            'message',
+            'Current step must be within 0-7.',
+          ),
+        ),
+      );
+    });
+  });
+
   group('DataSyncInitializeEvent', () {
     test(
       'emits DataSyncLoadOnSuccess when the app has not been updated today.',

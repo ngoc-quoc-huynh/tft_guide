@@ -53,6 +53,23 @@ void main() {
       'LanguageCodeValueCubit',
       () {
         test(
+          'initial state is LanguageCode.de.',
+          () {
+            final bloc = LanguageCodeValueCubit(LanguageCode.de);
+            addTearDown(bloc.close);
+
+            expect(
+              bloc.state,
+              LanguageCode.de,
+            );
+            expect(
+              Injector.instance.isRegistered<TranslationsEn>(),
+              isTrue,
+            );
+          },
+        );
+
+        test(
           'initial state is LanguageCode.en.',
           () {
             final bloc = LanguageCodeValueCubit(LanguageCode.en);
@@ -74,6 +91,7 @@ void main() {
           build: () => LanguageCodeValueCubit(LanguageCode.en),
           act: (cubit) => cubit.update(LanguageCode.de),
           expect: () => [LanguageCode.de],
+          verify: (_) => Injector.instance.isRegistered<Translations>(),
         );
       },
     );
