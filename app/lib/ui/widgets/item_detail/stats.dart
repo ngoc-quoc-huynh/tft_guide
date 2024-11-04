@@ -1,7 +1,12 @@
-part of 'stats.dart';
+import 'package:dynamic_color/dynamic_color.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:tft_guide/domain/models/item_detail.dart';
+import 'package:tft_guide/injector.dart';
+import 'package:tft_guide/static/resources/icons.dart';
 
-class _GridView extends ItemDetailStats {
-  const _GridView({
+class ItemDetailStats extends StatelessWidget {
+  const ItemDetailStats({
     required this.item,
     super.key,
   });
@@ -11,8 +16,9 @@ class _GridView extends ItemDetailStats {
   @override
   Widget build(BuildContext context) {
     final gridItems = _generateGridItems();
+
     return Padding(
-      padding: ItemDetailStats.padding,
+      padding: const EdgeInsets.only(top: 10),
       child: SizedBox(
         height: _computeGridHeight(gridItems.length),
         child: MasonryGridView.count(

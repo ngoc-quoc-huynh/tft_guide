@@ -1,7 +1,7 @@
 import 'package:tft_guide/domain/blocs/item_detail/bloc.dart';
 import 'package:tft_guide/domain/models/item_detail.dart';
 import 'package:tft_guide/injector.dart';
-import 'package:tft_guide/ui/pages/item_detail/full_item/combine_by/combine_by.dart';
+import 'package:tft_guide/ui/pages/item_detail/full_item/combine_by.dart';
 import 'package:tft_guide/ui/pages/item_detail/page.dart';
 import 'package:tft_guide/ui/widgets/item_detail/card.dart';
 import 'package:tft_guide/ui/widgets/item_detail/sliver_wrapper.dart';
@@ -16,10 +16,10 @@ final class FullItemDetailPage
           createBloc: (_) => FullItemDetailBloc(),
           trailing: (item) => SliverWrapperItemDetail(
             child: ItemDetailCard(
-              title: ItemDetailCardTitle.text(
+              title: ItemDetailCardTitle(
                 text: Injector.instance.translations.pages.itemDetail.combine,
               ),
-              child: FullItemDetailCombineBy.combine(
+              child: FullItemDetailCombineBy(
                 itemId1: item.itemId1,
                 itemId2: item.itemId2,
               ),

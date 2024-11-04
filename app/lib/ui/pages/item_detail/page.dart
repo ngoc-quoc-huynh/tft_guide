@@ -11,7 +11,7 @@ import 'package:tft_guide/ui/widgets/item_detail/error.dart';
 import 'package:tft_guide/ui/widgets/item_detail/image.dart';
 import 'package:tft_guide/ui/widgets/item_detail/loading_indicator.dart';
 import 'package:tft_guide/ui/widgets/item_detail/sliver_wrapper.dart';
-import 'package:tft_guide/ui/widgets/item_detail/stats/stats.dart';
+import 'package:tft_guide/ui/widgets/item_detail/stats.dart';
 import 'package:tft_guide/ui/widgets/item_detail/text.dart';
 import 'package:tft_guide/ui/widgets/item_detail/title.dart';
 import 'package:tft_guide/ui/widgets/language/listener.dart';
@@ -54,10 +54,7 @@ abstract class ItemDetailPage<Bloc extends ItemDetailBloc,
               themeData: themeData,
               trailing: trailing,
             ),
-          ItemDetailLoadOnFailure() => ItemDetailErrorPage<Item>(id: id),
-          ItemDetailLoadOnSuccess<ItemDetail>() => throw StateError(
-              'This state will never be emitted within this page.',
-            ),
+          _ => ItemDetailErrorPage<Item>(id: id),
         },
       ),
     );
@@ -98,10 +95,10 @@ class _Body<Item extends ItemDetail> extends StatelessWidget {
                 const SliverSizedBox(height: 20),
                 SliverWrapperItemDetail(
                   child: ItemDetailCard(
-                    title: ItemDetailCardTitle.text(
+                    title: ItemDetailCardTitle(
                       text: _translations.description,
                     ),
-                    child: ItemDetailCardText.text(
+                    child: ItemDetailCardText(
                       text: item.description,
                     ),
                   ),
@@ -110,10 +107,10 @@ class _Body<Item extends ItemDetail> extends StatelessWidget {
                   const SliverSizedBox(height: 10),
                   SliverWrapperItemDetail(
                     child: ItemDetailCard(
-                      title: ItemDetailCardTitle.text(
+                      title: ItemDetailCardTitle(
                         text: _translations.stats,
                       ),
-                      child: ItemDetailStats.gridView(
+                      child: ItemDetailStats(
                         item: item,
                       ),
                     ),
@@ -122,10 +119,10 @@ class _Body<Item extends ItemDetail> extends StatelessWidget {
                 const SliverSizedBox(height: 10),
                 SliverWrapperItemDetail(
                   child: ItemDetailCard(
-                    title: ItemDetailCardTitle.text(
+                    title: ItemDetailCardTitle(
                       text: _translations.hint,
                     ),
-                    child: ItemDetailCardText.text(
+                    child: ItemDetailCardText(
                       text: item.hint,
                     ),
                   ),

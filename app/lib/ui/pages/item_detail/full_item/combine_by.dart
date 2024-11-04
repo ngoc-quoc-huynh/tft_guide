@@ -1,7 +1,13 @@
-part of 'combine_by.dart';
+import 'dart:async';
 
-final class _Combine extends FullItemDetailCombineBy {
-  const _Combine({
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tft_guide/injector.dart';
+import 'package:tft_guide/ui/router/routes.dart';
+import 'package:tft_guide/ui/widgets/file_storage_image.dart';
+
+class FullItemDetailCombineBy extends StatelessWidget {
+  const FullItemDetailCombineBy({
     required this.itemId1,
     required this.itemId2,
     super.key,
@@ -13,7 +19,10 @@ final class _Combine extends FullItemDetailCombineBy {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: FullItemDetailCombineBy.padding,
+      padding: const EdgeInsets.only(
+        top: 10,
+        bottom: 5,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -44,6 +53,8 @@ class _Image extends StatelessWidget {
   final String id;
   final String tooltip;
 
+  static const _imageSize = 50.0;
+
   @override
   Widget build(BuildContext context) {
     return Tooltip(
@@ -52,8 +63,8 @@ class _Image extends StatelessWidget {
         onTap: () => _onTap(context),
         child: FileStorageImage(
           id: id,
-          height: FullItemDetailCombineBy.imageSize,
-          width: FullItemDetailCombineBy.imageSize,
+          height: _imageSize,
+          width: _imageSize,
         ),
       ),
     );
