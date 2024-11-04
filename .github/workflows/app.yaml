@@ -66,7 +66,7 @@ jobs:
       - name: Run tests
         run: |
           flutter test --coverage --test-randomize-ordering-seed=random --dart-define=CI=true
-          dart run test_cov_console --exclude=static
+          dart run test_cov_console --exclude=static,domain/interfaces,injector.dart
         working-directory: ./app
       - name: Upload golden test failures
         if: failure()

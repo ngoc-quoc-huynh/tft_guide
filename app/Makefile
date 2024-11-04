@@ -1,4 +1,4 @@
-.PHONY: i18n check-i18n check-code style test update-goldens launcher-icon splash-screen check-code check-files apk
+.PHONY: i18n check-i18n check-code style test test-unit test-ui update-goldens launcher-icon splash-screen check-code check-files apk
 
 i18n:
 	dart run slang
@@ -18,8 +18,16 @@ style:
 	dart run dart_code_linter:metrics analyze . --set-exit-on-violation-level=warning
 
 test:
-	flutter test --coverage --test-randomize-ordering-seed=random --dart-define=CI=true
-	dart run test_cov_console --exclude=static
+	flutter test --coverage --test-randomize-ordering-seed=$(or $(seed),random)
+	dart run test_cov_console --exclude=static,domain/interfaces,injector.dart
+
+test-unit:
+	flutter test test/domain test/infrastructure --coverage --test-randomize-ordering-seed=$(or $(seed),random)
+	dart run test_cov_console --exclude=static,ui,domain/interfaces,injector.dart
+
+test-ui:
+	flutter test test/ui --coverage --test-randomize-ordering-seed=$(or $(seed),random)
+	dart run test_cov_console --exclude=static,domain,infrastructure,injector.dart
 
 update-goldens:
 	flutter test test/ui/ --update-goldens --tags=golden
