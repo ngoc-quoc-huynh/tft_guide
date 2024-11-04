@@ -52,15 +52,14 @@ void main() {
     group(
       'LanguageCodeValueCubit',
       () {
-        tearDown(
-          () async => Injector.instance.unregister<Translations>(),
-        );
-
         test(
           'initial state is LanguageCode.en.',
           () {
+            final bloc = LanguageCodeValueCubit(LanguageCode.en);
+            addTearDown(bloc.close);
+
             expect(
-              LanguageCodeValueCubit(LanguageCode.en).state,
+              bloc.state,
               LanguageCode.en,
             );
             expect(

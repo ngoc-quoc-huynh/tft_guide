@@ -22,6 +22,12 @@ final class LanguageCodeValueCubit extends ValueCubit<LanguageCode> {
     return super.update(newState);
   }
 
+  @override
+  Future<void> close() {
+    Injector.instance.unregister<Translations>();
+    return super.close();
+  }
+
   Translations _computeTranslations(LanguageCode language) =>
       switch (language) {
         LanguageCode.de => AppLocale.de,
