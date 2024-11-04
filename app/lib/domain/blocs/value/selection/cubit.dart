@@ -1,5 +1,9 @@
 part of '../cubit.dart';
 
+@visibleForTesting
+base mixin TestSelectionValueCubitMixin<State>
+    implements SelectionValueCubit<State> {}
+
 final class SelectionValueCubit<State> extends ValueCubit<State?> {
   SelectionValueCubit() : super(null);
 

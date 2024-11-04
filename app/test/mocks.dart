@@ -8,7 +8,9 @@ import 'package:mocktail/mocktail.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tft_guide/domain/blocs/app_update_info/cubit.dart';
+import 'package:tft_guide/domain/blocs/check_selected_option/cubit.dart';
 import 'package:tft_guide/domain/blocs/data_sync/bloc.dart';
+import 'package:tft_guide/domain/blocs/game_progress/bloc.dart';
 import 'package:tft_guide/domain/blocs/hydrated_value/cubit.dart';
 import 'package:tft_guide/domain/blocs/rank/bloc.dart';
 import 'package:tft_guide/domain/blocs/value/cubit.dart';
@@ -70,8 +72,15 @@ final class MockWidgetsBindingApi extends Mock implements WidgetsBindingApi {}
 final class MockAppUpdateInfoCubit extends MockCubit<AppUpdateInfo?>
     with TestAppUpdateInfoCubitMixin {}
 
+final class MockCheckSelectedItemOptionCubit extends MockCubit<bool?>
+    with TestCheckSelectedItemOptionCubitMixin {}
+
 final class MockDataSyncBloc extends MockBloc<DataSyncEvent, DataSyncState>
     with TestDataSyncBlocMixin {}
+
+final class MockGameProgressBloc
+    extends MockBloc<GameProgressEvent, GameProgressState>
+    with TestGameProgressBlocMixin {}
 
 final class MockHydratedEloCubit extends MockCubit<int>
     with TestHydratedEloCubitMixin {}
@@ -91,6 +100,9 @@ final class MockNumValueCubit<State extends num?> extends MockCubit<State>
 
 final class MockRankCubit extends MockCubit<RankState>
     with TestRankCubitMixin {}
+
+final class MockSelectionValueCubit<State> extends MockCubit<State?>
+    with TestSelectionValueCubitMixin<State> {}
 
 final class MockValueCubit<State> extends MockCubit<State>
     with TestValueCubitMixin<State> {}

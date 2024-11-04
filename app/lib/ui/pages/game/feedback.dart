@@ -7,7 +7,7 @@ import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 
 class FeedbackBottomSheet extends StatelessWidget {
-  const FeedbackBottomSheet._(this.isCorrect);
+  const FeedbackBottomSheet({required this.isCorrect, super.key});
 
   final bool isCorrect;
 
@@ -22,7 +22,7 @@ class FeedbackBottomSheet extends StatelessWidget {
         context: context,
         builder: (_) => BlocProvider.value(
           value: context.read<GameProgressBloc>(),
-          child: FeedbackBottomSheet._(isCorrect),
+          child: FeedbackBottomSheet(isCorrect: isCorrect),
         ),
       );
 

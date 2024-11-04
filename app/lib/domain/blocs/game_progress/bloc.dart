@@ -6,6 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'event.dart';
 part 'state.dart';
 
+@visibleForTesting
+base mixin TestGameProgressBlocMixin implements GameProgressBloc {}
+
 final class GameProgressBloc
     extends Bloc<GameProgressEvent, GameProgressState> {
   GameProgressBloc(this._maxLevels) : super(const GameProgressInProgress(0)) {
