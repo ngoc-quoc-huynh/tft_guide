@@ -1,6 +1,4 @@
-**/*.mp4 filter=lfs diff=lfs merge=lfs -text
-**/*.mp3 filter=lfs diff=lfs merge=lfs -text
-**/*.png filter=lfs diff=lfs merge=lfs -text
-**/*.jpg filter=lfs diff=lfs merge=lfs -text
-**/*.fig filter=lfs diff=lfs merge=lfs -text
-**/*.webp filter=lfs diff=lfs merge=lfs -text
+*.jpg !text !filter !merge !diff
+*.png !text !filter !merge !diff
+*.fig !text !filter !merge !diff
+*.webp !text !filter !merge !diff
