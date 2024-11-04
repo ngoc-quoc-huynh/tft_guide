@@ -1,7 +1,10 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:collection/collection.dart';
+import 'package:file/memory.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path/path.dart';
@@ -46,4 +49,28 @@ class CountRebuildsWidgetState extends State<CountRebuildsWidget> {
     buildCount++;
     return const Text('test');
   }
+}
+
+final class TestImage {
+  factory TestImage() {
+    return _instance;
+  }
+
+  TestImage._internal() {
+    unawaited(_loadImage());
+  }
+
+  static final TestImage _instance = TestImage._internal();
+  final Completer<File> _imageCompleter = Completer<File>();
+
+  Future<void> _loadImage() async {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    final ByteData imageBytes =
+        await rootBundle.load('assets/app/launcher_icon.webp');
+    final File imageFile = MemoryFileSystem().file('test.webp')
+      ..writeAsBytesSync(imageBytes.buffer.asUint8List());
+    _imageCompleter.complete(imageFile);
+  }
+
+  Future<File> get file => _imageCompleter.future;
 }
