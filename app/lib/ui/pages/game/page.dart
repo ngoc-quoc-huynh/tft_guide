@@ -5,7 +5,6 @@ import 'package:tft_guide/domain/blocs/questions/bloc.dart';
 import 'package:tft_guide/domain/blocs/value/cubit.dart';
 import 'package:tft_guide/domain/models/question/question.dart';
 import 'package:tft_guide/injector.dart';
-import 'package:tft_guide/static/config.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/pages/game/body.dart';
 import 'package:tft_guide/ui/pages/game/progress_bar.dart';
@@ -18,19 +17,25 @@ import 'package:tft_guide/ui/widgets/scaffold.dart';
 class GamePage extends StatelessWidget {
   const GamePage({super.key});
 
+  static final _totalBaseItemQuestions =
+      Injector.instance.totalBaseItemQuestions;
+  static final _totalFullItemQuestions =
+      Injector.instance.totalFullItemQuestions;
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider<QuestionsBloc>(
           create: (_) => QuestionsBloc(
-            totalBaseItemQuestions: Config.totalBaseItemQuestions,
-            totalFullItemQuestions: Config.totalFullItemQuestions,
+            totalBaseItemQuestions: _totalBaseItemQuestions,
+            totalFullItemQuestions: _totalFullItemQuestions,
+            otherOptionsAmount: Injector.instance.otherOptionsAmount,
           )..add(const QuestionsInitializeEvent()),
         ),
         BlocProvider<GameProgressBloc>(
           create: (_) => GameProgressBloc(
-            Config.totalBaseItemQuestions + Config.totalFullItemQuestions,
+            _totalBaseItemQuestions + _totalFullItemQuestions,
           ),
         ),
       ],

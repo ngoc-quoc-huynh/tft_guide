@@ -14,6 +14,7 @@ import 'package:tft_guide/domain/interfaces/local_database.dart';
 import 'package:tft_guide/domain/interfaces/local_storage.dart';
 import 'package:tft_guide/domain/interfaces/logger.dart';
 import 'package:tft_guide/domain/interfaces/native.dart';
+import 'package:tft_guide/domain/interfaces/questions.dart';
 import 'package:tft_guide/domain/interfaces/rank.dart';
 import 'package:tft_guide/domain/interfaces/remote_database.dart';
 import 'package:tft_guide/domain/interfaces/theme.dart';
@@ -141,6 +142,37 @@ void main() {
     );
   });
 
+  test('returns other options amount.', () {
+    Injector.instance
+        .registerSingleton<int>(1, instanceName: 'otherOptionsAmount');
+    addTearDown(
+      () async =>
+          Injector.instance.unregister<int>(instanceName: 'otherOptionsAmount'),
+    );
+
+    expect(
+      Injector.instance.otherOptionsAmount,
+      1,
+    );
+  });
+
+  test('returns patch notes page size.', () {
+    Injector.instance.registerSingleton<int>(
+      1,
+      instanceName: 'patchNotesPageSize',
+    );
+    addTearDown(
+      () async => Injector.instance.unregister<int>(
+        instanceName: 'patchNotesPageSize',
+      ),
+    );
+
+    expect(
+      Injector.instance.patchNotesPageSize,
+      1,
+    );
+  });
+
   test('returns PackageInfo.', () {
     Injector.instance.registerSingleton<PackageInfo>(MockPackageInfo());
     addTearDown(Injector.instance.unregister<PackageInfo>);
@@ -148,6 +180,16 @@ void main() {
     expect(
       Injector.instance.packageInfo,
       isA<PackageInfo>(),
+    );
+  });
+
+  test('returns QuestionsApi.', () {
+    Injector.instance.registerSingleton<QuestionsApi>(MockQuestionsApi());
+    addTearDown(Injector.instance.unregister<QuestionsApi>);
+
+    expect(
+      Injector.instance.questionsApi,
+      isA<QuestionsApi>(),
     );
   });
 
@@ -217,6 +259,38 @@ void main() {
     expect(
       Injector.instance.tmpDir,
       isA<Directory>(),
+    );
+  });
+
+  test('returns total base item questions.', () {
+    Injector.instance.registerSingleton<int>(
+      1,
+      instanceName: 'totalBaseItemQuestions',
+    );
+    addTearDown(
+      () async => Injector.instance
+          .unregister<int>(instanceName: 'totalBaseItemQuestions'),
+    );
+
+    expect(
+      Injector.instance.totalBaseItemQuestions,
+      1,
+    );
+  });
+
+  test('returns total full item questions.', () {
+    Injector.instance.registerSingleton<int>(
+      1,
+      instanceName: 'totalFullItemQuestions',
+    );
+    addTearDown(
+      () async => Injector.instance
+          .unregister<int>(instanceName: 'totalFullItemQuestions'),
+    );
+
+    expect(
+      Injector.instance.totalFullItemQuestions,
+      1,
     );
   });
 

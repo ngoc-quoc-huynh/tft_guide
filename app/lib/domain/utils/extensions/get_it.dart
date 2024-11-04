@@ -14,6 +14,7 @@ import 'package:tft_guide/domain/interfaces/local_database.dart';
 import 'package:tft_guide/domain/interfaces/local_storage.dart';
 import 'package:tft_guide/domain/interfaces/logger.dart';
 import 'package:tft_guide/domain/interfaces/native.dart';
+import 'package:tft_guide/domain/interfaces/questions.dart';
 import 'package:tft_guide/domain/interfaces/rank.dart';
 import 'package:tft_guide/domain/interfaces/remote_database.dart';
 import 'package:tft_guide/domain/interfaces/theme.dart';
@@ -47,9 +48,13 @@ extension GetItExtension on GetIt {
 
   NativeApi get nativeApi => get<NativeApi>();
 
+  int get otherOptionsAmount => get<int>(instanceName: 'otherOptionsAmount');
+
   PackageInfo get packageInfo => get<PackageInfo>();
 
   int get patchNotesPageSize => get<int>(instanceName: 'patchNotesPageSize');
+
+  QuestionsApi get questionsApi => get<QuestionsApi>();
 
   RankApi get rankApi => get<RankApi>();
 
@@ -63,6 +68,12 @@ extension GetItExtension on GetIt {
   ThemeApi get themeApi => get<ThemeApi>();
 
   Directory get tmpDir => get<Directory>(instanceName: 'tmpDir');
+
+  int get totalBaseItemQuestions =>
+      get<int>(instanceName: 'totalBaseItemQuestions');
+
+  int get totalFullItemQuestions =>
+      get<int>(instanceName: 'totalFullItemQuestions');
 
   Translations get translations => get<Translations>();
 

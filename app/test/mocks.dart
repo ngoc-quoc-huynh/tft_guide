@@ -20,6 +20,7 @@ import 'package:tft_guide/domain/interfaces/local_database.dart';
 import 'package:tft_guide/domain/interfaces/local_storage.dart';
 import 'package:tft_guide/domain/interfaces/logger.dart';
 import 'package:tft_guide/domain/interfaces/native.dart';
+import 'package:tft_guide/domain/interfaces/questions.dart';
 import 'package:tft_guide/domain/interfaces/rank.dart';
 import 'package:tft_guide/domain/interfaces/remote_database.dart';
 import 'package:tft_guide/domain/interfaces/theme.dart';
@@ -50,6 +51,8 @@ final class MockNativeApi extends Mock implements NativeApi {}
 
 // ignore: avoid_implementing_value_types, for testing purpose.
 final class MockPackageInfo extends Mock implements PackageInfo {}
+
+final class MockQuestionsApi extends Mock implements QuestionsApi {}
 
 final class MockRankApi extends Mock implements RankApi {}
 

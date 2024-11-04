@@ -18,6 +18,7 @@ import 'package:tft_guide/domain/interfaces/local_database.dart';
 import 'package:tft_guide/domain/interfaces/local_storage.dart';
 import 'package:tft_guide/domain/interfaces/logger.dart';
 import 'package:tft_guide/domain/interfaces/native.dart';
+import 'package:tft_guide/domain/interfaces/questions.dart';
 import 'package:tft_guide/domain/interfaces/rank.dart';
 import 'package:tft_guide/domain/interfaces/remote_database.dart';
 import 'package:tft_guide/domain/interfaces/theme.dart';
@@ -30,6 +31,7 @@ import 'package:tft_guide/infrastructure/repositories/local_file_storage.dart';
 import 'package:tft_guide/infrastructure/repositories/logger.dart';
 import 'package:tft_guide/infrastructure/repositories/material_theme.dart';
 import 'package:tft_guide/infrastructure/repositories/native.dart';
+import 'package:tft_guide/infrastructure/repositories/questions.dart';
 import 'package:tft_guide/infrastructure/repositories/rank.dart';
 import 'package:tft_guide/infrastructure/repositories/shared_preferences.dart';
 import 'package:tft_guide/infrastructure/repositories/sqlite_async.dart';
@@ -83,7 +85,25 @@ final class Injector {
           owner: Config.githubOwner,
           repo: Config.githubRepo,
         ),
-      );
+      )
+      ..registerLazySingleton<int>(
+        () => Config.patchNotesPageSize,
+        instanceName: 'patchNotesPageSize',
+      )
+      ..registerLazySingleton<int>(
+        () => Config.totalBaseItemQuestions,
+        instanceName: 'totalBaseItemQuestions',
+      )
+      ..registerLazySingleton<int>(
+        () => Config.totalFullItemQuestions,
+        instanceName: 'totalFullItemQuestions',
+      )
+      ..registerLazySingleton<int>(
+        () => Config.otherOptionsAmount,
+        instanceName: 'otherOptionsAmount',
+      )
+      ..registerLazySingleton<QuestionsApi>(QuestionsRepository.new);
+
     await instance.allReady();
     HydratedBloc.storage = const SharedPrefsHydratedStorage();
   }
