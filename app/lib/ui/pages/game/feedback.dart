@@ -6,7 +6,7 @@ import 'package:tft_guide/domain/utils/extensions/theme.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 
-class FeedbackBottomSheet extends StatelessWidget {
+class FeedbackBottomSheet extends StatefulWidget {
   const FeedbackBottomSheet({required this.isCorrect, super.key});
 
   final bool isCorrect;
@@ -25,6 +25,14 @@ class FeedbackBottomSheet extends StatelessWidget {
           child: FeedbackBottomSheet(isCorrect: isCorrect),
         ),
       );
+
+  @override
+  State<FeedbackBottomSheet> createState() => _FeedbackBottomSheetState();
+}
+
+class _FeedbackBottomSheetState extends State<FeedbackBottomSheet> {
+  late final _feedback =
+      Injector.instance.feedbackApi.getFeedback(isCorrect: widget.isCorrect);
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +59,7 @@ class FeedbackBottomSheet extends StatelessWidget {
                     const SizedBox(width: 10),
                     Expanded(
                       child: Text(
-                        Injector.instance.feedbackApi
-                            .getFeedback(isCorrect: isCorrect),
+                        _feedback,
                         style: Theme.of(context)
                             .textTheme
                             .headlineSmall
@@ -78,14 +85,14 @@ class FeedbackBottomSheet extends StatelessWidget {
     );
   }
 
-  IconData get _icon => switch (isCorrect) {
+  IconData get _icon => switch (widget.isCorrect) {
         false => Icons.error,
         true => Icons.check_circle,
       };
 
   Color _getColor(BuildContext context) {
     final theme = Theme.of(context);
-    return switch (isCorrect) {
+    return switch (widget.isCorrect) {
       false => theme.colorScheme.error,
       true => theme.customColors.success,
     };
