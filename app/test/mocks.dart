@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tft_guide/domain/blocs/app_update_info/cubit.dart';
 import 'package:tft_guide/domain/blocs/data_sync/bloc.dart';
 import 'package:tft_guide/domain/blocs/hydrated_value/cubit.dart';
+import 'package:tft_guide/domain/blocs/rank/bloc.dart';
 import 'package:tft_guide/domain/blocs/value/cubit.dart';
 import 'package:tft_guide/domain/interfaces/admin.dart';
 import 'package:tft_guide/domain/interfaces/app.dart';
@@ -81,6 +82,12 @@ final class MockHydratedTranslationLocaleCubit
 
 final class MockLanguageCodeValueCubit extends MockCubit<LanguageCode>
     with TestLanguageCodeValueCubitMixin {}
+
+final class MockNumValueCubit<State extends num?> extends MockCubit<State>
+    with TestNumValueCubit<State> {}
+
+final class MockRankCubit extends MockCubit<RankState>
+    with TestRankCubitMixin {}
 
 final class MockValueCubit<State> extends MockCubit<State>
     with TestValueCubitMixin<State> {}

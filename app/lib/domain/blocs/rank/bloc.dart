@@ -6,6 +6,9 @@ import 'package:tft_guide/injector.dart';
 
 part 'state.dart';
 
+@visibleForTesting
+base mixin TestRankCubitMixin implements RankCubit {}
+
 final class RankCubit extends Cubit<RankState> {
   RankCubit() : super(const RankLoadInProgress());
 

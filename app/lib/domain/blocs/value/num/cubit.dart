@@ -1,7 +1,11 @@
 part of '../cubit.dart';
 
-final class NumValueCubit<T extends num?> extends ValueCubit<T> {
+@visibleForTesting
+base mixin TestNumValueCubit<State extends num?>
+    implements NumValueCubit<State> {}
+
+final class NumValueCubit<State extends num?> extends ValueCubit<State> {
   NumValueCubit(super.initialState);
 
-  void increase() => emit(((state ?? 0) + 1) as T);
+  void increase() => emit(((state ?? 0) + 1) as State);
 }

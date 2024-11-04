@@ -15,7 +15,7 @@ class RankedBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return BlocProvider<RankCubit>(
       create: (_) =>
           RankCubit()..compute(context.read<HydratedEloCubit>().state),
       child: BlocListener<HydratedEloCubit, int>(

@@ -16,17 +16,10 @@ class RankedRankName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      _tier(division: _division),
+      _tier(division: division.name),
       style: Theme.of(context).textTheme.headlineSmall,
     );
   }
-
-  String get _division => switch (division) {
-        Division.one => _divisionsTranslations.one,
-        Division.two => _divisionsTranslations.two,
-        Division.three => _divisionsTranslations.three,
-        Division.four => _divisionsTranslations.four,
-      };
 
   String Function({required String division}) get _tier => switch (tier) {
         Tier.iron => _tiersTranslation.iron,
@@ -43,9 +36,6 @@ class RankedRankName extends StatelessWidget {
 
   static TranslationsPagesRankedEn get _translations =>
       Injector.instance.translations.pages.ranked;
-
-  static TranslationsPagesRankedDivisionsEn get _divisionsTranslations =>
-      _translations.divisions;
 
   static TranslationsPagesRankedTiersEn get _tiersTranslation =>
       _translations.tiers;

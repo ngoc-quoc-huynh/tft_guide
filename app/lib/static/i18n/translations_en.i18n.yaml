@@ -31,11 +31,6 @@ pages:
       master(String division): 'Master $division'
       grandmaster(String division): 'Grandmaster $division'
       challenger(String division): 'Challenger $division'
-    divisions:
-      one: 'I'
-      two: 'II'
-      three: 'III'
-      four: 'IV'
     lp(int number): '$number LP'
   game:
     errors:

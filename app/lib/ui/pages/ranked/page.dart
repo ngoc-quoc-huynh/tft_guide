@@ -8,18 +8,29 @@ class RankedPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: Sizes.horizontalPadding,
-        vertical: Sizes.verticalPadding,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          RankedHeader(),
-          SizedBox(height: 30),
-          RankedBody(),
-        ],
+    return Center(
+      child: LayoutBuilder(
+        builder: (context, constraints) => SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: constraints.maxHeight,
+            ),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: Sizes.horizontalPadding,
+                vertical: Sizes.verticalPadding,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  RankedHeader(),
+                  SizedBox(height: 30),
+                  RankedBody(),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
