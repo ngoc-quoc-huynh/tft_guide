@@ -3,12 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/blocs/patch_notes/bloc.dart';
 import 'package:tft_guide/domain/models/database/language_code.dart';
 import 'package:tft_guide/injector.dart';
-import 'package:tft_guide/static/config.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/pages/patch_notes/body.dart';
-import 'package:tft_guide/ui/pages/patch_notes/loading_indicator.dart';
 import 'package:tft_guide/ui/widgets/error_text.dart';
 import 'package:tft_guide/ui/widgets/language/listener.dart';
+import 'package:tft_guide/ui/widgets/loading_indicator.dart';
 
 class PatchNotesPage extends StatelessWidget {
   const PatchNotesPage({super.key});
@@ -16,7 +15,7 @@ class PatchNotesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<PatchNotesBloc>(
-      create: (_) => PatchNotesBloc(Config.patchNotesPageSize)
+      create: (_) => PatchNotesBloc(Injector.instance.patchNotesPageSize)
         ..add(const PatchNotesInitializeEvent()),
       child: Builder(
         builder: (context) => LanguageListener(
@@ -24,7 +23,7 @@ class PatchNotesPage extends StatelessWidget {
               _onLanguageChanged(context, languageCode),
           child: BlocBuilder<PatchNotesBloc, PatchNotesState>(
             builder: (context, state) => switch (state) {
-              PatchNotesLoadInProgress() => const PatchNotesLoadingIndicator(),
+              PatchNotesLoadInProgress() => const LoadingIndicator(),
               PatchNotesLoadOnSuccess(
                 :final patchNotes,
                 :final isLastPage,

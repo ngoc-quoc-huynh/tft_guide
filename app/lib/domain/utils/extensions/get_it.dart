@@ -49,6 +49,8 @@ extension GetItExtension on GetIt {
 
   PackageInfo get packageInfo => get<PackageInfo>();
 
+  int get patchNotesPageSize => get<int>(instanceName: 'patchNotesPageSize');
+
   RankApi get rankApi => get<RankApi>();
 
   Random get random => get<Random>();
