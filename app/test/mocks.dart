@@ -7,6 +7,7 @@ import 'package:logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tft_guide/domain/blocs/data_sync/bloc.dart';
 import 'package:tft_guide/domain/blocs/hydrated_value/cubit.dart';
 import 'package:tft_guide/domain/interfaces/admin.dart';
 import 'package:tft_guide/domain/interfaces/app.dart';
@@ -58,10 +59,12 @@ final class MockStorage extends Mock implements Storage {}
 
 final class MockWidgetsBindingApi extends Mock implements WidgetsBindingApi {}
 
-final class MockHydratedThemeModeCubit
-    extends MockBloc<HydratedThemeModeCubit, ThemeMode>
+final class MockDataSyncBloc extends MockBloc<DataSyncEvent, DataSyncState>
+    with TestDataSyncBlocMixin {}
+
+final class MockHydratedThemeModeCubit extends MockCubit<ThemeMode>
     with TestHydratedThemeModeCubitMixin {}
 
 final class MockHydratedTranslationLocaleCubit
-    extends MockBloc<HydratedTranslationLocaleCubit, TranslationLocale>
+    extends MockCubit<TranslationLocale>
     with TestHydratedTranslationLocaleCubitMixin {}

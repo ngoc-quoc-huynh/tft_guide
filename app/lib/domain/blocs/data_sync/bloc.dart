@@ -18,6 +18,9 @@ import 'package:tft_guide/static/resources/sizes.dart';
 part 'event.dart';
 part 'state.dart';
 
+@visibleForTesting
+base mixin TestDataSyncBlocMixin implements DataSyncBloc {}
+
 final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState>
     with BlocMixin {
   DataSyncBloc() : super(const DataSyncInitInProgress()) {
