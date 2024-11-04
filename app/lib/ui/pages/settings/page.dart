@@ -22,7 +22,7 @@ import 'package:tft_guide/ui/pages/settings/dialogs/update_elo.dart';
 import 'package:tft_guide/ui/pages/settings/divider.dart';
 import 'package:tft_guide/ui/pages/settings/item.dart';
 import 'package:tft_guide/ui/router/routes.dart';
-import 'package:tft_guide/ui/widgets/badge.dart';
+import 'package:tft_guide/ui/widgets/badge_counter.dart';
 import 'package:tft_guide/ui/widgets/custom_app_bar.dart';
 import 'package:tft_guide/ui/widgets/language/listener.dart';
 import 'package:tft_guide/ui/widgets/scaffold.dart';

@@ -9,7 +9,7 @@ import 'package:tft_guide/domain/blocs/value/cubit.dart';
 import 'package:tft_guide/domain/models/app_update_info.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/ui/router/routes.dart';
-import 'package:tft_guide/ui/widgets/badge.dart';
+import 'package:tft_guide/ui/widgets/badge_counter.dart';
 import 'package:tft_guide/ui/widgets/bloc/builder.dart';
 import 'package:tft_guide/ui/widgets/bloc/selector.dart';
 import 'package:tft_guide/ui/widgets/custom_app_bar.dart';
