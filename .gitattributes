@@ -1,4 +1,0 @@
-*.jpg !text !filter !merge !diff
-*.png !text !filter !merge !diff
-*.fig !text !filter !merge !diff
-*.webp !text !filter !merge !diff
