@@ -9,6 +9,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path/path.dart';
 
+BoxConstraints pageConstraints({
+  double? width,
+  double? height,
+}) =>
+    BoxConstraints.tightFor(width: width ?? 360, height: height ?? 640);
+
 extension DurationTestExtension on Duration {
   Duration get withThreshold => this + const Duration(milliseconds: 50);
 }
