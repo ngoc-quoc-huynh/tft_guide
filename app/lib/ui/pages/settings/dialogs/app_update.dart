@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:open_filex/open_filex.dart';
 import 'package:tft_guide/domain/blocs/app_update/bloc.dart';
 import 'package:tft_guide/domain/models/app_update_info.dart';
 import 'package:tft_guide/injector.dart';
@@ -128,7 +127,7 @@ class _Update extends SettingsAppUpdateDialog {
 
   void _onAppUpdateStateChanged(_, AppUpdateState state) {
     if (state is AppUpdateLoadOnSuccess) {
-      unawaited(OpenFilex.open(state.path));
+      unawaited(Injector.instance.nativeApi.openFile(state.path));
     }
   }
 }

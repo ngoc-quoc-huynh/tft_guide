@@ -8,12 +8,12 @@ import 'package:tft_guide/ui/widgets/dialog.dart';
 import 'package:tft_guide/ui/widgets/progress_bar.dart';
 
 class SettingsRepairDialog extends StatelessWidget {
-  const SettingsRepairDialog._();
+  const SettingsRepairDialog({super.key});
 
   static Future<void> show(BuildContext context) => showDialog<void>(
         context: context,
         useRootNavigator: false,
-        builder: (context) => const SettingsRepairDialog._(),
+        builder: (context) => const SettingsRepairDialog(),
       );
 
   @override

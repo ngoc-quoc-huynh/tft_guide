@@ -1,5 +1,8 @@
 part of '../cubit.dart';
 
+@visibleForTesting
+base mixin TestHydratedEloCubitMixin implements HydratedEloCubit {}
+
 final class HydratedEloCubit extends HydratedValueCubit<int> {
   HydratedEloCubit() : super(0);
 

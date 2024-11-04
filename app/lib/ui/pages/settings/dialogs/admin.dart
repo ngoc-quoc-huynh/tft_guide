@@ -8,13 +8,13 @@ import 'package:tft_guide/ui/widgets/dialog.dart';
 import 'package:tft_guide/ui/widgets/snack_bar.dart';
 
 class SettingsAdminDialog extends StatefulWidget {
-  const SettingsAdminDialog._();
+  const SettingsAdminDialog({super.key});
 
   static Future<void> show(BuildContext context) => showDialog<void>(
         context: context,
         useRootNavigator: false,
         barrierDismissible: false,
-        builder: (context) => const SettingsAdminDialog._(),
+        builder: (context) => const SettingsAdminDialog(),
       );
 
   @override

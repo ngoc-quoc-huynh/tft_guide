@@ -9,13 +9,13 @@ import 'package:tft_guide/ui/widgets/alert_dialog/action.dart';
 import 'package:tft_guide/ui/widgets/alert_dialog/dialog.dart';
 
 class SettingsUpdateEloDialog extends StatelessWidget {
-  const SettingsUpdateEloDialog._();
+  const SettingsUpdateEloDialog({super.key});
 
   static Future<void> show(BuildContext context) async {
     final elo = await showDialog<int>(
       context: context,
       useRootNavigator: false,
-      builder: (context) => const SettingsUpdateEloDialog._(),
+      builder: (context) => const SettingsUpdateEloDialog(),
     );
     if (context.mounted && elo != null) {
       context.read<HydratedEloCubit>().update(elo);

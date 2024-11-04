@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/config.dart';
 import 'package:tft_guide/ui/widgets/dialog.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class SettingsFeedbackDialog extends StatelessWidget {
   const SettingsFeedbackDialog({super.key});
@@ -22,12 +21,11 @@ class SettingsFeedbackDialog extends StatelessWidget {
       content: Text(_translations.description),
       action: FilledButton(
         onPressed: () => unawaited(
-          launchUrl(
+          Injector.instance.nativeApi.openUrl(
             Uri.https(
               'github.com',
               '/${Config.githubOwner}/${Config.githubRepo}/discussions',
             ),
-            mode: LaunchMode.externalApplication,
           ),
         ),
         child: Text(_translations.submit),

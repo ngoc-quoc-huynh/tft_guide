@@ -117,7 +117,7 @@ pages:
     appUpdate:
       name: 'App Update'
       descriptionNoUpdate: 'Your app is up to date.'
-      descriptionUpdate(String version): 'A new version ($version) is available! Here are the new changes:'
+      descriptionUpdate(String version): 'A new version ($version) is available!\nHere are the new changes:'
       update: 'Update'
       retry: 'Retry update'
     design:

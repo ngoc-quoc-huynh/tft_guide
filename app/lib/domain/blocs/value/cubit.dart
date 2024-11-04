@@ -5,11 +5,14 @@ import 'package:tft_guide/domain/models/question/item_option.dart';
 import 'package:tft_guide/domain/models/translation_locale.dart';
 import 'package:tft_guide/injector.dart';
 
-part 'types.dart';
-part 'state.dart';
 part 'language_code/cubit.dart';
-part 'selection/cubit.dart';
 part 'num/cubit.dart';
+part 'selection/cubit.dart';
+part 'state.dart';
+part 'types.dart';
+
+@visibleForTesting
+base mixin TestValueCubitMixin<State> implements ValueCubit<State> {}
 
 base class ValueCubit<State> extends Cubit<State> {
   ValueCubit(super.initialState);

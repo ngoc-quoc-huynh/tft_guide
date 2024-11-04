@@ -7,12 +7,12 @@ import 'package:tft_guide/ui/pages/settings/dialogs/check/data_item.dart';
 import 'package:tft_guide/ui/widgets/dialog.dart';
 
 class SettingsCheckDialog extends StatelessWidget {
-  const SettingsCheckDialog._();
+  const SettingsCheckDialog({super.key});
 
   static Future<void> show(BuildContext context) => showDialog<void>(
         context: context,
         useRootNavigator: false,
-        builder: (context) => const SettingsCheckDialog._(),
+        builder: (context) => const SettingsCheckDialog(),
       );
 
   @override

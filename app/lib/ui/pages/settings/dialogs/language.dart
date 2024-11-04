@@ -8,13 +8,13 @@ import 'package:tft_guide/ui/widgets/radio_dialog/dialog.dart';
 import 'package:tft_guide/ui/widgets/radio_dialog/option.dart';
 
 class SettingsLanguageDialog extends StatelessWidget {
-  const SettingsLanguageDialog._();
+  const SettingsLanguageDialog({super.key});
 
   static Future<void> show(BuildContext context) async {
     final translationLocale = await showDialog<TranslationLocale?>(
       context: context,
       useRootNavigator: false,
-      builder: (context) => const SettingsLanguageDialog._(),
+      builder: (context) => const SettingsLanguageDialog(),
     );
     if (context.mounted && translationLocale != null) {
       context.read<HydratedTranslationLocaleCubit>().update(translationLocale);

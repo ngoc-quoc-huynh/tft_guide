@@ -7,13 +7,13 @@ import 'package:tft_guide/ui/widgets/radio_dialog/dialog.dart';
 import 'package:tft_guide/ui/widgets/radio_dialog/option.dart';
 
 class SettingsDesignDialog extends StatelessWidget {
-  const SettingsDesignDialog._();
+  const SettingsDesignDialog({super.key});
 
   static Future<void> show(BuildContext context) async {
     final themeMode = await showDialog<ThemeMode?>(
       context: context,
       useRootNavigator: false,
-      builder: (context) => const SettingsDesignDialog._(),
+      builder: (context) => const SettingsDesignDialog(),
     );
     if (context.mounted && themeMode != null) {
       context.read<HydratedThemeModeCubit>().update(themeMode);

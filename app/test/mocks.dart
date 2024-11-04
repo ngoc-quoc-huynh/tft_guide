@@ -7,8 +7,10 @@ import 'package:logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tft_guide/domain/blocs/app_update_info/cubit.dart';
 import 'package:tft_guide/domain/blocs/data_sync/bloc.dart';
 import 'package:tft_guide/domain/blocs/hydrated_value/cubit.dart';
+import 'package:tft_guide/domain/blocs/value/cubit.dart';
 import 'package:tft_guide/domain/interfaces/admin.dart';
 import 'package:tft_guide/domain/interfaces/app.dart';
 import 'package:tft_guide/domain/interfaces/feedback.dart';
@@ -21,6 +23,8 @@ import 'package:tft_guide/domain/interfaces/rank.dart';
 import 'package:tft_guide/domain/interfaces/remote_database.dart';
 import 'package:tft_guide/domain/interfaces/theme.dart';
 import 'package:tft_guide/domain/interfaces/widgets_binding.dart';
+import 'package:tft_guide/domain/models/app_update_info.dart';
+import 'package:tft_guide/domain/models/database/language_code.dart';
 import 'package:tft_guide/domain/models/translation_locale.dart';
 
 final class MockAdminApi extends Mock implements AdminApi {}
@@ -59,8 +63,14 @@ final class MockStorage extends Mock implements Storage {}
 
 final class MockWidgetsBindingApi extends Mock implements WidgetsBindingApi {}
 
+final class MockAppUpdateInfoCubit extends MockCubit<AppUpdateInfo?>
+    with TestAppUpdateInfoCubitMixin {}
+
 final class MockDataSyncBloc extends MockBloc<DataSyncEvent, DataSyncState>
     with TestDataSyncBlocMixin {}
+
+final class MockHydratedEloCubit extends MockCubit<int>
+    with TestHydratedEloCubitMixin {}
 
 final class MockHydratedThemeModeCubit extends MockCubit<ThemeMode>
     with TestHydratedThemeModeCubitMixin {}
@@ -68,3 +78,9 @@ final class MockHydratedThemeModeCubit extends MockCubit<ThemeMode>
 final class MockHydratedTranslationLocaleCubit
     extends MockCubit<TranslationLocale>
     with TestHydratedTranslationLocaleCubitMixin {}
+
+final class MockLanguageCodeValueCubit extends MockCubit<LanguageCode>
+    with TestLanguageCodeValueCubitMixin {}
+
+final class MockValueCubit<State> extends MockCubit<State>
+    with TestValueCubitMixin<State> {}

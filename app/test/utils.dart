@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:alchemist/alchemist.dart';
 import 'package:collection/collection.dart';
 import 'package:file/memory.dart';
 import 'package:flutter/material.dart';
@@ -80,3 +81,12 @@ final class TestImage {
 
   Future<File> get file => _imageCompleter.future;
 }
+
+Interaction? tap(Finder finder) => (WidgetTester tester) async {
+      for (int i = 0; i < finder.evaluate().length; i++) {
+        await tester.tap(finder.at(i));
+      }
+      await tester.pumpAndSettle();
+
+      return null;
+    };

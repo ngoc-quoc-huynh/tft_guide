@@ -1,5 +1,8 @@
 part of '../cubit.dart';
 
+@visibleForTesting
+base mixin TestLanguageCodeValueCubitMixin implements LanguageCodeValueCubit {}
+
 final class LanguageCodeValueCubit extends ValueCubit<LanguageCode> {
   LanguageCodeValueCubit(super.initialState) {
     Injector.instance.registerLazySingleton<Translations>(

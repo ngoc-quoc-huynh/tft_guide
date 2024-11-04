@@ -1,11 +1,15 @@
 import 'dart:async';
 
 import 'package:clock/clock.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:tft_guide/domain/models/app_update_info.dart';
 import 'package:tft_guide/domain/utils/extensions/date_time.dart';
 import 'package:tft_guide/domain/utils/mixins/bloc.dart';
 import 'package:tft_guide/injector.dart';
+
+@visibleForTesting
+base mixin TestAppUpdateInfoCubitMixin implements AppUpdateInfoCubit {}
 
 final class AppUpdateInfoCubit extends HydratedCubit<AppUpdateInfo?>
     with BlocMixin {

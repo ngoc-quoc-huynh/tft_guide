@@ -2,5 +2,9 @@
 abstract class NativeApi {
   const NativeApi._();
 
+  Future<void> openUrl(Uri url);
+
+  Future<void> openFile(String path);
+
   Future<void> restartApp();
 }

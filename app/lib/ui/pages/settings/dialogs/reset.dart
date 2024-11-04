@@ -10,13 +10,13 @@ import 'package:tft_guide/ui/widgets/alert_dialog/dialog.dart';
 import 'package:tft_guide/ui/widgets/snack_bar.dart';
 
 class SettingsResetDialog extends StatelessWidget {
-  const SettingsResetDialog._();
+  const SettingsResetDialog({super.key});
 
   static Future<void> show(BuildContext context) async {
     final shouldReset = await showDialog<bool>(
       context: context,
       useRootNavigator: false,
-      builder: (context) => const SettingsResetDialog._(),
+      builder: (context) => const SettingsResetDialog(),
     );
     if (context.mounted && (shouldReset ?? false)) {
       context
