@@ -21,20 +21,20 @@ pages:
     startGame: 'Spiel starten'
     lpSuffix: ' LP'
     tiers:
-      iron(String division): 'Eisen $division'
-      bronze(String division): 'Bronze $division'
-      silver(String division): 'Silber $division'
-      gold(String division): 'Gold $division'
-      emerald(String division): 'Smaragd $division'
-      platinum(String division): 'Platin $division'
-      diamond(String division): 'Diamant $division'
-      master(String division): 'Meister $division'
-      grandmaster(String division): 'Großmeister $division'
-      challenger(String division): 'Herausforder $division'
+      iron: 'Eisen ${division: String}'
+      bronze: 'Bronze ${division: String}'
+      silver: 'Silber ${division: String}'
+      gold: 'Gold ${division: String}'
+      emerald: 'Smaragd ${division: String}'
+      platinum: 'Platin ${division: String}'
+      diamond: 'Diamant ${division: String}'
+      master: 'Meister ${division: String}'
+      grandmaster: 'Großmeister ${division: String}'
+      challenger: 'Herausforder ${division: String}'
   game:
     errors:
       questions: "Hoppla! Wir konnten keine Fragen erstellen, da Gegenstände fehlen.\nGehe zu den Einstellungen und führe eine App-Prüfung und ggf. eine Reparatur durch."
-    option(int index): 'Auswahl $index'
+    option: 'Auswahl ${index: int}'
     proceed: 'Weiter'
     check: 'Überprüfen'
     questions:
@@ -104,14 +104,15 @@ pages:
     item1: 'Gegenstand 1'
     item2: 'Gegenstand 2'
     errors:
-      baseItem(String id): 'Der Grundgegenstand mit id "$id" konnte nicht geladen werden.\nGehe zu den Einstellungen und führe eine App-Prüfung und ggf. eine Reperatur durch.'
-      fullItem(String id): 'Der Vollgegenstand mit id "$id" konnte nicht geladen werden.\nGehe zu den Einstellungen und führe eine App-Prüfung und ggf. eine Reperatur durch.'
+      _base: 'konnte nicht geladen werden.\nGehe zu den Einstellungen und führe eine App-Prüfung und ggf. eine Reperatur durch.'
+      baseItem: 'Der Grundgegenstand mit id "${id: String}" @:pages.itemDetail.errors._base'
+      fullItem: 'Der Vollgegenstand mit id "${id: String}" @:pages.itemDetail.errors._base'
   settings:
     title: 'Einstellungen'
     appUpdate:
       name: 'App-Update'
       descriptionNoUpdate: 'Deine App ist auf dem neuesten Stand.'
-      descriptionUpdate(String version): 'Eine neue Version ($version) ist verfügbar!\nHier sind die neuesten Änderungen:'
+      descriptionUpdate: 'Eine neue Version (${version: String}) ist verfügbar!\nHier sind die neuesten Änderungen:'
       update: 'Update'
       retry: 'Update wiederholen'
     design:
@@ -133,21 +134,22 @@ pages:
       description: 'Wir prüfen, ob alle wichtigen Daten wie Assets, Grund- und Vollgegenstände sowie Patch-Notizen fehlerfrei heruntergeladen wurden.'
       start: 'Starte Prüfung'
       retry: 'Prüfung wiederholen'
+      _counts: '${localCount: int}/${remoteCount: int}'
       assets:
         name: 'Assets'
-        check(int localCount, int remoteCount): '$localCount/$remoteCount Assets'
+        check: '@:pages.settings.check._counts Assets'
       baseItems:
         name: 'Grundgegenstände'
-        checkItems(int localCount, int remoteCount): '$localCount/$remoteCount Grundgegenstände'
-        checkTranslations(int localCount, int remoteCount): '$localCount/$remoteCount Übersetzungen'
+        checkItems: '@:pages.settings.check._counts Grundgegenstände'
+        checkTranslations: '@:pages.settings.check._counts Übersetzungen'
       fullItems:
         name: 'Vollgegenstände'
-        checkItems(int localCount, int remoteCount): '$localCount/$remoteCount Vollgegenstände'
-        checkTranslations(int localCount, int remoteCount): '$localCount/$remoteCount Übersetzungen'
+        checkItems: '@:pages.settings.check._counts Vollgegenstände'
+        checkTranslations: '@:pages.settings.check._counts Übersetzungen'
       patchNotes:
         name: 'Patch-Notizen'
-        checkPatchNotes(int localCount, int remoteCount): '$localCount/$remoteCount Patch-Notizen'
-        checkTranslations(int localCount, int remoteCount): '$localCount/$remoteCount Übersetzungen'
+        checkPatchNotes: '@:pages.settings.check._counts Patch-Notizen'
+        checkTranslations: '@:pages.settings.check._counts Übersetzungen'
     repair:
       name: 'Reparieren'
       description: 'Wir werden alle Daten wie Assets, Grund- und Vollgegenstände sowie Patch-Notizen erneut herunterladen.'
@@ -163,7 +165,7 @@ pages:
     admin:
       name: 'Admin freischalten'
       description: 'Gib die Admin-PIN ein, um zusätzliche Funktionen freizuschalten.'
-      inProgress(int steps): 'Nur noch $steps Schritte und du bist Admin.'
+      inProgress: 'Nur noch ${steps: int} Schritte und du bist Admin.'
       enabled: 'Du bist jetzt Admin.'
       alreadyEnabled: 'Okay, du bist bereits Admin.'
       validator:

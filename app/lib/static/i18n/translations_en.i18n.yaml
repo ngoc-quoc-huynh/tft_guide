@@ -21,20 +21,20 @@ pages:
     startGame: 'Start game'
     lpSuffix: ' LP'
     tiers:
-      iron(String division): 'Iron $division'
-      bronze(String division): 'Bronze $division'
-      silver(String division): 'Silver $division'
-      gold(String division): 'Gold $division'
-      emerald(String division): 'Emerald $division'
-      platinum(String division): 'Platinum $division'
-      diamond(String division): 'Diamond $division'
-      master(String division): 'Master $division'
-      grandmaster(String division): 'Grandmaster $division'
-      challenger(String division): 'Challenger $division'
+      iron: 'Iron ${division: String}'
+      bronze: 'Bronze ${division: String}'
+      silver: 'Silver ${division: String}'
+      gold: 'Gold ${division: String}'
+      emerald: 'Emerald ${division: String}'
+      platinum: 'Platinum ${division: String}'
+      diamond: 'Diamond ${division: String}'
+      master: 'Master ${division: String}'
+      grandmaster: 'Grandmaster ${division: String}'
+      challenger: 'Challenger ${division: String}'
   game:
     errors:
       questions: 'Oops! We couldn’t create questions due to missing items.\nPlease go to Settings and run an App Check or a Repair if needed.'
-    option(int index): 'Option $index'
+    option: 'Option ${index: int}'
     proceed: 'Continue'
     check: 'Check'
     questions:
@@ -104,14 +104,15 @@ pages:
     item1: 'Item 1'
     item2: 'Item 2'
     errors:
-      baseItem(String id): 'The base item with id "$id" could not be loaded.\nGo to Settings and run an App Check or a Repair if needed.'
-      fullItem(String id): 'The full item with id "$id" could not be loaded.\nGo to Settings and run an App Check or a Repair if needed.'
+      _base: 'could not be loaded.\nGo to Settings and run an App Check or a Repair if needed.'
+      baseItem: 'The base item with id "${id: String}" @:pages.itemDetail.errors._base'
+      fullItem: 'The full item with id "${id: String}" @:pages.itemDetail.errors._base'
   settings:
     title: 'Settings'
     appUpdate:
       name: 'App Update'
       descriptionNoUpdate: 'Your app is up to date.'
-      descriptionUpdate(String version): 'A new version ($version) is available!\nHere are the new changes:'
+      descriptionUpdate: 'A new version (${version: String}) is available!\nHere are the new changes:'
       update: 'Update'
       retry: 'Retry update'
     design:
@@ -133,21 +134,22 @@ pages:
       description: 'We will check if all essential data, such as assets, base- and full items, and patch notes, are correctly downloaded.'
       start: 'Start check'
       retry: 'Retry check'
+      _counts: '${localCount: int}/${remoteCount: int}'
       assets:
         name: 'Assets'
-        check(int localCount, int remoteCount): '$localCount/$remoteCount assets'
+        check: '@:pages.settings.check._counts assets'
       baseItems:
         name: 'Base items'
-        checkItems(int localCount, int remoteCount): '$localCount/$remoteCount base items'
-        checkTranslations(int localCount, int remoteCount): '$localCount/$remoteCount translations'
+        checkItems: '@:pages.settings.check._counts base items'
+        checkTranslations: '@:pages.settings.check._counts translations'
       fullItems:
         name: 'Full items'
-        checkItems(int localCount, int remoteCount): '$localCount/$remoteCount full items'
-        checkTranslations(int localCount, int remoteCount): '$localCount/$remoteCount translations'
+        checkItems: '@:pages.settings.check._counts full items'
+        checkTranslations: '@:pages.settings.check._counts translations'
       patchNotes:
         name: 'Patch notes'
-        checkPatchNotes(int localCount, int remoteCount): '$localCount/$remoteCount patch notes'
-        checkTranslations(int localCount, int remoteCount): '$localCount/$remoteCount translations'
+        checkPatchNotes: '@:pages.settings.check._counts patch notes'
+        checkTranslations: '@:pages.settings.check._counts translations'
     repair:
       name: 'Repair'
       description: 'We will download all essential data, such as assets, base- and full items, and patch notes again.'
@@ -163,7 +165,7 @@ pages:
     admin:
       name: 'Unlock admin'
       description: 'Enter the admin PIN to unlock additional features.'
-      inProgress(int steps): 'You are now $steps steps away from being an admin.'
+      inProgress: 'You are now ${steps: int} steps away from being an admin.'
       enabled: 'You are now an admin!'
       alreadyEnabled: 'No need, you are already an admin.'
       validator:
