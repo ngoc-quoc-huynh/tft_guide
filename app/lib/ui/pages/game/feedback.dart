@@ -69,8 +69,8 @@ class _FeedbackBottomSheetState extends State<FeedbackBottomSheet> {
                   ],
                 ),
                 const SizedBox(height: 10),
-                FractionallySizedBox(
-                  widthFactor: 1,
+                SizedBox(
+                  width: double.infinity,
                   child: FilledButton(
                     onPressed: () => _onContinue(context),
                     child:

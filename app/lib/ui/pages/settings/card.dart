@@ -13,8 +13,8 @@ class SettingsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: Sizes.maxWidgetWith),
-      child: FractionallySizedBox(
-        widthFactor: 1,
+      child: SizedBox(
+        width: double.infinity,
         child: Card.filled(
           child: child,
         ),

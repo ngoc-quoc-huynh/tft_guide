@@ -16,8 +16,8 @@ class ItemDetailCard extends StatelessWidget {
     return Center(
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: Sizes.maxWidgetWith),
-        child: FractionallySizedBox(
-          widthFactor: 1,
+        child: SizedBox(
+          width: double.infinity,
           child: Card.filled(
             child: Padding(
               padding: Sizes.cardPadding,

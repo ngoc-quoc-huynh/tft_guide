@@ -22,8 +22,8 @@ class CheckButton extends StatelessWidget {
       ),
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: Sizes.maxWidgetWith),
-        child: FractionallySizedBox(
-          widthFactor: 1,
+        child: SizedBox(
+          width: double.infinity,
           child: BlocListener<CheckSelectedItemOptionCubit, bool?>(
             listener: _onCheckSelectedItemStateChanged,
             child: BlocSelectorWithChild<SelectedItemOptionValueCubit,
