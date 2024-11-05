@@ -31,7 +31,6 @@ pages:
       master(String division): 'Meister $division'
       grandmaster(String division): 'Großmeister $division'
       challenger(String division): 'Herausforder $division'
-    lp(int number): '$number LP'
   game:
     errors:
       questions: "Hoppla! Wir konnten keine Fragen erstellen, da Gegenstände fehlen.\nGehe zu den Einstellungen und führe eine App-Prüfung und ggf. eine Reparatur durch."

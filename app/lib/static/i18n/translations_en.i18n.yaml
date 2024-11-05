@@ -31,7 +31,6 @@ pages:
       master(String division): 'Master $division'
       grandmaster(String division): 'Grandmaster $division'
       challenger(String division): 'Challenger $division'
-    lp(int number): '$number LP'
   game:
     errors:
       questions: 'Oops! We couldn’t create questions due to missing items.\nPlease go to Settings and run an App Check or a Repair if needed.'
