@@ -1,6 +1,5 @@
 import 'package:alchemist/alchemist.dart';
 import 'package:bloc_test/bloc_test.dart';
-import 'package:file/memory.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -41,10 +40,7 @@ Future<void> main() async {
     initialState: LanguageCode.en,
   );
 
-  final fileSystem = MemoryFileSystem();
-  when(() => fileStorageApi.loadFile(any())).thenReturn(
-    fileSystem.file('test.webp'),
-  );
+  when(() => fileStorageApi.loadFile(any())).thenReturn(TestFile.file);
 
   await goldenTest(
     'renders empty correctly.',
@@ -62,6 +58,8 @@ Future<void> main() async {
   await goldenTest(
     'renders filled correctly.',
     fileName: 'page_filled',
+    pumpBeforeTest: precacheImages,
+    pumpWidget: pumpSingleFrameWidget,
     constraints: pageConstraints(),
     builder: () {
       when(() => localDatabaseApi.loadBaseItemMetas(LanguageCode.en))

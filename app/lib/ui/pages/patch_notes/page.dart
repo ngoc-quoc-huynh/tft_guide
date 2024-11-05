@@ -24,6 +24,9 @@ class PatchNotesPage extends StatelessWidget {
           child: BlocBuilder<PatchNotesBloc, PatchNotesState>(
             builder: (context, state) => switch (state) {
               PatchNotesLoadInProgress() => const LoadingIndicator(),
+              PatchNotesLoadOnSuccess(:final patchNotes)
+                  when patchNotes.isEmpty =>
+                const _Error(),
               PatchNotesLoadOnSuccess(
                 :final patchNotes,
                 :final isLastPage,
@@ -33,9 +36,6 @@ class PatchNotesPage extends StatelessWidget {
                   isLastPage: isLastPage,
                   hasError: state is PatchNotesPaginationOnFailure,
                 ),
-              PatchNotesLoadOnSuccess(:final patchNotes)
-                  when patchNotes.isEmpty =>
-                const _Error(),
               PatchNotesLoadOnFailure() => const _Error(),
             },
           ),

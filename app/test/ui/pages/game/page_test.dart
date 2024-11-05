@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:alchemist/alchemist.dart';
-import 'package:file/memory.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:tft_guide/domain/exceptions/base.dart';
@@ -43,8 +42,7 @@ Future<void> main() async {
       ..unregister<FileStorageApi>(),
   );
 
-  when(() => fileStorageApi.loadFile(any()))
-      .thenReturn(MemoryFileSystem().file('test.webp'));
+  when(() => fileStorageApi.loadFile(any())).thenReturn(TestFile.file);
 
   const baseItemQuestions = [
     TitleTextQuestion(
@@ -89,6 +87,8 @@ Future<void> main() async {
     'renders correctly.',
     fileName: 'page',
     constraints: pageConstraints(),
+    pumpBeforeTest: precacheImages,
+    pumpWidget: pumpSingleFrameWidget,
     builder: () {
       when(
         () => questionsApi.generateBaseItemQuestions(
@@ -111,6 +111,8 @@ Future<void> main() async {
   await goldenTest(
     'renders selected correctly.',
     fileName: 'page_selected',
+    pumpBeforeTest: precacheImages,
+    pumpWidget: pumpSingleFrameWidget,
     constraints: pageConstraints(),
     whilePerforming: (tester) async {
       await tester.tap(find.byType(SelectionChip).first);

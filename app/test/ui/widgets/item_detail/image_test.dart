@@ -17,15 +17,12 @@ Future<void> main() async {
 
   tearDownAll(Injector.instance.unregister<FileStorageApi>);
 
-  when(() => fileStorageApi.loadFile('id')).thenReturn(await TestImage().file);
+  when(() => fileStorageApi.loadFile('id')).thenReturn(TestFile.file);
 
   await goldenTest(
     'renders correctly.',
     fileName: 'image',
-    pumpBeforeTest: (tester) async {
-      await precacheImages(tester);
-      await tester.pump();
-    },
+    pumpBeforeTest: precacheImages,
     builder: () => const ImageDetailImage(
       id: 'id',
     ),

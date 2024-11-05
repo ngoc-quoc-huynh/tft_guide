@@ -52,10 +52,7 @@ Future<void> main() async {
     'renders correctly.',
     fileName: 'ranked',
     constraints: pageConstraints(height: 650),
-    pumpBeforeTest: (tester) async {
-      await precacheImages(tester);
-      await tester.pumpAndSettle();
-    },
+    pumpBeforeTest: precacheImages,
     builder: () {
       final eloGainCubit = MockNumValueCubit<int?>();
       return _TestWidget(
@@ -73,10 +70,7 @@ Future<void> main() async {
     'renders correctly.',
     fileName: 'ranked_elo_gain',
     constraints: pageConstraints(height: 650),
-    pumpBeforeTest: (tester) async {
-      await precacheImages(tester);
-      await tester.pumpAndSettle();
-    },
+    pumpBeforeTest: precacheImages,
     builder: () {
       final eloGainCubit = MockNumValueCubit<int?>();
       return _TestWidget(

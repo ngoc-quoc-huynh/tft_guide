@@ -1,6 +1,5 @@
 import 'package:alchemist/alchemist.dart';
 import 'package:bloc_test/bloc_test.dart';
-import 'package:file/memory.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -45,9 +44,7 @@ Future<void> main() async {
     initialState: LanguageCode.en,
   );
 
-  final fileSystem = MemoryFileSystem();
-  when(() => fileStorageApi.loadFile(any()))
-      .thenReturn(fileSystem.file('test.webp'));
+  when(() => fileStorageApi.loadFile(any())).thenReturn(TestFile.file);
 
   when(
     () => localDatabaseApi.loadBaseItemDetail('base-item', LanguageCode.en),
@@ -78,10 +75,8 @@ Future<void> main() async {
   await goldenTest(
     'renders correctly.',
     fileName: 'full_item',
-    pumpBeforeTest: (tester) async {
-      await precacheImages(tester);
-      await tester.pumpAndSettle();
-    },
+    pumpBeforeTest: precacheImages,
+    pumpWidget: pumpSingleFrameWidget,
     constraints: pageConstraints(),
     builder: () => _TestWidget(
       languageCodeValueCubit: languageCodeValueCubit,
@@ -98,10 +93,8 @@ Future<void> main() async {
   await goldenTest(
     'renders theme correctly.',
     fileName: 'full_item_theme',
-    pumpBeforeTest: (tester) async {
-      await precacheImages(tester);
-      await tester.pumpAndSettle();
-    },
+    pumpBeforeTest: precacheImages,
+    pumpWidget: pumpSingleFrameWidget,
     constraints: pageConstraints(),
     builder: () => _TestWidget(
       languageCodeValueCubit: languageCodeValueCubit,

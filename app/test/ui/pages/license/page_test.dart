@@ -30,10 +30,7 @@ Future<void> main() async {
   await goldenTest(
     'renders correctly.',
     fileName: 'page',
-    pumpBeforeTest: (tester) async {
-      await precacheImages(tester);
-      await tester.pumpAndSettle();
-    },
+    pumpBeforeTest: precacheImages,
     constraints: pageConstraints(),
     builder: () => const CustomLicensePage(),
   );

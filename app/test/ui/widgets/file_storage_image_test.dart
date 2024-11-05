@@ -19,17 +19,14 @@ Future<void> main() async {
 
   tearDownAll(Injector.instance.unregister<FileStorageApi>);
 
-  when(() => fileStorageApi.loadFile('id')).thenReturn(await TestImage().file);
+  when(() => fileStorageApi.loadFile('id')).thenReturn(TestFile.file);
   when(() => fileStorageApi.loadFile('error'))
       .thenReturn(fileSystem.file('error.png'));
 
   await goldenTest(
     'renders correctly.',
     fileName: 'file_storage_image',
-    pumpBeforeTest: (tester) async {
-      await precacheImages(tester);
-      await tester.pumpAndSettle();
-    },
+    pumpBeforeTest: precacheImages,
     builder: () => GoldenTestScenario(
       name: 'Default',
       child: const FileStorageImage(

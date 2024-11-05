@@ -1,11 +1,9 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:alchemist/alchemist.dart';
 import 'package:collection/collection.dart';
 import 'package:file/memory.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path/path.dart';
@@ -24,14 +22,6 @@ void expectList<T>(List<T> actual, List<T> matcher) => expect(
       ListEquality<T>().equals(actual, matcher),
       isTrue,
     );
-
-final class TestFile {
-  const TestFile(this.path);
-
-  final String path;
-
-  File toFile() => File(join(Directory.current.path, 'test', path));
-}
 
 extension WidgetTesterExtension on WidgetTester {
   T readBloc<T extends StateStreamableSource<Object?>>(Type type) =>
@@ -58,28 +48,23 @@ class CountRebuildsWidgetState extends State<CountRebuildsWidget> {
   }
 }
 
-final class TestImage {
-  factory TestImage() {
-    return _instance;
-  }
+// ignore: avoid_classes_with_only_static_members, needed to initialize the file only once.
+class TestFile {
+  const TestFile._();
 
-  TestImage._internal() {
-    unawaited(_loadImage());
-  }
+  static final File _testFile = MemoryFileSystem().file('test.webp')
+    ..writeAsBytesSync(
+      File(
+        join(
+          Directory.current.path,
+          'test',
+          'assets',
+          'test.webp',
+        ),
+      ).readAsBytesSync(),
+    );
 
-  static final TestImage _instance = TestImage._internal();
-  final Completer<File> _imageCompleter = Completer<File>();
-
-  Future<void> _loadImage() async {
-    TestWidgetsFlutterBinding.ensureInitialized();
-    final ByteData imageBytes =
-        await rootBundle.load('assets/app/launcher_icon.webp');
-    final File imageFile = MemoryFileSystem().file('test.webp')
-      ..writeAsBytesSync(imageBytes.buffer.asUint8List());
-    _imageCompleter.complete(imageFile);
-  }
-
-  Future<File> get file => _imageCompleter.future;
+  static File get file => _testFile;
 }
 
 Interaction? tap(Finder finder) => (WidgetTester tester) async {
@@ -90,3 +75,8 @@ Interaction? tap(Finder finder) => (WidgetTester tester) async {
 
       return null;
     };
+
+Future<void> pumpSingleFrameWidget(WidgetTester tester, Widget widget) async {
+  await tester.pumpWidget(widget);
+  await tester.pump();
+}

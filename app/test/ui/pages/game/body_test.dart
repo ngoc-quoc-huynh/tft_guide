@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:alchemist/alchemist.dart';
 import 'package:bloc_test/bloc_test.dart';
-import 'package:file/memory.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -33,8 +32,7 @@ Future<void> main() async {
       ..unregister<FileStorageApi>(),
   );
 
-  when(() => fileStorageApi.loadFile(any()))
-      .thenReturn(MemoryFileSystem().file('test.webp'));
+  when(() => fileStorageApi.loadFile(any())).thenReturn(TestFile.file);
 
   final gameProgressBloc = MockGameProgressBloc();
   whenListen<GameProgressState>(
@@ -46,6 +44,7 @@ Future<void> main() async {
   await goldenTest(
     'renders correctly.',
     fileName: 'body',
+    pumpBeforeTest: precacheImages,
     builder: () => GoldenTestGroup(
       scenarioConstraints: pageConstraints(),
       children: [
