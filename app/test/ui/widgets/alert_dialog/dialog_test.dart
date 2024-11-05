@@ -8,7 +8,7 @@ import 'package:tft_guide/ui/widgets/alert_dialog/dialog.dart';
 Future<void> main() async {
   setUpAll(
     () => Injector.instance.registerSingleton<Translations>(
-      TranslationsEn.build(),
+      AppLocale.en.buildSync(),
     ),
   );
 

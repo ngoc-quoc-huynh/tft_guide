@@ -20,7 +20,7 @@ Future<void> main() async {
 
   setUpAll(
     () => Injector.instance
-      ..registerSingleton<Translations>(TranslationsEn.build())
+      ..registerSingleton<Translations>(AppLocale.en.buildSync())
       ..registerSingleton<FileStorageApi>(fileStorageApi)
       ..registerSingleton<LocalDatabaseApi>(localDatabaseApi)
       ..registerSingleton<RemoteDatabaseApi>(remoteDatabaseApi),

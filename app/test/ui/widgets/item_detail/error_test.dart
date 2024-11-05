@@ -9,7 +9,7 @@ import '../../../utils.dart';
 Future<void> main() async {
   setUpAll(
     () => Injector.instance.registerSingleton<Translations>(
-      TranslationsEn.build(),
+      AppLocale.en.buildSync(),
     ),
   );
 

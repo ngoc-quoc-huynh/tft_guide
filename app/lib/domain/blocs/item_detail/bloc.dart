@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/models/database/language_code.dart';
 import 'package:tft_guide/domain/models/item_detail.dart';
 import 'package:tft_guide/domain/utils/mixins/bloc.dart';
-import 'package:tft_guide/injector.dart' hide TranslationsEn;
+import 'package:tft_guide/injector.dart';
 
 part 'base_item/bloc.dart';
 part 'event.dart';

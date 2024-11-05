@@ -21,7 +21,7 @@ Future<void> main() async {
   setUpAll(
     () => Injector.instance
       ..registerSingleton<LocalDatabaseApi>(localDatabaseApi)
-      ..registerSingleton<Translations>(TranslationsEn.build())
+      ..registerSingleton<Translations>(AppLocale.en.buildSync())
       ..registerSingleton<int>(pageSize, instanceName: 'patchNotesPageSize'),
   );
 

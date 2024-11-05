@@ -23,7 +23,7 @@ void main() {
     () => Injector.instance
       ..registerSingleton<LocalDatabaseApi>(localDatabaseApi)
       ..registerSingleton<ThemeApi>(themeApi)
-      ..registerSingleton<Translations>(TranslationsEn.build()),
+      ..registerSingleton<Translations>(AppLocale.en.buildSync()),
   );
 
   tearDownAll(

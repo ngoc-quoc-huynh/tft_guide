@@ -21,7 +21,7 @@ void main() {
   setUpAll(
     () => Injector.instance
       ..registerSingleton<QuestionsApi>(questionsApi)
-      ..registerSingleton<Translations>(TranslationsEn.build()),
+      ..registerSingleton<Translations>(AppLocale.en.buildSync()),
   );
 
   tearDownAll(

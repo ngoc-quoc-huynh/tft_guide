@@ -6,7 +6,7 @@ import 'package:tft_guide/ui/pages/settings/dialogs/feedback.dart';
 Future<void> main() async {
   setUpAll(
     () => Injector.instance
-        .registerSingleton<Translations>(TranslationsEn.build()),
+        .registerSingleton<Translations>(AppLocale.en.buildSync()),
   );
 
   tearDownAll(Injector.instance.unregister<Translations>);

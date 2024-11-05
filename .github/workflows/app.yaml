@@ -51,12 +51,12 @@ jobs:
         working-directory: ./app
         run: flutter pub get
 
+      - name: Generate i18n
+        working-directory: ./app
+        run: dart run slang generate
       - name: Format code
         working-directory: ./app
         run: dart format --set-exit-if-changed .
-      - name: Generate i18n
-        working-directory: ./app
-        run: dart run slang
       - name: Analyze code
         working-directory: ./app
         run: flutter analyze

@@ -8,7 +8,7 @@ import 'package:tft_guide/ui/pages/ranked/body/rank_name.dart';
 Future<void> main() async {
   setUpAll(
     () => Injector.instance
-        .registerSingleton<Translations>(TranslationsEn.build()),
+        .registerSingleton<Translations>(AppLocale.en.buildSync()),
   );
 
   tearDownAll(Injector.instance.unregister<Translations>);

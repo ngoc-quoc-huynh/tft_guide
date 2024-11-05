@@ -5,8 +5,9 @@ import 'package:tft_guide/ui/pages/settings/dialogs/update_elo.dart';
 
 Future<void> main() async {
   setUpAll(
-    () => Injector.instance
-        .registerSingleton<Translations>(TranslationsEn.build()),
+    () => Injector.instance.registerSingleton<Translations>(
+      AppLocale.en.buildSync(),
+    ),
   );
 
   tearDownAll(Injector.instance.unregister<Translations>);
