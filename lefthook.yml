@@ -1,0 +1,6 @@
+pre-commit:
+  parallel: true
+  commands:
+    format:
+      glob: 'app/**/*.dart'
+      run: dart format {staged_files}

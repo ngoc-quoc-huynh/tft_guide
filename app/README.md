@@ -88,6 +88,17 @@ To format and analyze the codebase, you can run the following command:
 make style
 ```
 
+### Code style enforcement with lefthook
+
+To automatically format staged code before committing, we
+use [lefthook](https://github.com/evilmartians/lefthook) as a pre-commit hook.
+Our configuration ensures that only staged Dart files in the app directory are formatted with dart
+format.
+
+```sh
+lefthook install
+```
+
 ## Tests
 
 To execute the tests, run the following command in your terminal:
