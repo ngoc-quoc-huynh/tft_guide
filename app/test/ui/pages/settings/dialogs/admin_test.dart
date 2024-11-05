@@ -14,7 +14,7 @@ Future<void> main() async {
 
   setUpAll(
     () => Injector.instance
-      ..registerSingleton<Translations>(TranslationsEn.build())
+      ..registerSingleton<Translations>(AppLocale.en.buildSync())
       ..registerSingleton<AdminApi>(adminApi),
   );
 

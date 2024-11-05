@@ -33,5 +33,5 @@ final class LanguageCodeValueCubit extends ValueCubit<LanguageCode> {
         LanguageCode.de => AppLocale.de,
         LanguageCode.en => AppLocale.en,
       }
-          .build();
+          .buildSync();
 }

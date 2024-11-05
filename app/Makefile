@@ -1,7 +1,7 @@
 .PHONY: i18n check-i18n check-code style test test-unit test-ui update-goldens launcher-icon splash-screen check-code check-files apk
 
 i18n:
-	dart run slang
+	dart run slang generate
 
 check-i18n:
 	dart run slang analyze

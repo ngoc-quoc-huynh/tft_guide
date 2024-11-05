@@ -66,8 +66,8 @@ dev_dependencies:
   dart_code_linter: ^1.1.3
 
   # Localization
-  slang_flutter: ^4.0.0
-  slang_build_runner: ^3.29.0
+  slang_flutter: ^4.1.0
+  slang_build_runner: ^4.1.0
 
   # Splash Screen
   flutter_native_splash: ^2.3.5

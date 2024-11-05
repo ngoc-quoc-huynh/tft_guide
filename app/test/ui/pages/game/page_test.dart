@@ -23,7 +23,7 @@ Future<void> main() async {
 
   setUpAll(
     () => Injector.instance
-      ..registerSingleton<Translations>(TranslationsEn.build())
+      ..registerSingleton<Translations>(AppLocale.en.buildSync())
       ..registerSingleton<QuestionsApi>(questionsApi)
       ..registerSingleton<int>(1, instanceName: 'totalBaseItemQuestions')
       ..registerSingleton<int>(1, instanceName: 'totalFullItemQuestions')

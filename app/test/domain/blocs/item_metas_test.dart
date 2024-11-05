@@ -17,7 +17,7 @@ void main() {
   setUpAll(
     () => Injector.instance
       ..registerSingleton<LocalDatabaseApi>(localDatabaseApi)
-      ..registerSingleton<Translations>(TranslationsEn.build()),
+      ..registerSingleton<Translations>(AppLocale.en.buildSync()),
   );
 
   tearDownAll(

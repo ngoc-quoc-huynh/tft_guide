@@ -82,7 +82,7 @@ void main() {
   });
 
   test('returns LanguageCode.', () {
-    Injector.instance.registerSingleton<Translations>(TranslationsEn.build());
+    Injector.instance.registerSingleton<Translations>(AppLocale.en.buildSync());
     addTearDown(Injector.instance.unregister<Translations>);
 
     expect(
@@ -295,7 +295,7 @@ void main() {
   });
 
   test('returns Translations.', () {
-    Injector.instance.registerSingleton<Translations>(TranslationsEn.build());
+    Injector.instance.registerSingleton<Translations>(AppLocale.en.buildSync());
     addTearDown(Injector.instance.unregister<Translations>);
     expect(
       Injector.instance.translations,
