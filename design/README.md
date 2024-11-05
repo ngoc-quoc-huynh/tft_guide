@@ -7,4 +7,4 @@ This repository contains all design-related resources for the project. It serves
 ## Contents
 
 - [assets](./assets): Contains image files, icons, and other graphical assets used throughout the project. These assets are utilized within the [app](../app) and [infrastructure](../infrastructure) folders.
-- [TFT Guide.fig](./TFT%20Guide.fig): This Figma file is the primary design document for the project. It includes mockups and design specifications, serving as the foundation for the project's user interface and user experience design.
+- [screenshots](./screenshots):  Includes screenshots of the application interface in both light and dark modes, showcasing the design's responsiveness and adaptability to different user preferences.
