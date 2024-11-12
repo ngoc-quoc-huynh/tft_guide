@@ -49,33 +49,6 @@ final class Injector {
 
   static Future<void> setupDependencies() async {
     instance
-      ..registerLazySingleton<FeedbackApi>(FeedbackRepository.new)
-      ..registerLazySingleton<RemoteDatabaseApi>(SupabaseRepository.new)
-      ..registerSingletonAsync<Directory>(
-        getApplicationDocumentsDirectory,
-        instanceName: 'appDir',
-      )
-      ..registerSingletonAsync<Directory>(
-        getTemporaryDirectory,
-        instanceName: 'tmpDir',
-      )
-      ..registerLazySingleton<LocalDatabaseApi>(SqliteAsyncRepository.new)
-      ..registerLazySingleton<FileStorageApi>(LocalFileStorageRepository.new)
-      ..registerLazySingleton<ThemeApi>(MaterialThemeRepository.new)
-      ..registerLazySingleton<WidgetsBindingApi>(WidgetsBindingRepository.new)
-      ..registerSingletonAsync<PackageInfo>(PackageInfo.fromPlatform)
-      ..registerSingletonAsync<SharedPreferencesWithCache>(
-        () => SharedPreferencesWithCache.create(
-          cacheOptions: const SharedPreferencesWithCacheOptions(),
-        ),
-      )
-      ..registerLazySingleton<LocalStorageApi>(SharedPreferencesRepository.new)
-      ..registerLazySingleton<RankApi>(LocalRankRepository.new)
-      ..registerLazySingleton(Logger.new)
-      ..registerLazySingleton<LoggerApi>(LoggerRepository.new)
-      ..registerLazySingleton<NativeApi>(NativeRepository.new)
-      ..registerLazySingleton<Random>(Random.new)
-      ..registerLazySingleton<FileSystem>(LocalFileSystem.new)
       ..registerLazySingleton<AdminApi>(
         () => const AdminRepository(Config.adminPassword),
       )
@@ -86,6 +59,34 @@ final class Injector {
           repo: Config.githubRepo,
         ),
       )
+      ..registerSingletonAsync<Directory>(
+        getApplicationDocumentsDirectory,
+        instanceName: 'appDir',
+      )
+      ..registerSingletonAsync<Directory>(
+        getTemporaryDirectory,
+        instanceName: 'tmpDir',
+      )
+      ..registerLazySingleton<FeedbackApi>(FeedbackRepository.new)
+      ..registerLazySingleton<FileStorageApi>(LocalFileStorageRepository.new)
+      ..registerLazySingleton<FileSystem>(LocalFileSystem.new)
+      ..registerLazySingleton<LocalDatabaseApi>(SqliteAsyncRepository.new)
+      ..registerLazySingleton<LocalStorageApi>(SharedPreferencesRepository.new)
+      ..registerLazySingleton<Logger>(Logger.new)
+      ..registerLazySingleton<LoggerApi>(LoggerRepository.new)
+      ..registerLazySingleton<NativeApi>(NativeRepository.new)
+      ..registerSingletonAsync<PackageInfo>(PackageInfo.fromPlatform)
+      ..registerLazySingleton<QuestionsApi>(QuestionsRepository.new)
+      ..registerLazySingleton<Random>(Random.new)
+      ..registerLazySingleton<RankApi>(LocalRankRepository.new)
+      ..registerLazySingleton<RemoteDatabaseApi>(SupabaseRepository.new)
+      ..registerSingletonAsync<SharedPreferencesWithCache>(
+        () => SharedPreferencesWithCache.create(
+          cacheOptions: const SharedPreferencesWithCacheOptions(),
+        ),
+      )
+      ..registerLazySingleton<ThemeApi>(MaterialThemeRepository.new)
+      ..registerLazySingleton<WidgetsBindingApi>(WidgetsBindingRepository.new)
       ..registerLazySingleton<int>(
         () => Config.patchNotesPageSize,
         instanceName: 'patchNotesPageSize',
@@ -101,8 +102,7 @@ final class Injector {
       ..registerLazySingleton<int>(
         () => Config.otherOptionsAmount,
         instanceName: 'otherOptionsAmount',
-      )
-      ..registerLazySingleton<QuestionsApi>(QuestionsRepository.new);
+      );
 
     await instance.allReady();
     HydratedBloc.storage = const SharedPrefsHydratedStorage();
