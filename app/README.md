@@ -1,7 +1,8 @@
 # App
 
-[![Build Status](https://github.com/ngoc-quoc-huynh/tft_guide/actions/workflows/app.yaml/badge.svg?branch=main)](https://github.com/ngoc-quoc-huynh/tft_guide/actions/workflows/app.yaml?query=branch%3Amain)
+[![build status](https://github.com/ngoc-quoc-huynh/tft_guide/actions/workflows/app.yaml/badge.svg?branch=main)](https://github.com/ngoc-quoc-huynh/tft_guide/actions/workflows/app.yaml?query=branch%3Amain)
 [![style](https://img.shields.io/badge/style-cosee__lints-brightgreen)](https://pub.dev/packages/cosee_lints)
+[![release](https://img.shields.io/github/v/release/ngoc-quoc-huynh/tft_guide)](https://github.com/ngoc-quoc-huynh/tft_guide/releases/latest)
 [![license](https://img.shields.io/github/license/ngoc-quoc-huynh/tft_guide)](https://raw.githubusercontent.com/ngoc-quoc-huynh/tft_guide/refs/heads/main/LICENSE)
 
 ## Overview
@@ -9,27 +10,23 @@
 This repository contains the source code for the TFT Guide flutter app.
 The app uses [supabase](https://supabase.com/) to load and sync remote data with a
 local [SQLite](https://pub.dev/packages/sqlite_async) database. This allows for seamless data
-access, even in offline
-scenarios, ensuring the user experience remains smooth and uninterrupted.
+access, even in offline scenarios, ensuring the user experience remains smooth and uninterrupted.
 
 ## Getting Started
 
 ### asdf
 
 We are using [asdf](https://asdf-vm.com/) to manage the dependencies. Make sure you have it
-installed and then run the
-following command to install the required versions:
+installed and then run the following command to install the required versions:
 
 ```bash
 asdf install
 ```
 
 If you don't have asdf installed or prefer not to use it, you can
-install [Flutter](https://docs.flutter.dev/) directly
-by following the official
-[Flutter installation guide](https://docs.flutter.dev/get-started/install). Make sure to use the
-version specified in
-the [.tool-versions ](../.tool-versions) file to avoid compatibility
+install [Flutter](https://docs.flutter.dev/) directly by following the
+official[Flutter installation guide](https://docs.flutter.dev/get-started/install). Make sure to use
+the version specified in the [.tool-versions ](../.tool-versions) file to avoid compatibility
 issues.
 
 ### Local Development
@@ -47,13 +44,12 @@ environment:
 2. Populate the `env.json` file with the required values.
 
    Open `env.json` and fill in the `supabase_url`, `supabase_anon_key`, `github_owner`, and
-   `github_repo`
-   fields using the information from your GitHub and supabase project:
+   `github_repo` fields using the information from your GitHub and supabase project:
 
-- **supabase_url**: Available in your Supabase project settings under **Project Settings > API**.
-- **supabase_anon_key**: Available in the same **API** section.
-- **github_owner**: The owner of the GitHub repository.
-- **github_repo**: The name of the GitHub repository.
+   - **supabase_url**: Available in your Supabase project settings under **Project Settings > API**.
+   - **supabase_anon_key**: Available in the same **API** section.
+   - **github_owner**: The owner of the GitHub repository.
+   - **github_repo**: The name of the GitHub repository.
 
 3. Run the app:
    Use the following command to start the application with the environment variables loaded from

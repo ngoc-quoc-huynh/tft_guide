@@ -4,14 +4,17 @@
 [![license](https://img.shields.io/github/license/ngoc-quoc-huynh/tft_guide)](https://raw.githubusercontent.com/ngoc-quoc-huynh/tft_guide/refs/heads/main/LICENSE)
 
 This repository utilizes supabase as the backend database.
-The project involdes managing data for assets, base items, full items, patch notes and their corresponding translations.
-It is designed to enable seamless storage, retrieval, and translation of data across different languages.
+The project involves managing data for assets, base items, full items, patch notes and their
+corresponding translations.
+It is designed to enable seamless storage, retrieval, and translation of data across different
+languages.
 
 ## Getting Started
 
 ### Prerequisites
 
-Before you can get started with the project, make sure the following dependencies are installed on your system:
+Before you can get started with the project, make sure the following dependencies are installed on
+your system:
 
 - [Docker](https://docs.docker.com/engine/install/) for local development.
 - [Supabase CLI](https://supabase.com/docs/guides/cli/getting-started) to manage the database.
@@ -21,10 +24,13 @@ Before you can get started with the project, make sure the following dependencie
 Follow these steps to set up the project with supabase and GitHub:
 
 1. Create a new supabase project:
-    - Go to the [supabase dashboard](https://supabase.com/dashboard/projects) and create a new project.
-    - During setup, define a **database password**. You will need this password later for configuration.
+   - Go to the [supabase dashboard](https://supabase.com/dashboard/projects) and create a new
+     project.
+   - During setup, define a **database password**. You will need this password later for
+     configuration.
 2. Add the database password to GitHub secrets:
-    - In your GitHub repository, navigate to **Settings > Secrets and variables > Actions > Secrets**.
+   - In your GitHub repository, navigate to **Settings > Secrets and variables > Actions > Secrets
+     **.
     - Click **New repository secret** and add your supabase database password.
     - Use **SUPABASE_DB_PASSWORD** as the key name.
 3. Add supabase Project ID to GitHub Variables:
@@ -32,12 +38,13 @@ Follow these steps to set up the project with supabase and GitHub:
     - Click **New repository** variable and add your supabase project id.
     - Use **SUPABASE_PROJECT_ID** as the key name.
 4. Create an access token:
-    - Generate a new access token from your [supabase account settings](https://supabase.com/dashboard/account/tokens).
+   - Generate a new access token from
+     your [supabase account settings](https://supabase.com/dashboard/account/tokens).
     - Go back to GitHub Secrets, create a new secret, and add the token.
     - Use **SUPABASE_ACCESS_TOKEN** as the key name.
 
-By completing these steps, your supabase project will be securely connected with your GitHub repository, enabling
-smooth deployment and CI/CD workflows.
+By completing these steps, your supabase project will be securely connected with your GitHub
+repository, enabling smooth deployment and CI/CD workflows.
 
 ### Local Development
 
@@ -72,8 +79,8 @@ documentation: [Local Development](https://supabase.com/docs/guides/cli/local-de
 
 ### Database Migrations
 
-To manage changes to your database schema, you can use supabase migrations. Follow these steps to create, apply, and
-push migrations.
+To manage changes to your database schema, you can use supabase migrations. Follow these steps to
+create, apply, and push migrations.
 
 1. Create a new migration:
    ```bash
@@ -93,13 +100,14 @@ push migrations.
    ```bash
    supabase db push
    ```
-   This will deploy the migration to your production environment, ensuring your remote database stays in sync with your
-   local schema changes.
+   This will deploy the migration to your production environment, ensuring your remote database
+   stays in sync with your local schema changes.
 
 ### Database structure
 
-The project uses supabase’s PostgreSQL database to manage the game’s data. The database consists of several key tables,
-which are categorized into core data tables, translation tables, and asset storage.
+The project uses supabase’s PostgreSQL database to manage the game’s data. The database consists of
+several key tables, which are categorized into core data tables, translation tables, and asset
+storage.
 
 #### Main tables
 
@@ -115,22 +123,26 @@ which are categorized into core data tables, translation tables, and asset stora
 
 #### Asset Management
 
-In addition to the database tables, the project also requires managing assets associated with base and full items.
+In addition to the database tables, the project also requires managing assets associated with base
+and full items.
 These assets are stored in supabase's storage feature.
 
 To manage assets, follow these steps:
 
 1. Create an Assets Bucket:
-    - Go to the supabase dashboard and navigate to the Storage section.
-    - Create a new bucket called **assets*. This bucket will be used to store images related to your items.
+   - Go to the supabase dashboard and navigate to the Storage section.
+   - Create a new bucket called **assets*. This bucket will be used to store images related to your
+     items.
 2. Upload Assets:
-    - Upload the assets from [base items](../design/assets/base_items) directory to the assets bucket you just created.
-    - Upload the assets from [full items](../design/assets/full_items) directory to the assets bucket you just created.
+   - Upload the assets from [base items](../design/assets/base_items) directory to the assets
+     bucket you just created.
+   - Upload the assets from [full items](../design/assets/full_items) directory to the assets
+     bucket you just created.
 
 #### Querying the Database with Language Support
 
-To query data from the database and retrieve localized content based on a specific language (e.g., English), you can use
-the following SQL query:
+To query data from the database and retrieve localized content based on a specific language
+(e.g., English), you can use the following SQL query:
 
  ```sql
 SELECT b.id, t.name, t.description
