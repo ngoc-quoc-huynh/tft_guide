@@ -22,11 +22,11 @@ import 'package:tft_guide/infrastructure/dtos/sqlite_async/question_item_option.
 import 'package:tft_guide/injector.dart';
 
 @immutable
-final class SqliteAsyncRepository with LoggerMixin implements LocalDatabaseApi {
+class SqliteAsyncRepository with LoggerMixin implements LocalDatabaseApi {
   SqliteAsyncRepository();
 
   final _db = SqliteDatabase(
-    path: join(Injector.instance.appDir.path, 'test.db'),
+    path: join(Injector.instance.appDir.path, 'app.db'),
   );
 
   @override
@@ -34,6 +34,7 @@ final class SqliteAsyncRepository with LoggerMixin implements LocalDatabaseApi {
     const methodName = 'SqliteAsyncRepository.initialize';
 
     try {
+      await _db.initialize();
       final migrations = SqliteMigrations()
         ..createDatabase = _createDatabaseMigration
         ..add(_createDatabaseMigration);
