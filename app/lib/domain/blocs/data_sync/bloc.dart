@@ -149,7 +149,6 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState>
     return hasUpdatedToday;
   }
 
-  // ignore: avoid-redundant-async, false positive
   Future<void> _initSync(Emitter<DataSyncState> emit) async {
     final tasks = [
       _localDatabaseApi.initialize,
@@ -218,7 +217,6 @@ final class DataSyncBloc extends Bloc<DataSyncEvent, DataSyncState>
     );
   }
 
-  // ignore: avoid-redundant-async, false positive
   Future<void> _saveDataLocally({
     required Emitter<DataSyncState> emit,
     required List<String> assetNames,
