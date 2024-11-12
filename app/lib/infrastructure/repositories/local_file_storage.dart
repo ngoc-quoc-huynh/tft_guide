@@ -15,14 +15,15 @@ final class LocalFileStorageRepository
 
   static final _appDir = Injector.instance.appDir;
   static final _fileSystem = Injector.instance.fileSystem;
-  static final _assetsDir = _fileSystem.directory(join(_appDir.path, 'assets'));
+  @visibleForTesting
+  static final assetsDir = _fileSystem.directory(join(_appDir.path, 'assets'));
   static const _mimeType = 'webp';
 
   @override
   DateTime? loadLatestFileUpdatedAt() {
     const methodName = 'LocalFileStorageRepository.loadLatestFileUpdatedAt';
 
-    if (!_assetsDir.existsSync()) {
+    if (!assetsDir.existsSync()) {
       logInfo(
         methodName,
         'Retrieved no latest file updated at.',
@@ -31,7 +32,7 @@ final class LocalFileStorageRepository
       return null;
     }
 
-    final files = _assetsDir.listSync().whereType<File>();
+    final files = assetsDir.listSync().whereType<File>();
     final fileStats = files.map((file) => file.statSync());
     final updatedAt = fileStats.map((file) => file.modified.toUtc()).maxOrNull;
     logInfo(
@@ -44,18 +45,16 @@ final class LocalFileStorageRepository
   }
 
   @override
-  Future<void> save(String id, Uint8List bytes) async {
-    final file = await _fileSystem
-        .file(
-          join(_assetsDir.path, id),
-        )
-        .create(recursive: true);
+  Future<void> save(String fileName, Uint8List bytes) async {
+    final file = _fileSystem.file(
+      join(assetsDir.path, fileName),
+    )..createSync(recursive: true);
     await file.writeAsBytes(bytes);
     logInfo(
       'LocalFileStorageRepository.save',
       'Saved file.',
       parameters: {
-        'id': id,
+        'fileName': fileName,
         'bytes': '${bytes.length} bytes',
       },
       stackTrace: StackTrace.current,
@@ -63,12 +62,14 @@ final class LocalFileStorageRepository
   }
 
   @override
-  File loadFile(String id) {
-    final file = _fileSystem.file(join(_assetsDir.path, '$id.$_mimeType'));
+  File loadFile(String name) {
+    final file = _fileSystem.file(
+      join(assetsDir.path, '$name.$_mimeType'),
+    );
     logInfo(
       'LocalFileStorageRepository.loadFile',
       'Loaded file: ${file.path}.',
-      parameters: {'id': id},
+      parameters: {'id': name},
       stackTrace: StackTrace.current,
     );
 
@@ -77,11 +78,11 @@ final class LocalFileStorageRepository
 
   @override
   int loadAssetsCount() {
-    if (!_assetsDir.existsSync()) {
+    if (!assetsDir.existsSync()) {
       return 0;
     }
 
-    final count = _assetsDir.listSync().whereType<File>().length;
+    final count = assetsDir.listSync().whereType<File>().length;
     logInfo(
       'LocalFileStorageRepository.loadAssetsCount',
       'Loaded assets count: $count.',

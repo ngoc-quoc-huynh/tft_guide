@@ -6,9 +6,9 @@ abstract interface class FileStorageApi {
 
   DateTime? loadLatestFileUpdatedAt();
 
-  Future<void> save(String id, Uint8List bytes);
+  Future<void> save(String fileName, Uint8List bytes);
 
-  File loadFile(String id);
+  File loadFile(String name);
 
   int loadAssetsCount();
 }
