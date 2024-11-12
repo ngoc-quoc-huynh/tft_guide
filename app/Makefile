@@ -1,4 +1,4 @@
-.PHONY: i18n check-i18n check-code style test test-unit test-ui update-goldens launcher-icon splash-screen check-code check-files apk
+.PHONY: i18n check-i18n check-code style test test-integration test-unit test-ui update-goldens launcher-icon splash-screen check-code check-files apk
 
 i18n:
 	dart run slang generate
@@ -20,6 +20,9 @@ style:
 test:
 	flutter test --coverage --test-randomize-ordering-seed=$(or $(seed),random)
 	dart run test_cov_console --exclude=static,domain/interfaces,injector.dart
+
+test-integration:
+	flutter test integration_test/app_test.dart
 
 test-unit:
 	flutter test test/domain test/infrastructure --coverage --test-randomize-ordering-seed=$(or $(seed),random)

@@ -108,6 +108,19 @@ make test
 ```
 
 This will run the test in random order.
+If you want to specify a seed for randomizing the test order, you can use the following command:
+
+```sh
+make test seed=1
+```
+
+### Running integration tests
+
+To execute the integration tests, use the following command:
+
+```sh
+make test-integration
+```
 
 ### Golden tests
 
