@@ -122,6 +122,8 @@ To execute the integration tests, use the following command:
 make test-integration
 ```
 
+Make sure the app is uninstalled before running integration tests.
+
 ### Golden tests
 
 We utilize Golden Tests for our UI testing process. These tests are specifically designed to verify
