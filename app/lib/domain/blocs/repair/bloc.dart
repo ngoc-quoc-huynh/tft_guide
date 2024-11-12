@@ -33,6 +33,7 @@ final class RepairBloc extends Bloc<RepairEvent, RepairState> with BlocMixin {
       executeSafely(
         methodName: 'RepairBloc._onRepairStartEvent',
         function: () async {
+          await _clearLocalData(emit);
           final [
             assetNames,
             baseItems,
@@ -61,6 +62,17 @@ final class RepairBloc extends Bloc<RepairEvent, RepairState> with BlocMixin {
         },
         onError: () => emit(RepairLoadOnFailure(state.progress)),
       );
+
+  Future<void> _clearLocalData(Emitter<RepairState> emit) {
+    emit(const RepairClearLocalDataInProgress());
+
+    return FutureExtension.runParallel(
+      [_fileStorageApi.clear, _localDatabaseApi.clear],
+      onProgress: (progress) {
+        emit(RepairClearLocalDataInProgress(progress + 1));
+      },
+    );
+  }
 
   Future<List<Object>> _loadRemoteData(Emitter<RepairState> emit) {
     emit(const RepairLoadRemoteDataInProgress());

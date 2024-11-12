@@ -34,8 +34,17 @@ sealed class RepairLoadInProgress extends RepairState {
   final int maxSteps;
   final int percentageOffset;
 
-  static const _totalStages = 2;
+  static const _totalStages = 3;
   static const _percentagePerStage = 100 / _totalStages;
+}
+
+final class RepairClearLocalDataInProgress extends RepairLoadInProgress {
+  const RepairClearLocalDataInProgress([int currentStep = 0])
+      : super(
+          currentStep: currentStep,
+          maxSteps: 2,
+          percentageOffset: 0,
+        );
 }
 
 final class RepairLoadRemoteDataInProgress extends RepairLoadInProgress {
@@ -43,7 +52,7 @@ final class RepairLoadRemoteDataInProgress extends RepairLoadInProgress {
       : super(
           currentStep: currentStep,
           maxSteps: 7,
-          percentageOffset: 0,
+          percentageOffset: 33,
         );
 }
 
@@ -52,7 +61,7 @@ final class RepairSaveDataLocallyInProgress extends RepairLoadInProgress {
       : super(
           currentStep: currentStep,
           maxSteps: 7,
-          percentageOffset: 50,
+          percentageOffset: 66,
         );
 }
 

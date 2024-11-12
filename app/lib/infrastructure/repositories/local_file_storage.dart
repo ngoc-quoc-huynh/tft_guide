@@ -91,4 +91,14 @@ final class LocalFileStorageRepository
 
     return count;
   }
+
+  @override
+  Future<void> clear() async {
+    await assetsDir.delete(recursive: true);
+    logInfo(
+      'LocalFileStorageRepository.clear',
+      'Cleared asset directory.',
+      stackTrace: StackTrace.current,
+    );
+  }
 }

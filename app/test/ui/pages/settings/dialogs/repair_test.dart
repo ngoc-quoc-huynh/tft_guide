@@ -53,6 +53,8 @@ Future<void> main() async {
       return null;
     },
     builder: () {
+      when(fileStorageApi.clear).thenAnswer((_) => Future.value());
+      when(localDatabaseApi.clear).thenAnswer((_) => Future.value());
       when(() => remoteDatabaseApi.loadAssetNames(null))
           .thenAnswer((_) async => []);
       when(() => remoteDatabaseApi.loadBaseItems(null))
@@ -95,8 +97,7 @@ Future<void> main() async {
       return null;
     },
     builder: () {
-      when(() => remoteDatabaseApi.loadAssetNames(null))
-          .thenThrow(const UnknownException());
+      when(fileStorageApi.clear).thenThrow(const UnknownException());
 
       return const SettingsRepairDialog();
     },

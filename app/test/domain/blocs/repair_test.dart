@@ -45,6 +45,7 @@ void main() {
     blocTest<RepairBloc, RepairState>(
       'emits RepairLoadOnSuccess.',
       setUp: () {
+        _mockClearLocalData(fileStorageApi, localDatabaseApi);
         _mockLoadRemoteData(remoteDatabaseApi);
         _mockSaveDataLocally(localDatabaseApi);
       },
@@ -52,6 +53,9 @@ void main() {
       act: (bloc) => bloc.add(const RepairStartEvent()),
       wait: Sizes.progressBarAnimationShortDuration.withThreshold,
       expect: () => const [
+        RepairClearLocalDataInProgress(),
+        RepairClearLocalDataInProgress(1),
+        RepairClearLocalDataInProgress(2),
         RepairLoadRemoteDataInProgress(),
         RepairLoadRemoteDataInProgress(1),
         RepairLoadRemoteDataInProgress(2),
@@ -73,6 +77,8 @@ void main() {
       ],
       verify: (_) => verifyInOrder(
         [
+          fileStorageApi.clear,
+          localDatabaseApi.clear,
           () => remoteDatabaseApi.loadAssetNames(null),
           () => remoteDatabaseApi.loadBaseItems(null),
           () => remoteDatabaseApi.loadFullItems(null),
@@ -93,18 +99,24 @@ void main() {
     blocTest<RepairBloc, RepairState>(
       'emits RepairLoadOnFailure when loading remote data fails.',
       setUp: () {
+        _mockClearLocalData(fileStorageApi, localDatabaseApi);
         _mockLoadRemoteData(remoteDatabaseApi, shouldThrow: true);
         _mockSaveDataLocally(localDatabaseApi);
       },
       build: RepairBloc.new,
       act: (bloc) => bloc.add(const RepairStartEvent()),
       expect: () => const [
+        RepairClearLocalDataInProgress(),
+        RepairClearLocalDataInProgress(1),
+        RepairClearLocalDataInProgress(2),
         RepairLoadRemoteDataInProgress(),
-        RepairLoadOnFailure(0),
+        RepairLoadOnFailure(33),
       ],
       verify: (_) {
         verifyInOrder(
           [
+            fileStorageApi.clear,
+            localDatabaseApi.clear,
             () => remoteDatabaseApi.loadAssetNames(null),
             () => remoteDatabaseApi.loadBaseItems(null),
             () => remoteDatabaseApi.loadFullItems(null),
@@ -121,12 +133,16 @@ void main() {
     blocTest<RepairBloc, RepairState>(
       'emits RepairLoadOnFailure when saving data locally fails.',
       setUp: () {
+        _mockClearLocalData(fileStorageApi, localDatabaseApi);
         _mockLoadRemoteData(remoteDatabaseApi);
         _mockSaveDataLocally(localDatabaseApi, shouldThrow: true);
       },
       build: RepairBloc.new,
       act: (bloc) => bloc.add(const RepairStartEvent()),
       expect: () => const [
+        RepairClearLocalDataInProgress(),
+        RepairClearLocalDataInProgress(1),
+        RepairClearLocalDataInProgress(2),
         RepairLoadRemoteDataInProgress(),
         RepairLoadRemoteDataInProgress(1),
         RepairLoadRemoteDataInProgress(2),
@@ -136,11 +152,13 @@ void main() {
         RepairLoadRemoteDataInProgress(6),
         RepairLoadRemoteDataInProgress(7),
         RepairSaveDataLocallyInProgress(),
-        RepairLoadOnFailure(50),
+        RepairLoadOnFailure(66),
       ],
       verify: (_) {
         verifyInOrder(
           [
+            fileStorageApi.clear,
+            localDatabaseApi.clear,
             () => remoteDatabaseApi.loadAssetNames(null),
             () => remoteDatabaseApi.loadBaseItems(null),
             () => remoteDatabaseApi.loadFullItems(null),
@@ -161,11 +179,22 @@ void main() {
   });
 }
 
+void _mockClearLocalData(
+  MockFileStorageApi fileStorageApi,
+  MockLocalDatabaseApi localDatabaseApi,
+) {
+  when(fileStorageApi.clear).thenAnswer((_) => Future.value());
+  when(localDatabaseApi.clear).thenAnswer((_) => Future.value());
+}
+
 void _mockLoadRemoteData(
   MockRemoteDatabaseApi remoteDatabaseApi, {
   bool shouldThrow = false,
 }) {
   if (!shouldThrow) {
+    when(
+      () => remoteDatabaseApi.loadAssetNames(null),
+    ).thenAnswer((_) async => []);
     when(
       () => remoteDatabaseApi.loadAssetNames(null),
     ).thenAnswer((_) async => []);

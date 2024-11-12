@@ -11,4 +11,6 @@ abstract interface class FileStorageApi {
   File loadFile(String name);
 
   int loadAssetsCount();
+
+  Future<void> clear();
 }

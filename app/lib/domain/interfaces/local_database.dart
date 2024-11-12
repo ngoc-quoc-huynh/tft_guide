@@ -97,5 +97,7 @@ abstract interface class LocalDatabaseApi {
 
   Future<int> loadPatchNoteTranslationsCount();
 
+  Future<void> clear();
+
   Future<void> close();
 }

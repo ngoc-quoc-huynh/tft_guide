@@ -1221,6 +1221,37 @@ LIMIT ?;
   }
 
   @override
+  Future<void> clear() async {
+    await _db.writeTransaction<void>(
+      (tx) => Future.wait(
+        [
+          _tableNameBaseItem,
+          _tableNameFullItem,
+          _tableNamePatchNote,
+          _tableNameBaseItemTranslation,
+          _tableNameFullItemTranslation,
+          _tableNamePatchNoteTranslation,
+        ].map((table) async {
+          final tableExists = await tx.execute(
+            "SELECT name FROM sqlite_master WHERE type = 'table' AND name = ?;",
+            [table],
+          );
+
+          if (tableExists.isNotEmpty) {
+            await tx.execute('DELETE FROM $table');
+          }
+        }),
+      ),
+    );
+
+    logInfo(
+      'SqliteAsyncRepository.clear',
+      'Cleared database.',
+      stackTrace: StackTrace.current,
+    );
+  }
+
+  @override
   Future<void> close() async {
     await _db.close();
     logInfo(
