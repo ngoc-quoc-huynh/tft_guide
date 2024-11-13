@@ -16,7 +16,7 @@ final class AppUpdateInfo extends Equatable {
   final String body;
 
   domain.AppUpdateInfo toDomain() => domain.AppUpdateInfo(
-        version: tagName,
+        version: tagName.replaceAll('v', ''),
         releaseNotes: body,
       );
 

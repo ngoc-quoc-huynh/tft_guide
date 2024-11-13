@@ -9,12 +9,12 @@ void main() {
       () => expect(
         AppUpdateInfo.fromJson(
           const {
-            'tag_name': '1.0.0',
+            'tag_name': 'v1.0.0',
             'body': '- Initial release.',
           },
         ),
         const AppUpdateInfo(
-          tagName: '1.0.0',
+          tagName: 'v1.0.0',
           body: '- Initial release.',
         ),
       ),
@@ -38,7 +38,7 @@ void main() {
         expect(
           () => AppUpdateInfo.fromJson(
             const {
-              'tag_name': '1.0.0',
+              'tag_name': 'v1.0.0',
             },
           ),
           throwsA(
@@ -73,7 +73,7 @@ void main() {
         expect(
           () => AppUpdateInfo.fromJson(
             const {
-              'tag_name': '1.0.0',
+              'tag_name': 'v1.0.0',
               'body': 1,
             },
           ),
@@ -93,7 +93,7 @@ void main() {
         'returns correctly.',
         () => expect(
           const AppUpdateInfo(
-            tagName: '1.0.0',
+            tagName: 'v1.0.0',
             body: '- Initial release.',
           ).toDomain(),
           const domain.AppUpdateInfo(
