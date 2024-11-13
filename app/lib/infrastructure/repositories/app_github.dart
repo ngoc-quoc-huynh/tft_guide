@@ -71,7 +71,7 @@ final class AppGithubRepository with LoggerMixin implements AppApi {
     try {
       final path = join(_tmpDir.path, _apkName);
       await dio.download(
-        '$_baseUrl/$owner/$repo/releases/download/$version/$_apkName',
+        '$_baseUrl/$owner/$repo/releases/download/v$version/$_apkName',
         path,
         onReceiveProgress: onReceiveProgress,
       );
