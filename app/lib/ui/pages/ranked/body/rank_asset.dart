@@ -6,8 +6,6 @@ import 'package:tft_guide/domain/blocs/value/cubit.dart';
 import 'package:tft_guide/domain/models/asset.dart';
 import 'package:tft_guide/ui/utils/mixins/animation.dart';
 
-// ignore_for_file: avoid-dynamic, false-positive for extension type Asset. Remove this when https://github.com/bancolombia/dart-code-linter/issues/142 is resolved.
-
 class RankedRankAsset extends StatefulWidget {
   const RankedRankAsset({
     required this.asset,
