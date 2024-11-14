@@ -11,6 +11,10 @@ jobs:
   build:
     runs-on: macos-latest
 
+    defaults:
+      run:
+        working-directory: ./app
+
     steps:
       - uses: actions/checkout@v4
 
@@ -42,26 +46,20 @@ jobs:
           key: ${{ runner.os }}-flutter-${{ hashFiles('./app/pubspec.lock') }}
           restore-keys: ${{ runner.os }}-flutter-
       - name: Install dependencies
-        working-directory: ./app
         run: flutter pub get
 
       - name: Generate i18n
-        working-directory: ./app
         run: dart run slang generate
       - name: Format code
-        working-directory: ./app
         run: dart format --set-exit-if-changed .
       - name: Analyze code
-        working-directory: ./app
         run: flutter analyze
       - name: Run code metrics
-        working-directory: ./app
         run: dart run dart_code_linter:metrics analyze . --set-exit-on-violation-level=warning
       - name: Run tests
         run: |
           flutter test --coverage --test-randomize-ordering-seed=random --dart-define=CI=true
           dart run test_cov_console --exclude=static,domain/interfaces,injector.dart
-        working-directory: ./app
       - name: Upload golden test failures
         if: failure()
         uses: actions/upload-artifact@v4
@@ -69,9 +67,19 @@ jobs:
           name: golden-test-failures
           path: app/test/ui/**/failures
 
+      - name: Generate key.properties file
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          KEY_PROPERTIES_FILE: "./android/key.properties"
+        run: |
+          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" > ${{ env.KEY_PROPERTIES_FILE }}
+          echo "storePassword=${{ secrets.STORE_PASSWORD }}" >> ${{ env.KEY_PROPERTIES_FILE }}
+          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> ${{ env.KEY_PROPERTIES_FILE }}
+      - name: Generate keystore file
+        if: github.event_name == 'workflow_dispatch'
+        run: echo "${{ secrets.KEYSTORE }}" | base64 --decode > android/app/tft_guide.jks
       - name: Build APK
         if: github.event_name == 'workflow_dispatch'
-        working-directory: ./app
         env:
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
@@ -89,4 +97,4 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         with:
           name: TFT Guide APK
-          path: app/build/app/outputs/apk/release/tft_guide_release_v*.apk
+          path: build/app/outputs/apk/release/tft_guide_release_v*.apk

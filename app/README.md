@@ -34,24 +34,26 @@ issues.
 The project uses environment variables for configuration. Follow the steps below to set up the local
 environment:
 
-1. Create an `env.json` file in the project root directory. Use the `env.example.json` file as a
-   template:
+1. Create an `env.json` file in the project root directory. Use the
+   [`env.example.json`](.env.example.json) file as a template:
 
    ```bash
    cp .env.example.json .env.json
    ```
 
-2. Populate the `env.json` file with the required values.
+2. Populate the `env.json` file with the required values:
 
    Open `env.json` and fill in the `supabase_url`, `supabase_anon_key`, `github_owner`, and
    `github_repo` fields using the information from your GitHub and supabase project:
 
-   - **supabase_url**: Available in your Supabase project settings under **Project Settings > API**.
-   - **supabase_anon_key**: Available in the same **API** section.
-   - **github_owner**: The owner of the GitHub repository.
-   - **github_repo**: The name of the GitHub repository.
+    - **supabase_url**: Available in your Supabase project settings under
+      **Project Settings > API**.
+    - **supabase_anon_key**: Available in the same **API** section.
+    - **github_owner**: The owner of the GitHub repository.
+    - **github_repo**: The name of the GitHub repository.
 
 3. Run the app:
+
    Use the following command to start the application with the environment variables loaded from
    `env.json`:
 
@@ -93,6 +95,57 @@ format.
 
 ```sh
 lefthook install
+```
+
+## Create a release APK
+
+To generate a release APK for your application, follow the steps below:
+
+1. Create a `key.properties` file in the android root directory. Use the
+   [`key.example.properties`](android/key.example.properties) file as a template:
+
+   ```sh
+   cp android/key.example.properties android/key.properties
+   ```
+
+2. Create a `keystore` file:
+    - **Option 1**: Using Android Studio
+
+      You can generate a keystore directly from Android Studio by following
+      the [official guide](https://developer.android.com/studio/publish/app-signing#generate-key).
+    - **Option 2**: Using the Command Line
+
+      Alternatively, use the `keytool` command to generate a keystore:
+       ```sh
+       keytool -genkey -v -keystore android/app/tft_guide.jks -keyalg RSA -keysize 2048 -validity 10000 -alias tft_guide
+       ```
+3. Set up secrets in GitHub (optional, for GitHub Actions):
+
+   Next, you need to set up the following secrets in your GitHub repository:
+
+    - **KEY_PASSWORD**: The password for the key.
+    - **STORE_PASSWORD**: The password for the keystore.
+    - **KEY_ALIAS**: The alias of the key, by default it is `tft_guide`.
+    - **KEYSTORE**: The base64-encoded version of your keystore file.
+
+### Encoding the keystore file
+
+1. Run the following command to encode your `tft_guide.jks` file:
+
+   ```sh
+   base64 -i android/app/tft_guide.jks -w 0 > android/app/tft_guide_base64
+   ```
+
+2. Copy the content of [tft_guide_base64](android/app/tft_guide_base64), and then paste it into the
+   `KEYSTORE` secret on GitHub.
+
+### Generate the release APK
+
+Once your `keystore` and `key.properties` are set up, you can generate the release APK by running
+the following command:
+
+```sh
+make apk
 ```
 
 ## Tests
