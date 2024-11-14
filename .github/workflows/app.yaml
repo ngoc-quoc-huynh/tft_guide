@@ -70,7 +70,7 @@ jobs:
       - name: Generate key.properties file
         if: github.event_name == 'workflow_dispatch'
         env:
-          KEY_PROPERTIES_FILE: "./android/key.properties"
+          KEY_PROPERTIES_FILE: ./android/key.properties
         run: |
           echo "keyPassword=${{ secrets.KEY_PASSWORD }}" > ${{ env.KEY_PROPERTIES_FILE }}
           echo "storePassword=${{ secrets.STORE_PASSWORD }}" >> ${{ env.KEY_PROPERTIES_FILE }}
