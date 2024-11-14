@@ -97,4 +97,4 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         with:
           name: TFT Guide APK
-          path: build/app/outputs/apk/release/tft_guide_release_v*.apk
+          path: app/build/app/outputs/apk/release/tft_guide_release_v*.apk
