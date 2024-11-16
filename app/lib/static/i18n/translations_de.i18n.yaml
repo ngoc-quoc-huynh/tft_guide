@@ -6,12 +6,12 @@ general:
     network: 'Netzwerkfehler'
 pages:
   init:
-    checkUpdates: 'Suche nach neuen Updates\u{00A0}…'
-    init: 'Initialisiere Update\u{00A0}…'
-    checkLatestUpdate: 'Überprüfe neueste Version\u{00A0}…'
-    load: 'Lade Assets und Daten herunter\u{00A0}…'
-    save: 'Speichere Assets und Daten lokal ab\u{00A0}…'
-    finish: 'Schließe Einrichtung ab\u{00A0}…'
+    checkUpdates: "Suche nach neuen Updates\u00A0…"
+    init: "Initialisiere Update\u00A0…"
+    checkLatestUpdate: "Überprüfe neueste Version\u00A0…"
+    load: "Lade Assets und Daten herunter\u00A0…"
+    save: "Speichere Assets und Daten lokal ab\u00A0…"
+    finish: "Schließe Einrichtung ab\u00A0…"
     restart: 'Starte App neu'
     errors:
       database: 'Fehler beim Zugriff auf die Datenbank. Bitte starte die App neu. Wenn der Fehler weiterhin besteht, kontaktiere den Support.'

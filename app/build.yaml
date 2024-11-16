@@ -11,7 +11,8 @@ targets:
           output_directory: lib/static/i18n
           output_file_name: translations.g.dart
           translation_class_visibility: public
-          # TODO: Add obfuscation when https://github.com/slang-i18n/slang/issues/259 is resolved.
+          obfuscation:
+            enabled: true
           format:
             enabled: true
             width: 80
