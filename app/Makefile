@@ -29,7 +29,7 @@ test-unit:
 	dart run test_cov_console --exclude=static,ui,domain/interfaces,injector.dart
 
 test-ui:
-	flutter test test/ui --coverage --test-randomize-ordering-seed=$(or $(seed),random)
+	flutter test test/ui --coverage --test-randomize-ordering-seed=$(or $(seed),random) --dart-define=CI=true
 	dart run test_cov_console --exclude=static,domain,infrastructure,injector.dart
 
 update-goldens:

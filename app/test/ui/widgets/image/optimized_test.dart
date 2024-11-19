@@ -28,39 +28,31 @@ Future<void> main() async {
     'renders asset correctly.',
     fileName: 'optimized_image_asset',
     pumpBeforeTest: precacheImages,
-    builder: () => GoldenTestScenario(
-      name: 'Default',
-      child: OptimizedImage.asset(
-        Assets.iron4,
-        height: 100,
-        width: 100,
-      ),
+    builder: () => OptimizedImage.asset(
+      Assets.iron4,
+      width: 100,
+      height: 100,
     ),
   );
+
   await goldenTest(
     'renders file correctly.',
     fileName: 'optimized_image_file',
     pumpBeforeTest: precacheImages,
-    builder: () => GoldenTestScenario(
-      name: 'Default',
-      child: OptimizedImage.file(
-        TestFile.file,
-        height: 100,
-        width: 100,
-      ),
+    builder: () => OptimizedImage.file(
+      TestFile.file,
+      height: 100,
+      width: 100,
     ),
   );
 
   await goldenTest(
     'renders error correctly.',
     fileName: 'optimized_image_error',
-    builder: () => GoldenTestScenario(
-      name: 'Error',
-      child: OptimizedImage.file(
-        fileSystem.file('error.png'),
-        height: 100,
-        width: 100,
-      ),
+    builder: () => OptimizedImage.file(
+      fileSystem.file('error.png'),
+      height: 100,
+      width: 100,
     ),
   );
 }

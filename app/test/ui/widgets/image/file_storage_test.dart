@@ -23,13 +23,10 @@ Future<void> main() async {
     'renders correctly.',
     fileName: 'file_storage_image',
     pumpBeforeTest: precacheImages,
-    builder: () => GoldenTestScenario(
-      name: 'Default',
-      child: const FileStorageImage(
-        id: 'id',
-        height: 100,
-        width: 100,
-      ),
+    builder: () => const FileStorageImage(
+      id: 'id',
+      height: 100,
+      width: 100,
     ),
   );
 }
