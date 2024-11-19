@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/ui/router/routes.dart';
-import 'package:tft_guide/ui/widgets/file_storage_image.dart';
+import 'package:tft_guide/ui/widgets/image/file_storage.dart';
 
 class FullItemDetailCombineBy extends StatelessWidget {
   const FullItemDetailCombineBy({

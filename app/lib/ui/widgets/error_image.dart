@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class ErrorImage extends StatelessWidget {
   const ErrorImage({
-    required this.width,
-    required this.height,
+    this.width,
+    this.height,
     super.key,
   });
 
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/static/resources/assets.dart';
+import 'package:tft_guide/ui/widgets/image/optimized.dart';
 
 class CustomLicensePage extends StatelessWidget {
   const CustomLicensePage({super.key});
@@ -10,11 +11,10 @@ class CustomLicensePage extends StatelessWidget {
     return LicensePage(
       applicationName: _translations.appName,
       applicationVersion: Injector.instance.packageInfo.version,
-      applicationIcon: Image.asset(
-        Assets.launcherIcon(),
+      applicationIcon: OptimizedImage.asset(
+        Assets.launcherIcon,
         height: 75,
         width: 75,
-        fit: BoxFit.contain,
       ),
       applicationLegalese: _licensePageTranslation.copyright,
     );

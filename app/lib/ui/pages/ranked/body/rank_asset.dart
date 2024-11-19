@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tft_guide/domain/blocs/value/cubit.dart';
 import 'package:tft_guide/domain/models/asset.dart';
 import 'package:tft_guide/ui/utils/mixins/animation.dart';
+import 'package:tft_guide/ui/widgets/image/optimized.dart';
 
 class RankedRankAsset extends StatefulWidget {
   const RankedRankAsset({
@@ -71,10 +72,9 @@ class _RankedRankAssetState extends State<RankedRankAsset>
       animation: _controller,
       builder: (context, child) => Transform.scale(
         scale: _scaleAnimation.value,
-        child: Image.asset(
-          _asset(),
+        child: OptimizedImage.asset(
+          _asset,
           height: 200,
-          fit: BoxFit.contain,
         ),
       ),
     );

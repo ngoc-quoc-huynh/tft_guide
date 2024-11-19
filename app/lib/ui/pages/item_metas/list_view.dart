@@ -4,7 +4,7 @@ import 'package:tft_guide/domain/models/item_meta.dart';
 import 'package:tft_guide/static/resources/sizes.dart';
 import 'package:tft_guide/ui/pages/item_metas/prototype_item.dart';
 import 'package:tft_guide/ui/router/routes.dart';
-import 'package:tft_guide/ui/widgets/file_storage_image.dart';
+import 'package:tft_guide/ui/widgets/image/file_storage.dart';
 
 class ItemMetasListView extends StatelessWidget {
   const ItemMetasListView({

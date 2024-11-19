@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tft_guide/ui/widgets/file_storage_image.dart';
+import 'package:tft_guide/ui/widgets/image/file_storage.dart';
 
 class ImageDetailImage extends StatelessWidget {
   const ImageDetailImage({required this.id, super.key});

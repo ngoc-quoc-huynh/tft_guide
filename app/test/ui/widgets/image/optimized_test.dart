@@ -4,10 +4,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:tft_guide/domain/interfaces/file.dart';
 import 'package:tft_guide/injector.dart';
-import 'package:tft_guide/ui/widgets/file_storage_image.dart';
+import 'package:tft_guide/static/resources/assets.dart';
+import 'package:tft_guide/ui/widgets/image/optimized.dart';
 
-import '../../mocks.dart';
-import '../../utils.dart';
+import '../../../mocks.dart';
+import '../../../utils.dart';
 
 Future<void> main() async {
   final fileSystem = MemoryFileSystem();
@@ -24,13 +25,26 @@ Future<void> main() async {
       .thenReturn(fileSystem.file('error.png'));
 
   await goldenTest(
-    'renders correctly.',
-    fileName: 'file_storage_image',
+    'renders asset correctly.',
+    fileName: 'optimized_image_asset',
     pumpBeforeTest: precacheImages,
     builder: () => GoldenTestScenario(
       name: 'Default',
-      child: const FileStorageImage(
-        id: 'id',
+      child: OptimizedImage.asset(
+        Assets.iron4,
+        height: 100,
+        width: 100,
+      ),
+    ),
+  );
+  await goldenTest(
+    'renders file correctly.',
+    fileName: 'optimized_image_file',
+    pumpBeforeTest: precacheImages,
+    builder: () => GoldenTestScenario(
+      name: 'Default',
+      child: OptimizedImage.file(
+        TestFile.file,
         height: 100,
         width: 100,
       ),
@@ -39,11 +53,11 @@ Future<void> main() async {
 
   await goldenTest(
     'renders error correctly.',
-    fileName: 'file_storage_image_error',
+    fileName: 'optimized_image_error',
     builder: () => GoldenTestScenario(
       name: 'Error',
-      child: const FileStorageImage(
-        id: 'error',
+      child: OptimizedImage.file(
+        fileSystem.file('error.png'),
         height: 100,
         width: 100,
       ),

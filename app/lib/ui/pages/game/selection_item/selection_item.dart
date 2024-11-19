@@ -6,7 +6,7 @@ import 'package:tft_guide/domain/models/question/item_option.dart';
 import 'package:tft_guide/ui/pages/game/selection_item/chip.dart';
 import 'package:tft_guide/ui/widgets/bloc/builder.dart';
 import 'package:tft_guide/ui/widgets/bloc/selector.dart';
-import 'package:tft_guide/ui/widgets/file_storage_image.dart';
+import 'package:tft_guide/ui/widgets/image/file_storage.dart';
 
 enum SelectionItemState {
   correct,
