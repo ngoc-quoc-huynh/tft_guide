@@ -7,7 +7,7 @@ final class MockHydratedStorage implements Storage {
 
   static const _storage = <String, String?>{
     'HydratedEloCubit': '{"elo":399}',
-    'HydratedTranslationLocaleCubit': '{"language":"en"}',
+    'HydratedTranslationLocaleCubit': '{"language":"english"}',
     'HydratedThemeModeCubit': '{"theme_mode":"dark"}',
   };
 

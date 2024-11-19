@@ -1,3 +1,4 @@
+import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/admin.dart';
@@ -147,6 +148,12 @@ extension type SettingsPageRobot(WidgetTester _tester) implements Robot {
   Future<void> goBackToRankedPage() async {
     await _tester.tap(find.byType(BackButton));
     await _tester.pumpAndSettle();
+    final animatedCounter = find
+        .byType(AnimatedFlipCounter)
+        .evaluate()
+        .single
+        .widget as AnimatedFlipCounter;
+    expect(animatedCounter.value, 1);
   }
 
   Future<void> _testDesignSelection(String design, Color expectedColor) async {
