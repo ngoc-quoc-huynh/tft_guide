@@ -37,7 +37,11 @@ final class MaterialThemeRepository with LoggerMixin implements ThemeApi {
       }
 
       final colorScheme = await ColorScheme.fromImageProvider(
-        provider: FileImage(file),
+        provider: ResizeImage(
+          width: 10,
+          height: 10,
+          FileImage(file),
+        ),
         brightness: brightness,
       );
       final harmonizedColorScheme = colorScheme.harmonized();
