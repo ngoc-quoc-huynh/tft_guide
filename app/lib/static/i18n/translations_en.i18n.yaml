@@ -6,12 +6,12 @@ general:
     network: 'Network error'
 pages:
   init:
-    checkUpdates: "Checking for new updates\u00A0……"
-    init: "Initializing update\u00A0……"
-    checkLatestUpdate: "Verifying latest version\u00A0……"
-    load: "Downloading assets and data\u00A0……"
-    save: "Saving assets and data locally\u00A0……"
-    finish: "Finalizing setup\u00A0……"
+    checkUpdates: "Checking for new updates\u00A0…"
+    init: "Initializing update\u00A0…"
+    checkLatestUpdate: "Verifying latest version\u00A0…"
+    load: "Downloading assets and data\u00A0…"
+    save: "Saving assets and data locally\u00A0…"
+    finish: "Finalizing setup\u00A0…"
     restart: 'Restart app'
     errors:
       database: 'An error occurred while accessing the database. Please restart the app. If the error persists, contact support.'
