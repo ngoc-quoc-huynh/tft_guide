@@ -36,5 +36,18 @@ class CustomThemeColors extends ThemeExtension<CustomThemeColors>
 
   @override
   // ignore: list-all-equatable-fields, we need to compare the value of the colors.
-  List<Object?> get props => [success.value, warning.value, type];
+  List<Object?> get props {
+    int normalizeTo255(double component) => (component * 255).round();
+    return [
+      normalizeTo255(success.r),
+      normalizeTo255(success.g),
+      normalizeTo255(success.b),
+      normalizeTo255(success.a),
+      normalizeTo255(warning.r),
+      normalizeTo255(warning.g),
+      normalizeTo255(warning.b),
+      normalizeTo255(warning.a),
+      type,
+    ];
+  }
 }

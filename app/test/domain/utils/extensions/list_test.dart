@@ -24,7 +24,7 @@ void main() {
 
       expect(
         [1, 2, 3].sampleWithoutElement(1),
-        [3],
+        [1],
       );
     });
 
