@@ -109,7 +109,7 @@ extension type SettingsPageRobot(WidgetTester _tester) implements Robot {
 
   Future<void> verifyAdminDialog() async {
     for (int i = 0; i < 7; i++) {
-      await _tester.tap(find.text('1.0.0'));
+      await _tester.tap(find.text('1.1.1'));
     }
     await _tester.pump();
     expect(find.bySubtype<SettingsAdminDialog>(), findsOneWidget);

@@ -7,6 +7,7 @@ import 'package:tft_guide/infrastructure/repositories/local_file_storage.dart';
 import 'package:tft_guide/static/resources/icons.dart';
 import 'package:tft_guide/ui/widgets/item_detail/card.dart';
 
+import '../utils.dart';
 import 'robot.dart';
 
 extension type ItemMetasPageRobot(WidgetTester _tester) implements Robot {
@@ -19,7 +20,7 @@ extension type ItemMetasPageRobot(WidgetTester _tester) implements Robot {
     final bfSword = find.text('B.F. Sword');
     expect(bfSword, findsOneWidget);
     expect(
-      find.image(
+      find.optimizedImage(
         FileImage(
           File(
             join(
@@ -98,7 +99,7 @@ extension type ItemMetasPageRobot(WidgetTester _tester) implements Robot {
     String name, [
     Matcher matcher = findsOneWidget,
   ]) {
-    final finder = find.image(
+    final finder = find.optimizedImage(
       FileImage(
         File(
           join(

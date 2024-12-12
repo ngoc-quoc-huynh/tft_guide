@@ -4,13 +4,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:tft_guide/static/resources/assets.dart';
 import 'package:tft_guide/ui/pages/game/feedback.dart';
 import 'package:tft_guide/ui/pages/game/selection_item/selection_item.dart';
+import 'package:tft_guide/ui/widgets/image/optimized.dart';
 
+import '../utils.dart';
 import 'robot.dart';
 
 extension type GamePageRobot(WidgetTester _tester) implements Robot {
   void verifyInitialScreen() {
     expect(
-      find.image(AssetImage(Assets.iron1())),
+      find.optimizedImage(AssetImage(Assets.iron1())),
       findsOneWidget,
     );
     _verifyLpCounter(99);
@@ -46,11 +48,13 @@ extension type GamePageRobot(WidgetTester _tester) implements Robot {
   Future<void> verifyEndScreen() async {
     await _tester.pumpAndSettle();
     expect(
-      find.image(AssetImage(Assets.bronze4())),
+      find.byWidgetPredicate(
+        (e) => e is OptimizedImage && e.image == AssetImage(Assets.bronze4()),
+      ),
       findsOneWidget,
     );
-    _verifyLpCounter(5);
-    expect(find.text('+ 6'), findsOneWidget);
+    _verifyLpCounter(3);
+    expect(find.text('+ 4'), findsOneWidget);
   }
 
   void _verifyLpCounter(int expectedValue) {

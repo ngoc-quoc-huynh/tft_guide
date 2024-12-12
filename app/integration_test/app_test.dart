@@ -23,12 +23,12 @@ Future<void> main() async {
       await robot.startGame();
       await robot.checkSelectionItem(0, isCorrect: true);
       await robot.checkSelectionItem(1, isCorrect: true);
-      await robot.checkSelectionItem(2, isCorrect: true);
-      await robot.checkSelectionItem(0, isCorrect: true);
-      await robot.checkSelectionItem(1, isCorrect: true);
       await robot.checkSelectionItem(2, isCorrect: false);
       await robot.checkSelectionItem(0, isCorrect: true);
       await robot.checkSelectionItem(1, isCorrect: false);
+      await robot.checkSelectionItem(2, isCorrect: false);
+      await robot.checkSelectionItem(0, isCorrect: false);
+      await robot.checkSelectionItem(1, isCorrect: true);
       await robot.checkSelectionItem(2, isCorrect: false);
       await robot.checkSelectionItem(0, isCorrect: false);
       await robot.verifyEndScreen();
