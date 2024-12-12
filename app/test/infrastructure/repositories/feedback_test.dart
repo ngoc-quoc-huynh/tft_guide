@@ -29,7 +29,7 @@ void main() {
 
       expect(
         repository.getFeedback(isCorrect: false),
-        'You might want to consider rerolling your brain.',
+        'Iron, here I come!',
       );
     });
 
@@ -39,7 +39,7 @@ void main() {
 
       expect(
         repository.getFeedback(isCorrect: true),
-        'Brain buff activated!',
+        'TFT Mastermind!',
       );
     });
   });

@@ -72,7 +72,7 @@ void main() {
           0.5,
         ),
         const CustomThemeColors(
-          warning: Color(0xFFF9821E),
+          warning: Color(0xfffa821e),
           success: Color(0xFFA07943),
         ),
       ),
