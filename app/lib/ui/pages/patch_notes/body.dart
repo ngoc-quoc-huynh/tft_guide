@@ -68,7 +68,7 @@ class _PatchNotesBodyState extends State<PatchNotesBody> {
   }
 
   void _onPatchNotesStateChanged(
-    _,
+    BuildContext _,
     PatchNotesState state,
   ) {
     if (state case PatchNotesChangeLocaleOnSuccess()) {

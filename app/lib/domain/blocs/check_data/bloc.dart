@@ -31,7 +31,7 @@ sealed class CheckDataBloc extends Bloc<CheckDataEvent, CheckDataState>
   final Future<CheckDataLoadOnSuccess> Function() _computeSuccessState;
 
   Future<void> onCheckDataStartEvent(
-    _,
+    CheckDataStartEvent _,
     Emitter<CheckDataState> emit,
   ) async =>
       executeSafely(

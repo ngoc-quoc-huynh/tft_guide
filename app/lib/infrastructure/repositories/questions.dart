@@ -54,7 +54,7 @@ final class QuestionsRepository with LoggerMixin implements QuestionsApi {
         parameters: parameters,
         stackTrace: stackTrace,
       );
-      throw const UnknownException();
+      Error.throwWithStackTrace(const UnknownException(), stackTrace);
     }
   }
 
@@ -99,7 +99,7 @@ final class QuestionsRepository with LoggerMixin implements QuestionsApi {
         parameters: parameters,
         stackTrace: stackTrace,
       );
-      throw const UnknownException();
+      Error.throwWithStackTrace(const UnknownException(), stackTrace);
     }
   }
 
