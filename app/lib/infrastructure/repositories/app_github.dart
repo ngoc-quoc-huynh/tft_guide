@@ -57,7 +57,7 @@ final class AppGithubRepository with LoggerMixin implements AppApi {
         exception: e,
         stackTrace: stackTrace,
       );
-      throw const UnknownException();
+      Error.throwWithStackTrace(const UnknownException(), stackTrace);
     }
   }
 
@@ -88,7 +88,7 @@ final class AppGithubRepository with LoggerMixin implements AppApi {
         exception: e,
         stackTrace: stackTrace,
       );
-      throw const UnknownException();
+      Error.throwWithStackTrace(const UnknownException(), stackTrace);
     }
   }
 }

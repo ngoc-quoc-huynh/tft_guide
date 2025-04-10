@@ -125,7 +125,7 @@ class _Update extends SettingsAppUpdateDialog {
     );
   }
 
-  void _onAppUpdateStateChanged(_, AppUpdateState state) {
+  void _onAppUpdateStateChanged(BuildContext _, AppUpdateState state) {
     if (state is AppUpdateLoadOnSuccess) {
       unawaited(Injector.instance.nativeApi.openFile(state.path));
     }
