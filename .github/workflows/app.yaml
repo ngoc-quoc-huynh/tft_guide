@@ -45,7 +45,7 @@ jobs:
         # See https://github.com/asdf-vm/actions/issues/445
         if: steps.cache-asdf.outputs.cache-hit != 'true'
       - name: Reshim asdf
-        run: asdf reshim#
+        run: asdf reshim
 
       - name: Cache flutter dependencies
         uses: actions/cache@v4
