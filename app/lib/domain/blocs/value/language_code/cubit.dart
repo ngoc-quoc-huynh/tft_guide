@@ -23,8 +23,8 @@ final class LanguageCodeValueCubit extends ValueCubit<LanguageCode> {
   }
 
   @override
-  Future<void> close() {
-    Injector.instance.unregister<Translations>();
+  Future<void> close() async {
+    await Injector.instance.unregister<Translations>();
     return super.close();
   }
 
