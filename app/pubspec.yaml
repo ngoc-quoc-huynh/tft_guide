@@ -21,7 +21,7 @@ dependencies:
   sqlite3_flutter_libs: ^0.5.24
 
   # Navigator
-  go_router: ^15.0.0
+  go_router: ^16.0.0
 
   # Network
   dio: ^5.7.0
