@@ -18,25 +18,31 @@ PODS:
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - sqlite3 (3.49.1):
-    - sqlite3/common (= 3.49.1)
-  - sqlite3/common (3.49.1)
-  - sqlite3/dbstatvtab (3.49.1):
+  - sqlite3 (3.50.4):
+    - sqlite3/common (= 3.50.4)
+  - sqlite3/common (3.50.4)
+  - sqlite3/dbstatvtab (3.50.4):
     - sqlite3/common
-  - sqlite3/fts5 (3.49.1):
+  - sqlite3/fts5 (3.50.4):
     - sqlite3/common
-  - sqlite3/perf-threadsafe (3.49.1):
+  - sqlite3/math (3.50.4):
     - sqlite3/common
-  - sqlite3/rtree (3.49.1):
+  - sqlite3/perf-threadsafe (3.50.4):
+    - sqlite3/common
+  - sqlite3/rtree (3.50.4):
+    - sqlite3/common
+  - sqlite3/session (3.50.4):
     - sqlite3/common
   - sqlite3_flutter_libs (0.0.1):
     - Flutter
     - FlutterMacOS
-    - sqlite3 (~> 3.49.0)
+    - sqlite3 (~> 3.50.4)
     - sqlite3/dbstatvtab
     - sqlite3/fts5
+    - sqlite3/math
     - sqlite3/perf-threadsafe
     - sqlite3/rtree
+    - sqlite3/session
   - url_launcher_ios (0.0.1):
     - Flutter
 
@@ -83,7 +89,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   app_links: 76b66b60cc809390ca1ad69bfd66b998d2387ac7
-  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   flutter_native_splash: c32d145d68aeda5502d5f543ee38c192065986cf
   integration_test: 4a889634ef21a45d28d50d622cf412dc6d9f586e
   open_filex: 432f3cd11432da3e39f47fcc0df2b1603854eff1
@@ -91,10 +97,10 @@ SPEC CHECKSUMS:
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
   restart: 0a9ff574386d99ccb0a2eb60c3aa0a086ff0ea5a
   shared_preferences_foundation: 9e1978ff2562383bd5676f64ec4e9aa8fa06a6f7
-  sqlite3: fc1400008a9b3525f5914ed715a5d1af0b8f4983
-  sqlite3_flutter_libs: 3c323550ef3b928bc0aa9513c841e45a7d242832
+  sqlite3: 73513155ec6979715d3904ef53a8d68892d4032b
+  sqlite3_flutter_libs: 83f8e9f5b6554077f1d93119fe20ebaa5f3a9ef1
   url_launcher_ios: 694010445543906933d732453a59da0a173ae33d
 
-PODFILE CHECKSUM: 23c5db403a9f2d103e08afd68b26a1601b49de37
+PODFILE CHECKSUM: ade96bceabe3919b69c16573938e4268fe3a6c9d
 
 COCOAPODS: 1.16.2

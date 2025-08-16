@@ -17,7 +17,7 @@ dependencies:
 
   # Local storage
   shared_preferences: ^2.3.2
-  sqlite_async: ^0.11.0
+  sqlite_async: ^0.12.0
   sqlite3_flutter_libs: ^0.5.24
 
   # Navigator
