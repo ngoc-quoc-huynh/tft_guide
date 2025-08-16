@@ -78,7 +78,7 @@ class SettingsCheckDataItem<T extends CheckDataBloc> extends StatelessWidget {
     int localTranslationCount,
     int remoteTranslationCount,
   ) {
-    if (Bloc == CheckBaseItemsBloc) {
+    if (T == CheckBaseItemsBloc) {
       return '${_translations.baseItems.checkItems(
         localCount: localDataCount,
         remoteCount: remoteDataCount,
@@ -86,7 +86,7 @@ class SettingsCheckDataItem<T extends CheckDataBloc> extends StatelessWidget {
         localCount: localTranslationCount,
         remoteCount: remoteTranslationCount,
       )}';
-    } else if (Bloc == CheckFullItemsBloc) {
+    } else if (T == CheckFullItemsBloc) {
       return '${_translations.fullItems.checkItems(
         localCount: localDataCount,
         remoteCount: remoteDataCount,
@@ -94,7 +94,7 @@ class SettingsCheckDataItem<T extends CheckDataBloc> extends StatelessWidget {
         localCount: localTranslationCount,
         remoteCount: remoteTranslationCount,
       )}';
-    } else if (Bloc == CheckPatchNotesBloc) {
+    } else if (T == CheckPatchNotesBloc) {
       return '${_translations.patchNotes.checkPatchNotes(
         localCount: localDataCount,
         remoteCount: remoteDataCount,
@@ -103,7 +103,7 @@ class SettingsCheckDataItem<T extends CheckDataBloc> extends StatelessWidget {
         remoteCount: remoteTranslationCount,
       )}';
     } else {
-      throw ArgumentError('$Bloc is not a subtype of CheckDatabaseBloc.');
+      throw ArgumentError('$T is not a subtype of CheckDatabaseBloc.');
     }
   }
 
