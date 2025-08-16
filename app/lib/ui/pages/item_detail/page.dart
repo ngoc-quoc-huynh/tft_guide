@@ -20,8 +20,8 @@ import 'package:tft_guide/ui/widgets/slivers/box.dart';
 import 'package:tft_guide/ui/widgets/theme_provider.dart';
 import 'package:tft_guide/ui/widgets/widget_observer.dart';
 
-abstract class ItemDetailPage<Bloc extends ItemDetailBloc,
-    Item extends ItemDetail> extends StatelessWidget {
+abstract class ItemDetailPage<T extends ItemDetailBloc, Item extends ItemDetail>
+    extends StatelessWidget {
   const ItemDetailPage({
     required this.id,
     required this.createBloc,
@@ -30,13 +30,13 @@ abstract class ItemDetailPage<Bloc extends ItemDetailBloc,
   });
 
   final String id;
-  final Bloc Function(BuildContext) createBloc;
+  final T Function(BuildContext) createBloc;
   final Widget Function(Item)? trailing;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return BlocProvider<Bloc>(
+    return BlocProvider<T>(
       create: (context) => createBloc(context)
         ..add(
           ItemDetailInitializeEvent(
@@ -45,7 +45,7 @@ abstract class ItemDetailPage<Bloc extends ItemDetailBloc,
             textTheme: theme.textTheme,
           ),
         ),
-      child: BlocBuilder<Bloc, ItemDetailState>(
+      child: BlocBuilder<T, ItemDetailState>(
         builder: (context, state) => switch (state) {
           ItemDetailLoadInProgress() => const ItemDetailLoadingIndicator(),
           ItemDetailLoadOnSuccess<Item>(:final item, :final themeData) =>

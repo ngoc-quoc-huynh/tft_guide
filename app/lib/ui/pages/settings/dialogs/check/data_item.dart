@@ -5,8 +5,7 @@ import 'package:tft_guide/injector.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/check/icon.dart';
 import 'package:tft_guide/ui/pages/settings/dialogs/check/item.dart';
 
-class SettingsCheckDataItem<Bloc extends CheckDataBloc>
-    extends StatelessWidget {
+class SettingsCheckDataItem<T extends CheckDataBloc> extends StatelessWidget {
   const SettingsCheckDataItem({
     required this.text,
     super.key,
@@ -17,7 +16,7 @@ class SettingsCheckDataItem<Bloc extends CheckDataBloc>
   @override
   Widget build(BuildContext context) {
     return SettingsCheckItem(
-      icon: BlocBuilder<Bloc, CheckDataState>(
+      icon: BlocBuilder<T, CheckDataState>(
         builder: (context, state) => switch (state) {
           CheckDataInitial() => const SettingsCheckIcon.initial(),
           CheckDataLoadInProgress() => const SettingsCheckIcon.loading(),

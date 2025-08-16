@@ -95,14 +95,14 @@ final class MockHydratedTranslationLocaleCubit
 final class MockLanguageCodeValueCubit extends MockCubit<LanguageCode>
     with TestLanguageCodeValueCubitMixin {}
 
-final class MockNumValueCubit<State extends num?> extends MockCubit<State>
-    with TestNumValueCubit<State> {}
+final class MockNumValueCubit<T extends num?> extends MockCubit<T>
+    with TestNumValueCubit<T> {}
 
 final class MockRankCubit extends MockCubit<RankState>
     with TestRankCubitMixin {}
 
-final class MockSelectionValueCubit<State> extends MockCubit<State?>
-    with TestSelectionValueCubitMixin<State> {}
+final class MockSelectionValueCubit<T> extends MockCubit<T?>
+    with TestSelectionValueCubitMixin<T> {}
 
-final class MockValueCubit<State> extends MockCubit<State>
-    with TestValueCubitMixin<State> {}
+final class MockValueCubit<T> extends MockCubit<T>
+    with TestValueCubitMixin<T> {}

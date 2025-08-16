@@ -6,8 +6,8 @@ part 'elo/cubit.dart';
 part 'theme_mode/cubit.dart';
 part 'translation_locale/cubit.dart';
 
-sealed class HydratedValueCubit<State> extends HydratedCubit<State> {
+sealed class HydratedValueCubit<T> extends HydratedCubit<T> {
   HydratedValueCubit(super.state);
 
-  void update(State language) => emit(language);
+  void update(T language) => emit(language);
 }

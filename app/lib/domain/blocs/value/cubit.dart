@@ -12,10 +12,10 @@ part 'state.dart';
 part 'types.dart';
 
 @visibleForTesting
-base mixin TestValueCubitMixin<State> implements ValueCubit<State> {}
+base mixin TestValueCubitMixin<T> implements ValueCubit<T> {}
 
-base class ValueCubit<State> extends Cubit<State> {
+base class ValueCubit<T> extends Cubit<T> {
   ValueCubit(super.initialState);
 
-  void update(State newState) => emit(newState);
+  void update(T newState) => emit(newState);
 }
